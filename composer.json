@@ -1,0 +1,25 @@
+{
+    "name": "nokaut/api-kit",
+    "description": "integration with Nokaut API",
+    "keywords": ["nokaut api"],
+    "type": "library",
+    "minimum-stability": "stable",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Jarosław Juszkiewicz",
+            "email": "jaroslaw.juszkiewicz@nokaut.pl"
+        }
+    ],
+    "require": {
+        "php": ">=5.3",
+        "ext-json": "*",
+        "guzzle/guzzle": "3.8.*",
+        "psr/log": "~1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Nokaut\\ApiKit\\": "src/"
+        }
+    }
+}
