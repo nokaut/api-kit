@@ -1,6 +1,6 @@
 {
     "name": "nokaut/api-kit",
-    "description": "integration with Nokaut API",
+    "description": "Integration with Nokaut API",
     "keywords": ["nokaut api"],
     "type": "library",
     "minimum-stability": "stable",
@@ -9,6 +9,10 @@
         {
             "name": "Jarosław Juszkiewicz",
             "email": "jaroslaw.juszkiewicz@nokaut.pl"
+        },
+        {
+            "name": "Dawid Wilkiewicz",
+            "email": "dawid.wilkiewicz@nokaut.pl"
         }
     ],
     "require": {
