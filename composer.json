@@ -2,8 +2,8 @@
     "name": "nokaut/api-kit",
     "description": "Integration with Nokaut API",
     "keywords": ["nokaut api"],
-    "minimum-stability": "dev",
-    "prefer-stable": true,
+    "type": "library",
+    "minimum-stability": "stable",
     "license": "proprietary",
     "authors": [
         {
@@ -15,17 +15,10 @@
             "email": "dawid.wilkiewicz@nokaut.pl"
         }
     ],
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "http://gitlab/packages/"
-        }
-    ],
     "require": {
         "php": ">=5.3",
         "guzzle/guzzle": "3.8.*",
-        "psr/log": "~1.0",
-        "nokaut/composer-installer": "*"
+        "psr/log": "~1.0"
     },
     "autoload": {
         "psr-4": {
