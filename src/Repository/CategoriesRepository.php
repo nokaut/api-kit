@@ -24,7 +24,7 @@ use Nokaut\ApiKit\Collection\Sort\CategoriesSort;
 class CategoriesRepository
 {
 
-    private static $fieldsAll = [
+    private static $fieldsAll = array(
         'id',
         'cpc_value',
         'depth',
@@ -39,7 +39,12 @@ class CategoriesRepository
         'subcategory_count',
         'url',
         'view_type'
-    ];
+    );
+
+    /**
+     * @var RestClientApi
+     */
+    private $productApiClient;
 
     /**
      * @return array
@@ -67,7 +72,10 @@ class CategoriesRepository
         $this->config = $config;
 
         $oauth2 = new Oauth2Plugin();
-        $oauth2->setAccessToken($this->config->getApiAccessToken());
+        $accessToken = array(
+            'access_token' => $this->config->getApiAccessToken()
+        );
+        $oauth2->setAccessToken($accessToken);
         $this->productApiClient = new RestClientApi($this->config->getCache(), $this->config->getLogger(), $oauth2);
     }
 
@@ -160,4 +168,13 @@ class CategoriesRepository
     {
         return $this->converterCategories->convert($objectFromApi);
     }
-} 
+
+    /**
+     * @param \Nokaut\ApiKit\ClientApi\Rest\RestClientApi $productApiClient
+     */
+    public function setProductApiClient($productApiClient)
+    {
+        $this->productApiClient = $productApiClient;
+    }
+
+}

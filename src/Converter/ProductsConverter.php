@@ -24,7 +24,7 @@ class ProductsConverter implements ApiConverter
     public function convert(\stdClass $object)
     {
         $productConverter = new ProductConverter();
-        $productsArray = [];
+        $productsArray = array();
         foreach ($object->products as $productObject) {
             $productsArray[] = $productConverter->convert($productObject);
         }
@@ -45,7 +45,7 @@ class ProductsConverter implements ApiConverter
             return;
         }
         $categories = $products->getMetadata()->facets->categories;
-        $categoriesById = [];
+        $categoriesById = array();
 
         foreach ($categories as $category) {
             $categoryEntity = new CategoryFacet();

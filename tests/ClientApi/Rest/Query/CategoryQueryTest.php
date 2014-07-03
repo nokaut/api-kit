@@ -18,7 +18,7 @@ class CategoryQueryTest extends PHPUnit_Framework_TestCase
     public function testCreateRequestPathWithUrl()
     {
         $cut = new CategoryQuery(self::$baseUrl);
-        $cut->setFields(['id', 'title']);
+        $cut->setFields(array('id', 'title'));
         $cut->setUrl('rowery-gorskie');
 
         $url = $cut->createRequestPath();
@@ -29,7 +29,7 @@ class CategoryQueryTest extends PHPUnit_Framework_TestCase
     public function testCreateRequestPathWithId()
     {
         $cut = new CategoryQuery(self::$baseUrl);
-        $cut->setFields(['id', 'title']);
+        $cut->setFields(array('id', 'title'));
         $cut->setId('234');
 
         $url = $cut->createRequestPath();

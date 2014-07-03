@@ -18,19 +18,19 @@ class ProductsQuery implements QueryBuilder
     /**
      * @var array
      */
-    private $order = [];
+    private $order = array();
     /**
      * @var array
      */
-    private $filters = [];
+    private $filters = array();
     /**
      * @var array
      */
-    private $fields = [];
+    private $fields = array();
     /**
      * @var array
      */
-    private $facets = [];
+    private $facets = array();
     /**
      * @var string
      */
@@ -38,7 +38,7 @@ class ProductsQuery implements QueryBuilder
     /**
      * @var array
      */
-    private $categoriesIds = [];
+    private $categoriesIds = array();
     /**
      * @var int
      */
@@ -50,11 +50,11 @@ class ProductsQuery implements QueryBuilder
     /**
      * @var array
      */
-    private $pricesFilter = [];
+    private $pricesFilter = array();
     /**
      * @var array
      */
-    private $facetsRange = [];
+    private $facetsRange = array();
 
     public function __construct($baseUrl)
     {

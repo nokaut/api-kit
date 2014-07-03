@@ -46,7 +46,7 @@ class CategoryConverter implements ApiConverter
     private function convertPath($objectPathArray)
     {
         $pathConverter = new PathConverter();
-        $pathArray = [];
+        $pathArray = array();
 
         foreach ($objectPathArray as $pathApiObject) {
             $pathArray[] = $pathConverter->convert($pathApiObject);

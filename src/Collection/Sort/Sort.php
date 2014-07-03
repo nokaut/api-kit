@@ -21,7 +21,7 @@ abstract class Sort {
      */
     protected  static function sortBy(AbstractCollection $collection, $functionGetField, $sorting = SORT_ASC)
     {
-        $values = [];
+        $values = array();
         foreach ($collection as $key => $row) {
             $values[$key] = $functionGetField($row);
         }

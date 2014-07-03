@@ -38,25 +38,25 @@ class ProductsRepository
      */
     private $productApiClient;
 
-    public static $fieldsForProductBox = [
+    public static $fieldsForProductBox = array(
         'id', 'url', 'product_id', 'title', 'prices', 'offer_count', 'shop_count', 'category_id', 'offer_id',
         'url_original', 'offer_shop_id', 'shop_name', 'shop_url', 'top_category_id', 'top_position', 'photo_id'
-    ];
+    );
 
-    public static $fieldsForProductPage = [
+    public static $fieldsForProductPage = array(
         'id','url','category_id','description_html','description_html_generated','id','price_min','price_max',
         'is_with_photo','photo_id','producer_name','product_type_id','source','source_id','title','title_normalized',
         'properties','photo_ids','block_adsense','movie'
-    ];
+    );
 
-    public static $fieldsForList = [
+    public static $fieldsForList = array(
         'id','product_id','title','prices','offer_count','url','shop','shop.url_logo','shop_count','category_id',
         'offer_id','click_url','click_value','url_original','producer_name','offer_shop_id','shop.name','shop_url',
         'shop_id','top_category_id','top_position','photo_id','description_html','properties','_metadata.url',
         '_metadata.facets.shops.url','_metadata.block_adsense','offer','block_adsense','_metadata.facets.categories.url'
-    ];
+    );
 
-    public static $fieldsForSimilarProductsInProductPage = ['id','url','title','prices','photo_id'];
+    public static $fieldsForSimilarProductsInProductPage = array('id','url','title','prices','photo_id');
 
     function __construct(Config $config)
     {
@@ -126,7 +126,7 @@ class ProductsRepository
     public function fetchSimilarProductsWithHigherPrice(Product $product, $limit)
     {
         $query = new ProductsQuery($this->config->getApiUrl());
-        $query->setCategoryIds([$product->getCategoryId()]);
+        $query->setCategoryIds(array($product->getCategoryId()));
         $query->setFilterPriceMinFrom($product->getPrices()->getMin());
         $query->setLimit($limit);
         $query->setFields(self::$fieldsForProductBox);
@@ -145,7 +145,7 @@ class ProductsRepository
     public function fetchSimilarProductsWithLowerPrice(Product $product, $limit)
     {
         $query = new ProductsQuery($this->config->getApiUrl());
-        $query->setCategoryIds([$product->getCategoryId()]);
+        $query->setCategoryIds(array($product->getCategoryId()));
         $query->setFilterPriceMinTo($product->getPrices()->getMin());
         $query->setLimit($limit);
         $query->setFields(self::$fieldsForProductBox);
@@ -196,7 +196,7 @@ class ProductsRepository
     public function fetchCountProductsByPhrase($phrase)
     {
         $query = new ProductsQuery($this->config->getApiUrl());
-        $query->setFields(['id']);
+        $query->setFields(array('id'));
         $query->setPhrase($phrase);
 
         $objectsFromApi = $this->productApiClient->send($query);
@@ -225,4 +225,13 @@ class ProductsRepository
     {
         return $this->converterProduct->convert($objectFromApi);
     }
+
+    /**
+     * @param \Nokaut\ApiKit\ClientApi\Rest\RestClientApi $productApiClient
+     */
+    public function setProductApiClient($productApiClient)
+    {
+        $this->productApiClient = $productApiClient;
+    }
+
 }

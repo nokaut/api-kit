@@ -17,7 +17,7 @@ class CategoriesQuery implements QueryBuilder
 
     private $baseUrl;
     private $fields;
-    private $filters = [];
+    private $filters = array();
     private $phrase;
 
     public function __construct($baseUrl)
@@ -38,7 +38,7 @@ class CategoriesQuery implements QueryBuilder
      */
     public function setTitleLike($value)
     {
-        $this->filters['title'] = ['operator' => 'like', 'value' => $value];
+        $this->filters['title'] = array('operator' => 'like', 'value' => $value);
     }
 
     /**
@@ -46,7 +46,7 @@ class CategoriesQuery implements QueryBuilder
      */
     public function setTitleStrict($value)
     {
-        $this->filters['title'] = ['operator' => 'eq', 'value' => $value];
+        $this->filters['title'] = array('operator' => 'eq', 'value' => $value);
     }
 
     /**

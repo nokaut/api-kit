@@ -55,7 +55,7 @@ class ProductConverter implements ApiConverter
     private function convertProperties(array $propertiesFromApi)
     {
         $propertyConverter = new PropertyConverter();
-        $propertiesList = [];
+        $propertiesList = array();
 
         foreach ($propertiesFromApi as $propertyFromApi) {
             $propertiesList[] = $propertyConverter->convert($propertyFromApi);

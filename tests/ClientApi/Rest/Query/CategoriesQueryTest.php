@@ -18,7 +18,7 @@ class CategoriesQueryTest extends PHPUnit_Framework_TestCase
     public function testCreateRequestPathWithParentId()
     {
         $cut = new CategoriesQuery(self::$baseUrl);
-        $cut->setFields(['id', 'title']);
+        $cut->setFields(array('id', 'title'));
         $cut->setParentId(12);
 
         $url = $cut->createRequestPath();
@@ -29,7 +29,7 @@ class CategoriesQueryTest extends PHPUnit_Framework_TestCase
     public function testCreateRequestPathWithTitleLike()
     {
         $cut = new CategoriesQuery(self::$baseUrl);
-        $cut->setFields(['id', 'title']);
+        $cut->setFields(array('id', 'title'));
         $cut->setTitleStrict('Rowery górskie');
 
         $url = $cut->createRequestPath();
@@ -40,7 +40,7 @@ class CategoriesQueryTest extends PHPUnit_Framework_TestCase
     public function testCreateRequestPathWithTitleStrict()
     {
         $cut = new CategoriesQuery(self::$baseUrl);
-        $cut->setFields(['id', 'title']);
+        $cut->setFields(array('id', 'title'));
         $cut->setTitleLike('Rowery górskie');
 
         $url = $cut->createRequestPath();
@@ -51,7 +51,7 @@ class CategoriesQueryTest extends PHPUnit_Framework_TestCase
     public function testCreateRequestPathWithPhrase()
     {
         $cut = new CategoriesQuery(self::$baseUrl);
-        $cut->setFields(['id', 'title']);
+        $cut->setFields(array('id', 'title'));
         $cut->setPhrase("rowery górskie");
 
         $url = $cut->createRequestPath();

@@ -24,7 +24,7 @@ class CategoryGrouper
      */
     public function joinCategoriesWithChildren(Categories $categories)
     {
-        $categoriesGrouped = [];
+        $categoriesGrouped = array();
 
         $groupedByParentId = $this->prepareGroupedByParentId($categories);
         $minDepth = $this->findMinDepth($categories);
@@ -47,11 +47,11 @@ class CategoryGrouper
      */
     private function prepareGroupedByParentId(Categories $categories)
     {
-        $groupedByDepth = [];
+        $groupedByDepth = array();
         foreach ($categories as $category) {
             /** @var Category $category */
             if (!isset($groupedByDepth[$category->getParentId()])) {
-                $groupedByDepth[$category->getParentId()] = [];
+                $groupedByDepth[$category->getParentId()] = array();
             }
             $groupedByDepth[$category->getParentId()][] = $category;
         }

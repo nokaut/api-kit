@@ -16,7 +16,7 @@ use Traversable;
 abstract class AbstractCollection implements Collection
 {
 
-    protected $entities = [];
+    protected $entities = array();
 
     public function __construct(array $entities)
     {

@@ -9,6 +9,7 @@
 namespace Nokaut\ApiKit\Repository;
 
 
+use CommerceGuys\Guzzle\Plugin\Oauth2\Oauth2Plugin;
 use Nokaut\ApiKit\Cache\NullCache;
 use Nokaut\ApiKit\Collection\Categories;
 use Nokaut\ApiKit\Config;
@@ -29,7 +30,7 @@ class CategoriesRepositoryTest extends PHPUnit_Framework_TestCase
     {
         $config = new Config();
         $config->setApiAccessToken("123");
-        $config->setApiUrl("http://1234:343");
+        $config->setApiUrl("http://1234:343/api/v2/");
         $config->setLogger(new NullLogger());
         $config->setCache(new NullCache());
         $this->sut = new CategoriesRepository($config);
@@ -37,7 +38,7 @@ class CategoriesRepositoryTest extends PHPUnit_Framework_TestCase
 
     public function testFetchByParentId()
     {
-        $clientApiMock = $this->getDI()->get('categoryApiClient');
+        $clientApiMock = $this->getRestClientApi();
         $clientApiMock->expects($this->once())->method('send')
             ->will($this->returnValue($this->getCategoriesFromApiClient()));
 
@@ -74,7 +75,7 @@ class CategoriesRepositoryTest extends PHPUnit_Framework_TestCase
 
     public function testFetchById()
     {
-        $clientApiMock = $this->getDI()->get('categoryApiClient');
+        $clientApiMock = $this->getRestClientApi();
         $clientApiMock->expects($this->once())->method('send')
             ->will($this->returnValue($this->getCategoryFromApiClient()));
 
@@ -109,7 +110,7 @@ class CategoriesRepositoryTest extends PHPUnit_Framework_TestCase
     public function testFetchByParentIdWithChildren()
     {
         $categoriesWithChildrenFromApi = $this->getCategoriesWithChildrenFromApiClient();
-        $clientApiMock = $this->getDI()->get('categoryApiClient');
+        $clientApiMock = $this->getRestClientApi();
         $clientApiMock->expects($this->once())->method('send')
             ->will($this->returnValue($categoriesWithChildrenFromApi));
 
@@ -960,5 +961,22 @@ class CategoriesRepositoryTest extends PHPUnit_Framework_TestCase
             "view_type": "list"
         }
         ]}');
+    }
+
+    /**
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    private function getRestClientApi()
+    {
+        $cache = new NullCache();
+        $logger = new NullLogger();
+        $oauth2 = new Oauth2Plugin();
+        $accessToken = array(
+            'access_token' => '1111'
+        );
+        $oauth2->setAccessToken($accessToken);
+        $mock = $this->getMock('Nokaut\ApiKit\ClientApi\Rest\RestClientApi', array('send'), array($cache, $logger, $oauth2));
+        $this->sut->setProductApiClient($mock);
+        return $mock;
     }
 } 

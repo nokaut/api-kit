@@ -29,7 +29,7 @@ class CategoriesConverter implements ApiConverter
     public function convert(\stdClass $object)
     {
         $categoriesFromApi = $object->categories;
-        $entities = [];
+        $entities = array();
 
         foreach ($categoriesFromApi as $categoryFromApi) {
             $entities[] = $this->categoryConverter->convert($categoryFromApi);
