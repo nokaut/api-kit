@@ -2,7 +2,6 @@
     "name": "nokaut/api-kit",
     "description": "Integration with Nokaut API",
     "keywords": ["nokaut api"],
-    "type": "library",
     "minimum-stability": "dev",
     "prefer-stable": true,
     "license": "proprietary",
