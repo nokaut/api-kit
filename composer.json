@@ -19,7 +19,8 @@
         "php": ">=5.3",
         "ext-json": "*",
         "guzzle/guzzle": "3.8.*",
-        "psr/log": "~1.0"
+        "psr/log": "~1.0",
+        "nokaut/composer-installer": "*"
     },
     "autoload": {
         "psr-4": {
