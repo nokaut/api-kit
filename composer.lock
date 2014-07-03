@@ -3,8 +3,46 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "ded71af416e43eea3c6afefa5fcef3fa",
+    "hash": "c8a830b04147b199eaf120fb13ce6a03",
     "packages": [
+        {
+            "name": "commerceguys/guzzle-oauth2-plugin",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/commerceguys/guzzle-oauth2-plugin.git",
+                "reference": "90b375330080175a9aaad2bc897d1de111813e69"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/commerceguys/guzzle-oauth2-plugin/zipball/90b375330080175a9aaad2bc897d1de111813e69",
+                "reference": "90b375330080175a9aaad2bc897d1de111813e69",
+                "shasum": ""
+            },
+            "require": {
+                "guzzle/guzzle": ">=v3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "CommerceGuys\\Guzzle": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bojan Zivanovic"
+                },
+                {
+                    "name": "Damien Tournoud"
+                }
+            ],
+            "description": "An OAuth2 plugin for guzzle",
+            "time": "2014-05-20 10:02:48"
+        },
         {
             "name": "guzzle/guzzle",
             "version": "v3.8.1",
@@ -96,29 +134,6 @@
                 "web service"
             ],
             "time": "2014-01-28 22:29:15"
-        },
-        {
-            "name": "nokaut/composer-installer",
-            "version": "v1.0.0",
-            "target-dir": "Nokaut/Composer",
-            "source": {
-                "type": "git",
-                "url": "git@gitlab:composer-installer.git",
-                "reference": "v1.0.0"
-            },
-            "type": "composer-installer",
-            "extra": {
-                "class": "Nokaut\\Composer\\NokautInstaller"
-            },
-            "autoload": {
-                "psr-0": {
-                    "Nokaut\\Composer": ""
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "time": "2012-08-01 07:52:36"
         },
         {
             "name": "psr/log",
@@ -221,7 +236,9 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "commerceguys/guzzle-oauth2-plugin": 20
+    },
     "platform": {
         "php": ">=5.3"
     },

@@ -3,7 +3,8 @@
     "description": "Integration with Nokaut API",
     "keywords": ["nokaut api"],
     "type": "library",
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "license": "proprietary",
     "authors": [
         {
@@ -18,6 +19,7 @@
     "require": {
         "php": ">=5.3",
         "guzzle/guzzle": "3.8.*",
+        "commerceguys/guzzle-oauth2-plugin": "dev-master",
         "psr/log": "~1.0"
     },
     "autoload": {
