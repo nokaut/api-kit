@@ -9,7 +9,7 @@
 namespace Nokaut\ApiKit\ClientApi\Rest\Query;
 
 
-class CategoryQuery implements QueryBuilder
+class CategoryQuery implements QueryBuilderInterface
 {
 
     private $baseUrl;

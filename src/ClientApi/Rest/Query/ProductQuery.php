@@ -8,7 +8,7 @@
 
 namespace Nokaut\ApiKit\ClientApi\Rest\Query;
 
-class ProductQuery implements QueryBuilder
+class ProductQuery implements QueryBuilderInterface
 {
 
     private $baseUrl;

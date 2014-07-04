@@ -17,7 +17,7 @@ use Nokaut\ApiKit\Cache\CacheInterface;
 use Nokaut\ApiKit\ClientApi\ClientApiInterface;
 use Nokaut\ApiKit\ClientApi\Rest\Exception\FatalResponseException;
 use Nokaut\ApiKit\ClientApi\Rest\Exception\NotFoundException;
-use Nokaut\ApiKit\ClientApi\Rest\Query\QueryBuilder;
+use Nokaut\ApiKit\ClientApi\Rest\Query\QueryBuilderInterface;
 use Nokaut\ApiKit\Collection\CollectionInterface;
 use Nokaut\ApiKit\Entity\EntityAbstract;
 use Psr\Log\LoggerInterface;
@@ -52,13 +52,13 @@ class RestClientApi implements ClientApiInterface
     }
 
     /**
-     * @param QueryBuilder $query
+     * @param QueryBuilderInterface $query
      * @return EntityAbstract|CollectionInterface
      *
      * @throws Exception\NotFoundException
      * @throws Exception\FatalResponseException
      */
-    public function send(QueryBuilder $query)
+    public function send(QueryBuilderInterface $query)
     {
         $cacheKey = 'api-' . md5($query->createRequestPath());
 

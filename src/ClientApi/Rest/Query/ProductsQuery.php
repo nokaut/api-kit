@@ -9,7 +9,7 @@
 namespace Nokaut\ApiKit\ClientApi\Rest\Query;
 
 
-class ProductsQuery implements QueryBuilder
+class ProductsQuery implements QueryBuilderInterface
 {
     /**
      * @var string

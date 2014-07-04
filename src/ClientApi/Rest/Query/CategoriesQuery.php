@@ -11,7 +11,7 @@ namespace Nokaut\ApiKit\ClientApi\Rest\Query;
 
 use Guzzle\Common\Exception\InvalidArgumentException;
 
-class CategoriesQuery implements QueryBuilder
+class CategoriesQuery implements QueryBuilderInterface
 {
     const MAX_DEPTH = 2;
 

@@ -9,7 +9,7 @@
 namespace Nokaut\ApiKit\ClientApi\Rest\Query;
 
 
-interface QueryBuilder
+interface QueryBuilderInterface
 {
 
     const OPERATION_GTE = 'gte';

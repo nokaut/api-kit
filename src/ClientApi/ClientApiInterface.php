@@ -9,9 +9,9 @@
 namespace Nokaut\ApiKit\ClientApi;
 
 
-use Nokaut\ApiKit\ClientApi\Rest\Query\QueryBuilder;
+use Nokaut\ApiKit\ClientApi\Rest\Query\QueryBuilderInterface;
 
 interface ClientApiInterface {
 
-    public function send(QueryBuilder $query);
+    public function send(QueryBuilderInterface $query);
 } 
