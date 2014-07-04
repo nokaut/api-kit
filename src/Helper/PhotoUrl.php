@@ -8,7 +8,6 @@
 
 namespace Nokaut\ApiKit\Helper;
 
-use Nokaut\ApiKit\Text\Text;
 
 class PhotoUrl
 {

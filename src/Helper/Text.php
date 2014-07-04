@@ -6,7 +6,7 @@
  * Time: 13:24
  */
 
-namespace Nokaut\ApiKit\Text;
+namespace Nokaut\ApiKit\Helper;
 
 
 
