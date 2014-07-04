@@ -10,10 +10,10 @@ namespace Nokaut\ApiKit\Converter\Product;
 
 
 
-use Nokaut\ApiKit\Converter\ApiConverter;
+use Nokaut\ApiKit\Converter\ConverterInterace;
 use Nokaut\ApiKit\Entity\Product\Prices;
 
-class PricesConverter implements ApiConverter
+class PricesConverter implements ConverterInterace
 {
 
     public function convert(\stdClass $object)

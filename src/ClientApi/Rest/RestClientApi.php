@@ -14,14 +14,17 @@ use Guzzle\Http\Exception\BadResponseException;
 use Guzzle\Http\Message\RequestInterface;
 use Guzzle\Http\Message\Response;
 use Nokaut\ApiKit\Cache\CacheInterface;
+use Nokaut\ApiKit\ClientApi\ClientApiInterface;
 use Nokaut\ApiKit\ClientApi\Rest\Exception\FatalResponseException;
 use Nokaut\ApiKit\ClientApi\Rest\Exception\NotFoundException;
 use Nokaut\ApiKit\ClientApi\Rest\Query\QueryBuilder;
+use Nokaut\ApiKit\Collection\CollectionInterface;
+use Nokaut\ApiKit\Entity\EntityAbstract;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class RestClientApi
+class RestClientApi implements ClientApiInterface
 {
 
     /**
@@ -50,9 +53,7 @@ class RestClientApi
 
     /**
      * @param QueryBuilder $query
-     * @throws \Exception
-     * @throws \Guzzle\Http\Exception\BadResponseException
-     * @return \stdClass - json decode from api
+     * @return EntityAbstract|CollectionInterface
      *
      * @throws Exception\NotFoundException
      * @throws Exception\FatalResponseException

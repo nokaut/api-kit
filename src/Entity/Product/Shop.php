@@ -9,9 +9,9 @@
 namespace Nokaut\ApiKit\Entity\Product;
 
 
-use Nokaut\ApiKit\Entity\Entity;
+use Nokaut\ApiKit\Entity\EntityAbstract;
 
-class Shop extends Entity
+class Shop extends EntityAbstract
 {
     /**
      * @var int

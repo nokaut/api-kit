@@ -9,13 +9,11 @@
 namespace Nokaut\ApiKit\Repository;
 
 
-use CommerceGuys\Guzzle\Plugin\Oauth2\Oauth2Plugin;
+use Nokaut\ApiKit\ClientApi\ClientApiInterface;
 use Nokaut\ApiKit\Collection\Categories;
-use Nokaut\ApiKit\Config;
 use Nokaut\ApiKit\Entity\Category;
 use Nokaut\ApiKit\ClientApi\Rest\Query\CategoriesQuery;
 use Nokaut\ApiKit\ClientApi\Rest\Query\CategoryQuery;
-use Nokaut\ApiKit\ClientApi\Rest\RestClientApi;
 use Nokaut\ApiKit\Converter\CategoriesConverter;
 use Nokaut\ApiKit\Converter\CategoryConverter;
 use Nokaut\ApiKit\Converter\Category\CategoryGrouper;
@@ -23,6 +21,23 @@ use Nokaut\ApiKit\Collection\Sort\CategoriesSort;
 
 class CategoriesRepository
 {
+
+    /**
+     * @var ClientApiInterface
+     */
+    private $clientApi;
+    /**
+     * @var string
+     */
+    private $apiBaseUrl;
+    /**
+     * @var CategoriesConverter
+     */
+    private $converterCategories;
+    /**
+     * @var CategoryConverter
+     */
+    private $converterCategory;
 
     private static $fieldsAll = array(
         'id',
@@ -42,11 +57,6 @@ class CategoriesRepository
     );
 
     /**
-     * @var RestClientApi
-     */
-    private $productApiClient;
-
-    /**
      * @return array
      */
     public function getFieldsWithoutDescription()
@@ -57,26 +67,15 @@ class CategoriesRepository
     }
 
     /**
-     * @var CategoriesConverter
+     * @param string $apiBaseUrl
+     * @param ClientApiInterface $clientApi
      */
-    private $converterCategories;
-    /**
-     * @var CategoryConverter
-     */
-    private $converterCategory;
-
-    function __construct(Config $config)
+    public function __construct($apiBaseUrl, ClientApiInterface $clientApi)
     {
         $this->converterCategories = new CategoriesConverter();
         $this->converterCategory = new CategoryConverter();
-        $this->config = $config;
-
-        $oauth2 = new Oauth2Plugin();
-        $accessToken = array(
-            'access_token' => $this->config->getApiAccessToken()
-        );
-        $oauth2->setAccessToken($accessToken);
-        $this->productApiClient = new RestClientApi($this->config->getCache(), $this->config->getLogger(), $oauth2);
+        $this->clientApi = $clientApi;
+        $this->apiBaseUrl = $apiBaseUrl;
     }
 
     /**
@@ -86,11 +85,11 @@ class CategoriesRepository
      */
     public function fetchByParentIdWithChildren($parentId, $depth = 2)
     {
-        $query = new CategoriesQuery($this->config->getApiUrl());
+        $query = new CategoriesQuery($this->apiBaseUrl);
         $query->setFields($this->getFieldsWithoutDescription());
         $query->setParentId($parentId);
         $query->setDepth($depth);
-        $objectsFromApi = $this->productApiClient->send($query);
+        $objectsFromApi = $this->clientApi->send($query);
 
         $categories = $this->convertCategories($objectsFromApi);
 
@@ -105,10 +104,10 @@ class CategoriesRepository
      */
     public function fetchByParentId($parentId)
     {
-        $query = new CategoriesQuery($this->config->getApiUrl());
+        $query = new CategoriesQuery($this->apiBaseUrl);
         $query->setFields($this->getFieldsWithoutDescription());
         $query->setParentId($parentId);
-        $object = $this->productApiClient->send($query);
+        $object = $this->clientApi->send($query);
         return $this->convertCategories($object);
     }
 
@@ -118,10 +117,10 @@ class CategoriesRepository
      */
     public function fetchById($categoryId)
     {
-        $query = new CategoryQuery($this->config->getApiUrl());
+        $query = new CategoryQuery($this->apiBaseUrl);
         $query->setFields(self::$fieldsAll);
         $query->setId($categoryId);
-        $object = $this->productApiClient->send($query);
+        $object = $this->clientApi->send($query);
         return $this->convertCategory($object);
     }
 
@@ -131,20 +130,20 @@ class CategoriesRepository
      */
     public function fetchByUrl($categoryUrl)
     {
-        $query = new CategoryQuery($this->config->getApiUrl());
+        $query = new CategoryQuery($this->apiBaseUrl);
         $query->setFields(self::$fieldsAll);
         $query->setUrl($categoryUrl);
-        $object = $this->productApiClient->send($query);
+        $object = $this->clientApi->send($query);
         return $this->convertCategory($object);
     }
 
     public function fetchMenuCategories()
     {
-        $query = new CategoriesQuery($this->config->getApiUrl());
+        $query = new CategoriesQuery($this->apiBaseUrl);
         $query->setFields(self::getFieldsWithoutDescription());
         $query->setParentId(0);
         $query->setDepth(0);
-        $object = $this->productApiClient->send($query);
+        $object = $this->clientApi->send($query);
 
         $categories = $this->convertCategories($object);
         CategoriesSort::sortByTitle($categories);
@@ -167,14 +166,6 @@ class CategoriesRepository
     private function convertCategories(\stdClass $objectFromApi)
     {
         return $this->converterCategories->convert($objectFromApi);
-    }
-
-    /**
-     * @param \Nokaut\ApiKit\ClientApi\Rest\RestClientApi $productApiClient
-     */
-    public function setProductApiClient($productApiClient)
-    {
-        $this->productApiClient = $productApiClient;
     }
 
 }

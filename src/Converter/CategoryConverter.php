@@ -13,7 +13,7 @@ use Nokaut\ApiKit\Converter\Category\PathConverter;
 use Nokaut\ApiKit\Entity\Category;
 use Nokaut\ApiKit\Entity\Category\Path;
 
-class CategoryConverter implements ApiConverter
+class CategoryConverter implements ConverterInterace
 {
 
     public function convert(\stdClass $object)

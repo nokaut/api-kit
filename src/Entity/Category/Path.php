@@ -9,9 +9,9 @@
 namespace Nokaut\ApiKit\Entity\Category;
 
 
-use Nokaut\ApiKit\Entity\Entity;
+use Nokaut\ApiKit\Entity\EntityAbstract;
 
-class Path extends Entity
+class Path extends EntityAbstract
 {
     /**
      * @var int

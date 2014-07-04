@@ -10,10 +10,10 @@ namespace Nokaut\ApiKit\Collection;
 
 
 use ArrayIterator;
-use Nokaut\ApiKit\Entity\Entity;
+use Nokaut\ApiKit\Entity\EntityAbstract;
 use Traversable;
 
-abstract class AbstractCollection implements Collection
+abstract class CollectionAbstract implements CollectionInterface
 {
 
     protected $entities = array();
@@ -84,9 +84,9 @@ abstract class AbstractCollection implements Collection
 
     /**
      * Prepend element
-     * @param Entity $value
+     * @param EntityAbstract $value
      */
-    public function unshift(Entity $value)
+    public function unshift(EntityAbstract $value)
     {
         array_unshift($this->entities, $value);
     }

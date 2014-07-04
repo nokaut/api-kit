@@ -9,9 +9,9 @@
 namespace Nokaut\ApiKit\Entity\Metadata\Facets;
 
 
-use Nokaut\ApiKit\Entity\Entity;
+use Nokaut\ApiKit\Entity\EntityAbstract;
 
-class CategoryFacet extends Entity
+class CategoryFacet extends EntityAbstract
 {
 
     /**

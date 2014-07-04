@@ -9,9 +9,9 @@
 namespace Nokaut\ApiKit\Entity\Product;
 
 
-use Nokaut\ApiKit\Entity\Entity;
+use Nokaut\ApiKit\Entity\EntityAbstract;
 
-class Prices extends Entity
+class Prices extends EntityAbstract
 {
 
     protected $min;

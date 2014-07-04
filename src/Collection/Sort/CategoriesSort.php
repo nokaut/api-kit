@@ -9,16 +9,16 @@
 namespace Nokaut\ApiKit\Collection\Sort;
 
 
-use Nokaut\ApiKit\Collection\AbstractCollection;
+use Nokaut\ApiKit\Collection\CollectionAbstract;
 use Nokaut\ApiKit\Entity\Category;
 
-class CategoriesSort extends Sort
+class CategoriesSort extends SortAbstract
 {
     /**
-     * @param AbstractCollection $collection
+     * @param CollectionAbstract $collection
      * @param int $sorting
      */
-    public static function sortByPopularity(AbstractCollection $collection, $sorting = SORT_ASC)
+    public static function sortByPopularity(CollectionAbstract $collection, $sorting = SORT_ASC)
     {
         self::sortBy($collection,
             function (Category $category) {
@@ -27,10 +27,10 @@ class CategoriesSort extends Sort
     }
 
     /**
-     * @param AbstractCollection $collection
+     * @param CollectionAbstract $collection
      * @param int $sorting
      */
-    public static function sortChildrenByPopularity(AbstractCollection $collection, $sorting = SORT_ASC)
+    public static function sortChildrenByPopularity(CollectionAbstract $collection, $sorting = SORT_ASC)
     {
         foreach ($collection as $category) {
             /** @var Category $category */
@@ -42,10 +42,10 @@ class CategoriesSort extends Sort
     }
 
     /**
-     * @param AbstractCollection $collection
+     * @param CollectionAbstract $collection
      * @param int $sorting
      */
-    public static function sortByTitle(AbstractCollection $collection, $sorting = SORT_ASC)
+    public static function sortByTitle(CollectionAbstract $collection, $sorting = SORT_ASC)
     {
         self::sortBy($collection,
             function (Category $category) {
@@ -54,10 +54,10 @@ class CategoriesSort extends Sort
     }
 
     /**
-     * @param AbstractCollection $collection
+     * @param CollectionAbstract $collection
      * @param int $sorting
      */
-    public static function sortChildrenByTitle(AbstractCollection $collection, $sorting = SORT_ASC)
+    public static function sortChildrenByTitle(CollectionAbstract $collection, $sorting = SORT_ASC)
     {
         foreach ($collection as $category) {
             /** @var Category $category */

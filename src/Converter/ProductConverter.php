@@ -15,7 +15,7 @@ use Nokaut\ApiKit\Converter\Product\PropertyConverter;
 use Nokaut\ApiKit\Converter\Product\ShopConverter;
 use Nokaut\ApiKit\Entity\Product;
 
-class ProductConverter implements ApiConverter
+class ProductConverter implements ConverterInterace
 {
     public function convert(\stdClass $object)
     {

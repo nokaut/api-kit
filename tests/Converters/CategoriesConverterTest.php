@@ -23,7 +23,7 @@ class CategoriesConverterTest extends PHPUnit_Framework_TestCase
         $categories = $cut->convert($correctObject);
 
         $this->assertCount(count($correctObject->categories), $categories);
-        $this->assertInstanceOf('Nokaut\ApiKit\Collection\AbstractCollection', $categories);
+        $this->assertInstanceOf('Nokaut\ApiKit\Collection\CollectionAbstract', $categories);
         foreach ($categories as $category) {
             $this->assertInstanceOf('Nokaut\ApiKit\Entity\Category', $category);
         }

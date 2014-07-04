@@ -9,7 +9,7 @@
 namespace Nokaut\ApiKit\Entity;
 
 
-abstract class Entity
+abstract class EntityAbstract
 {
 
     public function set($fieldName, $value)

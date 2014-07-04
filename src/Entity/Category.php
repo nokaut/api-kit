@@ -12,7 +12,7 @@ namespace Nokaut\ApiKit\Entity;
 use Nokaut\ApiKit\Collection\Categories;
 use Nokaut\ApiKit\Entity\Category\Path;
 
-class Category extends Entity
+class Category extends EntityAbstract
 {
     protected $id;
     protected $cpc_value;

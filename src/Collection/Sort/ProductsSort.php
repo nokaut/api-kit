@@ -12,7 +12,7 @@ namespace Nokaut\ApiKit\Collection\Sort;
 use Nokaut\ApiKit\Collection\Products;
 use Nokaut\ApiKit\Entity\Product;
 
-class ProductsSort extends Sort
+class ProductsSort extends SortAbstract
 {
     /**
      * @param Products $collection

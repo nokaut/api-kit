@@ -9,13 +9,12 @@
 namespace Nokaut\ApiKit\Repository;
 
 
-use CommerceGuys\Guzzle\Plugin\Oauth2\Oauth2Plugin;
+use Nokaut\ApiKit\ClientApi\ClientApiInterface;
 use Nokaut\ApiKit\Collection\Products;
 use Nokaut\ApiKit\Config;
 use Nokaut\ApiKit\Entity\Product;
 use Nokaut\ApiKit\ClientApi\Rest\Query\ProductQuery;
 use Nokaut\ApiKit\ClientApi\Rest\Query\ProductsQuery;
-use Nokaut\ApiKit\ClientApi\Rest\RestClientApi;
 use Nokaut\ApiKit\Converter\ProductConverter;
 use Nokaut\ApiKit\Converter\ProductsConverter;
 
@@ -30,13 +29,13 @@ class ProductsRepository
      */
     private $converterProduct;
     /**
-     * @var Config
+     * @var ClientApiInterface
      */
-    private $config;
+    private $clientApi;
     /**
-     * @var RestClientApi
+     * @var string
      */
-    private $productApiClient;
+    private $apiBaseUrl;
 
     public static $fieldsForProductBox = array(
         'id', 'url', 'product_id', 'title', 'prices', 'offer_count', 'shop_count', 'category_id', 'offer_id',
@@ -58,15 +57,15 @@ class ProductsRepository
 
     public static $fieldsForSimilarProductsInProductPage = array('id','url','title','prices','photo_id');
 
-    function __construct(Config $config)
+    /**
+     * @param string $apiBaseUrl
+     * @param ClientApiInterface $clientApi
+     */
+    public function __construct($apiBaseUrl, ClientApiInterface $clientApi)
     {
         $this->converterProducts = new ProductsConverter();
         $this->converterProduct = new ProductConverter();
-        $this->config = $config;
-
-        $oauth2 = new Oauth2Plugin();
-        $oauth2->setAccessToken($this->config->getApiAccessToken());
-        $this->productApiClient = new RestClientApi($this->config->getCache(), $this->config->getLogger(), $oauth2);
+        $this->clientApi = $clientApi;
     }
 
     /**
@@ -75,11 +74,11 @@ class ProductsRepository
      */
     public function fetchProducts($limit)
     {
-        $query = new ProductsQuery($this->config->getApiUrl());
+        $query = new ProductsQuery($this->apiBaseUrl);
         $query->setLimit($limit);
         $query->setFields(self::$fieldsForProductBox);
 
-        $objectsFromApi = $this->productApiClient->send($query);
+        $objectsFromApi = $this->clientApi->send($query);
 
         return $this->convertProducts($objectsFromApi);
     }
@@ -91,12 +90,12 @@ class ProductsRepository
      */
     public function fetchProductsByProducerName($producerName, $limit)
     {
-        $query = new ProductsQuery($this->config->getApiUrl());
+        $query = new ProductsQuery($this->apiBaseUrl);
         $query->setProducerName($producerName);
         $query->setLimit($limit);
         $query->setFields(self::$fieldsForProductBox);
 
-        $objectsFromApi = $this->productApiClient->send($query);
+        $objectsFromApi = $this->clientApi->send($query);
 
         return $this->convertProducts($objectsFromApi);
     }
@@ -108,12 +107,12 @@ class ProductsRepository
      */
     public function fetchProductsByCategory(array $categoryIds, $limit)
     {
-        $query = new ProductsQuery($this->config->getApiUrl());
+        $query = new ProductsQuery($this->apiBaseUrl);
         $query->setCategoryIds($categoryIds);
         $query->setLimit($limit);
         $query->setFields(self::$fieldsForProductBox);
 
-        $objectsFromApi = $this->productApiClient->send($query);
+        $objectsFromApi = $this->clientApi->send($query);
 
         return $this->convertProducts($objectsFromApi);
     }
@@ -125,14 +124,14 @@ class ProductsRepository
      */
     public function fetchSimilarProductsWithHigherPrice(Product $product, $limit)
     {
-        $query = new ProductsQuery($this->config->getApiUrl());
+        $query = new ProductsQuery($this->apiBaseUrl);
         $query->setCategoryIds(array($product->getCategoryId()));
         $query->setFilterPriceMinFrom($product->getPrices()->getMin());
         $query->setLimit($limit);
         $query->setFields(self::$fieldsForProductBox);
         $query->setOrder('price_min', 'desc');
 
-        $objectsFromApi = $this->productApiClient->send($query);
+        $objectsFromApi = $this->clientApi->send($query);
 
         return $this->convertProducts($objectsFromApi);
     }
@@ -144,21 +143,21 @@ class ProductsRepository
      */
     public function fetchSimilarProductsWithLowerPrice(Product $product, $limit)
     {
-        $query = new ProductsQuery($this->config->getApiUrl());
+        $query = new ProductsQuery($this->apiBaseUrl);
         $query->setCategoryIds(array($product->getCategoryId()));
         $query->setFilterPriceMinTo($product->getPrices()->getMin());
         $query->setLimit($limit);
         $query->setFields(self::$fieldsForProductBox);
         $query->setOrder('price_min', 'asc');
 
-        $objectsFromApi = $this->productApiClient->send($query);
+        $objectsFromApi = $this->clientApi->send($query);
 
         return $this->convertProducts($objectsFromApi);
     }
 
     public function fetchProductsByQuery(ProductsQuery $query)
     {
-        $objectsFromApi = $this->productApiClient->send($query);
+        $objectsFromApi = $this->clientApi->send($query);
 
         return $this->convertProducts($objectsFromApi);
     }
@@ -170,10 +169,10 @@ class ProductsRepository
      */
     public function fetchProductById($id, array $fields)
     {
-        $query = new ProductQuery($this->config->getApiUrl());
+        $query = new ProductQuery($this->apiBaseUrl);
         $query->setFields($fields);
         $query->setProductId($id);
-        $objectsFromApi = $this->productApiClient->send($query);
+        $objectsFromApi = $this->clientApi->send($query);
 
         return $this->convertProduct($objectsFromApi);
     }
@@ -185,21 +184,21 @@ class ProductsRepository
      */
     public function fetchProductByUrl($url, array $fields)
     {
-        $query = new ProductQuery($this->config->getApiUrl());
+        $query = new ProductQuery($this->apiBaseUrl);
         $query->setFields($fields);
         $query->setUrl($url);
-        $objectsFromApi = $this->productApiClient->send($query);
+        $objectsFromApi = $this->clientApi->send($query);
 
         return $this->convertProduct($objectsFromApi);
     }
 
     public function fetchCountProductsByPhrase($phrase)
     {
-        $query = new ProductsQuery($this->config->getApiUrl());
+        $query = new ProductsQuery($this->apiBaseUrl);
         $query->setFields(array('id'));
         $query->setPhrase($phrase);
 
-        $objectsFromApi = $this->productApiClient->send($query);
+        $objectsFromApi = $this->clientApi->send($query);
 
         if (isset($objectsFromApi->_metadata->total)) {
             return $objectsFromApi->_metadata->total;
@@ -224,14 +223,6 @@ class ProductsRepository
     private function convertProduct(\stdClass $objectFromApi)
     {
         return $this->converterProduct->convert($objectFromApi);
-    }
-
-    /**
-     * @param \Nokaut\ApiKit\ClientApi\Rest\RestClientApi $productApiClient
-     */
-    public function setProductApiClient($productApiClient)
-    {
-        $this->productApiClient = $productApiClient;
     }
 
 }

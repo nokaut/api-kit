@@ -9,7 +9,7 @@
 namespace Nokaut\ApiKit\Converter;
 
 
-interface ApiConverter
+interface ConverterInterace
 {
 
     public function convert(\stdClass $object);

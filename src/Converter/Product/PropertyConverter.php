@@ -9,10 +9,10 @@
 namespace Nokaut\ApiKit\Converter\Product;
 
 
-use Nokaut\ApiKit\Converter\ApiConverter;
+use Nokaut\ApiKit\Converter\ConverterInterace;
 use Nokaut\ApiKit\Entity\Product\Property;
 
-class PropertyConverter implements ApiConverter
+class PropertyConverter implements ConverterInterace
 {
 
     const SEPARATOR_PROPERTIES = '||';

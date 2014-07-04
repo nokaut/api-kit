@@ -10,7 +10,9 @@ namespace Nokaut\ApiKit;
 
 
 use Nokaut\ApiKit\Cache\CacheInterface;
+use Nokaut\ApiKit\Cache\NullCache;
 use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 
 class Config
 {
@@ -30,6 +32,13 @@ class Config
      * @var string
      */
     private $apiAccessToken;
+
+
+    public function __construct()
+    {
+        $this->setLogger(new NullLogger());
+        $this->setCache(new NullCache());
+    }
 
     /**
      * @param string $apiAccessToken
@@ -64,15 +73,15 @@ class Config
     }
 
     /**
-     * @param \Nokaut\ApiKit\Cache\CacheInterface $cache
+     * @param CacheInterface $cache
      */
-    public function setCache($cache)
+    public function setCache(CacheInterface $cache)
     {
         $this->cache = $cache;
     }
 
     /**
-     * @return \Nokaut\ApiKit\Cache\CacheInterface
+     * @return CacheInterface
      */
     public function getCache()
     {
@@ -80,15 +89,15 @@ class Config
     }
 
     /**
-     * @param \Psr\Log\LoggerInterface $logger
+     * @param LoggerInterface $logger
      */
-    public function setLogger($logger)
+    public function setLogger(LoggerInterface $logger)
     {
         $this->logger = $logger;
     }
 
     /**
-     * @return \Psr\Log\LoggerInterface
+     * @return LoggerInterface
      */
     public function getLogger()
     {
@@ -107,6 +116,14 @@ class Config
 
         if(empty($this->apiUrl)) {
             throw new \InvalidArgumentException("empty api URL, please set URL to API in Nokaut\\ApiKit\\Config");
+        }
+
+        if(empty($this->cache)) {
+            throw new \InvalidArgumentException("cache not set, please cache mechanism in Nokaut\\ApiKit\\Config");
+        }
+
+        if(empty($this->logger)) {
+            throw new \InvalidArgumentException("logger not set, please logger mechanism in Nokaut\\ApiKit\\Config");
         }
     }
 } 

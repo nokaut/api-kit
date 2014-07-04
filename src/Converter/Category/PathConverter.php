@@ -9,10 +9,10 @@
 namespace Nokaut\ApiKit\Converter\Category;
 
 
-use Nokaut\ApiKit\Converter\ApiConverter;
+use Nokaut\ApiKit\Converter\ConverterInterace;
 use Nokaut\ApiKit\Entity\Category\Path;
 
-class PathConverter implements ApiConverter
+class PathConverter implements ConverterInterace
 {
 
     public function convert(\stdClass $object)

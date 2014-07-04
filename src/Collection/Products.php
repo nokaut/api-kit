@@ -12,7 +12,7 @@ namespace Nokaut\ApiKit\Collection;
 use Nokaut\ApiKit\Entity\Metadata;
 use Nokaut\ApiKit\Entity\Product;
 
-class Products extends AbstractCollection
+class Products extends CollectionAbstract
 {
 
     /**

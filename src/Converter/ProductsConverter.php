@@ -14,7 +14,7 @@ use Nokaut\ApiKit\Collection\Products;
 use Nokaut\ApiKit\Entity\Metadata\Facets\CategoryFacet;
 use Nokaut\ApiKit\Entity\Product;
 
-class ProductsConverter implements ApiConverter
+class ProductsConverter implements ConverterInterace
 {
 
     /**

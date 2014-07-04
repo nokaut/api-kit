@@ -9,17 +9,17 @@
 namespace Nokaut\ApiKit\Collection\Sort;
 
 
-use Nokaut\ApiKit\Collection\AbstractCollection;
+use Nokaut\ApiKit\Collection\CollectionAbstract;
 
-abstract class Sort {
+abstract class SortAbstract {
 
 
     /**
-     * @param AbstractCollection $collection
+     * @param CollectionAbstract $collection
      * @param $functionGetField
      * @param $sorting
      */
-    protected  static function sortBy(AbstractCollection $collection, $functionGetField, $sorting = SORT_ASC)
+    protected  static function sortBy(CollectionAbstract $collection, $functionGetField, $sorting = SORT_ASC)
     {
         $values = array();
         foreach ($collection as $key => $row) {

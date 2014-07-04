@@ -13,7 +13,7 @@ use Nokaut\ApiKit\Entity\Metadata\Facets\CategoryFacet;
 use Nokaut\ApiKit\Entity\Product\Prices;
 use Nokaut\ApiKit\Entity\Product\Property;
 
-class Product extends Entity
+class Product extends EntityAbstract
 {
 
     /**
