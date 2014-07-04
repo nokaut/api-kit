@@ -10,11 +10,9 @@ namespace Nokaut\ApiKit;
 
 
 use CommerceGuys\Guzzle\Plugin\Oauth2\Oauth2Plugin;
-use Nokaut\ApiKit\Cache\NullCache;
 use Nokaut\ApiKit\ClientApi\Rest\RestClientApi;
 use Nokaut\ApiKit\Repository\CategoriesRepository;
 use Nokaut\ApiKit\Repository\ProductsRepository;
-use Psr\Log\NullLogger;
 
 class ApiKit
 {
@@ -42,7 +40,9 @@ class ApiKit
         }
         $this->validate($config);
 
-        return new ProductsRepository($config);
+        $restClientApi = $this->getClientApi($config);
+
+        return new ProductsRepository($config->getApiUrl(), $restClientApi);
     }
 
     /**

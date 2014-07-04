@@ -12,7 +12,6 @@ namespace Nokaut\ApiKit\Repository;
 use CommerceGuys\Guzzle\Plugin\Oauth2\Oauth2Plugin;
 use Nokaut\ApiKit\Cache\NullCache;
 use Nokaut\ApiKit\Collection\Categories;
-use Nokaut\ApiKit\Config;
 use Nokaut\ApiKit\Entity\Category;
 use Nokaut\ApiKit\Entity\Category\Path;
 use PHPUnit_Framework_MockObject_MockObject;
