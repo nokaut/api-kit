@@ -10,13 +10,11 @@ namespace Nokaut\ApiKit\Repository;
 
 
 use CommerceGuys\Guzzle\Plugin\Oauth2\Oauth2Plugin;
-use Nokaut\ApiKit\Cache\NullCache;
 use Nokaut\ApiKit\Collection\Categories;
 use Nokaut\ApiKit\Entity\Category;
 use Nokaut\ApiKit\Entity\Category\Path;
 use PHPUnit_Framework_MockObject_MockObject;
 use PHPUnit_Framework_TestCase;
-use Psr\Log\NullLogger;
 
 class CategoriesRepositoryTest extends PHPUnit_Framework_TestCase
 {
@@ -32,14 +30,12 @@ class CategoriesRepositoryTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $cache = new NullCache();
-        $logger = new NullLogger();
         $oauth2 = new Oauth2Plugin();
         $accessToken = array(
             'access_token' => '1111'
         );
         $oauth2->setAccessToken($accessToken);
-        $this->clientApiMock = $this->getMock('Nokaut\ApiKit\ClientApi\ClientApiInterface', array('send'), array($cache, $logger, $oauth2));
+        $this->clientApiMock = $this->getMock('Nokaut\ApiKit\ClientApi\ClientApiInterface', array('send'));
 
         $this->sut = new CategoriesRepository("http://32213:454/api/v2/", $this->clientApiMock);
     }
