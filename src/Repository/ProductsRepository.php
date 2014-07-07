@@ -66,17 +66,19 @@ class ProductsRepository
         $this->converterProducts = new ProductsConverter();
         $this->converterProduct = new ProductConverter();
         $this->clientApi = $clientApi;
+        $this->apiBaseUrl = $apiBaseUrl;
     }
 
     /**
      * @param int $limit
+     * @param $fields
      * @return Products
      */
-    public function fetchProducts($limit)
+    public function fetchProducts($limit, array $fields)
     {
         $query = new ProductsQuery($this->apiBaseUrl);
         $query->setLimit($limit);
-        $query->setFields(self::$fieldsForProductBox);
+        $query->setFields($fields);
 
         $objectsFromApi = $this->clientApi->send($query);
 
@@ -86,14 +88,15 @@ class ProductsRepository
     /**
      * @param string $producerName
      * @param int $limit
+     * @param array $fields
      * @return Products
      */
-    public function fetchProductsByProducerName($producerName, $limit)
+    public function fetchProductsByProducerName($producerName, $limit, array $fields)
     {
         $query = new ProductsQuery($this->apiBaseUrl);
         $query->setProducerName($producerName);
         $query->setLimit($limit);
-        $query->setFields(self::$fieldsForProductBox);
+        $query->setFields($fields);
 
         $objectsFromApi = $this->clientApi->send($query);
 
@@ -103,14 +106,15 @@ class ProductsRepository
     /**
      * @param array $categoryIds
      * @param int $limit
+     * @param array $fields
      * @return Products
      */
-    public function fetchProductsByCategory(array $categoryIds, $limit)
+    public function fetchProductsByCategory(array $categoryIds, $limit, array $fields)
     {
         $query = new ProductsQuery($this->apiBaseUrl);
         $query->setCategoryIds($categoryIds);
         $query->setLimit($limit);
-        $query->setFields(self::$fieldsForProductBox);
+        $query->setFields($fields);
 
         $objectsFromApi = $this->clientApi->send($query);
 
@@ -120,15 +124,16 @@ class ProductsRepository
     /**
      * @param Product $product
      * @param int $limit
+     * @param array $fields
      * @return Products
      */
-    public function fetchSimilarProductsWithHigherPrice(Product $product, $limit)
+    public function fetchSimilarProductsWithHigherPrice(Product $product, $limit, array $fields)
     {
         $query = new ProductsQuery($this->apiBaseUrl);
         $query->setCategoryIds(array($product->getCategoryId()));
         $query->setFilterPriceMinFrom($product->getPrices()->getMin());
         $query->setLimit($limit);
-        $query->setFields(self::$fieldsForProductBox);
+        $query->setFields($fields);
         $query->setOrder('price_min', 'desc');
 
         $objectsFromApi = $this->clientApi->send($query);
@@ -139,15 +144,16 @@ class ProductsRepository
     /**
      * @param Product $product
      * @param int $limit
+     * @param array $fields
      * @return Products
      */
-    public function fetchSimilarProductsWithLowerPrice(Product $product, $limit)
+    public function fetchSimilarProductsWithLowerPrice(Product $product, $limit, array $fields)
     {
         $query = new ProductsQuery($this->apiBaseUrl);
         $query->setCategoryIds(array($product->getCategoryId()));
         $query->setFilterPriceMinTo($product->getPrices()->getMin());
         $query->setLimit($limit);
-        $query->setFields(self::$fieldsForProductBox);
+        $query->setFields($fields);
         $query->setOrder('price_min', 'asc');
 
         $objectsFromApi = $this->clientApi->send($query);
@@ -155,6 +161,10 @@ class ProductsRepository
         return $this->convertProducts($objectsFromApi);
     }
 
+    /**
+     * @param ProductsQuery $query
+     * @return Products
+     */
     public function fetchProductsByQuery(ProductsQuery $query)
     {
         $objectsFromApi = $this->clientApi->send($query);
@@ -192,6 +202,10 @@ class ProductsRepository
         return $this->convertProduct($objectsFromApi);
     }
 
+    /**
+     * @param string $phrase
+     * @return int
+     */
     public function fetchCountProductsByPhrase($phrase)
     {
         $query = new ProductsQuery($this->apiBaseUrl);

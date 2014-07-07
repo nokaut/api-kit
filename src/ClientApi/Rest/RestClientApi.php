@@ -133,6 +133,6 @@ class RestClientApi implements ClientApiInterface
         $totalTime = ($endTime - $startTime);
         $timeInfo = '| runtime: ' . round($runTime, 3) . ' s, total: ' . round($totalTime, 3) . ' s';
 
-        $this->logger->log($url . ' ' . $timeInfo, $level);
+        $this->logger->log($level, $url . ' ' . $timeInfo);
     }
 } 
