@@ -74,4 +74,8 @@ class OpineoRating extends EntityAbstract
         return $this->url;
     }
 
+    public function getRatingStar()
+    {
+        return round($this->rating / 2);
+    }
 }
