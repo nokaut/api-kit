@@ -57,7 +57,7 @@ class OffersRepository
     {
         $query = new OffersQuery($this->apiBaseUrl);
         $query->setFields($fields);
-        $query->setFields($productId);
+        $query->setProductId($productId);
 
         if ($sort) {
             $query->setOrder($sort->getField(), $sort->getOrder());
