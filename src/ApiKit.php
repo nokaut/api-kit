@@ -12,6 +12,7 @@ namespace Nokaut\ApiKit;
 use CommerceGuys\Guzzle\Plugin\Oauth2\Oauth2Plugin;
 use Nokaut\ApiKit\ClientApi\Rest\RestClientApi;
 use Nokaut\ApiKit\Repository\CategoriesRepository;
+use Nokaut\ApiKit\Repository\OffersRepository;
 use Nokaut\ApiKit\Repository\ProductsRepository;
 
 class ApiKit
@@ -60,6 +61,23 @@ class ApiKit
         $restClientApi = $this->getClientApi($config);
 
         return new CategoriesRepository($config->getApiUrl(), $restClientApi);
+    }
+
+    /**
+     * @param Config $config
+     * @return OffersRepository
+     */
+    public function getOffersRepository(Config $config = null)
+    {
+        if (!$config) {
+            $config = $this->config;
+        }
+        $this->validate($config);
+
+
+        $restClientApi = $this->getClientApi($config);
+
+        return new OffersRepository($config->getApiUrl(), $restClientApi);
     }
 
     private function validate(Config $config)
