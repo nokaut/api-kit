@@ -19,6 +19,7 @@ class CategoriesQuery implements QueryBuilderInterface
     private $fields;
     private $filters = array();
     private $phrase;
+    private $categoryIds = array();
 
     public function __construct($baseUrl)
     {
@@ -77,16 +78,22 @@ class CategoriesQuery implements QueryBuilderInterface
         $this->filters['depth'] = intval($depth);
     }
 
+    public function setCategoryIds(array $ids)
+    {
+        $this->categoryIds = $ids;
+    }
+
     public function createRequestPath()
     {
 
-        if (empty($this->filters) && empty($this->phrase)) {
+        if (empty($this->filters) && empty($this->phrase) && empty($this->categoryIds)) {
             throw new \InvalidArgumentException('set filers for CategoriesQuery');
         }
 
         $query = $this->baseUrl . 'categories?' .
             $this->createFieldsPart() .
             $this->createFilterPart() .
+            $this->createCategoryIdsPart() .
             $this->createPhrasePart();
 
         return $query;
@@ -122,6 +129,18 @@ class CategoriesQuery implements QueryBuilderInterface
             } else {
                 throw new \InvalidArgumentException("invalid filter value " . var_export($value, true));
             }
+        }
+        return $result;
+    }
+
+    /**
+     * @return string
+     */
+    private function createCategoryIdsPart()
+    {
+        $result = "";
+        foreach ($this->categoryIds as $categoryId) {
+            $result .= "&filter[id][in][]={$categoryId}";
         }
         return $result;
     }

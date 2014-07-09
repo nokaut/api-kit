@@ -48,6 +48,10 @@ class ProductsQuery implements QueryBuilderInterface
      */
     private $limit;
     /**
+     * @var int
+     */
+    private $offset;
+    /**
      * @var array
      */
     private $pricesFilter = array();
@@ -126,6 +130,17 @@ class ProductsQuery implements QueryBuilderInterface
         $this->limit = (int)$limit;
     }
 
+    /**
+     * @param int $offset
+     */
+    public function setOffset($offset)
+    {
+        if ($offset > 10000) {
+            $offset = 10000;
+        }
+        $this->offset = $offset;
+    }
+
     public function addFacetRange($name, $value)
     {
         $this->facetsRange[$name] = $value;
@@ -143,7 +158,8 @@ class ProductsQuery implements QueryBuilderInterface
             $this->createFacetsRangePart() .
             $this->createSortPart() .
             $this->createCategoryPart() .
-            $this->createLimitPart();
+            $this->createLimitPart() .
+            $this->createOffsetPart();
 
         return $query;
     }
@@ -179,7 +195,7 @@ class ProductsQuery implements QueryBuilderInterface
     {
         $result = "";
         foreach ($this->pricesFilter as $priceType => $operator) {
-            foreach($operator as $operatorType => $value) {
+            foreach ($operator as $operatorType => $value) {
                 $result .= "&filter[{$priceType}][0][{$operatorType}]={$value}";
             }
         }
@@ -232,10 +248,10 @@ class ProductsQuery implements QueryBuilderInterface
 
     private function createQualityPart()
     {
-        if(empty($this->quality)) {
+        if (empty($this->quality)) {
             return "";
         }
-        return "&quality=".$this->quality;
+        return "&quality=" . $this->quality;
     }
 
     private function createLimitPart()
@@ -244,5 +260,13 @@ class ProductsQuery implements QueryBuilderInterface
             return "";
         }
         return "&limit={$this->limit}";
+    }
+
+    private function createOffsetPart()
+    {
+        if (empty($this->offset)) {
+            return "";
+        }
+        return "&offset={$this->offset}";
     }
 } 

@@ -150,6 +150,18 @@ class CategoriesRepository
         return $categories;
     }
 
+    public function fetchCategoriesByIds(array $ids)
+    {
+        $query = new CategoriesQuery($this->apiBaseUrl);
+        $query->setFields(self::getFieldsWithoutDescription());
+        $query->setCategoryIds($ids);
+        $object = $this->clientApi->send($query);
+
+        $categories = $this->convertCategories($object);
+        CategoriesSort::sortByTitle($categories);
+        return $categories;
+    }
+
     /**
      * @param \stdClass $objectFromApi
      * @return Category
