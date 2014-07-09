@@ -23,6 +23,7 @@ class ProductsQueryTest extends \PHPUnit_Framework_TestCase
         $cut->addFacet('categories');
         $cut->setQuality(60);
         $cut->setLimit(100);
+        $cut->setOffset(200);
         $cut->setFilterPriceMinFrom('0');
         $cut->setFilterPriceMinTo('100');
         $cut->setCategoryIds(array('12','43'));
@@ -37,7 +38,7 @@ class ProductsQueryTest extends \PHPUnit_Framework_TestCase
             "fields=id,title,_metadata&quality=60&phrase=fraza&filter[cecha]=jakie%C5%9B+tam+filtr&filter[property_9342]=23".
             "&filter[producer_name]=producent+sony&filter[price_min][0][min]=0&filter[price_min][0][max]=100".
             "&facet[categories]=true&facet_range[price_min]=2&sort[price_min]=asc&filter[category_ids][in][]=12".
-            "&filter[category_ids][in][]=43&limit=100",
+            "&filter[category_ids][in][]=43&limit=100&offset=200",
             $url);
     }
 }
