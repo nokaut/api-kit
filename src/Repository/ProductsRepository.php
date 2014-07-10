@@ -10,6 +10,7 @@ namespace Nokaut\ApiKit\Repository;
 
 
 use Nokaut\ApiKit\ClientApi\ClientApiInterface;
+use Nokaut\ApiKit\ClientApi\Rest\Query\Sort;
 use Nokaut\ApiKit\Collection\Products;
 use Nokaut\ApiKit\Config;
 use Nokaut\ApiKit\Entity\Product;
@@ -107,14 +108,18 @@ class ProductsRepository
      * @param array $categoryIds
      * @param int $limit
      * @param array $fields
+     * @param Sort $sort - optional
      * @return Products
      */
-    public function fetchProductsByCategory(array $categoryIds, $limit, array $fields)
+    public function fetchProductsByCategory(array $categoryIds, $limit, array $fields, Sort $sort = null)
     {
         $query = new ProductsQuery($this->apiBaseUrl);
         $query->setCategoryIds($categoryIds);
         $query->setLimit($limit);
         $query->setFields($fields);
+        if ($sort) {
+            $query->setOrder($sort->getField(), $sort->getOrder());
+        }
 
         $objectsFromApi = $this->clientApi->send($query);
 
