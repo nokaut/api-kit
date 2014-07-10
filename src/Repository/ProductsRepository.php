@@ -188,6 +188,24 @@ class ProductsRepository
     }
 
     /**
+     * @param $url
+     * @param array $fields
+     * @param int $limit
+     * @return Products
+     */
+    public function fetchProductsByUrl($url, array $fields, $limit = 20)
+    {
+        $query = new ProductsQuery($this->apiBaseUrl);
+        $query->setFields($fields);
+        $query->addFilter('url', $url);
+        $query->setFields($fields);
+        $query->setLimit($limit);
+        $objectsFromApi = $this->clientApi->send($query);
+
+        return $this->convertProducts($objectsFromApi);
+    }
+
+    /**
      * @param string $url
      * @param array $fields
      * @return Product
