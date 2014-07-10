@@ -16,6 +16,7 @@ use Guzzle\Http\Message\Response;
 use Nokaut\ApiKit\Cache\CacheInterface;
 use Nokaut\ApiKit\ClientApi\ClientApiInterface;
 use Nokaut\ApiKit\ClientApi\Rest\Exception\FatalResponseException;
+use Nokaut\ApiKit\ClientApi\Rest\Exception\InvalidRequestException;
 use Nokaut\ApiKit\ClientApi\Rest\Exception\NotFoundException;
 use Nokaut\ApiKit\ClientApi\Rest\Query\QueryBuilderInterface;
 use Nokaut\ApiKit\Collection\CollectionInterface;
@@ -95,15 +96,20 @@ class RestClientApi implements ClientApiInterface
     /**
      * @param BadResponseException $e
      * @param $startTime
-     * @throws Exception\NotFoundException
      * @throws Exception\FatalResponseException
+     * @throws Exception\NotFoundException
+     * @throws Exception\InvalidRequestException
      */
     private function handleException(BadResponseException $e, $startTime)
     {
         $this->log($e->getRequest(), $e->getResponse(), $startTime);
 
         if($e->getResponse()->getStatusCode() == 404){
-            throw new NotFoundException("404 from api for request: " . $e->getResponse()->getRawHeaders());
+            throw new NotFoundException($_SERVER['REQUEST_URI'] . " 404 from api for request: " . $e->getResponse()->getRawHeaders());
+        }
+
+        if($e->getResponse()->getStatusCode() == 400){
+            throw new InvalidRequestException($_SERVER['REQUEST_URI'] . " 400 from api for request: " . $e->getResponse()->getRawHeaders());
         }
 
         throw new FatalResponseException($_SERVER['REQUEST_URI'] . " bad response from api (status: " . $e->getResponse()->getStatusCode() . ") "
