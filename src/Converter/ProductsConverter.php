@@ -9,8 +9,8 @@
 namespace Nokaut\ApiKit\Converter;
 
 
-
 use Nokaut\ApiKit\Collection\Products;
+use Nokaut\ApiKit\Converter\Metadata\ProductsMetadataConverter;
 use Nokaut\ApiKit\Entity\Metadata\Facets\CategoryFacet;
 use Nokaut\ApiKit\Entity\Product;
 
@@ -32,7 +32,7 @@ class ProductsConverter implements ConverterInterace
         $products = new Products($productsArray);
 
         //todo convert to Entity/Metadata use MetadataConverter
-        $products->setMetadata($object->_metadata);
+        $products->setMetadata($this->convertMetadata($object));
 
         $this->setCategoriesFromMetadata($products);
 
@@ -65,5 +65,18 @@ class ProductsConverter implements ConverterInterace
             }
         }
 
+    }
+
+    /**
+     * @param \stdClass $object
+     * @return mixed
+     */
+    private function convertMetadata(\stdClass $object)
+    {
+        if (isset($object->_metadata)) {
+            $converterMetadata = new ProductsMetadataConverter();
+            return $converterMetadata->convert($object->_metadata);
+        }
+        return null;
     }
 } 

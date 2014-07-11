@@ -21,6 +21,7 @@ class ProductsConverterTest extends PHPUnit_Framework_TestCase {
 
         $this->assertCount(count($correctObject->products), $products);
         $this->assertInstanceOf('Nokaut\ApiKit\Collection\CollectionAbstract', $products);
+        $this->assertInstanceOf('Nokaut\ApiKit\Entity\Metadata\ProductsMetadata', $products->getMetadata());
         foreach ($products as $product) {
             $this->assertInstanceOf('Nokaut\ApiKit\Entity\Product', $product);
         }
