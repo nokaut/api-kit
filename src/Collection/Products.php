@@ -13,6 +13,7 @@ use Nokaut\ApiKit\Entity\Metadata;
 use Nokaut\ApiKit\Entity\Metadata\Facet\CategoryFacet;
 use Nokaut\ApiKit\Entity\Metadata\Facet\PriceFacet;
 use Nokaut\ApiKit\Entity\Metadata\Facet\ProducerFacet;
+use Nokaut\ApiKit\Entity\Metadata\Facet\PropertyFacet;
 use Nokaut\ApiKit\Entity\Metadata\Facet\ShopFacet;
 use Nokaut\ApiKit\Entity\Metadata\ProductsMetadata;
 use Nokaut\ApiKit\Entity\Product;
@@ -40,6 +41,10 @@ class Products extends CollectionAbstract
      * @var PriceFacet[]
      */
     protected $prices = array();
+    /**
+     * @var PropertyFacet[]
+     */
+    protected $properties = array();
 
     /**
      * @param ProductsMetadata $metadata
@@ -119,6 +124,22 @@ class Products extends CollectionAbstract
     public function getPrices()
     {
         return $this->prices;
+    }
+
+    /**
+     * @param PropertyFacet[] $properties
+     */
+    public function setProperties($properties)
+    {
+        $this->properties = $properties;
+    }
+
+    /**
+     * @return PropertyFacet[]
+     */
+    public function getProperties()
+    {
+        return $this->properties;
     }
 
     /**

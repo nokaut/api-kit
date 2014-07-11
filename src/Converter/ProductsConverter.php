@@ -13,6 +13,7 @@ use Nokaut\ApiKit\Collection\Products;
 use Nokaut\ApiKit\Converter\Metadata\Facet\CategoryFacetConverter;
 use Nokaut\ApiKit\Converter\Metadata\Facet\PriceFacetConverter;
 use Nokaut\ApiKit\Converter\Metadata\Facet\ProducerFacetConverter;
+use Nokaut\ApiKit\Converter\Metadata\Facet\PropertyFacetConverter;
 use Nokaut\ApiKit\Converter\Metadata\Facet\ShopFacetConverter;
 use Nokaut\ApiKit\Converter\Metadata\ProductsMetadataConverter;
 use Nokaut\ApiKit\Entity\Product;
@@ -39,6 +40,7 @@ class ProductsConverter implements ConverterInterace
         $products->setShops($this->convertShops($object));
         $products->setProducers($this->convertProducers($object));
         $products->setPrices($this->convertPrices($object));
+        $products->setProperties($this->convertProperties($object));
 
         $this->setCategoriesFromMetadata($products);
 
@@ -133,5 +135,19 @@ class ProductsConverter implements ConverterInterace
             $prices[] = $converter->convert($objectPrice);
         }
         return $prices;
+    }
+
+    private function convertProperties(\stdClass $object)
+    {
+        if (empty($object->properties)) {
+            return array();
+        }
+        $properties = array();
+        $converter = new PropertyFacetConverter();
+
+        foreach ($object->properties as $objectProperty) {
+            $properties[] = $converter->convert($objectProperty);
+        }
+        return $properties;
     }
 } 

@@ -44,6 +44,11 @@ class ProductsConverterTest extends PHPUnit_Framework_TestCase
             $this->assertInstanceOf('Nokaut\ApiKit\Entity\Metadata\Facet\PriceFacet', $prices);
         }
 
+        $this->assertNotEmpty($products->getProperties());
+        foreach ($products->getProperties() as $property) {
+            $this->assertInstanceOf('Nokaut\ApiKit\Entity\Metadata\Facet\PropertyFacet', $property);
+        }
+
         $this->assertNotEmpty($products);
         foreach ($products as $product) {
             $this->assertInstanceOf('Nokaut\ApiKit\Entity\Product', $product);
@@ -324,6 +329,47 @@ class ProductsConverterTest extends PHPUnit_Framework_TestCase
                     "url": "/aparaty-cyfrowe/cena:1259.00~9900.00.html"
                 }
 
+            ],
+            "properties": [
+                {
+                    "id": 18,
+                    "name": "Zoom optyczny",
+                    "unit": "x",
+                    "values": [
+                        {
+                            "name": "5.0",
+                            "total": 72,
+                            "url": "/aparaty-cyfrowe/zoom-optyczny:5.00+x.html"
+                        }
+                    ]
+                },
+                {
+                    "id": 2717,
+                    "name": "Zoom cyfrowy",
+                    "unit": "x",
+                    "values": [
+                        {
+                            "name": "4.0",
+                            "total": 101,
+                            "url": "/aparaty-cyfrowe/zoom-cyfrowy:4.00+x.html"
+                        },
+                        {
+                            "name": "5.0",
+                            "total": 24,
+                            "url": "/aparaty-cyfrowe/zoom-cyfrowy:5.00+x.html"
+                        },
+                        {
+                            "name": "6.0",
+                            "total": 18,
+                            "url": "/aparaty-cyfrowe/zoom-cyfrowy:6.00+x.html"
+                        },
+                        {
+                            "name": "2.0",
+                            "total": 12,
+                            "url": "/aparaty-cyfrowe/zoom-cyfrowy:2.00+x.html"
+                        }
+                    ]
+                }
             ]
         }
         ');
