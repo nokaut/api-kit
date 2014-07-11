@@ -11,6 +11,8 @@ namespace Nokaut\ApiKit\Collection;
 
 use Nokaut\ApiKit\Entity\Metadata;
 use Nokaut\ApiKit\Entity\Metadata\Facet\CategoryFacet;
+use Nokaut\ApiKit\Entity\Metadata\Facet\ProducerFacet;
+use Nokaut\ApiKit\Entity\Metadata\Facet\ShopFacet;
 use Nokaut\ApiKit\Entity\Metadata\ProductsMetadata;
 use Nokaut\ApiKit\Entity\Product;
 
@@ -25,6 +27,14 @@ class Products extends CollectionAbstract
      * @var CategoryFacet[]
      */
     protected $categories = array();
+    /**
+     * @var ShopFacet[]
+     */
+    protected $shops = array();
+    /**
+     * @var ProducerFacet[]
+     */
+    protected $producers = array();
 
     /**
      * @param ProductsMetadata $metadata
@@ -56,6 +66,38 @@ class Products extends CollectionAbstract
     public function getCategories()
     {
         return $this->categories;
+    }
+
+    /**
+     * @param ShopFacet[] $shop
+     */
+    public function setShops($shop)
+    {
+        $this->shops = $shop;
+    }
+
+    /**
+     * @return ShopFacet[]
+     */
+    public function getShops()
+    {
+        return $this->shops;
+    }
+
+    /**
+     * @param ProducerFacet[] $producers
+     */
+    public function setProducers($producers)
+    {
+        $this->producers = $producers;
+    }
+
+    /**
+     * @return ProducerFacet[]
+     */
+    public function getProducers()
+    {
+        return $this->producers;
     }
 
     /**

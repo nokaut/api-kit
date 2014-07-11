@@ -11,6 +11,8 @@ namespace Nokaut\ApiKit\Converter;
 
 use Nokaut\ApiKit\Collection\Products;
 use Nokaut\ApiKit\Converter\Metadata\Facet\CategoryFacetConverter;
+use Nokaut\ApiKit\Converter\Metadata\Facet\ProducerFacetConverter;
+use Nokaut\ApiKit\Converter\Metadata\Facet\ShopFacetConverter;
 use Nokaut\ApiKit\Converter\Metadata\ProductsMetadataConverter;
 use Nokaut\ApiKit\Entity\Product;
 
@@ -33,6 +35,8 @@ class ProductsConverter implements ConverterInterace
 
         $products->setMetadata($this->convertMetadata($object));
         $products->setCategories($this->convertCategories($object));
+        $products->setShops($this->convertShops($object));
+        $products->setProducers($this->convertProducers($object));
 
         $this->setCategoriesFromMetadata($products);
 
@@ -85,5 +89,33 @@ class ProductsConverter implements ConverterInterace
             $categories[] = $converter->convert($objectCategory);
         }
         return $categories;
+    }
+
+    private function convertShops(\stdClass $object)
+    {
+        if (empty($object->shops)) {
+            return array();
+        }
+        $shops = array();
+        $converter = new ShopFacetConverter();
+
+        foreach ($object->shops as $objectShop) {
+            $shops[] = $converter->convert($objectShop);
+        }
+        return $shops;
+    }
+
+    private function convertProducers(\stdClass $object)
+    {
+        if (empty($object->producers)) {
+            return array();
+        }
+        $producers = array();
+        $converter = new ProducerFacetConverter();
+
+        foreach ($object->producers as $objectProducer) {
+            $producers[] = $converter->convert($objectProducer);
+        }
+        return $producers;
     }
 } 

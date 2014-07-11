@@ -23,9 +23,23 @@ class ProductsConverterTest extends PHPUnit_Framework_TestCase
         $this->assertCount(count($correctObject->products), $products);
         $this->assertInstanceOf('Nokaut\ApiKit\Collection\CollectionAbstract', $products);
         $this->assertInstanceOf('Nokaut\ApiKit\Entity\Metadata\ProductsMetadata', $products->getMetadata());
+
+        $this->assertNotEmpty($products->getCategories());
         foreach ($products->getCategories() as $category) {
             $this->assertInstanceOf('Nokaut\ApiKit\Entity\Metadata\Facet\CategoryFacet', $category);
         }
+
+        $this->assertNotEmpty($products->getShops());
+        foreach ($products->getShops() as $shop) {
+            $this->assertInstanceOf('Nokaut\ApiKit\Entity\Metadata\Facet\ShopFacet', $shop);
+        }
+
+        $this->assertNotEmpty($products->getProducers());
+        foreach ($products->getProducers() as $producer) {
+            $this->assertInstanceOf('Nokaut\ApiKit\Entity\Metadata\Facet\ProducerFacet', $producer);
+        }
+
+        $this->assertNotEmpty($products);
         foreach ($products as $product) {
             $this->assertInstanceOf('Nokaut\ApiKit\Entity\Product', $product);
         }
@@ -250,6 +264,34 @@ class ProductsConverterTest extends PHPUnit_Framework_TestCase
                     "name": "Pozostałe aparaty fotograficzne"
                 }
 
+            ],
+            "shops": [
+                {
+                    "id": 23239,
+                    "name": "Saturn",
+                    "total": 257,
+                    "url": "/aparaty-fotograficzne/sklep:saturn-pl.html"
+                },
+                {
+                    "id": 443,
+                    "name": "Cyfrowe.pl",
+                    "total": 243,
+                    "url": "/aparaty-fotograficzne/sklep:cyfrowe-pl.html"
+                }
+            ],
+            "producers": [
+                {
+                    "id": "nikon",
+                    "name": "Nikon",
+                    "total": 77,
+                    "url": "/aparaty-fotograficzne/producent:nikon.html"
+                },
+                {
+                    "id": "fujifilm",
+                    "name": "Fujifilm",
+                    "total": 74,
+                    "url": "/aparaty-fotograficzne/producent:fujifilm.html"
+                }
             ]
         }
         ');
