@@ -11,6 +11,7 @@ namespace Nokaut\ApiKit\Converter;
 
 use Nokaut\ApiKit\Collection\Products;
 use Nokaut\ApiKit\Converter\Metadata\Facet\CategoryFacetConverter;
+use Nokaut\ApiKit\Converter\Metadata\Facet\PriceFacetConverter;
 use Nokaut\ApiKit\Converter\Metadata\Facet\ProducerFacetConverter;
 use Nokaut\ApiKit\Converter\Metadata\Facet\ShopFacetConverter;
 use Nokaut\ApiKit\Converter\Metadata\ProductsMetadataConverter;
@@ -37,6 +38,7 @@ class ProductsConverter implements ConverterInterace
         $products->setCategories($this->convertCategories($object));
         $products->setShops($this->convertShops($object));
         $products->setProducers($this->convertProducers($object));
+        $products->setPrices($this->convertPrices($object));
 
         $this->setCategoriesFromMetadata($products);
 
@@ -117,5 +119,19 @@ class ProductsConverter implements ConverterInterace
             $producers[] = $converter->convert($objectProducer);
         }
         return $producers;
+    }
+
+    private function convertPrices(\stdClass $object)
+    {
+        if (empty($object->prices)) {
+            return array();
+        }
+        $prices = array();
+        $converter = new PriceFacetConverter();
+
+        foreach ($object->prices as $objectPrice) {
+            $prices[] = $converter->convert($objectPrice);
+        }
+        return $prices;
     }
 } 

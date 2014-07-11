@@ -3,24 +3,24 @@
  * Created by PhpStorm.
  * User: jjuszkiewicz
  * Date: 11.07.2014
- * Time: 14:09
+ * Time: 14:29
  */
 
 namespace Nokaut\ApiKit\Converter\Metadata\Facet;
 
 
 use Nokaut\ApiKit\Converter\ConverterInterace;
-use Nokaut\ApiKit\Entity\Metadata\Facet\ProducerFacet;
+use Nokaut\ApiKit\Entity\Metadata\Facet\PriceFacet;
 
-class ProducerFacetConverter implements ConverterInterace
+class PriceFacetConverter implements ConverterInterace
 {
     public function convert(\stdClass $object)
     {
-        $producerFacet = new ProducerFacet();
+        $priceFacet = new PriceFacet();
 
         foreach ($object as $field => $value) {
-            $producerFacet->set($field, $value);
+            $priceFacet->set($field, $value);
         }
-        return $producerFacet;
+        return $priceFacet;
     }
 }

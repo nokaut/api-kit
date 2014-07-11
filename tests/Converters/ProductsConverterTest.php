@@ -39,6 +39,11 @@ class ProductsConverterTest extends PHPUnit_Framework_TestCase
             $this->assertInstanceOf('Nokaut\ApiKit\Entity\Metadata\Facet\ProducerFacet', $producer);
         }
 
+        $this->assertNotEmpty($products->getPrices());
+        foreach ($products->getPrices() as $prices) {
+            $this->assertInstanceOf('Nokaut\ApiKit\Entity\Metadata\Facet\PriceFacet', $prices);
+        }
+
         $this->assertNotEmpty($products);
         foreach ($products as $product) {
             $this->assertInstanceOf('Nokaut\ApiKit\Entity\Product', $product);
@@ -292,6 +297,33 @@ class ProductsConverterTest extends PHPUnit_Framework_TestCase
                     "total": 74,
                     "url": "/aparaty-fotograficzne/producent:fujifilm.html"
                 }
+            ],
+            "prices": [
+                {
+                    "min": 39.99,
+                    "max": 424,
+                    "total": 106,
+                    "url": "/aparaty-cyfrowe/cena:39.99~424.00.html"
+                },
+                {
+                    "min": 425.38,
+                    "max": 741.7,
+                    "total": 118,
+                    "url": "/aparaty-cyfrowe/cena:425.38~741.70.html"
+                },
+                {
+                    "min": 747,
+                    "max": 1249,
+                    "total": 112,
+                    "url": "/aparaty-cyfrowe/cena:747.00~1249.00.html"
+                },
+                {
+                    "min": 1259,
+                    "max": 9900,
+                    "total": 95,
+                    "url": "/aparaty-cyfrowe/cena:1259.00~9900.00.html"
+                }
+
             ]
         }
         ');
