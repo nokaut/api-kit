@@ -10,8 +10,8 @@ namespace Nokaut\ApiKit\Converter;
 
 
 use Nokaut\ApiKit\Collection\Products;
+use Nokaut\ApiKit\Converter\Metadata\Facet\CategoryFacetConverter;
 use Nokaut\ApiKit\Converter\Metadata\ProductsMetadataConverter;
-use Nokaut\ApiKit\Entity\Metadata\Facets\CategoryFacet;
 use Nokaut\ApiKit\Entity\Product;
 
 class ProductsConverter implements ConverterInterace
@@ -31,8 +31,8 @@ class ProductsConverter implements ConverterInterace
 
         $products = new Products($productsArray);
 
-        //todo convert to Entity/Metadata use MetadataConverter
         $products->setMetadata($this->convertMetadata($object));
+        $products->setCategories($this->convertCategories($object));
 
         $this->setCategoriesFromMetadata($products);
 
@@ -41,21 +41,14 @@ class ProductsConverter implements ConverterInterace
 
     public function setCategoriesFromMetadata(Products $products)
     {
-        if (false == isset($products->getMetadata()->facets->categories)) {
+        if ($products->getCategories()) {
             return;
         }
-        $categories = $products->getMetadata()->facets->categories;
+        $categories = $products->getCategories();
         $categoriesById = array();
 
         foreach ($categories as $category) {
-            $categoryEntity = new CategoryFacet();
-            $categoryEntity->setId($category->id);
-            $categoryEntity->setTitle($category->title);
-            $categoryEntity->setTotal($category->total);
-            if (isset($category->url)) {
-                $categoryEntity->setUrl($category->url);
-            }
-            $categoriesById[$category->id] = $categoryEntity;
+            $categoriesById[$category->getId()] = $category;
         }
 
         foreach ($products as $product) {
@@ -78,5 +71,19 @@ class ProductsConverter implements ConverterInterace
             return $converterMetadata->convert($object->_metadata);
         }
         return null;
+    }
+
+    private function convertCategories(\stdClass $object)
+    {
+        if (empty($object->categories)) {
+            return array();
+        }
+        $categories = array();
+        $converter = new CategoryFacetConverter();
+
+        foreach ($object->categories as $objectCategory) {
+            $categories[] = $converter->convert($objectCategory);
+        }
+        return $categories;
     }
 } 

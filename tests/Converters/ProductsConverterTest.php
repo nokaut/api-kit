@@ -11,7 +11,8 @@ namespace Nokaut\ApiKit\Converter;
 
 use PHPUnit_Framework_TestCase;
 
-class ProductsConverterTest extends PHPUnit_Framework_TestCase {
+class ProductsConverterTest extends PHPUnit_Framework_TestCase
+{
 
     public function testConvert()
     {
@@ -22,6 +23,9 @@ class ProductsConverterTest extends PHPUnit_Framework_TestCase {
         $this->assertCount(count($correctObject->products), $products);
         $this->assertInstanceOf('Nokaut\ApiKit\Collection\CollectionAbstract', $products);
         $this->assertInstanceOf('Nokaut\ApiKit\Entity\Metadata\ProductsMetadata', $products->getMetadata());
+        foreach ($products->getCategories() as $category) {
+            $this->assertInstanceOf('Nokaut\ApiKit\Entity\Metadata\Facet\CategoryFacet', $category);
+        }
         foreach ($products as $product) {
             $this->assertInstanceOf('Nokaut\ApiKit\Entity\Product', $product);
         }
@@ -215,10 +219,38 @@ class ProductsConverterTest extends PHPUnit_Framework_TestCase {
                     "facet_range": { },
                     "offset": 0,
                     "limit": 20,
-                    "sort": { }
+                    "sort": {
+                        "category_sort3": "desc"
+                     }
                 }
-            }
+            },
+            "categories": [
+                {
+                    "id": 107,
+                    "total": 24,
+                    "url": "/aparaty-analogowe/",
+                    "name": "Aparaty analogowe"
+                },
+                {
+                    "id": 5795,
+                    "total": 70,
+                    "url": "/lustrzanki-cyfrowe/",
+                    "name": "Lustrzanki cyfrowe"
+                },
+                {
+                    "id": 5796,
+                    "total": 431,
+                    "url": "/aparaty-cyfrowe/",
+                    "name": "Aparaty cyfrowe"
+                },
+                {
+                    "id": 8444,
+                    "total": 116,
+                    "url": "/pozostale-aparaty-fotograficzne/",
+                    "name": "Pozostałe aparaty fotograficzne"
+                }
 
+            ]
         }
         ');
     }

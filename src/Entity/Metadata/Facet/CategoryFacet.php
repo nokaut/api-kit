@@ -6,7 +6,7 @@
  * Time: 14:44
  */
 
-namespace Nokaut\ApiKit\Entity\Metadata\Facets;
+namespace Nokaut\ApiKit\Entity\Metadata\Facet;
 
 
 use Nokaut\ApiKit\Entity\EntityAbstract;
@@ -21,7 +21,7 @@ class CategoryFacet extends EntityAbstract
     /**
      * @var string
      */
-    protected $title;
+    protected $name;
     /**
      * @var int
      */
@@ -30,6 +30,11 @@ class CategoryFacet extends EntityAbstract
      * @var string
      */
     protected $url;
+
+    /**
+     * @var bool
+     */
+    protected $is_filter = false;
 
     /**
      * @param int $id
@@ -48,19 +53,19 @@ class CategoryFacet extends EntityAbstract
     }
 
     /**
-     * @param string $title
+     * @param string $name
      */
-    public function setTitle($title)
+    public function setName($name)
     {
-        $this->title = $title;
+        $this->name = $name;
     }
 
     /**
      * @return string
      */
-    public function getTitle()
+    public function getName()
     {
-        return $this->title;
+        return $this->name;
     }
 
     /**
@@ -93,6 +98,22 @@ class CategoryFacet extends EntityAbstract
     public function getUrl()
     {
         return $this->url;
+    }
+
+    /**
+     * @param boolean $is_filter
+     */
+    public function setIsFilter($is_filter)
+    {
+        $this->is_filter = $is_filter;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getIsFilter()
+    {
+        return $this->is_filter;
     }
 
 

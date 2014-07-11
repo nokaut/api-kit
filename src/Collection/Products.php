@@ -10,18 +10,24 @@ namespace Nokaut\ApiKit\Collection;
 
 
 use Nokaut\ApiKit\Entity\Metadata;
+use Nokaut\ApiKit\Entity\Metadata\Facet\CategoryFacet;
+use Nokaut\ApiKit\Entity\Metadata\ProductsMetadata;
 use Nokaut\ApiKit\Entity\Product;
 
 class Products extends CollectionAbstract
 {
 
     /**
-     * @var \stdClass
+     * @var ProductsMetadata
      */
     protected $metadata;
+    /**
+     * @var CategoryFacet[]
+     */
+    protected $categories = array();
 
     /**
-     * @param \stdClass $metadata
+     * @param ProductsMetadata $metadata
      */
     public function setMetadata($metadata)
     {
@@ -29,11 +35,27 @@ class Products extends CollectionAbstract
     }
 
     /**
-     * @return \stdClass
+     * @return ProductsMetadata
      */
     public function getMetadata()
     {
         return $this->metadata;
+    }
+
+    /**
+     * @param CategoryFacet[] $categories
+     */
+    public function setCategories($categories)
+    {
+        $this->categories = $categories;
+    }
+
+    /**
+     * @return CategoryFacet[]
+     */
+    public function getCategories()
+    {
+        return $this->categories;
     }
 
     /**
