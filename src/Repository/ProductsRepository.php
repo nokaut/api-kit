@@ -53,7 +53,8 @@ class ProductsRepository
         'id','product_id','title','prices','offer_count','url','shop','shop.url_logo','shop_count','category_id',
         'offer_id','click_url','click_value','url_original','producer_name','offer_shop_id','shop.name','shop_url',
         'shop_id','top_category_id','top_position','photo_id','description_html','properties','_metadata.url',
-        '_metadata.facets.shops.url','_metadata.block_adsense','offer','block_adsense','_metadata.facets.categories.url'
+        '_metadata.facets.shops.url','_metadata.block_adsense','offer','block_adsense',
+        '_metadata.urls','_metadata.paging','_metadata.sorts'
     );
 
     public static $fieldsForSimilarProductsInProductPage = array('id','url','title','prices','photo_id');
@@ -204,6 +205,11 @@ class ProductsRepository
         $query->setFields($fields);
         $query->addFilter('url', $url);
         $query->setFields($fields);
+        $query->addFacet('query');
+        $query->addFacet('categories');
+        $query->addFacet('producer_name');
+        $query->addFacet('properties');
+        $query->addFacetRange('price_min', 4);
         $query->setLimit($limit);
         $objectsFromApi = $this->clientApi->send($query);
 

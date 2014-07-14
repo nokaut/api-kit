@@ -9,7 +9,7 @@
 namespace Nokaut\ApiKit\Entity;
 
 
-use Nokaut\ApiKit\Entity\Metadata\Facets\CategoryFacet;
+use Nokaut\ApiKit\Entity\Metadata\Facet\CategoryFacet;
 use Nokaut\ApiKit\Entity\Product\Prices;
 use Nokaut\ApiKit\Entity\Product\Property;
 
@@ -411,7 +411,7 @@ class Product extends EntityAbstract
     }
 
     /**
-     * @return Metadata\Facets\CategoryFacet
+     * @return CategoryFacet
      */
     public function getCategory()
     {
