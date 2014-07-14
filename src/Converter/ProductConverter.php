@@ -32,7 +32,7 @@ class ProductConverter implements ConverterInterace
         return $product;
     }
 
-    private function convertSubObject(Product $product, $field, $value)
+    protected function convertSubObject(Product $product, $field, $value)
     {
         switch ($field) {
             case 'properties':
@@ -52,7 +52,7 @@ class ProductConverter implements ConverterInterace
         }
     }
 
-    private function convertProperties(array $propertiesFromApi)
+    protected function convertProperties(array $propertiesFromApi)
     {
         $propertyConverter = new PropertyConverter();
         $propertiesList = array();
@@ -67,7 +67,7 @@ class ProductConverter implements ConverterInterace
     /**
      * @param $product
      */
-    private function sortPhotoIds(Product $product)
+    protected function sortPhotoIds(Product $product)
     {
         $photoIds = $product->getPhotoIds();
         if($photoIds == null) {

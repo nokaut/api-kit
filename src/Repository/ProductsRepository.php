@@ -13,6 +13,7 @@ use Nokaut\ApiKit\ClientApi\ClientApiInterface;
 use Nokaut\ApiKit\ClientApi\Rest\Query\Sort;
 use Nokaut\ApiKit\Collection\Products;
 use Nokaut\ApiKit\Config;
+use Nokaut\ApiKit\Converter\ProductsWithBestOfferConverter;
 use Nokaut\ApiKit\Entity\Product;
 use Nokaut\ApiKit\ClientApi\Rest\Query\ProductQuery;
 use Nokaut\ApiKit\ClientApi\Rest\Query\ProductsQuery;
@@ -53,8 +54,7 @@ class ProductsRepository
         'id','product_id','title','prices','offer_count','url','shop','shop.url_logo','shop_count','category_id',
         'offer_id','click_url','click_value','url_original','producer_name','offer_shop_id','shop.name','shop_url',
         'shop_id','top_category_id','top_position','photo_id','description_html','properties','_metadata.url',
-        '_metadata.facets.shops.url','_metadata.block_adsense','offer','block_adsense',
-        '_metadata.urls','_metadata.paging','_metadata.sorts'
+        '_metadata.block_adsense','offer','block_adsense','_metadata.urls','_metadata.paging','_metadata.sorts'
     );
 
     public static $fieldsForSimilarProductsInProductPage = array('id','url','title','prices','photo_id');
@@ -176,6 +176,18 @@ class ProductsRepository
         $objectsFromApi = $this->clientApi->send($query);
 
         return $this->convertProducts($objectsFromApi);
+    }
+
+    /**
+     * @param ProductsQuery $query
+     * @return Products - return collection of ProductsWithBestOffer
+     */
+    public function fetchProductsWithBestOfferByQuery(ProductsQuery $query)
+    {
+        $objectsFromApi = $this->clientApi->send($query);
+
+        $converterWithBestOffers = new ProductsWithBestOfferConverter();
+        return $converterWithBestOffers->convert($objectsFromApi);
     }
 
     /**

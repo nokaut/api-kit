@@ -35,6 +35,17 @@ class ProductsConverter implements ConverterInterace
 
         $products = new Products($productsArray);
 
+        $this->convertMetadataAndFacets($object, $products);
+
+        return $products;
+    }
+
+    /**
+     * @param \stdClass $object
+     * @param Products $products
+     */
+    protected function convertMetadataAndFacets(\stdClass $object, Products $products)
+    {
         $products->setMetadata($this->convertMetadata($object));
         $products->setCategories($this->convertCategories($object));
         $products->setShops($this->convertShops($object));
@@ -43,11 +54,9 @@ class ProductsConverter implements ConverterInterace
         $products->setProperties($this->convertProperties($object));
 
         $this->setCategoriesFromMetadata($products);
-
-        return $products;
     }
 
-    public function setCategoriesFromMetadata(Products $products)
+    protected function setCategoriesFromMetadata(Products $products)
     {
         if ($products->getCategories()) {
             return;
@@ -72,7 +81,7 @@ class ProductsConverter implements ConverterInterace
      * @param \stdClass $object
      * @return mixed
      */
-    private function convertMetadata(\stdClass $object)
+    protected function convertMetadata(\stdClass $object)
     {
         if (isset($object->_metadata)) {
             $converterMetadata = new ProductsMetadataConverter();
@@ -81,7 +90,7 @@ class ProductsConverter implements ConverterInterace
         return null;
     }
 
-    private function convertCategories(\stdClass $object)
+    protected function convertCategories(\stdClass $object)
     {
         if (empty($object->categories)) {
             return array();
@@ -95,7 +104,7 @@ class ProductsConverter implements ConverterInterace
         return $categories;
     }
 
-    private function convertShops(\stdClass $object)
+    protected function convertShops(\stdClass $object)
     {
         if (empty($object->shops)) {
             return array();
@@ -109,7 +118,7 @@ class ProductsConverter implements ConverterInterace
         return $shops;
     }
 
-    private function convertProducers(\stdClass $object)
+    protected function convertProducers(\stdClass $object)
     {
         if (empty($object->producers)) {
             return array();
@@ -123,7 +132,7 @@ class ProductsConverter implements ConverterInterace
         return $producers;
     }
 
-    private function convertPrices(\stdClass $object)
+    protected function convertPrices(\stdClass $object)
     {
         if (empty($object->prices)) {
             return array();
@@ -137,7 +146,7 @@ class ProductsConverter implements ConverterInterace
         return $prices;
     }
 
-    private function convertProperties(\stdClass $object)
+    protected function convertProperties(\stdClass $object)
     {
         if (empty($object->properties)) {
             return array();
