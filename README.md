@@ -86,7 +86,8 @@ Pobranie kategorii na podstawie jej URL:
 Pobranie kategorii wraz z jej podkategoriami (będzie uzupełnione pole $category->getChildren()):
 
     $categoriesRepository = $apiKit->getCategoriesRepository();
-    $categories = $categoriesRepo->fetchByParentIdWithChildren($categoryParentId, 2);
+    $depth = 2; // głębokość pobrania podkategorii (max 2)
+    $categories = $categoriesRepo->fetchByParentIdWithChildren($categoryParentId, $depth);
 
 Pobranie produktów kategorii:
 
@@ -97,7 +98,8 @@ Pobranie produktów kategorii:
 
 Pobranie produktów na podstawie własnego zapytania:
 
-    $query = new ProductsQuery($baseUrlToApi);
+    $apiUrl = 'http://xxxxxxxxxxxx';
+    $query = new ProductsQuery($apiUrl);
     $query->setFields(ProductsRepository::$fieldsForList);
     ...
     $products = $productsRepo->fetchProductsByQuery($query);
