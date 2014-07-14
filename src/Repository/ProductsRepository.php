@@ -44,6 +44,12 @@ class ProductsRepository
         'url_original', 'offer_shop_id', 'shop_name', 'shop_url', 'top_category_id', 'top_position', 'photo_id'
     );
 
+    public static $fieldsWithBestOfferForProductBox = array(
+        'id', 'url', 'product_id', 'title', 'prices', 'offer_count', 'shop_count', 'category_id', 'offer_id',
+        'url_original', 'offer_shop_id', 'shop_name', 'shop_url', 'top_category_id', 'top_position', 'photo_id',
+        'offer_with_minimum_price,offer_with_minimum_price.click_url'
+    );
+
     public static $fieldsForProductPage = array(
         'id','url','category_id','description_html','description_html_generated','id','price_min','price_max',
         'is_with_photo','photo_id','producer_name','product_type_id','source','source_id','title','title_normalized',
