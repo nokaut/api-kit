@@ -83,12 +83,24 @@ Pobranie kategorii na podstawie jej URL:
     $categoryUrl = 'laptopy';
     $category = $categoriesRepository->fetchByUrl($categoryUrl);
 
+Pobranie kategorii wraz z jej podkategoriami (będzie uzupełnione pole $category->getChildren()):
+
+    $categoriesRepository = $apiKit->getCategoriesRepository();
+    $categories = $categoriesRepo->fetchByParentIdWithChildren($categoryParentId, 2);
+
 Pobranie produktów kategorii:
 
     $productsRepository = $apiKit->getProductsRepository();
     $categoryIds = array(127);
     $limit = 20;
     $products = $productsRepository->fetchProductsByCategory($categoryIds, $limit, ProductsRepository::$fieldsForProductPage);
+
+Pobranie produktów na podstawie własnego zapytania:
+
+    $query = new ProductsQuery($baseUrlToApi);
+    $query->setFields(ProductsRepository::$fieldsForList);
+    ...
+    $products = $productsRepo->fetchProductsByQuery($query);
 
 Pobranie produktu na podstawie jego URL:
 
