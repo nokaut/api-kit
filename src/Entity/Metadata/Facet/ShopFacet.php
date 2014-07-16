@@ -29,6 +29,10 @@ class ShopFacet extends EntityAbstract
      * @var string
      */
     protected $url;
+    /**
+     * @var bool
+     */
+    protected $is_filter;
 
     /**
      * @param int $id
@@ -94,5 +98,20 @@ class ShopFacet extends EntityAbstract
         return $this->url;
     }
 
+    /**
+     * @param boolean $is_filter
+     */
+    public function setIsFilter($is_filter)
+    {
+        $this->is_filter = $is_filter;
+    }
 
-} 
+    /**
+     * @return boolean
+     */
+    public function getIsFilter()
+    {
+        return $this->is_filter;
+    }
+
+}
