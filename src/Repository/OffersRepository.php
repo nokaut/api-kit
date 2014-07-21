@@ -73,7 +73,7 @@ class OffersRepository
      * @param Sort $sort
      * @return OffersQuery
      */
-    protected function prepareQueryForFetchOffersByProductId($productId, array $fields, Sort $sort)
+    protected function prepareQueryForFetchOffersByProductId($productId, array $fields, Sort $sort = null)
     {
         $query = new OffersQuery($this->apiBaseUrl);
         $query->setFields($fields);

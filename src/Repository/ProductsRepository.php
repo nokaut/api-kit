@@ -285,7 +285,7 @@ class ProductsRepository
      * @param Sort $sort
      * @return ProductsQuery
      */
-    protected function prepareQueryForFetchProductsByCategory(array $categoryIds, $limit, array $fields, Sort $sort)
+    protected function prepareQueryForFetchProductsByCategory(array $categoryIds, $limit, array $fields, Sort $sort = null)
     {
         $query = new ProductsQuery($this->apiBaseUrl);
         $query->setCategoryIds($categoryIds);
