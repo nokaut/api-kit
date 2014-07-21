@@ -13,7 +13,7 @@ use Nokaut\ApiKit\Collection\Offers;
 use Nokaut\ApiKit\Converter\Metadata\OffersMetadataConverter;
 use Nokaut\ApiKit\Entity\Metadata\OffersMetadata;
 
-class OffersConverter implements ConverterInterace
+class OffersConverter implements ConverterInterface
 {
 
     /**

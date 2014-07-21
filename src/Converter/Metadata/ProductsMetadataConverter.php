@@ -9,13 +9,13 @@
 namespace Nokaut\ApiKit\Converter\Metadata;
 
 
-use Nokaut\ApiKit\Converter\ConverterInterace;
+use Nokaut\ApiKit\Converter\ConverterInterface;
 use Nokaut\ApiKit\Converter\Metadata\Products\PagingConverter;
 use Nokaut\ApiKit\Converter\Metadata\Products\QueryConverter;
 use Nokaut\ApiKit\Converter\Metadata\Products\SortConverter;
 use Nokaut\ApiKit\Entity\Metadata\ProductsMetadata;
 
-class ProductsMetadataConverter implements ConverterInterace
+class ProductsMetadataConverter implements ConverterInterface
 {
     public function convert(\stdClass $object)
     {

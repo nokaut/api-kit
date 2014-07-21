@@ -9,10 +9,10 @@
 namespace Nokaut\ApiKit\Converter\Metadata\Facet;
 
 
-use Nokaut\ApiKit\Converter\ConverterInterace;
+use Nokaut\ApiKit\Converter\ConverterInterface;
 use Nokaut\ApiKit\Entity\Metadata\Facet\CategoryFacet;
 
-class CategoryFacetConverter implements ConverterInterace
+class CategoryFacetConverter implements ConverterInterface
 {
     public function convert(\stdClass $object)
     {

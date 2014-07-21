@@ -9,10 +9,10 @@
 namespace Nokaut\ApiKit\Converter\Offer;
 
 
-use Nokaut\ApiKit\Converter\ConverterInterace;
+use Nokaut\ApiKit\Converter\ConverterInterface;
 use Nokaut\ApiKit\Entity\Offer\Property;
 
-class PropertyConverter implements ConverterInterace
+class PropertyConverter implements ConverterInterface
 {
     public function convert(\stdClass $object)
     {

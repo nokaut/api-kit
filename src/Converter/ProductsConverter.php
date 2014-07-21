@@ -18,7 +18,7 @@ use Nokaut\ApiKit\Converter\Metadata\Facet\ShopFacetConverter;
 use Nokaut\ApiKit\Converter\Metadata\ProductsMetadataConverter;
 use Nokaut\ApiKit\Entity\Product;
 
-class ProductsConverter implements ConverterInterace
+class ProductsConverter implements ConverterInterface
 {
 
     /**

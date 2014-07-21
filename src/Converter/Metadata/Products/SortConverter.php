@@ -9,10 +9,10 @@
 namespace Nokaut\ApiKit\Converter\Metadata\Products;
 
 
-use Nokaut\ApiKit\Converter\ConverterInterace;
+use Nokaut\ApiKit\Converter\ConverterInterface;
 use Nokaut\ApiKit\Entity\Metadata\Products\Sort;
 
-class SortConverter implements ConverterInterace
+class SortConverter implements ConverterInterface
 {
     public function convert(\stdClass $object)
     {

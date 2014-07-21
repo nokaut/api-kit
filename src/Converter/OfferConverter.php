@@ -13,7 +13,7 @@ use Nokaut\ApiKit\Converter\Offer\PropertyConverter;
 use Nokaut\ApiKit\Converter\Offer\ShopConverter;
 use Nokaut\ApiKit\Entity\Offer;
 
-class OfferConverter implements ConverterInterace
+class OfferConverter implements ConverterInterface
 {
     public function convert(\stdClass $object)
     {
