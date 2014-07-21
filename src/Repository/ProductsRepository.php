@@ -37,7 +37,7 @@ class ProductsRepository
     /**
      * @var string
      */
-    private $apiBaseUrl;
+    protected $apiBaseUrl;
 
     public static $fieldsForProductBox = array(
         'id', 'url', 'product_id', 'title', 'prices', 'offer_count', 'shop_count', 'category_id', 'offer_id',
@@ -84,9 +84,7 @@ class ProductsRepository
      */
     public function fetchProducts($limit, array $fields)
     {
-        $query = new ProductsQuery($this->apiBaseUrl);
-        $query->setLimit($limit);
-        $query->setFields($fields);
+        $query = $this->prepareQueryForFetchProducts($limit, $fields);
 
         $objectsFromApi = $this->clientApi->send($query);
 
@@ -101,10 +99,7 @@ class ProductsRepository
      */
     public function fetchProductsByProducerName($producerName, $limit, array $fields)
     {
-        $query = new ProductsQuery($this->apiBaseUrl);
-        $query->setProducerName($producerName);
-        $query->setLimit($limit);
-        $query->setFields($fields);
+        $query = $this->prepareQueryForFetchProductsByProducerName($producerName, $limit, $fields);
 
         $objectsFromApi = $this->clientApi->send($query);
 
@@ -120,13 +115,7 @@ class ProductsRepository
      */
     public function fetchProductsByCategory(array $categoryIds, $limit, array $fields, Sort $sort = null)
     {
-        $query = new ProductsQuery($this->apiBaseUrl);
-        $query->setCategoryIds($categoryIds);
-        $query->setLimit($limit);
-        $query->setFields($fields);
-        if ($sort) {
-            $query->setOrder($sort->getField(), $sort->getOrder());
-        }
+        $query = $this->prepareQueryForFetchProductsByCategory($categoryIds, $limit, $fields, $sort);
 
         $objectsFromApi = $this->clientApi->send($query);
 
@@ -141,12 +130,7 @@ class ProductsRepository
      */
     public function fetchSimilarProductsWithHigherPrice(Product $product, $limit, array $fields)
     {
-        $query = new ProductsQuery($this->apiBaseUrl);
-        $query->setCategoryIds(array($product->getCategoryId()));
-        $query->setFilterPriceMinFrom($product->getPrices()->getMin());
-        $query->setLimit($limit);
-        $query->setFields($fields);
-        $query->setOrder('price_min', 'desc');
+        $query = $this->prepareQueryForFetchSimilarProductsWithHigherPrice($product, $limit, $fields);
 
         $objectsFromApi = $this->clientApi->send($query);
 
@@ -161,12 +145,7 @@ class ProductsRepository
      */
     public function fetchSimilarProductsWithLowerPrice(Product $product, $limit, array $fields)
     {
-        $query = new ProductsQuery($this->apiBaseUrl);
-        $query->setCategoryIds(array($product->getCategoryId()));
-        $query->setFilterPriceMinTo($product->getPrices()->getMin());
-        $query->setLimit($limit);
-        $query->setFields($fields);
-        $query->setOrder('price_min', 'asc');
+        $query = $this->prepareQueryForFetchSimilarProductsWithLowerPrice($product, $limit, $fields);
 
         $objectsFromApi = $this->clientApi->send($query);
 
@@ -203,9 +182,7 @@ class ProductsRepository
      */
     public function fetchProductById($id, array $fields)
     {
-        $query = new ProductQuery($this->apiBaseUrl);
-        $query->setFields($fields);
-        $query->setProductId($id);
+        $query = $this->prepareQueryForFetchProductById($id, $fields);
         $objectsFromApi = $this->clientApi->send($query);
 
         return $this->convertProduct($objectsFromApi);
@@ -219,16 +196,7 @@ class ProductsRepository
      */
     public function fetchProductsByUrl($url, array $fields, $limit = 20)
     {
-        $query = new ProductsQuery($this->apiBaseUrl);
-        $query->setFields($fields);
-        $query->addFilter('url', $url);
-        $query->setFields($fields);
-        $query->addFacet('query');
-        $query->addFacet('categories');
-        $query->addFacet('producer_name');
-        $query->addFacet('properties');
-        $query->addFacetRange('price_min', 4);
-        $query->setLimit($limit);
+        $query = $this->prepareQueryForFetchProductsByUrl($url, $fields, $limit);
         $objectsFromApi = $this->clientApi->send($query);
 
         return $this->convertProducts($objectsFromApi);
@@ -241,9 +209,7 @@ class ProductsRepository
      */
     public function fetchProductByUrl($url, array $fields)
     {
-        $query = new ProductQuery($this->apiBaseUrl);
-        $query->setFields($fields);
-        $query->setUrl($url);
+        $query = $this->prepareQueryForFetchProductByUrl($url, $fields);
         $objectsFromApi = $this->clientApi->send($query);
 
         return $this->convertProduct($objectsFromApi);
@@ -255,9 +221,7 @@ class ProductsRepository
      */
     public function fetchCountProductsByPhrase($phrase)
     {
-        $query = new ProductsQuery($this->apiBaseUrl);
-        $query->setFields(array('id'));
-        $query->setPhrase($phrase);
+        $query = $this->prepareQueryForFetchCountProductsByPhrase($phrase);
 
         $objectsFromApi = $this->clientApi->send($query);
 
@@ -284,6 +248,147 @@ class ProductsRepository
     private function convertProduct(\stdClass $objectFromApi)
     {
         return $this->converterProduct->convert($objectFromApi);
+    }
+
+    /**
+     * @param $limit
+     * @param array $fields
+     * @return ProductsQuery
+     */
+    protected function prepareQueryForFetchProducts($limit, array $fields)
+    {
+        $query = new ProductsQuery($this->apiBaseUrl);
+        $query->setLimit($limit);
+        $query->setFields($fields);
+        return $query;
+    }
+
+    /**
+     * @param $producerName
+     * @param $limit
+     * @param array $fields
+     * @return ProductsQuery
+     */
+    protected function prepareQueryForFetchProductsByProducerName($producerName, $limit, array $fields)
+    {
+        $query = new ProductsQuery($this->apiBaseUrl);
+        $query->setProducerName($producerName);
+        $query->setLimit($limit);
+        $query->setFields($fields);
+        return $query;
+    }
+
+    /**
+     * @param array $categoryIds
+     * @param $limit
+     * @param array $fields
+     * @param Sort $sort
+     * @return ProductsQuery
+     */
+    protected function prepareQueryForFetchProductsByCategory(array $categoryIds, $limit, array $fields, Sort $sort)
+    {
+        $query = new ProductsQuery($this->apiBaseUrl);
+        $query->setCategoryIds($categoryIds);
+        $query->setLimit($limit);
+        $query->setFields($fields);
+        if ($sort) {
+            $query->setOrder($sort->getField(), $sort->getOrder());
+            return $query;
+        }
+        return $query;
+    }
+
+    /**
+     * @param Product $product
+     * @param $limit
+     * @param array $fields
+     * @return ProductsQuery
+     */
+    protected function prepareQueryForFetchSimilarProductsWithHigherPrice(Product $product, $limit, array $fields)
+    {
+        $query = new ProductsQuery($this->apiBaseUrl);
+        $query->setCategoryIds(array($product->getCategoryId()));
+        $query->setFilterPriceMinFrom($product->getPrices()->getMin());
+        $query->setLimit($limit);
+        $query->setFields($fields);
+        $query->setOrder('price_min', 'desc');
+        return $query;
+    }
+
+    /**
+     * @param Product $product
+     * @param $limit
+     * @param array $fields
+     * @return ProductsQuery
+     */
+    protected function prepareQueryForFetchSimilarProductsWithLowerPrice(Product $product, $limit, array $fields)
+    {
+        $query = new ProductsQuery($this->apiBaseUrl);
+        $query->setCategoryIds(array($product->getCategoryId()));
+        $query->setFilterPriceMinTo($product->getPrices()->getMin());
+        $query->setLimit($limit);
+        $query->setFields($fields);
+        $query->setOrder('price_min', 'asc');
+        return $query;
+    }
+
+    /**
+     * @param $id
+     * @param array $fields
+     * @return ProductQuery
+     */
+    protected function prepareQueryForFetchProductById($id, array $fields)
+    {
+        $query = new ProductQuery($this->apiBaseUrl);
+        $query->setFields($fields);
+        $query->setProductId($id);
+        return $query;
+    }
+
+    /**
+     * @param $url
+     * @param array $fields
+     * @param $limit
+     * @return ProductsQuery
+     */
+    protected function prepareQueryForFetchProductsByUrl($url, array $fields, $limit)
+    {
+        $query = new ProductsQuery($this->apiBaseUrl);
+        $query->setFields($fields);
+        $query->addFilter('url', $url);
+        $query->setFields($fields);
+        $query->addFacet('query');
+        $query->addFacet('categories');
+        $query->addFacet('producer_name');
+        $query->addFacet('properties');
+        $query->addFacetRange('price_min', 4);
+        $query->setLimit($limit);
+        return $query;
+    }
+
+    /**
+     * @param $url
+     * @param array $fields
+     * @return ProductQuery
+     */
+    protected function prepareQueryForFetchProductByUrl($url, array $fields)
+    {
+        $query = new ProductQuery($this->apiBaseUrl);
+        $query->setFields($fields);
+        $query->setUrl($url);
+        return $query;
+    }
+
+    /**
+     * @param $phrase
+     * @return ProductsQuery
+     */
+    protected function prepareQueryForFetchCountProductsByPhrase($phrase)
+    {
+        $query = new ProductsQuery($this->apiBaseUrl);
+        $query->setFields(array('id'));
+        $query->setPhrase($phrase);
+        return $query;
     }
 
 }

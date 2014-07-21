@@ -98,12 +98,42 @@ class AsyncRepositoryTest extends \PHPUnit_Framework_TestCase
         $query = new CategoryQuery(self::$baseUrl);
         $query->setFields(array('id,title'));
         $query->setUrl("laptopy");
-        echo $query->createRequestPath();
         $fetch3 = new CategoryAsyncFetch($query);
         $fetches->addFetch($fetch3);
 
         $this->cut->fetchAsync($fetches);
 
+
+        $this->assertEmpty($fetch1->getResult());
+        $this->assertNotEmpty($fetch2->getResult());
+        $this->assertNotEmpty($fetch3->getResult());
+
+    }
+
+    public function testProductsCategoriesAddFetchAsync()
+    {
+
+        $query = new ProductsQuery(self::$baseUrl);
+        $query->setFields(array('id,title'));
+        $query->setLimit(1);
+        $query->addFilter('urlll', "dddd");
+        $fetch1 = new ProductsAsyncFetch($query);
+        $this->cut->addFetch($fetch1);
+
+        $query = new ProductsQuery(self::$baseUrl);
+        $query->setFields(array('id,title'));
+        $query->setLimit(1);
+        $query->addFilter('url', "laptopy");
+        $fetch2 = new ProductsAsyncFetch($query);
+        $this->cut->addFetch($fetch2);
+
+        $query = new CategoryQuery(self::$baseUrl);
+        $query->setFields(array('id,title'));
+        $query->setUrl("laptopy");
+        $fetch3 = new CategoryAsyncFetch($query);
+        $this->cut->addFetch($fetch3);
+
+        $this->cut->fetchAllAsync();
 
         $this->assertEmpty($fetch1->getResult());
         $this->assertNotEmpty($fetch2->getResult());
