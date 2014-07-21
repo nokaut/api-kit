@@ -61,16 +61,18 @@ class RestClientApi implements ClientApiInterface
      */
     public function send(QueryBuilderInterface $query)
     {
-        $cacheKey = 'api-' . md5($query->createRequestPath());
+        $requestPath = $query->createRequestPath();
+        $cacheKey = 'api-' . md5($requestPath);
 
         $cacheResult = $this->cache->get($cacheKey);
         if ($cacheResult) {
+            $this->logger->debug('get data from cache query: ' . $requestPath);
             return $this->convertResponse(unserialize($cacheResult));
         }
 
         $startTime = microtime(true);
 
-        $request = $this->client->createRequest('GET', $query->createRequestPath());
+        $request = $this->client->createRequest('GET', $requestPath);
         $response = null;
         try {
             $response = $this->client->send($request);
