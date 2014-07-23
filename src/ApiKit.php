@@ -12,8 +12,11 @@ namespace Nokaut\ApiKit;
 use CommerceGuys\Guzzle\Plugin\Oauth2\Oauth2Plugin;
 use Nokaut\ApiKit\ClientApi\Rest\RestClientApi;
 use Nokaut\ApiKit\Repository\AsyncRepository;
+use Nokaut\ApiKit\Repository\CategoriesAsyncRepository;
 use Nokaut\ApiKit\Repository\CategoriesRepository;
+use Nokaut\ApiKit\Repository\OffersAsyncRepository;
 use Nokaut\ApiKit\Repository\OffersRepository;
+use Nokaut\ApiKit\Repository\ProductsAsyncRepository;
 use Nokaut\ApiKit\Repository\ProductsRepository;
 
 class ApiKit
@@ -49,6 +52,20 @@ class ApiKit
 
     /**
      * @param Config $config
+     * @return ProductsAsyncRepository
+     */
+    public function getProductsAsyncRepository(Config $config = null)
+    {
+        if (!$config) {
+            $config = $this->config;
+        }
+        $this->validate($config);
+
+        return new ProductsAsyncRepository($config->getApiUrl());
+    }
+
+    /**
+     * @param Config $config
      * @return CategoriesRepository
      */
     public function getCategoriesRepository(Config $config = null)
@@ -66,6 +83,20 @@ class ApiKit
 
     /**
      * @param Config $config
+     * @return CategoriesAsyncRepository
+     */
+    public function getCategoriesAsyncRepository(Config $config = null)
+    {
+        if (!$config) {
+            $config = $this->config;
+        }
+        $this->validate($config);
+
+        return new CategoriesAsyncRepository($config->getApiUrl());
+    }
+
+    /**
+     * @param Config $config
      * @return OffersRepository
      */
     public function getOffersRepository(Config $config = null)
@@ -79,6 +110,20 @@ class ApiKit
         $restClientApi = $this->getClientApi($config);
 
         return new OffersRepository($config->getApiUrl(), $restClientApi);
+    }
+
+    /**
+     * @param Config $config
+     * @return OffersAsyncRepository
+     */
+    public function getOffersAsyncRepository(Config $config = null)
+    {
+        if (!$config) {
+            $config = $this->config;
+        }
+        $this->validate($config);
+
+        return new OffersAsyncRepository($config->getApiUrl());
     }
 
     /**
