@@ -13,17 +13,28 @@ use Nokaut\ApiKit\ClientApi\ClientApiInterface;
 use Nokaut\ApiKit\ClientApi\Rest\Async\AsyncFetch;
 use Nokaut\ApiKit\ClientApi\Rest\Async\AsyncFetches;
 
-class AsyncRepository
+class AsyncRepository implements AsyncRepositoryInterface
 {
+    /**
+     * @var $this
+     */
+    private static $instance;
     /**
      * @var AsyncFetches
      */
     protected $fetches;
 
+    public static function getInstance(ClientApiInterface $clientApi)
+    {
+        if (is_null(self::$instance)) {
+            self::$instance = new self($clientApi);
+        }
+        return self::$instance;
+    }
     /**
      * @param ClientApiInterface $clientApi
      */
-    public function __construct(ClientApiInterface $clientApi)
+    private function __construct(ClientApiInterface $clientApi)
     {
         $this->clientApi = $clientApi;
         $this->fetches = new AsyncFetches();
@@ -53,6 +64,7 @@ class AsyncRepository
         }
 
         $this->fetchAsync($this->fetches);
+        $this->clearAllFetches();
     }
 
     /**

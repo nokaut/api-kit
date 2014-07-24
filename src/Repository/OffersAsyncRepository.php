@@ -9,18 +9,35 @@
 namespace Nokaut\ApiKit\Repository;
 
 
+use Nokaut\ApiKit\ClientApi\ClientApiInterface;
 use Nokaut\ApiKit\ClientApi\Rest\Async\OffersAsyncFetch;
 use Nokaut\ApiKit\ClientApi\Rest\Query\Sort;
 
-class OffersAsyncRepository extends OffersRepository
+class OffersAsyncRepository extends OffersRepository implements AsyncRepositoryInterface
 {
+    /**
+     * @var AsyncRepository
+     */
+    private $asyncRepo;
 
     /**
      * @param string $apiBaseUrl
+     * @param ClientApiInterface $clientApi
      */
-    public function __construct($apiBaseUrl)
+    public function __construct($apiBaseUrl, ClientApiInterface $clientApi)
     {
         $this->apiBaseUrl = $apiBaseUrl;
+        $this->asyncRepo = AsyncRepository::getInstance($clientApi);
+    }
+
+    public function clearAllFetches()
+    {
+        $this->asyncRepo->clearAllFetches();
+    }
+
+    public function fetchAllAsync()
+    {
+        $this->asyncRepo->fetchAllAsync();
     }
 
     /**
@@ -31,8 +48,8 @@ class OffersAsyncRepository extends OffersRepository
      */
     public function fetchOffersByProductId($productId, array $fields, Sort $sort = null)
     {
-        return new OffersAsyncFetch($this->prepareQueryForFetchOffersByProductId($productId, $fields, $sort));
+        $offersAsyncFetch = new OffersAsyncFetch($this->prepareQueryForFetchOffersByProductId($productId, $fields, $sort));
+        $this->asyncRepo->addFetch($offersAsyncFetch);
+        return $offersAsyncFetch;
     }
-
-
 }

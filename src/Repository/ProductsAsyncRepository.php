@@ -9,6 +9,7 @@
 namespace Nokaut\ApiKit\Repository;
 
 
+use Nokaut\ApiKit\ClientApi\ClientApiInterface;
 use Nokaut\ApiKit\ClientApi\Rest\Async\AsyncFetch;
 use Nokaut\ApiKit\ClientApi\Rest\Async\ProductAsyncFetch;
 use Nokaut\ApiKit\ClientApi\Rest\Async\ProductsAsyncFetch;
@@ -17,15 +18,31 @@ use Nokaut\ApiKit\ClientApi\Rest\Query\Sort;
 use Nokaut\ApiKit\Converter\ProductsWithBestOfferConverter;
 use Nokaut\ApiKit\Entity\Product;
 
-class ProductsAsyncRepository extends ProductsRepository
+class ProductsAsyncRepository extends ProductsRepository implements AsyncRepositoryInterface
 {
+    /**
+     * @var AsyncRepository
+     */
+    private $asyncRepo;
 
     /**
      * @param string $apiBaseUrl
+     * @param ClientApiInterface $clientApi
      */
-    public function __construct($apiBaseUrl)
+    public function __construct($apiBaseUrl, ClientApiInterface $clientApi)
     {
         $this->apiBaseUrl = $apiBaseUrl;
+        $this->asyncRepo = AsyncRepository::getInstance($clientApi);
+    }
+
+    public function clearAllFetches()
+    {
+        $this->asyncRepo->clearAllFetches();
+    }
+
+    public function fetchAllAsync()
+    {
+        $this->asyncRepo->fetchAllAsync();
     }
 
     /**
@@ -35,7 +52,9 @@ class ProductsAsyncRepository extends ProductsRepository
      */
     public function fetchProducts($limit, array $fields)
     {
-        return new ProductsAsyncFetch($this->prepareQueryForFetchProducts($limit, $fields));
+        $productsAsyncFetch = new ProductsAsyncFetch($this->prepareQueryForFetchProducts($limit, $fields));
+        $this->asyncRepo->addFetch($productsAsyncFetch);
+        return $productsAsyncFetch;
     }
 
     /**
@@ -46,7 +65,9 @@ class ProductsAsyncRepository extends ProductsRepository
      */
     public function fetchProductsByProducerName($producerName, $limit, array $fields)
     {
-        return new ProductsAsyncFetch($this->prepareQueryForFetchProductsByProducerName($producerName, $limit, $fields));
+        $productsAsyncFetch = new ProductsAsyncFetch($this->prepareQueryForFetchProductsByProducerName($producerName, $limit, $fields));
+        $this->asyncRepo->addFetch($productsAsyncFetch);
+        return $productsAsyncFetch;
     }
 
     /**
@@ -58,7 +79,9 @@ class ProductsAsyncRepository extends ProductsRepository
      */
     public function fetchProductsByCategory(array $categoryIds, $limit, array $fields, Sort $sort = null)
     {
-        return new ProductsAsyncFetch($this->prepareQueryForFetchProductsByCategory($categoryIds, $limit, $fields, $sort));
+        $productsAsyncFetch = new ProductsAsyncFetch($this->prepareQueryForFetchProductsByCategory($categoryIds, $limit, $fields, $sort));
+        $this->asyncRepo->addFetch($productsAsyncFetch);
+        return $productsAsyncFetch;
     }
 
     /**
@@ -69,7 +92,9 @@ class ProductsAsyncRepository extends ProductsRepository
      */
     public function fetchSimilarProductsWithHigherPrice(Product $product, $limit, array $fields)
     {
-        return new ProductsAsyncFetch($this->prepareQueryForFetchSimilarProductsWithHigherPrice($product, $limit, $fields));
+        $productsAsyncFetch = new ProductsAsyncFetch($this->prepareQueryForFetchSimilarProductsWithHigherPrice($product, $limit, $fields));
+        $this->asyncRepo->addFetch($productsAsyncFetch);
+        return $productsAsyncFetch;
     }
 
     /**
@@ -80,7 +105,9 @@ class ProductsAsyncRepository extends ProductsRepository
      */
     public function fetchSimilarProductsWithLowerPrice(Product $product, $limit, array $fields)
     {
-        return new ProductsAsyncFetch($this->prepareQueryForFetchSimilarProductsWithLowerPrice($product, $limit, $fields));
+        $productsAsyncFetch = new ProductsAsyncFetch($this->prepareQueryForFetchSimilarProductsWithLowerPrice($product, $limit, $fields));
+        $this->asyncRepo->addFetch($productsAsyncFetch);
+        return $productsAsyncFetch;
     }
 
     /**
@@ -89,7 +116,9 @@ class ProductsAsyncRepository extends ProductsRepository
      */
     public function fetchProductsByQuery(ProductsQuery $query)
     {
-        return new ProductsAsyncFetch($query);
+        $productsAsyncFetch = new ProductsAsyncFetch($query);
+        $this->asyncRepo->addFetch($productsAsyncFetch);
+        return $productsAsyncFetch;
     }
 
     /**
@@ -98,7 +127,9 @@ class ProductsAsyncRepository extends ProductsRepository
      */
     public function fetchProductsWithBestOfferByQuery(ProductsQuery $query)
     {
-        return new AsyncFetch($query, new ProductsWithBestOfferConverter());
+        $asyncFetch = new AsyncFetch($query, new ProductsWithBestOfferConverter());
+        $this->asyncRepo->addFetch($asyncFetch);
+        return $asyncFetch;
     }
 
     /**
@@ -108,7 +139,9 @@ class ProductsAsyncRepository extends ProductsRepository
      */
     public function fetchProductById($id, array $fields)
     {
-        return new ProductAsyncFetch($this->prepareQueryForFetchProductById($id, $fields));
+        $productAsyncFetch = new ProductAsyncFetch($this->prepareQueryForFetchProductById($id, $fields));
+        $this->asyncRepo->addFetch($productAsyncFetch);
+        return $productAsyncFetch;
     }
 
     /**
@@ -119,7 +152,9 @@ class ProductsAsyncRepository extends ProductsRepository
      */
     public function fetchProductsByUrl($url, array $fields, $limit = 20)
     {
-        return new ProductsAsyncFetch($this->prepareQueryForFetchProductsByUrl($url, $fields, $limit));
+        $productsAsyncFetch = new ProductsAsyncFetch($this->prepareQueryForFetchProductsByUrl($url, $fields, $limit));
+        $this->asyncRepo->addFetch($productsAsyncFetch);
+        return $productsAsyncFetch;
     }
 
     /**
@@ -129,7 +164,9 @@ class ProductsAsyncRepository extends ProductsRepository
      */
     public function fetchProductByUrl($url, array $fields)
     {
-        return new ProductAsyncFetch($this->prepareQueryForFetchProductByUrl($url, $fields));
+        $productAsyncFetch = new ProductAsyncFetch($this->prepareQueryForFetchProductByUrl($url, $fields));
+        $this->asyncRepo->addFetch($productAsyncFetch);
+        return $productAsyncFetch;
     }
 
     /**
@@ -138,7 +175,9 @@ class ProductsAsyncRepository extends ProductsRepository
      */
     public function fetchCountProductsByPhrase($phrase)
     {
-        return new ProductsAsyncFetch($this->prepareQueryForFetchCountProductsByPhrase($phrase));
+        $productsAsyncFetch = new ProductsAsyncFetch($this->prepareQueryForFetchCountProductsByPhrase($phrase));
+        $this->asyncRepo->addFetch($productsAsyncFetch);
+        return $productsAsyncFetch;
     }
 
 }

@@ -61,7 +61,9 @@ class ApiKit
         }
         $this->validate($config);
 
-        return new ProductsAsyncRepository($config->getApiUrl());
+        $restClientApi = $this->getClientApi($config);
+
+        return new ProductsAsyncRepository($config->getApiUrl(), $restClientApi);
     }
 
     /**
@@ -74,7 +76,6 @@ class ApiKit
             $config = $this->config;
         }
         $this->validate($config);
-
 
         $restClientApi = $this->getClientApi($config);
 
@@ -92,7 +93,9 @@ class ApiKit
         }
         $this->validate($config);
 
-        return new CategoriesAsyncRepository($config->getApiUrl());
+        $restClientApi = $this->getClientApi($config);
+
+        return new CategoriesAsyncRepository($config->getApiUrl(), $restClientApi);
     }
 
     /**
@@ -105,7 +108,6 @@ class ApiKit
             $config = $this->config;
         }
         $this->validate($config);
-
 
         $restClientApi = $this->getClientApi($config);
 
@@ -123,7 +125,9 @@ class ApiKit
         }
         $this->validate($config);
 
-        return new OffersAsyncRepository($config->getApiUrl());
+        $restClientApi = $this->getClientApi($config);
+
+        return new OffersAsyncRepository($config->getApiUrl(), $restClientApi);
     }
 
     /**
@@ -139,7 +143,7 @@ class ApiKit
 
         $restClientApi = $this->getClientApi($config);
 
-        return new AsyncRepository($restClientApi);
+        return AsyncRepository::getInstance($restClientApi);
     }
 
     private function validate(Config $config)
