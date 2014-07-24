@@ -41,7 +41,7 @@ class AsyncRepositoryTest extends \PHPUnit_Framework_TestCase
         $oauth2->setAccessToken($accessToken);
         $client = new RestClientApi(new NullCache(), new TestLogger(), $oauth2);
 
-        $this->cut = new AsyncRepository($client);
+        $this->cut = AsyncRepository::getInstance($client);
     }
 
     public function testFetchAsync()
