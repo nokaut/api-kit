@@ -76,9 +76,9 @@ class RestClientApi implements ClientApiInterface
 
         foreach ($queries as $index => $query) {
             if(empty($results[$index])) {
-                $cacheKey = $this->prepareCacheKey($query);
-                $this->cache->save($cacheKey, serialize($responses[$index]));
                 if ($responses[$index]->getStatusCode() == 200) {
+                    $cacheKey = $this->prepareCacheKey($query);
+                    $this->cache->save($cacheKey, serialize($responses[$index]));
                     $results[$index] = $this->convertResponse($responses[$index]);
                 } else {
                     $results[$index] = null;
