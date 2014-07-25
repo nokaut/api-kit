@@ -76,10 +76,11 @@ class RestClientApi implements ClientApiInterface
 
         foreach ($queries as $index => $query) {
             if(empty($results[$index])) {
-                if ($responses[$index]->getStatusCode() == 200) {
+                $response = array_shift($responses);
+                if ($response && $response->getStatusCode() == 200) {
                     $cacheKey = $this->prepareCacheKey($query);
-                    $this->cache->save($cacheKey, serialize($responses[$index]));
-                    $results[$index] = $this->convertResponse($responses[$index]);
+                    $this->cache->save($cacheKey, serialize($response));
+                    $results[$index] = $this->convertResponse($response);
                 } else {
                     $results[$index] = null;
                 }
@@ -96,10 +97,12 @@ class RestClientApi implements ClientApiInterface
     private function getCacheResults(array $queries, array &$results, array &$queriesToSend)
     {
         foreach ($queries as $index => $query) {
+            /** @var QueryBuilderInterface $query */
             $cacheKey = $this->prepareCacheKey($query);
 
             $cacheResult = $this->cache->get($cacheKey);
             if ($cacheResult) {
+                $this->logger->debug("get data from cache, query: " . $query->createRequestPath());
                 $results[$index] = $this->convertResponse(unserialize($cacheResult));
             } else {
                 $queriesToSend[] = $query;
@@ -121,7 +124,7 @@ class RestClientApi implements ClientApiInterface
 
         $cacheResult = $this->cache->get($cacheKey);
         if ($cacheResult) {
-            $this->logger->debug('get data from cache query: ' . $requestPath);
+            $this->logger->debug('get data from cache, query: ' . $requestPath);
             return $this->convertResponse(unserialize($cacheResult));
         }
 
