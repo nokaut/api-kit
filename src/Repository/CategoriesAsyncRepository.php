@@ -10,8 +10,10 @@ namespace Nokaut\ApiKit\Repository;
 
 
 use Nokaut\ApiKit\ClientApi\ClientApiInterface;
+use Nokaut\ApiKit\ClientApi\Rest\Async\AsyncFetch;
 use Nokaut\ApiKit\ClientApi\Rest\Async\CategoriesAsyncFetch;
 use Nokaut\ApiKit\ClientApi\Rest\Async\CategoryAsyncFetch;
+use Nokaut\ApiKit\Converter\Category\CategoriesGrouperConverter;
 use Nokaut\ApiKit\Entity\Category;
 
 class CategoriesAsyncRepository extends CategoriesRepository implements AsyncRepositoryInterface
@@ -48,7 +50,7 @@ class CategoriesAsyncRepository extends CategoriesRepository implements AsyncRep
      */
     public function fetchByParentIdWithChildren($parentId, $depth = 2)
     {
-        $categoriesAsyncFetch = new CategoriesAsyncFetch($this->prepareQueryForFetchByParentIdWithChildren($parentId, $depth));
+        $categoriesAsyncFetch = new AsyncFetch($this->prepareQueryForFetchByParentIdWithChildren($parentId, $depth),new CategoriesGrouperConverter());
         $this->asyncRepo->addFetch($categoriesAsyncFetch);
         return $categoriesAsyncFetch;
     }
