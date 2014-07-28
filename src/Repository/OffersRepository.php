@@ -23,7 +23,7 @@ class OffersRepository
     /**
      * @var string
      */
-    private $apiBaseUrl;
+    protected $apiBaseUrl;
     /**
      * @var OffersConverter
      */
@@ -53,15 +53,9 @@ class OffersRepository
         $this->apiBaseUrl = $apiBaseUrl;
     }
 
-    public function getOffersByProductId($productId, array $fields, Sort $sort = null)
+    public function fetchOffersByProductId($productId, array $fields, Sort $sort = null)
     {
-        $query = new OffersQuery($this->apiBaseUrl);
-        $query->setFields($fields);
-        $query->setProductId($productId);
-
-        if ($sort) {
-            $query->setOrder($sort->getField(), $sort->getOrder());
-        }
+        $query = $this->prepareQueryForFetchOffersByProductId($productId, $fields, $sort);
 
         $objectsFromApi = $this->clientApi->send($query);
 
@@ -71,5 +65,24 @@ class OffersRepository
     private function convertOffers($objectsFromApi)
     {
         return $this->converterOffers->convert($objectsFromApi);
+    }
+
+    /**
+     * @param $productId
+     * @param array $fields
+     * @param Sort $sort
+     * @return OffersQuery
+     */
+    protected function prepareQueryForFetchOffersByProductId($productId, array $fields, Sort $sort = null)
+    {
+        $query = new OffersQuery($this->apiBaseUrl);
+        $query->setFields($fields);
+        $query->setProductId($productId);
+
+        if ($sort) {
+            $query->setOrder($sort->getField(), $sort->getOrder());
+            return $query;
+        }
+        return $query;
     }
 } 

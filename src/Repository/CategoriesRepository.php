@@ -16,7 +16,7 @@ use Nokaut\ApiKit\ClientApi\Rest\Query\CategoriesQuery;
 use Nokaut\ApiKit\ClientApi\Rest\Query\CategoryQuery;
 use Nokaut\ApiKit\Converter\CategoriesConverter;
 use Nokaut\ApiKit\Converter\CategoryConverter;
-use Nokaut\ApiKit\Converter\Category\CategoryGrouper;
+use Nokaut\ApiKit\Converter\Category\CategoriesGrouperConverter;
 use Nokaut\ApiKit\Collection\Sort\CategoriesSort;
 
 class CategoriesRepository
@@ -29,7 +29,7 @@ class CategoriesRepository
     /**
      * @var string
      */
-    private $apiBaseUrl;
+    protected $apiBaseUrl;
     /**
      * @var CategoriesConverter
      */
@@ -85,16 +85,11 @@ class CategoriesRepository
      */
     public function fetchByParentIdWithChildren($parentId, $depth = 2)
     {
-        $query = new CategoriesQuery($this->apiBaseUrl);
-        $query->setFields($this->getFieldsWithoutDescription());
-        $query->setParentId($parentId);
-        $query->setDepth($depth);
+        $query = $this->prepareQueryForFetchByParentIdWithChildren($parentId, $depth);
         $objectsFromApi = $this->clientApi->send($query);
 
-        $categories = $this->convertCategories($objectsFromApi);
-
-        $grouperToTreeData = new CategoryGrouper();
-        $categoriesGrouped = $grouperToTreeData->joinCategoriesWithChildren($categories);
+        $converter = new CategoriesGrouperConverter();
+        $categoriesGrouped = $converter->convert($objectsFromApi);
         return $categoriesGrouped;
     }
 
@@ -104,9 +99,7 @@ class CategoriesRepository
      */
     public function fetchByParentId($parentId)
     {
-        $query = new CategoriesQuery($this->apiBaseUrl);
-        $query->setFields($this->getFieldsWithoutDescription());
-        $query->setParentId($parentId);
+        $query = $this->prepareQueryForFetchByParentId($parentId);
         $object = $this->clientApi->send($query);
         return $this->convertCategories($object);
     }
@@ -117,9 +110,7 @@ class CategoriesRepository
      */
     public function fetchById($categoryId)
     {
-        $query = new CategoryQuery($this->apiBaseUrl);
-        $query->setFields(self::$fieldsAll);
-        $query->setId($categoryId);
+        $query = $this->prepareQueryForFetchById($categoryId);
         $object = $this->clientApi->send($query);
         return $this->convertCategory($object);
     }
@@ -130,19 +121,14 @@ class CategoriesRepository
      */
     public function fetchByUrl($categoryUrl)
     {
-        $query = new CategoryQuery($this->apiBaseUrl);
-        $query->setFields(self::$fieldsAll);
-        $query->setUrl($categoryUrl);
+        $query = $this->prepareQueryForFetchByUrl($categoryUrl);
         $object = $this->clientApi->send($query);
         return $this->convertCategory($object);
     }
 
     public function fetchMenuCategories()
     {
-        $query = new CategoriesQuery($this->apiBaseUrl);
-        $query->setFields(self::getFieldsWithoutDescription());
-        $query->setParentId(0);
-        $query->setDepth(0);
+        $query = $this->prepareQueryForFetchMenuCategories();
         $object = $this->clientApi->send($query);
 
         $categories = $this->convertCategories($object);
@@ -152,9 +138,7 @@ class CategoriesRepository
 
     public function fetchCategoriesByIds(array $ids)
     {
-        $query = new CategoriesQuery($this->apiBaseUrl);
-        $query->setFields(self::getFieldsWithoutDescription());
-        $query->setCategoryIds($ids);
+        $query = $this->prepareQueryForFetchCategoriesByIds($ids);
         $object = $this->clientApi->send($query);
 
         $categories = $this->convertCategories($object);
@@ -178,6 +162,80 @@ class CategoriesRepository
     private function convertCategories(\stdClass $objectFromApi)
     {
         return $this->converterCategories->convert($objectFromApi);
+    }
+
+    /**
+     * @param $parentId
+     * @param $depth
+     * @return CategoriesQuery
+     */
+    protected function prepareQueryForFetchByParentIdWithChildren($parentId, $depth)
+    {
+        $query = new CategoriesQuery($this->apiBaseUrl);
+        $query->setFields($this->getFieldsWithoutDescription());
+        $query->setParentId($parentId);
+        $query->setDepth($depth);
+        return $query;
+    }
+
+    /**
+     * @param $parentId
+     * @return CategoriesQuery
+     */
+    protected function prepareQueryForFetchByParentId($parentId)
+    {
+        $query = new CategoriesQuery($this->apiBaseUrl);
+        $query->setFields($this->getFieldsWithoutDescription());
+        $query->setParentId($parentId);
+        return $query;
+    }
+
+    /**
+     * @param $categoryId
+     * @return CategoryQuery
+     */
+    protected function prepareQueryForFetchById($categoryId)
+    {
+        $query = new CategoryQuery($this->apiBaseUrl);
+        $query->setFields(self::$fieldsAll);
+        $query->setId($categoryId);
+        return $query;
+    }
+
+    /**
+     * @param $categoryUrl
+     * @return CategoryQuery
+     */
+    protected function prepareQueryForFetchByUrl($categoryUrl)
+    {
+        $query = new CategoryQuery($this->apiBaseUrl);
+        $query->setFields(self::$fieldsAll);
+        $query->setUrl($categoryUrl);
+        return $query;
+    }
+
+    /**
+     * @return CategoriesQuery
+     */
+    protected function prepareQueryForFetchMenuCategories()
+    {
+        $query = new CategoriesQuery($this->apiBaseUrl);
+        $query->setFields(self::getFieldsWithoutDescription());
+        $query->setParentId(0);
+        $query->setDepth(0);
+        return $query;
+    }
+
+    /**
+     * @param array $ids
+     * @return CategoriesQuery
+     */
+    protected function prepareQueryForFetchCategoriesByIds(array $ids)
+    {
+        $query = new CategoriesQuery($this->apiBaseUrl);
+        $query->setFields(self::getFieldsWithoutDescription());
+        $query->setCategoryIds($ids);
+        return $query;
     }
 
 }

@@ -9,10 +9,10 @@
 namespace Nokaut\ApiKit\Converter\Offer\Shop;
 
 
-use Nokaut\ApiKit\Converter\ConverterInterace;
+use Nokaut\ApiKit\Converter\ConverterInterface;
 use Nokaut\ApiKit\Entity\Offer\Shop\OpineoRating;
 
-class OpineoRatingConverter implements ConverterInterace
+class OpineoRatingConverter implements ConverterInterface
 {
 
     public function convert(\stdClass $object)

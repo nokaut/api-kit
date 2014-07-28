@@ -9,11 +9,11 @@
 namespace Nokaut\ApiKit\Converter\Offer;
 
 
-use Nokaut\ApiKit\Converter\ConverterInterace;
+use Nokaut\ApiKit\Converter\ConverterInterface;
 use Nokaut\ApiKit\Converter\Offer\Shop\OpineoRatingConverter;
 use Nokaut\ApiKit\Entity\Offer\Shop;
 
-class ShopConverter implements ConverterInterace
+class ShopConverter implements ConverterInterface
 {
 
     public function convert(\stdClass $object)

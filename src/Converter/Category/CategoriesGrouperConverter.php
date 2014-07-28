@@ -11,18 +11,23 @@ namespace Nokaut\ApiKit\Converter\Category;
 
 
 use Nokaut\ApiKit\Collection\Categories;
+use Nokaut\ApiKit\Converter\CategoriesConverter;
 use Nokaut\ApiKit\Entity\Category;
 
-class CategoryGrouper
+class CategoriesGrouperConverter extends CategoriesConverter
 {
-
+    public function convert(\stdClass $object)
+    {
+        $categories = parent::convert($object);
+        return $this->joinCategoriesWithChildren($categories);
+    }
 
     /**
      * replace plain data (parents and children) to tree data
      * @param Categories $categories
      * @return Categories
      */
-    public function joinCategoriesWithChildren(Categories $categories)
+    protected function joinCategoriesWithChildren(Categories $categories)
     {
         $categoriesGrouped = array();
 

@@ -11,7 +11,8 @@ namespace Nokaut\ApiKit\Converter;
 
 use PHPUnit_Framework_TestCase;
 
-class ProductsConverterTest extends PHPUnit_Framework_TestCase {
+class ProductsConverterTest extends PHPUnit_Framework_TestCase
+{
 
     public function testConvert()
     {
@@ -21,6 +22,34 @@ class ProductsConverterTest extends PHPUnit_Framework_TestCase {
 
         $this->assertCount(count($correctObject->products), $products);
         $this->assertInstanceOf('Nokaut\ApiKit\Collection\CollectionAbstract', $products);
+        $this->assertInstanceOf('Nokaut\ApiKit\Entity\Metadata\ProductsMetadata', $products->getMetadata());
+
+        $this->assertNotEmpty($products->getCategories());
+        foreach ($products->getCategories() as $category) {
+            $this->assertInstanceOf('Nokaut\ApiKit\Entity\Metadata\Facet\CategoryFacet', $category);
+        }
+
+        $this->assertNotEmpty($products->getShops());
+        foreach ($products->getShops() as $shop) {
+            $this->assertInstanceOf('Nokaut\ApiKit\Entity\Metadata\Facet\ShopFacet', $shop);
+        }
+
+        $this->assertNotEmpty($products->getProducers());
+        foreach ($products->getProducers() as $producer) {
+            $this->assertInstanceOf('Nokaut\ApiKit\Entity\Metadata\Facet\ProducerFacet', $producer);
+        }
+
+        $this->assertNotEmpty($products->getPrices());
+        foreach ($products->getPrices() as $prices) {
+            $this->assertInstanceOf('Nokaut\ApiKit\Entity\Metadata\Facet\PriceFacet', $prices);
+        }
+
+        $this->assertNotEmpty($products->getProperties());
+        foreach ($products->getProperties() as $property) {
+            $this->assertInstanceOf('Nokaut\ApiKit\Entity\Metadata\Facet\PropertyFacet', $property);
+        }
+
+        $this->assertNotEmpty($products);
         foreach ($products as $product) {
             $this->assertInstanceOf('Nokaut\ApiKit\Entity\Product', $product);
         }
@@ -214,10 +243,134 @@ class ProductsConverterTest extends PHPUnit_Framework_TestCase {
                     "facet_range": { },
                     "offset": 0,
                     "limit": 20,
-                    "sort": { }
+                    "sort": {
+                        "category_sort3": "desc"
+                     }
                 }
-            }
+            },
+            "categories": [
+                {
+                    "id": 107,
+                    "total": 24,
+                    "url": "/aparaty-analogowe/",
+                    "name": "Aparaty analogowe"
+                },
+                {
+                    "id": 5795,
+                    "total": 70,
+                    "url": "/lustrzanki-cyfrowe/",
+                    "name": "Lustrzanki cyfrowe"
+                },
+                {
+                    "id": 5796,
+                    "total": 431,
+                    "url": "/aparaty-cyfrowe/",
+                    "name": "Aparaty cyfrowe"
+                },
+                {
+                    "id": 8444,
+                    "total": 116,
+                    "url": "/pozostale-aparaty-fotograficzne/",
+                    "name": "Pozostałe aparaty fotograficzne"
+                }
 
+            ],
+            "shops": [
+                {
+                    "id": 23239,
+                    "name": "Saturn",
+                    "total": 257,
+                    "url": "/aparaty-fotograficzne/sklep:saturn-pl.html"
+                },
+                {
+                    "id": 443,
+                    "name": "Cyfrowe.pl",
+                    "total": 243,
+                    "url": "/aparaty-fotograficzne/sklep:cyfrowe-pl.html"
+                }
+            ],
+            "producers": [
+                {
+                    "id": "nikon",
+                    "name": "Nikon",
+                    "total": 77,
+                    "url": "/aparaty-fotograficzne/producent:nikon.html"
+                },
+                {
+                    "id": "fujifilm",
+                    "name": "Fujifilm",
+                    "total": 74,
+                    "url": "/aparaty-fotograficzne/producent:fujifilm.html"
+                }
+            ],
+            "prices": [
+                {
+                    "min": 39.99,
+                    "max": 424,
+                    "total": 106,
+                    "url": "/aparaty-cyfrowe/cena:39.99~424.00.html"
+                },
+                {
+                    "min": 425.38,
+                    "max": 741.7,
+                    "total": 118,
+                    "url": "/aparaty-cyfrowe/cena:425.38~741.70.html"
+                },
+                {
+                    "min": 747,
+                    "max": 1249,
+                    "total": 112,
+                    "url": "/aparaty-cyfrowe/cena:747.00~1249.00.html"
+                },
+                {
+                    "min": 1259,
+                    "max": 9900,
+                    "total": 95,
+                    "url": "/aparaty-cyfrowe/cena:1259.00~9900.00.html"
+                }
+
+            ],
+            "properties": [
+                {
+                    "id": 18,
+                    "name": "Zoom optyczny",
+                    "unit": "x",
+                    "values": [
+                        {
+                            "name": "5.0",
+                            "total": 72,
+                            "url": "/aparaty-cyfrowe/zoom-optyczny:5.00+x.html"
+                        }
+                    ]
+                },
+                {
+                    "id": 2717,
+                    "name": "Zoom cyfrowy",
+                    "unit": "x",
+                    "values": [
+                        {
+                            "name": "4.0",
+                            "total": 101,
+                            "url": "/aparaty-cyfrowe/zoom-cyfrowy:4.00+x.html"
+                        },
+                        {
+                            "name": "5.0",
+                            "total": 24,
+                            "url": "/aparaty-cyfrowe/zoom-cyfrowy:5.00+x.html"
+                        },
+                        {
+                            "name": "6.0",
+                            "total": 18,
+                            "url": "/aparaty-cyfrowe/zoom-cyfrowy:6.00+x.html"
+                        },
+                        {
+                            "name": "2.0",
+                            "total": 12,
+                            "url": "/aparaty-cyfrowe/zoom-cyfrowy:2.00+x.html"
+                        }
+                    ]
+                }
+            ]
         }
         ');
     }

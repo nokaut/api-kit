@@ -53,6 +53,64 @@ class RestClientApi implements ClientApiInterface
     }
 
     /**
+     * @param QueryBuilderInterface[] $queries
+     * @return array
+     */
+    public function sendMulti(array $queries)
+    {
+        $results = array();
+
+        $queriesToSend = array();
+        $this->getCacheResults($queries, $results, $queriesToSend);
+
+        $requests = array();
+        foreach ($queriesToSend as $query) {
+            /** @var QueryBuilderInterface $query */
+            $requests[] = $this->client->createRequest('GET', $query->createRequestPath(), null, null, array('exceptions' => false));
+        }
+        $startTime = microtime(true);
+
+        $responses = $this->client->send($requests);
+
+        $this->logMulti($requests, $responses, $startTime, LogLevel::DEBUG);
+
+        foreach ($queries as $index => $query) {
+            if(empty($results[$index])) {
+                $response = array_shift($responses);
+                if ($response && $response->getStatusCode() == 200) {
+                    $cacheKey = $this->prepareCacheKey($query);
+                    $this->cache->save($cacheKey, serialize($response));
+                    $results[$index] = $this->convertResponse($response);
+                } else {
+                    $results[$index] = null;
+                }
+            }
+        }
+        return $results;
+    }
+
+    /**
+     * @param array $queries
+     * @param array $results
+     * @param array $queriesToSend - cacheKey => QueryBuilderInterface
+     */
+    private function getCacheResults(array $queries, array &$results, array &$queriesToSend)
+    {
+        foreach ($queries as $index => $query) {
+            /** @var QueryBuilderInterface $query */
+            $cacheKey = $this->prepareCacheKey($query);
+
+            $cacheResult = $this->cache->get($cacheKey);
+            if ($cacheResult) {
+                $this->logger->debug("get data from cache, query: " . $query->createRequestPath());
+                $results[$index] = $this->convertResponse(unserialize($cacheResult));
+            } else {
+                $queriesToSend[] = $query;
+            }
+        }
+    }
+
+    /**
      * @param QueryBuilderInterface $query
      * @return EntityAbstract|CollectionInterface
      *
@@ -61,16 +119,18 @@ class RestClientApi implements ClientApiInterface
      */
     public function send(QueryBuilderInterface $query)
     {
-        $cacheKey = 'api-' . md5($query->createRequestPath());
+        $requestPath = $query->createRequestPath();
+        $cacheKey = $this->prepareCacheKey($query);
 
         $cacheResult = $this->cache->get($cacheKey);
         if ($cacheResult) {
+            $this->logger->debug('get data from cache, query: ' . $requestPath);
             return $this->convertResponse(unserialize($cacheResult));
         }
 
         $startTime = microtime(true);
 
-        $request = $this->client->createRequest('GET', $query->createRequestPath());
+        $request = $this->client->createRequest('GET', $requestPath);
         $response = null;
         try {
             $response = $this->client->send($request);
@@ -140,5 +200,46 @@ class RestClientApi implements ClientApiInterface
         $timeInfo = '| runtime: ' . round($runTime, 3) . ' s, total: ' . round($totalTime, 3) . ' s';
 
         $this->logger->log($level, $url . ' ' . $timeInfo);
+    }
+
+    /**
+     * @param RequestInterface[] $requests
+     * @param \Guzzle\Http\Message\Response[] $responses
+     * @param $startTime
+     * @param string $level - level form Psr\Log\LogLevel
+     */
+    private function logMulti(array $requests, array $responses, $startTime, $level = LogLevel::INFO)
+    {
+        $countRequest = count($requests);
+        $endTime = microtime(true);
+        foreach ($requests as $index => $request) {
+            $response = $responses[$index];
+            $url = $request->getUrl();
+            $statusCode = $response->getStatusCode();
+
+            if (!in_array($statusCode, array(200))) {
+                $this->logger->error("Fail response: " . ($index + 1) . "/" . $countRequest
+                    . " " . $statusCode . " (" . $response->getBody(true) . ") in " . $url
+                    . "\n" . $request->getRawHeaders()
+                    . "\n" . $response->getRawHeaders()
+                );
+            } else {
+                $runTime = (string)$response->getHeader('X-Runtime');
+                $totalTime = ($endTime - $startTime);
+                $timeInfo = '| request runtime: ' . round($runTime, 3) . ' s, all requests: ' . round($totalTime, 3) . ' s';
+
+                $this->logger->log($level, "Multi requests, request " . ($index + 1) . "/" . $countRequest
+                    . " " . $url . ' ' . $timeInfo);
+            }
+        }
+    }
+
+    /**
+     * @param QueryBuilderInterface $query
+     * @return string
+     */
+    private function prepareCacheKey(QueryBuilderInterface $query)
+    {
+        return 'api-' . md5($query->createRequestPath());
     }
 } 

@@ -12,10 +12,11 @@ namespace Nokaut\ApiKit\Converter;
 
 use Nokaut\ApiKit\Converter\Product\PricesConverter;
 use Nokaut\ApiKit\Converter\Product\PropertyConverter;
+use Nokaut\ApiKit\Converter\Product\RatingConverter;
 use Nokaut\ApiKit\Converter\Product\ShopConverter;
 use Nokaut\ApiKit\Entity\Product;
 
-class ProductConverter implements ConverterInterace
+class ProductConverter implements ConverterInterface
 {
     public function convert(\stdClass $object)
     {
@@ -32,7 +33,7 @@ class ProductConverter implements ConverterInterace
         return $product;
     }
 
-    private function convertSubObject(Product $product, $field, $value)
+    protected function convertSubObject(Product $product, $field, $value)
     {
         switch ($field) {
             case 'properties':
@@ -49,10 +50,14 @@ class ProductConverter implements ConverterInterace
                 $shopConverter = new ShopConverter();
                 $product->setShop($shopConverter->convert($value));
                 break;
+            case 'rating':
+                $ratingConverter = new RatingConverter();
+                $product->setRating($ratingConverter->convert($value));
+                break;
         }
     }
 
-    private function convertProperties(array $propertiesFromApi)
+    protected function convertProperties(array $propertiesFromApi)
     {
         $propertyConverter = new PropertyConverter();
         $propertiesList = array();
@@ -67,7 +72,7 @@ class ProductConverter implements ConverterInterace
     /**
      * @param $product
      */
-    private function sortPhotoIds(Product $product)
+    protected function sortPhotoIds(Product $product)
     {
         $photoIds = $product->getPhotoIds();
         if($photoIds == null) {

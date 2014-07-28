@@ -9,10 +9,10 @@
 namespace Nokaut\ApiKit\Converter\Product;
 
 
-use Nokaut\ApiKit\Converter\ConverterInterace;
+use Nokaut\ApiKit\Converter\ConverterInterface;
 use Nokaut\ApiKit\Entity\Product\Shop;
 
-class ShopConverter implements ConverterInterace {
+class ShopConverter implements ConverterInterface {
 
     public function convert(\stdClass $object)
     {

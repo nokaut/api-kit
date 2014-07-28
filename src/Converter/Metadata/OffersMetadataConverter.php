@@ -9,10 +9,10 @@
 namespace Nokaut\ApiKit\Converter\Metadata;
 
 
-use Nokaut\ApiKit\Converter\ConverterInterace;
+use Nokaut\ApiKit\Converter\ConverterInterface;
 use Nokaut\ApiKit\Entity\Metadata\OffersMetadata;
 
-class OffersMetadataConverter implements ConverterInterace
+class OffersMetadataConverter implements ConverterInterface
 {
     public function convert(\stdClass $object)
     {

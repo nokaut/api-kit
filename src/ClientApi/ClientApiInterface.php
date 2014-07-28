@@ -14,4 +14,9 @@ use Nokaut\ApiKit\ClientApi\Rest\Query\QueryBuilderInterface;
 interface ClientApiInterface {
 
     public function send(QueryBuilderInterface $query);
-} 
+    /**
+     * @param QueryBuilderInterface[] $queries
+     * @return array
+     */
+    public function sendMulti(array $queries);
+}

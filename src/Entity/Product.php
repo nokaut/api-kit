@@ -9,9 +9,10 @@
 namespace Nokaut\ApiKit\Entity;
 
 
-use Nokaut\ApiKit\Entity\Metadata\Facets\CategoryFacet;
+use Nokaut\ApiKit\Entity\Metadata\Facet\CategoryFacet;
 use Nokaut\ApiKit\Entity\Product\Prices;
 use Nokaut\ApiKit\Entity\Product\Property;
+use Nokaut\ApiKit\Entity\Product\Rating;
 
 class Product extends EntityAbstract
 {
@@ -100,6 +101,11 @@ class Product extends EntityAbstract
      * @var float
      */
     protected $click_value;
+
+    /**
+     * @var Rating
+     */
+    protected $rating;
 
     /**
      * @param boolean $block_adsense
@@ -411,7 +417,7 @@ class Product extends EntityAbstract
     }
 
     /**
-     * @return Metadata\Facets\CategoryFacet
+     * @return CategoryFacet
      */
     public function getCategory()
     {
@@ -432,6 +438,22 @@ class Product extends EntityAbstract
     public function getClickValue()
     {
         return $this->click_value;
+    }
+
+    /**
+     * @param Rating $rating
+     */
+    public function setRating($rating)
+    {
+        $this->rating = $rating;
+    }
+
+    /**
+     * @return Rating
+     */
+    public function getRating()
+    {
+        return $this->rating;
     }
 
 }

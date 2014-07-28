@@ -12,7 +12,7 @@ namespace Nokaut\ApiKit\Converter;
 
 use Nokaut\ApiKit\Collection\Categories;
 
-class CategoriesConverter implements ConverterInterace
+class CategoriesConverter implements ConverterInterface
 {
     private $categoryConverter;
 

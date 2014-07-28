@@ -2,28 +2,27 @@
 /**
  * Created by PhpStorm.
  * User: jjuszkiewicz
- * Date: 05.06.2014
- * Time: 14:44
+ * Date: 11.07.2014
+ * Time: 14:03
  */
 
-namespace Nokaut\ApiKit\Entity\Metadata\Facets;
+namespace Nokaut\ApiKit\Entity\Metadata\Facet;
 
 
 use Nokaut\ApiKit\Entity\EntityAbstract;
 
-class CategoryFacet extends EntityAbstract
+class ProducerFacet extends EntityAbstract
 {
-
-    /**
-     * @var int
-     */
-    protected $id;
     /**
      * @var string
      */
-    protected $title;
+    protected $id;
     /**
-     * @var int
+     * @var string $name
+     */
+    protected $name;
+    /**
+     * @var $int
      */
     protected $total;
     /**
@@ -32,7 +31,12 @@ class CategoryFacet extends EntityAbstract
     protected $url;
 
     /**
-     * @param int $id
+     * @var bool
+     */
+    protected $is_filter = false;
+
+    /**
+     * @param string $id
      */
     public function setId($id)
     {
@@ -40,7 +44,7 @@ class CategoryFacet extends EntityAbstract
     }
 
     /**
-     * @return int
+     * @return string
      */
     public function getId()
     {
@@ -48,23 +52,23 @@ class CategoryFacet extends EntityAbstract
     }
 
     /**
-     * @param string $title
+     * @param string $name
      */
-    public function setTitle($title)
+    public function setName($name)
     {
-        $this->title = $title;
+        $this->name = $name;
     }
 
     /**
      * @return string
      */
-    public function getTitle()
+    public function getName()
     {
-        return $this->title;
+        return $this->name;
     }
 
     /**
-     * @param int $total
+     * @param mixed $total
      */
     public function setTotal($total)
     {
@@ -72,7 +76,7 @@ class CategoryFacet extends EntityAbstract
     }
 
     /**
-     * @return int
+     * @return mixed
      */
     public function getTotal()
     {
@@ -95,5 +99,20 @@ class CategoryFacet extends EntityAbstract
         return $this->url;
     }
 
+    /**
+     * @param boolean $is_filter
+     */
+    public function setIsFilter($is_filter)
+    {
+        $this->is_filter = $is_filter;
+    }
 
-}
+    /**
+     * @return boolean
+     */
+    public function getIsFilter()
+    {
+        return $this->is_filter;
+    }
+
+} 

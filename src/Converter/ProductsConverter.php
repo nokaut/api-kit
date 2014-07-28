@@ -9,12 +9,16 @@
 namespace Nokaut\ApiKit\Converter;
 
 
-
 use Nokaut\ApiKit\Collection\Products;
-use Nokaut\ApiKit\Entity\Metadata\Facets\CategoryFacet;
+use Nokaut\ApiKit\Converter\Metadata\Facet\CategoryFacetConverter;
+use Nokaut\ApiKit\Converter\Metadata\Facet\PriceFacetConverter;
+use Nokaut\ApiKit\Converter\Metadata\Facet\ProducerFacetConverter;
+use Nokaut\ApiKit\Converter\Metadata\Facet\PropertyFacetConverter;
+use Nokaut\ApiKit\Converter\Metadata\Facet\ShopFacetConverter;
+use Nokaut\ApiKit\Converter\Metadata\ProductsMetadataConverter;
 use Nokaut\ApiKit\Entity\Product;
 
-class ProductsConverter implements ConverterInterace
+class ProductsConverter implements ConverterInterface
 {
 
     /**
@@ -31,31 +35,37 @@ class ProductsConverter implements ConverterInterace
 
         $products = new Products($productsArray);
 
-        //todo convert to Entity/Metadata use MetadataConverter
-        $products->setMetadata($object->_metadata);
-
-        $this->setCategoriesFromMetadata($products);
+        $this->convertMetadataAndFacets($object, $products);
 
         return $products;
     }
 
-    public function setCategoriesFromMetadata(Products $products)
+    /**
+     * @param \stdClass $object
+     * @param Products $products
+     */
+    protected function convertMetadataAndFacets(\stdClass $object, Products $products)
     {
-        if (false == isset($products->getMetadata()->facets->categories)) {
+        $products->setMetadata($this->convertMetadata($object));
+        $products->setCategories($this->convertCategories($object));
+        $products->setShops($this->convertShops($object));
+        $products->setProducers($this->convertProducers($object));
+        $products->setPrices($this->convertPrices($object));
+        $products->setProperties($this->convertProperties($object));
+
+        $this->setCategoriesFromMetadata($products);
+    }
+
+    protected function setCategoriesFromMetadata(Products $products)
+    {
+        if (!$products->getCategories()) {
             return;
         }
-        $categories = $products->getMetadata()->facets->categories;
+        $categories = $products->getCategories();
         $categoriesById = array();
 
         foreach ($categories as $category) {
-            $categoryEntity = new CategoryFacet();
-            $categoryEntity->setId($category->id);
-            $categoryEntity->setTitle($category->title);
-            $categoryEntity->setTotal($category->total);
-            if (isset($category->url)) {
-                $categoryEntity->setUrl($category->url);
-            }
-            $categoriesById[$category->id] = $categoryEntity;
+            $categoriesById[$category->getId()] = $category;
         }
 
         foreach ($products as $product) {
@@ -65,5 +75,88 @@ class ProductsConverter implements ConverterInterace
             }
         }
 
+    }
+
+    /**
+     * @param \stdClass $object
+     * @return mixed
+     */
+    protected function convertMetadata(\stdClass $object)
+    {
+        if (isset($object->_metadata)) {
+            $converterMetadata = new ProductsMetadataConverter();
+            return $converterMetadata->convert($object->_metadata);
+        }
+        return null;
+    }
+
+    protected function convertCategories(\stdClass $object)
+    {
+        if (empty($object->categories)) {
+            return array();
+        }
+        $categories = array();
+        $converter = new CategoryFacetConverter();
+
+        foreach ($object->categories as $objectCategory) {
+            $categories[] = $converter->convert($objectCategory);
+        }
+        return $categories;
+    }
+
+    protected function convertShops(\stdClass $object)
+    {
+        if (empty($object->shops)) {
+            return array();
+        }
+        $shops = array();
+        $converter = new ShopFacetConverter();
+
+        foreach ($object->shops as $objectShop) {
+            $shops[] = $converter->convert($objectShop);
+        }
+        return $shops;
+    }
+
+    protected function convertProducers(\stdClass $object)
+    {
+        if (empty($object->producers)) {
+            return array();
+        }
+        $producers = array();
+        $converter = new ProducerFacetConverter();
+
+        foreach ($object->producers as $objectProducer) {
+            $producers[] = $converter->convert($objectProducer);
+        }
+        return $producers;
+    }
+
+    protected function convertPrices(\stdClass $object)
+    {
+        if (empty($object->prices)) {
+            return array();
+        }
+        $prices = array();
+        $converter = new PriceFacetConverter();
+
+        foreach ($object->prices as $objectPrice) {
+            $prices[] = $converter->convert($objectPrice);
+        }
+        return $prices;
+    }
+
+    protected function convertProperties(\stdClass $object)
+    {
+        if (empty($object->properties)) {
+            return array();
+        }
+        $properties = array();
+        $converter = new PropertyFacetConverter();
+
+        foreach ($object->properties as $objectProperty) {
+            $properties[] = $converter->convert($objectProperty);
+        }
+        return $properties;
     }
 } 
