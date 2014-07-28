@@ -54,6 +54,9 @@ class ProductConverterTest extends PHPUnit_Framework_TestCase
             case 'shop':
                 $this->assertShop($correctObject->$field, $product->get($field));
                 break;
+            case 'rating':
+                $this->assertRating($correctObject->$field, $product->get($field));
+                break;
             default:
                 $this->assertTrue(false, "not supported assert for field : " . $field);
         }
@@ -97,6 +100,13 @@ class ProductConverterTest extends PHPUnit_Framework_TestCase
     {
         foreach ($correctShop as $field => $value) {
             $this->assertEquals($value, $shop->get($field));
+        }
+    }
+
+    private function assertRating($correctRating, Product\Rating $rating)
+    {
+        foreach ($correctRating as $field => $value) {
+            $this->assertEquals($value, $rating->get($field));
         }
     }
 
@@ -170,8 +180,11 @@ class ProductConverterTest extends PHPUnit_Framework_TestCase
                     "category_id": 9162,
                     "click_url": null,
                     "block_adsense": false,
-                    "movie": "youtube"
+                    "movie": "youtube",
+                    "rating": {
+                        "rating": 3
 
+                    }
                 }');
     }
 }
