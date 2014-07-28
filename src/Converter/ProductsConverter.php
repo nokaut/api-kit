@@ -58,7 +58,7 @@ class ProductsConverter implements ConverterInterface
 
     protected function setCategoriesFromMetadata(Products $products)
     {
-        if ($products->getCategories()) {
+        if (!$products->getCategories()) {
             return;
         }
         $categories = $products->getCategories();
