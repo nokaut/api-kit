@@ -5,7 +5,7 @@
     "type": "library",
     "minimum-stability": "dev",
     "prefer-stable": true,
-    "license": "proprietary",
+    "license": "MIT",
     "authors": [
         {
             "name": "Jarosław Juszkiewicz",
