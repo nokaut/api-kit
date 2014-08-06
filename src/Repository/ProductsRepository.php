@@ -25,15 +25,15 @@ class ProductsRepository
     /**
      * @var ProductsConverter
      */
-    private $converterProducts;
+    protected $converterProducts;
     /**
      * @var ProductConverter
      */
-    private $converterProduct;
+    protected $converterProduct;
     /**
      * @var ClientApiInterface
      */
-    private $clientApi;
+    protected $clientApi;
     /**
      * @var string
      */
@@ -236,7 +236,7 @@ class ProductsRepository
      * @param \stdClass $objectFromApi
      * @return Products
      */
-    private function convertProducts(\stdClass $objectFromApi)
+    protected function convertProducts(\stdClass $objectFromApi)
     {
         return $this->converterProducts->convert($objectFromApi);
     }
@@ -245,7 +245,7 @@ class ProductsRepository
      * @param \stdClass $objectFromApi
      * @return Product
      */
-    private function convertProduct(\stdClass $objectFromApi)
+    protected function convertProduct(\stdClass $objectFromApi)
     {
         return $this->converterProduct->convert($objectFromApi);
     }
