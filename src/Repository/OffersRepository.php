@@ -19,7 +19,7 @@ class OffersRepository
     /**
      * @var ClientApiInterface
      */
-    private $clientApi;
+    protected $clientApi;
     /**
      * @var string
      */
@@ -27,7 +27,7 @@ class OffersRepository
     /**
      * @var OffersConverter
      */
-    private $converterOffers;
+    protected $converterOffers;
 
     public static $fieldsAll = array(
         'id', 'pattern_id', 'shop_id', 'shop_product_id', 'availability', 'category', 'description_html', 'title', 'price',
@@ -62,7 +62,7 @@ class OffersRepository
         return $this->convertOffers($objectsFromApi);
     }
 
-    private function convertOffers($objectsFromApi)
+    protected function convertOffers($objectsFromApi)
     {
         return $this->converterOffers->convert($objectsFromApi);
     }
