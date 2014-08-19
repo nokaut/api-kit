@@ -170,6 +170,18 @@ class ProductsAsyncRepository extends ProductsRepository implements AsyncReposit
     }
 
     /**
+     * @param string $url
+     * @param array $fields
+     * @return AsyncFetch
+     */
+    public function fetchProductWithBestOfferByUrl($url, array $fields)
+    {
+        $asyncFetch = new AsyncFetch($this->prepareQueryForFetchProductByUrl($url, $fields), new ProductsWithBestOfferConverter());
+        $this->asyncRepo->addFetch($asyncFetch);
+        return $asyncFetch;
+    }
+
+    /**
      * @param string $phrase
      * @return ProductsAsyncFetch
      */
