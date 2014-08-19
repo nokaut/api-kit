@@ -1,5 +1,9 @@
 ChangeLog
 =========
+v1.1.2
+------
+ - Dokumentacja: informacje na temat asynchronicznych zapytań do API
+
 v1.1.1
 ------
  - Dodanie ChangeLog
