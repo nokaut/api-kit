@@ -19,6 +19,7 @@ use Nokaut\ApiKit\ClientApi\Rest\Query\ProductQuery;
 use Nokaut\ApiKit\ClientApi\Rest\Query\ProductsQuery;
 use Nokaut\ApiKit\Converter\ProductConverter;
 use Nokaut\ApiKit\Converter\ProductsConverter;
+use Nokaut\ApiKit\Entity\ProductWithBestOffer;
 
 class ProductsRepository
 {
@@ -200,6 +201,21 @@ class ProductsRepository
         $objectsFromApi = $this->clientApi->send($query);
 
         return $this->convertProducts($objectsFromApi);
+    }
+
+    /**
+     * @param $url
+     * @param array $fields
+     * @param int $limit
+     * @return Products - return collection of ProductsWithBestOffer
+     */
+    public function fetchProductsWithBestOfferByUrl($url, array $fields, $limit = 20)
+    {
+        $query = $this->prepareQueryForFetchProductsByUrl($url, $fields, $limit);
+        $objectsFromApi = $this->clientApi->send($query);
+
+        $converterWithBestOffers = new ProductsWithBestOfferConverter();
+        return $converterWithBestOffers->convert($objectsFromApi);
     }
 
     /**
