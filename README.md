@@ -141,7 +141,7 @@ Poniżej przykład kodu opisanego wyżej przypadku:
         //pobieramy produkt
         $productUrl = 'jakis/url_do_produktu';
         $productsRepo = $apiKit->getProductsRepository();
-        $product = $productsRepo->fetchProductByUrl($productUrl, $this->getFieldsForProduct());
+        $product = $productsRepo->fetchProductByUrl($productUrl, ProductsRepository::$fieldsForProductPage);
 
         //inicjalizujemy zapytanie o oferty
         $offersRepo = $apiKit->getOffersAsyncRepository();
