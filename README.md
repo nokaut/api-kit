@@ -116,6 +116,49 @@ Pobranie ofert produktu na podstawie jego ID:
     $offersRepository = $apiKit->getOffersRepository();
     $offers = $offersRepository->getOffersByProductId($product->getId(), OffersRepository::$fieldsForProductPage);
 
+### Asynchroniczne odpytywanie się API (od wersji v1.1.0)
+
+Dzięki asynchronicznym zapytania do API zwiększysz szybkość strony.
+**Jak to działa?** Rozważmy przypadek strony produktu na której będzie produkt, jego oferty oraz 10 produktów z tej samej kategorii. Jeśli będziemy odpytywać API po kolei to łączny czas wyniesie sumę 3 zapytań:
+
+- zapytanie od produkt – czas 100ms
+- zapytanie o oferty produktu – czas 230ms
+- zapytanie o 10 produktów z tej samej kategorii co produkt – czas 300 ms
+Łączny czas wyniesie 100 + 230 + 300 = 630ms
+
+Jak możemy to przyspieszyć? Asynchroniczne zapytania wykonywane są jednocześnie czyli łączny czas wszystkich zapytań będzie równy najdłuższemu zapytaniu. W praktyce wygląda to tak:
+
+- odpytujemy się o produkt – czas 100ms
+- następnie jednocześnie odpytujemy się o oferty i 10 produktów z tej samej kategorii co produkt – czas wyniesie 300ms gdyż pobieranie 10 produktów trwało dłużej (300ms) niż pobieranie ofert (230ms).
+Łączny czas pobierania wszystkich danych wyniesie 400ms zamiast 630ms.
+
+Dlaczego nie pobraliśmy produkt jednocześnie z pozostałymi dwoma zapytaniami? Musieliśmy tak zrobić gdyż do pozostałych dwóch pobrań potrzebne są dane: ID produktu oraz ID kategorii.
+
+Poniżej przykład kodu opisanego wyżej przypadku:
+
+        //pobieramy produkt
+        $productUrl = 'jakis/url_do_produktu';
+        $productsRepo = $apiKit->getProductsRepository();
+        $product = $productsRepo->fetchProductByUrl($productUrl, $this->getFieldsForProduct());
+
+        //inicjalizujemy zapytanie o oferty
+        $offersRepo = $apiKit->getOffersAsyncRepository();
+        $offersFetch = $offersRepo->fetchOffersByProductId($product->getId(), OffersRepository::$fieldsForProductPage);
+
+        //inicjalizujemy zapytanie o produkty z tej samej kategorii
+        $productsRepo = $apiKit->getOffersAsyncRepository();
+        $limitProducts = 10;
+        $productsFromCategoryFetch = $productsRepo->fetchProductsByCategory(array($categoryId), $limitProducts, ProductsRepository::$fieldsForProductBox);
+
+        //pobieranie jednocześnie oferty i produkty z kategorii
+        $categoriesRepo->fetchAllAsync();
+
+        //wyniki możemy dostać metodą getResult() z obiektu zwracanego przez metody $repository->fetch....();
+        //lista ofert
+        $offers = $offersFetch->getResult();
+        //lista produktów z tej samej kategorii
+        $productsFromCategory = $productsFromCategoryFetch->getResult();
+
 FAQ
 ---
 
