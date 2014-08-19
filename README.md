@@ -124,12 +124,14 @@ Dzięki asynchronicznym zapytania do API zwiększysz szybkość strony.
 - zapytanie od produkt – czas 100ms
 - zapytanie o oferty produktu – czas 230ms
 - zapytanie o 10 produktów z tej samej kategorii co produkt – czas 300 ms
+
 Łączny czas wyniesie 100 + 230 + 300 = 630ms
 
 Jak możemy to przyspieszyć? Asynchroniczne zapytania wykonywane są jednocześnie czyli łączny czas wszystkich zapytań będzie równy najdłuższemu zapytaniu. W praktyce wygląda to tak:
 
 - odpytujemy się o produkt – czas 100ms
 - następnie jednocześnie odpytujemy się o oferty i 10 produktów z tej samej kategorii co produkt – czas wyniesie 300ms gdyż pobieranie 10 produktów trwało dłużej (300ms) niż pobieranie ofert (230ms).
+
 Łączny czas pobierania wszystkich danych wyniesie 400ms zamiast 630ms.
 
 Dlaczego nie pobraliśmy produkt jednocześnie z pozostałymi dwoma zapytaniami? Musieliśmy tak zrobić gdyż do pozostałych dwóch pobrań potrzebne są dane: ID produktu oraz ID kategorii.
