@@ -1,5 +1,9 @@
 ChangeLog
 =========
+v1.1.4
+------
+ - ProductsAsyncRepository: pobieranie produktów z najlepszą ofertą po URL
+
 v1.1.3
 ------
  - Dokumentacja: informacje na temat asynchronicznych zapytań do API
