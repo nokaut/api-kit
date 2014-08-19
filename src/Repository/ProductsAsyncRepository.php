@@ -23,7 +23,7 @@ class ProductsAsyncRepository extends ProductsRepository implements AsyncReposit
     /**
      * @var AsyncRepository
      */
-    private $asyncRepo;
+    protected $asyncRepo;
 
     /**
      * @param string $apiBaseUrl

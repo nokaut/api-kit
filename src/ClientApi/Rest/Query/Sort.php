@@ -11,8 +11,8 @@ namespace Nokaut\ApiKit\ClientApi\Rest\Query;
 
 class Sort
 {
-    const ASC = 'ASC';
-    const DESC = 'DESC';
+    const ASC = 'asc';
+    const DESC = 'desc';
 
     private $field;
     private $order;

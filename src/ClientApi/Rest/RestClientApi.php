@@ -164,15 +164,15 @@ class RestClientApi implements ClientApiInterface
     {
         $this->log($e->getRequest(), $e->getResponse(), $startTime);
 
-        if($e->getResponse()->getStatusCode() == 404){
-            throw new NotFoundException($_SERVER['REQUEST_URI'] . " 404 from api for request: " . $e->getResponse()->getRawHeaders());
+        if ($e->getResponse()->getStatusCode() == 404) {
+            throw new NotFoundException((isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '') . " 404 from api for request: " . $e->getResponse()->getRawHeaders());
         }
 
-        if($e->getResponse()->getStatusCode() == 400){
-            throw new InvalidRequestException($_SERVER['REQUEST_URI'] . " 400 from api for request: " . $e->getResponse()->getRawHeaders());
+        if ($e->getResponse()->getStatusCode() == 400) {
+            throw new InvalidRequestException((isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '') . " 400 from api for request: " . $e->getResponse()->getRawHeaders());
         }
 
-        throw new FatalResponseException($_SERVER['REQUEST_URI'] . " bad response from api (status: " . $e->getResponse()->getStatusCode() . ") "
+        throw new FatalResponseException((isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '') . " bad response from api (status: " . $e->getResponse()->getStatusCode() . ") "
             . "for request: " . $e->getRequest()->getUrl());
     }
 

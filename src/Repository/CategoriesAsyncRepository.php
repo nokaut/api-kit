@@ -21,7 +21,7 @@ class CategoriesAsyncRepository extends CategoriesRepository implements AsyncRep
     /**
      * @var AsyncRepository
      */
-    private $asyncRepo;
+    protected $asyncRepo;
 
     /**
      * @param string $apiBaseUrl

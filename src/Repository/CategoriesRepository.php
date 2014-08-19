@@ -25,7 +25,7 @@ class CategoriesRepository
     /**
      * @var ClientApiInterface
      */
-    private $clientApi;
+    protected $clientApi;
     /**
      * @var string
      */
@@ -33,13 +33,13 @@ class CategoriesRepository
     /**
      * @var CategoriesConverter
      */
-    private $converterCategories;
+    protected $converterCategories;
     /**
      * @var CategoryConverter
      */
-    private $converterCategory;
+    protected $converterCategory;
 
-    private static $fieldsAll = array(
+    protected static $fieldsAll = array(
         'id',
         'cpc_value',
         'depth',
@@ -150,7 +150,7 @@ class CategoriesRepository
      * @param \stdClass $objectFromApi
      * @return Category
      */
-    private function convertCategory(\stdClass $objectFromApi)
+    protected function convertCategory(\stdClass $objectFromApi)
     {
         return $this->converterCategory->convert($objectFromApi);
     }
@@ -159,7 +159,7 @@ class CategoriesRepository
      * @param \stdClass $objectFromApi
      * @return Categories
      */
-    private function convertCategories(\stdClass $objectFromApi)
+    protected function convertCategories(\stdClass $objectFromApi)
     {
         return $this->converterCategories->convert($objectFromApi);
     }

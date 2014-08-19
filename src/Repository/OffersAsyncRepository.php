@@ -18,7 +18,7 @@ class OffersAsyncRepository extends OffersRepository implements AsyncRepositoryI
     /**
      * @var AsyncRepository
      */
-    private $asyncRepo;
+    protected $asyncRepo;
 
     /**
      * @param string $apiBaseUrl
