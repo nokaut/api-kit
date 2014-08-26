@@ -36,10 +36,6 @@ class Product extends EntityAbstract
     /**
      * @var string
      */
-    protected $description_html_generated;
-    /**
-     * @var string
-     */
     protected $description;
     /**
      * @var Property[]
@@ -185,22 +181,6 @@ class Product extends EntityAbstract
     public function getDescriptionHtml()
     {
         return $this->description_html;
-    }
-
-    /**
-     * @param string $description_html_generated
-     */
-    public function setDescriptionHtmlGenerated($description_html_generated)
-    {
-        $this->description_html_generated = $description_html_generated;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDescriptionHtmlGenerated()
-    {
-        return $this->description_html_generated;
     }
 
     /**

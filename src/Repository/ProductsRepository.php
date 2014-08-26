@@ -52,7 +52,7 @@ class ProductsRepository
     );
 
     public static $fieldsForProductPage = array(
-        'id','url','category_id','description_html','description_html_generated','id','price_min','price_max',
+        'id','url','category_id','description_html','id','price_min','price_max',
         'is_with_photo','photo_id','producer_name','product_type_id','source','source_id','title','title_normalized',
         'properties','photo_ids','block_adsense','movie','rating'
     );
