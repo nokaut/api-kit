@@ -1,5 +1,8 @@
 ChangeLog
 =========
+v1.2.0
+------
+ - Product: Usunięcie pola description_html_generated
 v1.1.4
 ------
  - ProductsAsyncRepository i ProductsRepository: pobieranie produktów z najlepszą ofertą po URL
