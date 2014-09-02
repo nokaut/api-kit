@@ -11,6 +11,7 @@ namespace Nokaut\ApiKit\Converter;
 
 use Nokaut\ApiKit\Collection\Products;
 use Nokaut\ApiKit\Converter\Metadata\Facet\CategoryFacetConverter;
+use Nokaut\ApiKit\Converter\Metadata\Facet\PhraseFacetConverter;
 use Nokaut\ApiKit\Converter\Metadata\Facet\PriceFacetConverter;
 use Nokaut\ApiKit\Converter\Metadata\Facet\ProducerFacetConverter;
 use Nokaut\ApiKit\Converter\Metadata\Facet\PropertyFacetConverter;
@@ -52,6 +53,7 @@ class ProductsConverter implements ConverterInterface
         $products->setProducers($this->convertProducers($object));
         $products->setPrices($this->convertPrices($object));
         $products->setProperties($this->convertProperties($object));
+        $products->setPhrase($this->convertPhrase($object));
 
         $this->setCategoriesFromMetadata($products);
     }
@@ -158,5 +160,17 @@ class ProductsConverter implements ConverterInterface
             $properties[] = $converter->convert($objectProperty);
         }
         return $properties;
+    }
+
+    protected function convertPhrase(\stdClass $object)
+    {
+        if (empty($object->phrase)) {
+            return null;
+        }
+        $converter = new PhraseFacetConverter();
+
+        $phrase = $converter->convert($object->phrase);
+
+        return $phrase;
     }
 } 
