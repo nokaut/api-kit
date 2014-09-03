@@ -32,8 +32,8 @@ class PhraseFacetConverterTest extends \PHPUnit_Framework_TestCase
             {
                 "value": "lenovo",
                 "url_in_template": "/laptopy/produkt:%s,pamiec-ram:4+gb.html",
-                "url_out": "/laptopy/pamiec-ram:4+gb.html"
-
+                "url_out": "/laptopy/pamiec-ram:4+gb.html",
+                "url_category_template": "/laptopy/produkt:%s.html"
             }
             ');
     }

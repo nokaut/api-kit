@@ -25,6 +25,10 @@ class PhraseFacet extends EntityAbstract
      * @var string
      */
     protected $url_out;
+    /**
+     * @var string
+     */
+    protected $url_category_template;
 
     /**
      * @param string $url_in_template
@@ -72,6 +76,22 @@ class PhraseFacet extends EntityAbstract
     public function getValue()
     {
         return $this->value;
+    }
+
+    /**
+     * @param string $url_category_template
+     */
+    public function setUrlCategoryTemplate($url_category_template)
+    {
+        $this->url_category_template = $url_category_template;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrlCategoryTemplate()
+    {
+        return $this->url_category_template;
     }
 
 }
