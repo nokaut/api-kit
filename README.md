@@ -1,6 +1,8 @@
 Nokaut.pl Search API KIT (PHP)
 ==============================
 
+[![Build Status](https://travis-ci.org/nokaut/api-kit.svg?branch=master)](https://travis-ci.org/nokaut/api-kit)
+
 Biblioteka umożliwia komunikację z Search API oraz mapuje odpowiedzi na określone obiekty.
 
 Status
