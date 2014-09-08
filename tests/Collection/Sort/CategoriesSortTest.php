@@ -55,7 +55,7 @@ class CategoriesSortTest extends PHPUnit_Framework_TestCase
 
     private function getCategoriesCollection()
     {
-        $collection = [];
+        $collection = array();
 
         $category1 = new Category();
         $category1->setTitle("Rowery");
@@ -78,7 +78,7 @@ class CategoriesSortTest extends PHPUnit_Framework_TestCase
 
     private function getChildrenCollection()
     {
-        $collection = [];
+        $collection = array();
 
         $category1 = new Category();
         $category1->setTitle("Fotografia");
