@@ -9,4 +9,4 @@ before_script:
  - composer install
 
 notifications:
-  email: github+travis+api+kit@nokaut.pl
+  email: travis@nokaut.pl
