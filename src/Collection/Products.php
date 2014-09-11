@@ -11,6 +11,7 @@ namespace Nokaut\ApiKit\Collection;
 
 use Nokaut\ApiKit\Entity\Metadata;
 use Nokaut\ApiKit\Entity\Metadata\Facet\CategoryFacet;
+use Nokaut\ApiKit\Entity\Metadata\Facet\PhraseFacet;
 use Nokaut\ApiKit\Entity\Metadata\Facet\PriceFacet;
 use Nokaut\ApiKit\Entity\Metadata\Facet\ProducerFacet;
 use Nokaut\ApiKit\Entity\Metadata\Facet\PropertyFacet;
@@ -45,6 +46,10 @@ class Products extends CollectionAbstract
      * @var PropertyFacet[]
      */
     protected $properties = array();
+    /**
+     * @var PhraseFacet
+     */
+    protected $phrase;
 
     /**
      * @param ProductsMetadata $metadata
@@ -140,6 +145,22 @@ class Products extends CollectionAbstract
     public function getProperties()
     {
         return $this->properties;
+    }
+
+    /**
+     * @param \Nokaut\ApiKit\Entity\Metadata\Facet\PhraseFacet $phrase
+     */
+    public function setPhrase($phrase)
+    {
+        $this->phrase = $phrase;
+    }
+
+    /**
+     * @return \Nokaut\ApiKit\Entity\Metadata\Facet\PhraseFacet
+     */
+    public function getPhrase()
+    {
+        return $this->phrase;
     }
 
     /**

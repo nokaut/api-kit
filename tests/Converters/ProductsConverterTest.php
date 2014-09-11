@@ -49,10 +49,65 @@ class ProductsConverterTest extends PHPUnit_Framework_TestCase
             $this->assertInstanceOf('Nokaut\ApiKit\Entity\Metadata\Facet\PropertyFacet', $property);
         }
 
+        $this->assertNotEmpty($products->getPhrase());
+        $this->assertInstanceOf('Nokaut\ApiKit\Entity\Metadata\Facet\PhraseFacet', $products->getPhrase());
+
         $this->assertNotEmpty($products);
         foreach ($products as $product) {
             $this->assertInstanceOf('Nokaut\ApiKit\Entity\Product', $product);
         }
+    }
+
+    public function testConvertWithoutFacets()
+    {
+        $cut = new ProductsConverter();
+        $correctObject = $this->getCorrectObjectWithoutFacetAndMetadata();
+        $products = $cut->convert($correctObject);
+
+        $this->assertCount(count($correctObject->products), $products);
+        $this->assertInstanceOf('Nokaut\ApiKit\Collection\CollectionAbstract', $products);
+
+        $this->assertEmpty($products->getMetadata());
+
+        $this->assertEmpty($products->getCategories());
+
+        $this->assertEmpty($products->getShops());
+
+        $this->assertEmpty($products->getProducers());
+
+        $this->assertEmpty($products->getPrices());
+
+        $this->assertEmpty($products->getProperties());
+
+        $this->assertEmpty($products->getPhrase());
+
+        $this->assertNotEmpty($products);
+    }
+
+    private function getCorrectObjectWithoutFacetAndMetadata()
+    {
+        return json_decode('
+        {
+            "products": [
+                {
+                    "id": "51486f972da47c51ed01ffcf",
+                    "title": "Nikon Coolpix S5200",
+                    "prices": {
+                        "min": 406.71,
+                        "max": 789
+                    }
+                },
+                {
+                    "id": "50ffb8968e441a2a5c007f0b",
+                    "title": "Nikon Coolpix S6500",
+                    "prices": {
+                        "min": 479,
+                        "max": 869
+                    }
+                }
+            ]
+        }
+        ');
     }
 
     private function getCorrectObject()
@@ -370,7 +425,12 @@ class ProductsConverterTest extends PHPUnit_Framework_TestCase
                         }
                     ]
                 }
-            ]
+            ],
+            "phrase": {
+                "value": "lenovo",
+                "url_in_template": "/laptopy/produkt:%s.html",
+                "url_out": "/laptopy/"
+            }
         }
         ');
     }

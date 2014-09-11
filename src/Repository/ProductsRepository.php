@@ -61,7 +61,8 @@ class ProductsRepository
         'id','product_id','title','prices','offer_count','url','shop','shop.url_logo','shop_count','category_id',
         'offer_id','click_url','click_value','url_original','producer_name','offer_shop_id','shop.name','shop_url',
         'shop_id','top_category_id','top_position','photo_id','description_html','properties','_metadata.url',
-        '_metadata.block_adsense','offer','block_adsense','_metadata.urls','_metadata.paging','_metadata.sorts'
+        '_metadata.block_adsense','offer','block_adsense','_metadata.urls','_metadata.paging','_metadata.sorts',
+        '_phrase.value','_phrase.url_out','_phrase.url_category_template','_phrase.url_in_template'
     );
 
     public static $fieldsForSimilarProductsInProductPage = array('id','url','title','prices','photo_id');
