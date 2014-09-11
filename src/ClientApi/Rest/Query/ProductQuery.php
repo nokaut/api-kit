@@ -8,24 +8,26 @@
 
 namespace Nokaut\ApiKit\ClientApi\Rest\Query;
 
-class ProductQuery implements QueryBuilderInterface
+class ProductQuery extends QueryBuilderAbstract
 {
-
+    /**
+     * @var string
+     */
     private $baseUrl;
+
     /**
      * @var array
      */
     private $fields;
 
     /**
-     * @var array
-     */
-    private $filters = array();
-    /**
      * @var string
      */
     private $productId;
 
+    /**
+     * @param string $baseUrl
+     */
     public function __construct($baseUrl)
     {
         $this->baseUrl = $baseUrl;
@@ -47,14 +49,14 @@ class ProductQuery implements QueryBuilderInterface
     public function setUrl($url)
     {
         $url = str_replace('+', '%2b', $url); // fix for + in URL
-        $this->filters['url'] = $url;
+        $this->addFilter(new Filter\Single('url', $url));
     }
 
     public function createRequestPath()
     {
         $query = $this->createMainPart() .
             $this->createFieldsPart() .
-            $this->createFilterPart();
+            ($this->createFilterPart() ? '&' . $this->createFilterPart() : '');
 
         return $query;
     }
@@ -67,21 +69,12 @@ class ProductQuery implements QueryBuilderInterface
         return "fields=" . implode(',', $this->fields);
     }
 
-    private function createFilterPart()
-    {
-        $result = "";
-        foreach ($this->filters as $field => $value) {
-            $result .= "&filter[{$field}]={$value}";
-        }
-        return $result;
-    }
-
     /**
      * @return string
      */
     private function createMainPart()
     {
-        if($this->productId) {
+        if ($this->productId) {
             return $this->baseUrl . "product/" . $this->productId . "?";
         }
         return $this->baseUrl . "product?";

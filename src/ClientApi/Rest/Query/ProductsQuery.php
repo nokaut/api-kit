@@ -8,8 +8,10 @@
 
 namespace Nokaut\ApiKit\ClientApi\Rest\Query;
 
+use Nokaut\ApiKit\ClientApi\Rest\Query\Filter;
 
-class ProductsQuery implements QueryBuilderInterface
+
+class ProductsQuery extends QueryBuilderAbstract
 {
     /**
      * @var string
@@ -19,10 +21,7 @@ class ProductsQuery implements QueryBuilderInterface
      * @var array
      */
     private $order = array();
-    /**
-     * @var array
-     */
-    private $filters = array();
+
     /**
      * @var array
      */
@@ -35,10 +34,6 @@ class ProductsQuery implements QueryBuilderInterface
      * @var string
      */
     private $phrase;
-    /**
-     * @var array
-     */
-    private $categoriesIds = array();
     /**
      * @var int
      */
@@ -67,22 +62,17 @@ class ProductsQuery implements QueryBuilderInterface
 
     public function setFilterPriceMinFrom($value)
     {
-        $this->pricesFilter['price_min']['min'] = $value;
+        $this->addFilter(new Filter\SingleWithIndexAndOperator('price_min', 0, 'min', $value));
     }
 
     public function setFilterPriceMinTo($value)
     {
-        $this->pricesFilter['price_min']['max'] = $value;
+        $this->addFilter(new Filter\SingleWithIndexAndOperator('price_min', 0, 'max', $value));
     }
 
     public function setOrder($field, $order)
     {
         $this->order[$field] = $order;
-    }
-
-    public function addFilter($filter, $searchValue)
-    {
-        $this->filters[$filter] = $searchValue;
     }
 
     public function addFacet($name)
@@ -98,12 +88,12 @@ class ProductsQuery implements QueryBuilderInterface
 
     public function setProducerName($producerName)
     {
-        $this->filters['producer_name'] = $producerName;
+        $this->addFilter(new Filter\Single('producer_name', $producerName));
     }
 
     public function setCategoryIds(array $categoryIds)
     {
-        $this->categoriesIds = $categoryIds;
+        $this->addFilter(new Filter\MultipleWithOperator('category_ids', 'in', $categoryIds));
     }
 
     /**
@@ -152,12 +142,10 @@ class ProductsQuery implements QueryBuilderInterface
             $this->createFieldsPart() .
             $this->createQualityPart() .
             $this->createPhrasePart() .
-            $this->createFilterPart() .
-            $this->createPricesFilterPart() .
+            ($this->createFilterPart() ? '&' . $this->createFilterPart() : '') .
             $this->createFacetsPart() .
             $this->createFacetsRangePart() .
             $this->createSortPart() .
-            $this->createCategoryPart() .
             $this->createLimitPart() .
             $this->createOffsetPart();
 
@@ -174,41 +162,6 @@ class ProductsQuery implements QueryBuilderInterface
             throw new \InvalidArgumentException("fields can't be empty");
         }
         return "fields=" . implode(',', $this->fields);
-    }
-
-    private function createFilterPart()
-    {
-        $result = "";
-        foreach ($this->filters as $field => $value) {
-            if (is_array($value)) {
-                $valueEscaped = urlencode($value['value']);
-                $result .= "&filter[{$field}][{$value['operation']}]={$valueEscaped}";
-            } else {
-                $valueEscaped = urlencode($value);
-                $result .= "&filter[{$field}]={$valueEscaped}";
-            }
-        }
-        return $result;
-    }
-
-    private function createPricesFilterPart()
-    {
-        $result = "";
-        foreach ($this->pricesFilter as $priceType => $operator) {
-            foreach ($operator as $operatorType => $value) {
-                $result .= "&filter[{$priceType}][0][{$operatorType}]={$value}";
-            }
-        }
-        return $result;
-    }
-
-    private function createCategoryPart()
-    {
-        $result = "";
-        foreach ($this->categoriesIds as $categoryId) {
-            $result .= "&filter[category_ids][in][]={$categoryId}";
-        }
-        return $result;
     }
 
     private function createSortPart()

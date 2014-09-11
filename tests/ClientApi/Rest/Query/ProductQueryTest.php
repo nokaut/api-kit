@@ -22,7 +22,7 @@ class ProductQueryTest extends \PHPUnit_Framework_TestCase
 
         $url = $cut->createRequestPath();
 
-        $this->assertEquals(self::$baseUrl . "product?fields=id,title&filter[url]=medycyna-konwencjonalna/kapsiplast-10-cm-x-15-cm-x-50-szt-0b4b1e6e6dbfecfd0d7b8fc844ff06a8", $url);
+        $this->assertEquals(self::$baseUrl . "product?fields=id,title&filter[url]=medycyna-konwencjonalna%2Fkapsiplast-10-cm-x-15-cm-x-50-szt-0b4b1e6e6dbfecfd0d7b8fc844ff06a8", $url);
     }
 
     public function testCreateRequestPathWithId()

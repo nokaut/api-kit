@@ -9,9 +9,8 @@
 namespace Nokaut\ApiKit\ClientApi\Rest\Query;
 
 
-class OffersQuery implements QueryBuilderInterface
+class OffersQuery extends QueryBuilderAbstract
 {
-
     private $baseUrl;
     /**
      * @var array
@@ -84,6 +83,7 @@ class OffersQuery implements QueryBuilderInterface
     {
         $query = $this->baseUrl . $this->createMainPart() .
             $this->createFieldsPart() .
+            ($this->createFilterPart() ? '&' . $this->createFilterPart() : '') .
             $this->createLimitPart() .
             $this->createSortPart();
 
