@@ -43,12 +43,17 @@ class RestClientApi implements ClientApiInterface
      */
     private $logger;
 
+    /**
+     * @var \Symfony\Component\EventDispatcher\EventSubscriberInterface
+     */
+    private $auth;
+
     public function __construct(CacheInterface $cache, LoggerInterface $logger, EventSubscriberInterface $auth)
     {
         $this->client = new Client();
         $this->client->addSubscriber($auth);
         $this->cache = $cache;
-
+        $this->auth = $auth;
         $this->logger = $logger;
     }
 
@@ -242,4 +247,10 @@ class RestClientApi implements ClientApiInterface
     {
         return 'api-' . md5($query->createRequestPath());
     }
+
+    public function getHashObject()
+    {
+        return md5(get_class($this->cache).get_class($this->logger).serialize($this->auth));
+    }
+
 } 

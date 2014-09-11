@@ -16,4 +16,6 @@ interface CacheInterface {
     public function save($keyName = null, $content = null, $lifetime = null);
 
     public function delete($keyName);
+
+    public function getHashObject();
 } 
