@@ -46,6 +46,7 @@ class CategoriesRepository
         'description',
         'is_adult',
         'is_visible',
+        'is_visible_on_homepage',
         'title',
         'parent_id',
         'path',

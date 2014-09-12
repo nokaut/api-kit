@@ -23,6 +23,12 @@ class Category extends EntityAbstract
      * @var bool
      */
     protected $is_visible;
+
+    /**
+     * @var bool
+     */
+    protected $is_visible_on_homepage;
+
     protected $title;
     /**
      * @var int
@@ -145,6 +151,22 @@ class Category extends EntityAbstract
     public function getIsVisible()
     {
         return $this->is_visible;
+    }
+
+    /**
+     * @param boolean $is_visible_on_homepage
+     */
+    public function setIsVisibleOnHomepage($is_visible_on_homepage)
+    {
+        $this->is_visible_on_homepage = $is_visible_on_homepage;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getIsVisibleOnHomepage()
+    {
+        return $this->is_visible_on_homepage;
     }
 
     /**

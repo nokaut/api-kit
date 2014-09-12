@@ -48,6 +48,7 @@ class CategoriesConverterTest extends PHPUnit_Framework_TestCase
                    "description": "Telefony komórkowe renomowanych firm w naszej bazie ofert pozwolą Ci wybrać najkorzystniejszą cenę. Proponujemy najniższe ceny tego samego produktu!",
                    "is_adult": null,
                    "is_visible": true,
+                   "is_visible_on_homepage": true,
                    "title": "Telefony komórkowe",
                    "parent_id": "686",
                    "path": [
@@ -74,6 +75,7 @@ class CategoriesConverterTest extends PHPUnit_Framework_TestCase
                    "description": "Najkorzystniejsze oferty telefonów stacjonarnych znajdziesz w naszej bazie produktów. Stworzyliśmy zbiór ofert z renomowanych sklepów internetowych. Znajdź sklepy z najniższą ceną!",
                    "is_adult": null,
                    "is_visible": true,
+                   "is_visible_on_homepage": true,
                    "title": "Telefony stacjonarne",
                    "parent_id": "686",
                    "path": [

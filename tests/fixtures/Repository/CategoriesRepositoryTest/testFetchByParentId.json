@@ -6,6 +6,7 @@
             "depth": 2,
             "is_adult": null,
             "is_visible": true,
+            "is_visible_on_homepage": true,
             "title": "Telefony komórkowe",
             "parent_id": "686",
             "path": [

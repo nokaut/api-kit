@@ -66,6 +66,7 @@ class CategoryConverterTest extends PHPUnit_Framework_TestCase
                  "description": "Zanim złożysz zamówienie - kliknij a następnie sprawdź oferty 1215 produktów z 6 sklepów w kategorii \"Alkohole\". W Nokaut.pl sprawdzisz produkty takich producentów jak: Żywiec, Multico, Monin. ",
                  "is_adult": null,
                  "is_visible": true,
+                 "is_visible_on_homepage": true,
                  "title": "Alkohole",
                  "popularity": 76,
                  "parent_id": "6118",
