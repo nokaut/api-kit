@@ -22,9 +22,4 @@ class NullCache implements CacheInterface {
     public function delete($keyName)
     {}
 
-    public function getHashObject()
-    {
-        return "nullCache";
-    }
-
 } 

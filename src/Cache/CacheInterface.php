@@ -17,5 +17,4 @@ interface CacheInterface {
 
     public function delete($keyName);
 
-    public function getHashObject();
-} 
+}
