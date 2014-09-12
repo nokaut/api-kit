@@ -16,7 +16,7 @@ use Nokaut\ApiKit\ClientApi\Rest\Async\AsyncFetches;
 class AsyncRepository implements AsyncRepositoryInterface
 {
     /**
-     * @var $this
+     * @var AsyncRepositoryInterface[]
      */
     private static $instance;
     /**
@@ -26,10 +26,10 @@ class AsyncRepository implements AsyncRepositoryInterface
 
     public static function getInstance(ClientApiInterface $clientApi)
     {
-        if (is_null(self::$instance)) {
-            self::$instance = new self($clientApi);
+        if (!isset(self::$instance[$clientApi->getHashObject()])) {
+            self::$instance[$clientApi->getHashObject()] = new self($clientApi);
         }
-        return self::$instance;
+        return self::$instance[$clientApi->getHashObject()];
     }
     /**
      * @param ClientApiInterface $clientApi

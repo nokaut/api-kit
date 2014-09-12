@@ -19,4 +19,6 @@ interface ClientApiInterface {
      * @return array
      */
     public function sendMulti(array $queries);
+
+    public function getHashObject();
 }
