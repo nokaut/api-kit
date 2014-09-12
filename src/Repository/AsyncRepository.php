@@ -26,10 +26,10 @@ class AsyncRepository implements AsyncRepositoryInterface
 
     public static function getInstance(ClientApiInterface $clientApi)
     {
-        if (!isset(self::$instance[$clientApi->getHashObject()])) {
-            self::$instance[$clientApi->getHashObject()] = new self($clientApi);
+        if (!isset(self::$instance[$clientApi->toHash()])) {
+            self::$instance[$clientApi->toHash()] = new self($clientApi);
         }
-        return self::$instance[$clientApi->getHashObject()];
+        return self::$instance[$clientApi->toHash()];
     }
     /**
      * @param ClientApiInterface $clientApi

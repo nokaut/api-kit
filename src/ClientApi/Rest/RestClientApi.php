@@ -248,9 +248,9 @@ class RestClientApi implements ClientApiInterface
         return 'api-' . md5($query->createRequestPath());
     }
 
-    public function getHashObject()
+    public function toHash()
     {
-        return md5(get_class($this->cache).get_class($this->logger).serialize($this->auth));
+        return md5(serialize($this->cache).serialize($this->logger).serialize($this->auth));
     }
 
 } 
