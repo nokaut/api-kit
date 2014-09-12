@@ -6,9 +6,11 @@ namespace Nokaut\ApiKit\ClientApi\Rest\Query\Filter;
 interface FilterInterface
 {
     /**
+     * Unique object hash
+     *
      * @return string
      */
-    public function getId();
+    public function toHash();
 
     /**
      * @return string

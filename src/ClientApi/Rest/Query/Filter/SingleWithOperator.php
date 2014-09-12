@@ -20,9 +20,9 @@ class SingleWithOperator implements FilterInterface
     private $value;
 
     /**
-     * @param $key
-     * @param $operator
-     * @param $value
+     * @param string $key
+     * @param string $operator
+     * @param string $value
      */
     public function __construct($key, $operator, $value)
     {
@@ -34,9 +34,9 @@ class SingleWithOperator implements FilterInterface
     /**
      * @return string
      */
-    public function getId()
+    public function toHash()
     {
-        return $this->key.$this->operator;
+        return md5($this->key.$this->operator);
     }
 
     public function __toString()

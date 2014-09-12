@@ -27,9 +27,9 @@ class Single implements FilterInterface
     /**
      * @return string
      */
-    public function getId()
+    public function toHash()
     {
-        return $this->key;
+        return md5($this->key);
     }
 
     /**

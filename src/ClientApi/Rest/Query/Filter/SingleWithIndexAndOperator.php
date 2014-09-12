@@ -25,9 +25,10 @@ class SingleWithIndexAndOperator implements FilterInterface
     private $value;
 
     /**
-     * @param $key
-     * @param $operator
-     * @param $value
+     * @param string $key
+     * @param string $index
+     * @param string $operator
+     * @param string $value
      */
     public function __construct($key, $index, $operator, $value)
     {
@@ -40,9 +41,9 @@ class SingleWithIndexAndOperator implements FilterInterface
     /**
      * @return string
      */
-    public function getId()
+    public function toHash()
     {
-        return $this->key.$this->index.$this->operator;
+        return md5($this->key.$this->index.$this->operator);
     }
 
     public function __toString()

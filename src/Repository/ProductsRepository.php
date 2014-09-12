@@ -11,6 +11,7 @@ namespace Nokaut\ApiKit\Repository;
 
 use Nokaut\ApiKit\ClientApi\ClientApiInterface;
 use Nokaut\ApiKit\ClientApi\Rest\Query\Sort;
+use Nokaut\ApiKit\ClientApi\Rest\Query\Filter;
 use Nokaut\ApiKit\Collection\Products;
 use Nokaut\ApiKit\Config;
 use Nokaut\ApiKit\Converter\ProductsWithBestOfferConverter;
@@ -48,24 +49,24 @@ class ProductsRepository
     public static $fieldsWithBestOfferForProductBox = array(
         'id', 'url', 'product_id', 'title', 'prices', 'offer_count', 'shop_count', 'category_id', 'offer_id',
         'url_original', 'offer_shop_id', 'shop_name', 'shop_url', 'top_category_id', 'top_position', 'photo_id',
-        'offer_with_minimum_price,offer_with_minimum_price.click_url','producer_name'
+        'offer_with_minimum_price,offer_with_minimum_price.click_url', 'producer_name'
     );
 
     public static $fieldsForProductPage = array(
-        'id','url','category_id','description_html','id','price_min','price_max',
-        'is_with_photo','photo_id','producer_name','product_type_id','source','source_id','title','title_normalized',
-        'properties','photo_ids','block_adsense','movie','rating'
+        'id', 'url', 'category_id', 'description_html', 'id', 'price_min', 'price_max',
+        'is_with_photo', 'photo_id', 'producer_name', 'product_type_id', 'source', 'source_id', 'title', 'title_normalized',
+        'properties', 'photo_ids', 'block_adsense', 'movie', 'rating'
     );
 
     public static $fieldsForList = array(
-        'id','product_id','title','prices','offer_count','url','shop','shop.url_logo','shop_count','category_id',
-        'offer_id','click_url','click_value','url_original','producer_name','offer_shop_id','shop.name','shop_url',
-        'shop_id','top_category_id','top_position','photo_id','description_html','properties','_metadata.url',
-        '_metadata.block_adsense','offer','block_adsense','_metadata.urls','_metadata.paging','_metadata.sorts',
-        '_phrase.value','_phrase.url_out','_phrase.url_category_template','_phrase.url_in_template'
+        'id', 'product_id', 'title', 'prices', 'offer_count', 'url', 'shop', 'shop.url_logo', 'shop_count', 'category_id',
+        'offer_id', 'click_url', 'click_value', 'url_original', 'producer_name', 'offer_shop_id', 'shop.name', 'shop_url',
+        'shop_id', 'top_category_id', 'top_position', 'photo_id', 'description_html', 'properties', '_metadata.url',
+        '_metadata.block_adsense', 'offer', 'block_adsense', '_metadata.urls', '_metadata.paging', '_metadata.sorts',
+        '_phrase.value', '_phrase.url_out', '_phrase.url_category_template', '_phrase.url_in_template'
     );
 
-    public static $fieldsForSimilarProductsInProductPage = array('id','url','title','prices','photo_id');
+    public static $fieldsForSimilarProductsInProductPage = array('id', 'url', 'title', 'prices', 'photo_id');
 
     /**
      * @param string $apiBaseUrl
@@ -372,7 +373,7 @@ class ProductsRepository
     {
         $query = new ProductsQuery($this->apiBaseUrl);
         $query->setFields($fields);
-        $query->addFilter('url', $url);
+        $query->addFilter(new Filter\Single('url', $url));
         $query->setFields($fields);
         $query->addFacet('query');
         $query->addFacet('categories');

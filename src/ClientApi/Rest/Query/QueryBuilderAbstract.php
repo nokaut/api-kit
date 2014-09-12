@@ -17,7 +17,7 @@ abstract class QueryBuilderAbstract implements QueryBuilderInterface
      */
     public function addFilter(Filter\FilterInterface $filter)
     {
-        $this->filters[md5($filter->getId())] = $filter;
+        $this->filters[$filter->toHash()] = $filter;
     }
 
     /**

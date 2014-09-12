@@ -20,9 +20,9 @@ class MultipleWithOperator implements FilterInterface
     private $values;
 
     /**
-     * @param $key
-     * @param $operator
-     * @param $value
+     * @param string $key
+     * @param string $operator
+     * @param array $values
      */
     public function __construct($key, $operator, array $values)
     {
@@ -34,9 +34,9 @@ class MultipleWithOperator implements FilterInterface
     /**
      * @return string
      */
-    public function getId()
+    public function toHash()
     {
-        return $this->key.$this->operator;
+        return md5($this->key.$this->operator);
     }
 
     public function __toString()

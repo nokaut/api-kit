@@ -1,0 +1,386 @@
+{"offers": [
+    {
+        "id": "60930d026db577f93b98537bbb2f1219",
+        "pattern_id": "50fe74782da47ccd9d000156",
+        "shop_id": 17175,
+        "shop_product_id": "299",
+        "availability": 4,
+        "category": "SD / SD HC/Nośniki pamięci",
+        "description_html": "<p>Karty pamięci SanDisk ExtremeHD Video SDHCTM zapewniają doskonałą równowagę między szybkością i niezawodnością rejestracji filmów HD oraz krótszy czas oczekiwania na następne ujęcie w przypadku fotografowania. Klasa szybkości Class 10 zapewniająca szybkość odczytu i zapisu rzędu nawet 30 MB/s1 sprawia, że omawiane karty umożliwiają rejestrowanie filmów HD za pomocą najnowszych cyfrowych aparatów automatycznych i cyfrowych lustrzanek obsługujących funkcję nagrywania filmów w wysokiej rozdzielczości. Cechy produktu : Jedna karta pamięci spełniająca wszystkie potrzeby w zakresie filmów o wysokiej rozdzielczości i intensywnego fotografowania.</p> <p>Krótszy czas oczekiwania na rejestrację kolejnego ujęcia w przypadku zaawansowanych aparatów fotograficznych</p> <p>Rejestracja filmów HD za pomocą kamer wideo i cyfrowych lustrzanek z funkcją zapisu filmów (klasa szybkości Class 10)</p> <p>Szybkie i łatwe przesyłanie zdjęć i filmów do komputera dzięki szybkości odczytu rzędu nawet 30 MB/s**</p> <p>Rejestracja filmów HD bez żadnych kompromisów</p> <p>* Dane szacunkowe: Wyniki zależą od rozmiaru plików, rozdzielczości, stopnia kompresji, szybkości przesyłu danych, zawartości, używanego urządzenia, obecności wstępnie zapisanych plików i innych czynników.</p> <p>** Odczyt i zapis z maks. szybkością 30 MB/s. Na podstawie wewnętrznych testów firmy SanDisk; wydajność zależy od używanego urządzenia. 1 megabajt (MB) &#61; 1 milion bajtów.<br /> </p>",
+        "title": "SanDisk Karta Extreme Video HD SDHC 8 GB",
+        "price": 45.00,
+        "producer": "SanDisk",
+        "promo": null,
+        "url": "http://proclub.pl/pl/sandisk_karta_extreme_video_hd_sdhc_8_gb.html",
+        "warranty": null,
+        "category_id": 94,
+        "photo_id": "cdabcdf223723b80d83e317637b69163",
+        "photo_ids": [],
+        "cpc_value": 31,
+        "expires_at": null,
+        "blocked_at": null,
+        "click_value": 0.31,
+        "visible": true,
+        "properties": [
+            {
+                "name": "EAN",
+                "value": "619659033170"
+            }
+        ],
+        "description": "Karty pamięci SanDisk ExtremeHD Video SDHCTM zapewniają doskonałą równowagę między szybkością i niezawodnością rejestracji filmów HD oraz krótszy czas oczekiwania na następne ujęcie w przypadku fotografowania. Klasa szybkości Class 10 zapewniająca szybkość odczytu i zapisu rzędu nawet 30 MB/s1 sprawia, że omawiane karty umożliwiają rejestrowanie filmów HD za pomocą najnowszych cyfrowych aparatów automatycznych i cyfrowych lustrzanek obsługujących funkcję nagrywania filmów w wysokiej rozdzielczości. Cechy produktu : Jedna karta pamięci spełniająca wszystkie potrzeby w zakresie filmów o wysokiej rozdzielczości i intensywnego fotografowania. Krótszy czas oczekiwania na rejestrację kolejnego ujęcia w przypadku zaawansowanych aparatów fotograficznych Rejestracja filmów HD za pomocą kamer wideo i cyfrowych lustrzanek z funkcją zapisu filmów (klasa szybkości Class 10) Szybkie i łatwe przesyłanie zdjęć i filmów do komputera dzięki szybkości odczytu rzędu nawet 30 MB/s** Rejestracja filmów HD bez żadnych kompromisów * Dane szacunkowe: Wyniki zależą od rozmiaru plików, rozdzielczości, stopnia kompresji, szybkości przesyłu danych, zawartości, używanego urządzenia, obecności wstępnie zapisanych plików i innych czynników. ** Odczyt i zapis z maks. szybkością 30 MB/s. Na podstawie wewnętrznych testów firmy SanDisk; wydajność zależy od używanego urządzenia. 1 megabajt (MB) &#61; 1 milion bajtów.",
+        "click_url": "/Click/Offer/?click=SfUZ2hfAhMvIewlC8TJ$DllUKHmftP9CXDPoJFkJLwcDz0z4yFixrYSMfKYXZYdCU7j*PEdNvsQFvFG1YXWs*Q_O.API_1_9_",
+        "shop": {
+            "id": 17175,
+            "name": "Proclub - Profesjonalny Sklep Foto i Video",
+            "url_logo": "/s/17175.jpg",
+            "high_quality": false,
+            "opineo_rating": {
+                "rating": 9.4,
+                "rating_count": 222,
+                "url": "http://www.opineo.pl/opinie/proclub-pl"
+            }
+        }
+    },
+    {
+        "id": "054a0d0afca3182aefa7ea9dc1a939e3",
+        "pattern_id": "50fe74782da47ccd9d000156",
+        "shop_id": 854,
+        "shop_product_id": "474506",
+        "availability": 0,
+        "category": "Foto &gt; Karty pamięci &gt; Secure Digital (SD/SDHC)",
+        "description_html": "Karta pamięci Sandisk Extreme Video HD SDHC 8GB zapewnia dużą szybkość działania, niezawodną rejestrację filmów HD oraz krótszy czas oczekiwania na następne ujęcie w przypadku fotografowania. Klasa szybkości Class 10 zapewnia szybkość odczytu i zapisu nawet do 45 MB/s, pozwala to na rejestrowanie filmów HD za pomocą najnowszych cyfrowych aparatów fotograficznych.",
+        "title": "Sandisk Extreme SDHC 8 GB (SDSDX-008G-X46) DOSTAWA GRATIS, SZYBKA WYSYŁKA / BEZPŁATNY ODBIÓR OSOBISTY: WARSZAWA, WROCŁAW!",
+        "price": 30.00,
+        "producer": "Sandisk",
+        "promo": "DOSTAWA GRATIS, SZYBKA WYSYŁKA / BEZPŁATNY ODBIÓR OSOBISTY: WARSZAWA, WROCŁAW!",
+        "url": "http://www.mall.pl/karty-pamieci-sdhc/sandisk-sdhc-card-extreme-hd-video-8-gb",
+        "warranty": null,
+        "category_id": 94,
+        "photo_id": "d9c9147bc582113a62e8a5cbb5827897",
+        "photo_ids": [],
+        "cpc_value": 50,
+        "expires_at": null,
+        "blocked_at": null,
+        "click_value": 0.5,
+        "visible": true,
+        "properties": [
+            {
+                "name": "EAN",
+                "value": "619659033170"
+            },
+            {
+                "name": "EAN",
+                "value": "619659033170"
+            }
+        ],
+        "description": "Karta pamięci Sandisk Extreme Video HD SDHC 8GB zapewnia dużą szybkość działania, niezawodną rejestrację filmów HD oraz krótszy czas oczekiwania na następne ujęcie w przypadku fotografowania. Klasa szybkości Class 10 zapewnia szybkość odczytu i zapisu nawet do 45 MB/s, pozwala to na rejestrowanie filmów HD za pomocą najnowszych cyfrowych aparatów fotograficznych.",
+        "click_url": "/Click/Offer/?click=FVNz30syc8Ma3chHbF3h6OZRTRFAlDX76pX5x2T9SuTzxVg4CTGfeSz76HHqljhlizZgbrCMEPPVXnerut0Yhw_O.API_2_9_",
+        "shop": {
+            "id": 854,
+            "name": "Mall.pl",
+            "url_logo": "/s/854.jpg",
+            "high_quality": false,
+            "opineo_rating": {
+                "rating": 9.0,
+                "rating_count": 17322,
+                "url": "http://www.opineo.pl/opinie/mall-pl"
+            }
+        }
+    },
+    {
+        "id": "597466402c58c119eac5f863c008297b",
+        "pattern_id": "50fe74782da47ccd9d000156",
+        "shop_id": 14426,
+        "shop_product_id": "1223",
+        "availability": 0,
+        "category": "karty pamięci, pamięci pendrive, płyty / karty pamięci / pamięci Secure Digital (SD) / SanDisk Extreme VIDEO HD (30MB/s)",
+        "description_html": "<br /> <div> <b>Wszędzie tam, gdzie od szybkości i niezawodności zależy wszystko, karty pamięci SanDisk Extreme zapewniają profesjonalną jakość.</b><br /><br /> <b>Właściwości:</b><br /> <b>- Niezwykła szybkość do 45 MB/s</b> zapewnia uzyskanie pożądanego zdjęcia w trybie zdjęć seryjnych oraz krótszy czas przesyłania danych do komputera.<br /> <b>- Wyjątkowa szybkość rejestracji filmów Full HD</b> dostępna dzięki klasie szybkości UHS-I** i klasie 10, pozwala uchwycić dynamiczne sceny w jakości Full HD, a nawet w trybie 3D. <br /> <b>- wyposażone w kontroler SanDisk Power Core</b> karty SanDisk Extreme SDHC UHS-I zapewniają błyskawiczny odczyt i zapis danych, rozmieszczając je w pamięci karty szybciej i wydajniej. <br /> <b>- najwyższa niezawodność i wytrzymałość</b> - oprogramowanie kontrolera Power Core kart SanDisk Extreme SDHC UHS-I zapewnia wyższą wytrzymałość dzięki równoważeniu poziomu zużycia. <br /> <b>- Niesamowita wydajność dzięki technologii Enhanced Super-Parallel Processing (ESP) firmy SanDisk<br /> <b>- niezwykła wytrzymałość</b>, stworzone i przetestowane pod kątem pracy w najtrudniejszych warunkach, te karty są odporne na wysoką i niską temperaturę, działanie wody, wstrząsy.<br /> <b>- karta objęta jest również wieczystą gwarancją.</b><br /> <b>- pełne zaufanie</b> - firma SanDisk produkuje karty pamięci, którym zaufało już wielu zawodowych fotografów.<br /><br /> <b>** <u>Klasa szybkości UHS-I oznacza wydajność umożliwiającą filmowanie w czasie rzeczywistym w jakości HD</u></b> <br /><br /> <b>- pojemność:</b> 8GB<br /> <b>- temp. pracy:</b> od -25 do &#43;85 stopni Celsjusza<br /> <b>- Prędkość odczytu do 45 MB/s<br /> - Prędkość zapisu do 30 MB/s<br /></b> <b>- RescuePRO:</b> oprogramowanie do ściągnięcia - pozwalające odzyskać przypadkowo utracone dane z karty (roczny numer licencyjny w opakowaniu karty).<br /> <b>do wszystkich urządzeń obsługujących format SDHC oraz SDHC UHS-I</b> </b></div><b> <br /><br /> <b>Zdjęcie opakowania:</b> <br /><br /> </b>",
+        "title": "SanDisk SDHC 8GB Extreme 300x (45MB/s)",
+        "price": 45.01,
+        "producer": "SanDisk",
+        "promo": null,
+        "url": "http://akumulatorki.com.pl/start/ref/Nokaut/1223/1223",
+        "warranty": null,
+        "category_id": 94,
+        "photo_id": "c81a1f07ef59f8da1b085283325a7b45",
+        "photo_ids": [],
+        "cpc_value": 31,
+        "expires_at": null,
+        "blocked_at": null,
+        "click_value": 0.31,
+        "visible": true,
+        "properties": [],
+        "description": "Wszędzie tam, gdzie od szybkości i niezawodności zależy wszystko, karty pamięci SanDisk Extreme zapewniają profesjonalną jakość. Właściwości: - Niezwykła szybkość do 45 MB/s zapewnia uzyskanie pożądanego zdjęcia w trybie zdjęć seryjnych oraz krótszy czas przesyłania danych do komputera. - Wyjątkowa szybkość rejestracji filmów Full HD dostępna dzięki klasie szybkości UHS-I** i klasie 10, pozwala uchwycić dynamiczne sceny w jakości Full HD, a nawet w trybie 3D. - wyposażone w kontroler SanDisk Power Core karty SanDisk Extreme SDHC UHS-I zapewniają błyskawiczny odczyt i zapis danych, rozmieszczając je w pamięci karty szybciej i wydajniej. - najwyższa niezawodność i wytrzymałość - oprogramowanie kontrolera Power Core kart SanDisk Extreme SDHC UHS-I zapewnia wyższą wytrzymałość dzięki równoważeniu poziomu zużycia. - Niesamowita wydajność dzięki technologii Enhanced Super-Parallel Processing (ESP) firmy SanDisk - niezwykła wytrzymałość, stworzone i przetestowane pod kątem pracy w najtrudniejszych warunkach, te karty są odporne na wysoką i niską temperaturę, działanie wody, wstrząsy. - karta objęta jest również wieczystą gwarancją. - pełne zaufanie - firma SanDisk produkuje karty pamięci, którym zaufało już wielu zawodowych fotografów. ** Klasa szybkości UHS-I oznacza wydajność umożliwiającą filmowanie w czasie rzeczywistym w jakości HD - pojemność: 8GB - temp. pracy: od -25 do &#43;85 stopni Celsjusza - Prędkość odczytu do 45 MB/s - Prędkość zapisu do 30 MB/s - RescuePRO: oprogramowanie do ściągnięcia - pozwalające odzyskać przypadkowo utracone dane z karty (roczny numer licencyjny w opakowaniu karty). do wszystkich urządzeń obsługujących format SDHC oraz SDHC UHS-I Zdjęcie opakowania:",
+        "click_url": "/Click/Offer/?click=3*eNpBjgQwLyZZZ8f*47Q62$WZ1pLIx41vuzaxxwPXeEKKflTcGNHWXBCIsfqBW$$FOyz9C*nSHsyswwq5KhpA_O.API_3_9_",
+        "shop": {
+            "id": 14426,
+            "name": "Akumulatorki.com.pl",
+            "url_logo": "/s/14426.jpg",
+            "high_quality": false,
+            "opineo_rating": {
+                "rating": 0.0,
+                "rating_count": 2,
+                "url": "http://www.opineo.pl/opinie/akumulatorki-com-pl"
+            }
+        }
+    },
+    {
+        "id": "beeab9a453a506515b2bd039c6582d34",
+        "pattern_id": "50fe74782da47ccd9d000156",
+        "shop_id": 11881,
+        "shop_product_id": "2479",
+        "availability": 0,
+        "category": "Karty pamięci i czytniki&gt;Secure Digital (SDHC/ SDXC)",
+        "description_html": "Karta pamięci Sandisk Extreme HD Video to niezawodna i szybka karta video o pojemności 8GB. Zapewnia ona doskonałą równowagę między szybkością i niezawodnością rejestracji filmów HD oraz krótszy czas oczekiwania na następne ujęcie w przypadku fotografowania. Klasa 10 zapewnia szybkość odczytu do 45 MB/s i zapisu do 30 MB/s.",
+        "title": "Karta pamięci SanDisk SDHC 8GB Extreme Video HD (45 MB/s)",
+        "price": 45.00,
+        "producer": "SanDisk",
+        "promo": null,
+        "url": "http://dcfoto.pl/karta-pamieci-sandisk-sdhc-8gb-extreme-video-hd-45-mbs-p2479.html",
+        "warranty": null,
+        "category_id": 94,
+        "photo_id": "137af8f455e29f8be8621729a43d2d58",
+        "photo_ids": null,
+        "cpc_value": 31,
+        "expires_at": null,
+        "blocked_at": null,
+        "click_value": 0.31,
+        "visible": true,
+        "properties": [],
+        "description": "Karta pamięci Sandisk Extreme HD Video to niezawodna i szybka karta video o pojemności 8GB. Zapewnia ona doskonałą równowagę między szybkością i niezawodnością rejestracji filmów HD oraz krótszy czas oczekiwania na następne ujęcie w przypadku fotografowania. Klasa 10 zapewnia szybkość odczytu do 45 MB/s i zapisu do 30 MB/s.",
+        "click_url": "/Click/Offer/?click=zeArzpsd1e4QP4R8UVprrYOpUID69WN3iQYIDpg7NoqFGNsqQUux973jBEFtcXAn5po56EEXZ1QBvjrOAw62eA_O.API_4_9_",
+        "shop": {
+            "id": 11881,
+            "name": "dcfoto.pl",
+            "url_logo": "/s/11881.png",
+            "high_quality": true,
+            "opineo_rating": {
+                "rating": 9.6,
+                "rating_count": 439,
+                "url": "http://www.opineo.pl/opinie/dcfoto-pl"
+            }
+        }
+    },
+    {
+        "id": "0a92bf8131c7f8d6bd57b6ae35a21a03",
+        "pattern_id": "50fe74782da47ccd9d000156",
+        "shop_id": 1381,
+        "shop_product_id": "8665",
+        "availability": 0,
+        "category": "karty pamięci Secure Digital (SD / SDHC / SDXC)",
+        "description_html": "<br /> <div> <b>Wszędzie tam, gdzie od szybkości i niezawodności zależy wszystko, karty pamięci SanDisk Extreme zapewniają profesjonalną jakość.</b><br /><br /> <b>Właściwości:</b><br /> <b>- Niezwykła szybkość do 45 MB/s</b> zapewnia uzyskanie pożądanego zdjęcia w trybie zdjęć seryjnych oraz krótszy czas przesyłania danych do komputera.<br /> <b>- Wyjątkowa szybkość rejestracji filmów Full HD</b> dostępna dzięki klasie szybkości UHS-I** i klasie 10, pozwala uchwycić dynamiczne sceny w jakości Full HD, a nawet w trybie 3D. <br /> <b>- wyposażone w kontroler SanDisk Power Core</b> karty SanDisk Extreme SDHC UHS-I zapewniają błyskawiczny odczyt i zapis danych, rozmieszczając je w pamięci karty szybciej i wydajniej. <br /> <b>- najwyższa niezawodność i wytrzymałość</b> - oprogramowanie kontrolera Power Core kart SanDisk Extreme SDHC UHS-I zapewnia wyższą wytrzymałość dzięki równoważeniu poziomu zużycia. <br /> <b>- Niesamowita wydajność dzięki technologii Enhanced Super-Parallel Processing (ESP) firmy SanDisk<br /> <b>- niezwykła wytrzymałość</b>, stworzone i przetestowane pod kątem pracy w najtrudniejszych warunkach, te karty są odporne na wysoką i niską temperaturę, działanie wody, wstrząsy.<br /> <b>- karta objęta jest również wieczystą gwarancją.</b><br /> <b>- pełne zaufanie</b> - firma SanDisk produkuje karty pamięci, którym zaufało już wielu zawodowych fotografów.<br /><br /> <b>** <u>Klasa szybkości UHS-I oznacza wydajność umożliwiającą filmowanie w czasie rzeczywistym w jakości HD</u></b> <br /><br /> <b>- pojemność:</b> 8GB<br /> <b>- temp. pracy:</b> od -25 do &#43;85 stopni Celsjusza<br /> <b>- Prędkość odczytu do 45 MB/s<br /> - Prędkość zapisu do 30 MB/s<br /></b> <b>- RescuePRO:</b> oprogramowanie do ściągnięcia - pozwalające odzyskać przypadkowo utracone dane z karty (roczny numer licencyjny w opakowaniu karty).<br /> <b>do wszystkich urządzeń obsługujących format SDHC oraz SDHC UHS-I</b> </b></div><b> <br /><br /> <b>Zdjęcie opakowania:</b> <br /><br /> </b>",
+        "title": "SanDisk SDHC 8GB Extreme 300x (45MB/s)",
+        "price": 45.01,
+        "producer": "Sandisk",
+        "promo": null,
+        "url": "http://www.hurt.com.pl/?o=shpp&i=8665&start=porownywarka;nokaut;8665",
+        "warranty": null,
+        "category_id": 94,
+        "photo_id": "c48c6ad86a29b2ed7d9ed3fba2502875",
+        "photo_ids": [],
+        "cpc_value": 40,
+        "expires_at": null,
+        "blocked_at": null,
+        "click_value": 0.4,
+        "visible": true,
+        "properties": [],
+        "description": "Wszędzie tam, gdzie od szybkości i niezawodności zależy wszystko, karty pamięci SanDisk Extreme zapewniają profesjonalną jakość. Właściwości: - Niezwykła szybkość do 45 MB/s zapewnia uzyskanie pożądanego zdjęcia w trybie zdjęć seryjnych oraz krótszy czas przesyłania danych do komputera. - Wyjątkowa szybkość rejestracji filmów Full HD dostępna dzięki klasie szybkości UHS-I** i klasie 10, pozwala uchwycić dynamiczne sceny w jakości Full HD, a nawet w trybie 3D. - wyposażone w kontroler SanDisk Power Core karty SanDisk Extreme SDHC UHS-I zapewniają błyskawiczny odczyt i zapis danych, rozmieszczając je w pamięci karty szybciej i wydajniej. - najwyższa niezawodność i wytrzymałość - oprogramowanie kontrolera Power Core kart SanDisk Extreme SDHC UHS-I zapewnia wyższą wytrzymałość dzięki równoważeniu poziomu zużycia. - Niesamowita wydajność dzięki technologii Enhanced Super-Parallel Processing (ESP) firmy SanDisk - niezwykła wytrzymałość, stworzone i przetestowane pod kątem pracy w najtrudniejszych warunkach, te karty są odporne na wysoką i niską temperaturę, działanie wody, wstrząsy. - karta objęta jest również wieczystą gwarancją. - pełne zaufanie - firma SanDisk produkuje karty pamięci, którym zaufało już wielu zawodowych fotografów. ** Klasa szybkości UHS-I oznacza wydajność umożliwiającą filmowanie w czasie rzeczywistym w jakości HD - pojemność: 8GB - temp. pracy: od -25 do &#43;85 stopni Celsjusza - Prędkość odczytu do 45 MB/s - Prędkość zapisu do 30 MB/s - RescuePRO: oprogramowanie do ściągnięcia - pozwalające odzyskać przypadkowo utracone dane z karty (roczny numer licencyjny w opakowaniu karty). do wszystkich urządzeń obsługujących format SDHC oraz SDHC UHS-I Zdjęcie opakowania:",
+        "click_url": "/Click/Offer/?click=PTQLxUWs$GZzSkOGwZQ2drP*Zf0Kh7e*tQ9VILaPHVCxvwP8VOJuDydCTa6p*z7zsIPzgh6dB0aBYHPmSJaIaw_O.API_5_9_",
+        "shop": {
+            "id": 1381,
+            "name": "hurt.com.pl",
+            "url_logo": "/s/1381.jpg",
+            "high_quality": false,
+            "opineo_rating": {
+                "rating": 9.1,
+                "rating_count": 451,
+                "url": "http://www.opineo.pl/opinie/hurt-com-pl"
+            }
+        }
+    },
+    {
+        "id": "8f372f7ac8fa248216f02671ccd8d82a",
+        "pattern_id": "50fe74782da47ccd9d000156",
+        "shop_id": 10139,
+        "shop_product_id": "413339",
+        "availability": 0,
+        "category": "/Multimedia/Foto i video/Foto i video - akcesoria/Nośniki danych/Karty pamięci SD, SDHC, MMC/Karty pamięci SD, SDHC",
+        "description_html": "Karty video SanDisk Extreme® HD SDHC™ to harmonijne połączenie prędkości i niezawodności odtwarzania filmów HD oraz wydajności Shot-to-Shot. Jeśli szukasz szybkich kart, to SanDisk Extreme® SDHC™ z transferem na poziomie 30 MB/s są odpowiedzią na twoje potrzeby. Karta SDHC™ marki SanDisk pozwala jeszcze lepiej wykorzystać możliwości aparatu fotograficznego typu &#39;&#39;lustrzanka&#39;&#39; czy innego nowoczesnego sprzętu.<br />Niezwykła szybkość działania i reakcji pozwolą Państwu na dłuższe nagrywanie. Karty pamięci SDHC SanDisk Extreme są zgodne z nową specyfikacją klasy prędkości 10 i wykraczają poza wymagania stawiane przez filmy HD.",
+        "title": "Karta pamięci SDHC SanDisk Extreme HD Video, 8 GB, class 10, UHS-I, 30 MB/s / 30 MB/s",
+        "price": 68.00,
+        "producer": "SanDisk",
+        "promo": null,
+        "url": "http://www.conrad.pl/?websale7=conrad&amp;pi=413339&amp;utm_source=Nokaut&amp;ref=Nokaut&amp;utm_medium=Price_comparison&amp;utm_campaign=413339_Nokaut",
+        "warranty": null,
+        "category_id": 94,
+        "photo_id": "946e72c4cf9fadfb5c3190c5c57115cf",
+        "photo_ids": null,
+        "cpc_value": 31,
+        "expires_at": null,
+        "blocked_at": null,
+        "click_value": 0.31,
+        "visible": true,
+        "properties": [
+            {
+                "name": "EAN",
+                "value": "619659033170"
+            },
+            {
+                "name": "EAN",
+                "value": "19659033170"
+            }
+        ],
+        "description": "Karty video SanDisk Extreme® HD SDHC™ to harmonijne połączenie prędkości i niezawodności odtwarzania filmów HD oraz wydajności Shot-to-Shot. Jeśli szukasz szybkich kart, to SanDisk Extreme® SDHC™ z transferem na poziomie 30 MB/s są odpowiedzią na twoje potrzeby. Karta SDHC™ marki SanDisk pozwala jeszcze lepiej wykorzystać możliwości aparatu fotograficznego typu &#39;&#39;lustrzanka&#39;&#39; czy innego nowoczesnego sprzętu.Niezwykła szybkość działania i reakcji pozwolą Państwu na dłuższe nagrywanie. Karty pamięci SDHC SanDisk Extreme są zgodne z nową specyfikacją klasy prędkości 10 i wykraczają poza wymagania stawiane przez filmy HD.",
+        "click_url": "/Click/Offer/?click=RJbsXwnKMV*MbXV$n9YZk8WGMsQGVpjKfFXoPj6$W6w1CTCv*FKlxp8YqKR09FZZnAJ7EedlNW7h6dQKKzMqsA_O.API_6_9_",
+        "shop": {
+            "id": 10139,
+            "name": "Conrad.pl",
+            "url_logo": "/s/10139.jpg",
+            "high_quality": false,
+            "opineo_rating": {
+                "rating": 8.9,
+                "rating_count": 3858,
+                "url": "http://www.opineo.pl/opinie/conrad-pl"
+            }
+        }
+    },
+    {
+        "id": "0bb49ecee1cefeb5744fde4fca3218e4",
+        "pattern_id": "50fe74782da47ccd9d000156",
+        "shop_id": 8882,
+        "shop_product_id": "633",
+        "availability": 0,
+        "category": "NOŚNIKI PAMIĘCI / karty pamięci SD",
+        "description_html": "Karta pamięci sandisk extreme SDHC UHS-I 8GB NAJNOWSZA WERSJA! Karta z bardzo szybkim zapisem i odczytem danych do 45 mb/s - do użycia zarówno w aparacie cyfrowym jak i kamerze cyfrowej Karty pamięci zapewniają doskonałą równowagę między szybkością i niezawodnością rejestracji filmów HD oraz krótszy czas oczekiwania na następne ujęcie w przypadku fotografowania. Klasa szybkości Class 10 zapewniająca szybkość odczytu i zapisu rzędu nawet 45 MB/s1 sprawia, że omawiane karty umożliwiają rejestrowanie filmów HD za pomocą najnowszych cyfrowych aparatów automatycznych i cyfrowych lustrzanek obsługujących funkcję nagrywania filmów w wysokiej rozdzielczości. Cechy produktu : Jedna karta pamięci spełniająca wszystkie potrzeby w zakresie filmów o wysokiej rozdzielczości i intensywnego fotografowania. Towar dostępny w magazynie w dużych ilościach- to najlepsza gwarancja natychmiastowej dostawy!!! Krótszy czas oczekiwania na rejestrację kolejnego ujęcia w przypadku zaawansowanych aparatów fotograficznych Rejestracja filmów HD za pomocą kamer wideo i cyfrowych lustrzanek z funkcją zapisu filmów (klasa szybkości Class 10) Szybkie i łatwe przesyłanie zdjęć i filmów do komputera dzięki szybkości odczytu rzędu nawet 45 MB/s** Rejestracja filmów HD bez żadnych kompromisów * Dane szacunkowe: Wyniki zależą od rozmiaru plików, rozdzielczości, stopnia kompresji, szybkości przesyłu danych, zawartości, używanego urządzenia, obecności wstępnie zapisanych plików i innych czynników. ** Odczyt i zapis z maks. szybkością 45 MB/s. Na podstawie wewnętrznych testów firmy SanDisk; wydajność zależy od używanego urządzenia. 1 megabajt (MB) &#61; 1 milion bajtów. Zapraszamy do zakupu!!!",
+        "title": "SanDisk Extreme SDHC UHS-I card 8GB",
+        "price": 35.95,
+        "producer": "SANDISK",
+        "promo": null,
+        "url": "http://bratex.org/sklep/pl_PL/p/SanDisk-Extreme-SDHC-UHS-I-card-8GB/633",
+        "warranty": null,
+        "category_id": 94,
+        "photo_id": "0e041f1cca2f270dd50caa8a8ac2d4de",
+        "photo_ids": [],
+        "cpc_value": 59,
+        "expires_at": null,
+        "blocked_at": null,
+        "click_value": 0.59,
+        "visible": true,
+        "properties": [
+            {
+                "name": "EAN",
+                "value": "0619659033170"
+            },
+            {
+                "name": "EAN",
+                "value": "0619659033170"
+            }
+        ],
+        "description": "Karta pamięci sandisk extreme SDHC UHS-I 8GB NAJNOWSZA WERSJA! Karta z bardzo szybkim zapisem i odczytem danych do 45 mb/s - do użycia zarówno w aparacie cyfrowym jak i kamerze cyfrowej Karty pamięci zapewniają doskonałą równowagę między szybkością i niezawodnością rejestracji filmów HD oraz krótszy czas oczekiwania na następne ujęcie w przypadku fotografowania. Klasa szybkości Class 10 zapewniająca szybkość odczytu i zapisu rzędu nawet 45 MB/s1 sprawia, że omawiane karty umożliwiają rejestrowanie filmów HD za pomocą najnowszych cyfrowych aparatów automatycznych i cyfrowych lustrzanek obsługujących funkcję nagrywania filmów w wysokiej rozdzielczości. Cechy produktu : Jedna karta pamięci spełniająca wszystkie potrzeby w zakresie filmów o wysokiej rozdzielczości i intensywnego fotografowania. Towar dostępny w magazynie w dużych ilościach- to najlepsza gwarancja natychmiastowej dostawy!!! Krótszy czas oczekiwania na rejestrację kolejnego ujęcia w przypadku zaawansowanych aparatów fotograficznych Rejestracja filmów HD za pomocą kamer wideo i cyfrowych lustrzanek z funkcją zapisu filmów (klasa szybkości Class 10) Szybkie i łatwe przesyłanie zdjęć i filmów do komputera dzięki szybkości odczytu rzędu nawet 45 MB/s** Rejestracja filmów HD bez żadnych kompromisów * Dane szacunkowe: Wyniki zależą od rozmiaru plików, rozdzielczości, stopnia kompresji, szybkości przesyłu danych, zawartości, używanego urządzenia, obecności wstępnie zapisanych plików i innych czynników. ** Odczyt i zapis z maks. szybkością 45 MB/s. Na podstawie wewnętrznych testów firmy SanDisk; wydajność zależy od używanego urządzenia. 1 megabajt (MB) &#61; 1 milion bajtów. Zapraszamy do zakupu!!!",
+        "click_url": "/Click/Offer/?click=FsRS*daH3mOFTjXNjAdkXhk*c$uTZEKBLkIoef4SxdugkynKbtnBi7B7iRaHnU73IhgT6BYH78$m0TffKoRH4w_O.API_7_9_",
+        "shop": {
+            "id": 8882,
+            "name": "bratex",
+            "url_logo": "/s/8882.gif",
+            "high_quality": false,
+            "opineo_rating": {
+                "rating": 10.0,
+                "rating_count": 1072,
+                "url": "http://www.opineo.pl/opinie/bratex-org"
+            }
+        }
+    },
+    {
+        "id": "d1fb142888f4b31b37fd73b52f7ac0a6",
+        "pattern_id": "50fe74782da47ccd9d000156",
+        "shop_id": 4342,
+        "shop_product_id": "504738",
+        "availability": 4,
+        "category": "Karty pamięci",
+        "description_html": "<p>Wysoka pojemność i znakomita wydajność karty SanDisk Extreme III 30 MB/s pozwalają na pełną swobodę wykonywania zdjęć w wysokiej rozdzielczości oraz nagrywania filmów wideo. Dodatkowo karta posiada zdolność do pracy w ekstremalnych temperaturach od -25 do 85 stopni Celsjusza.</p>",
+        "title": "SanDisk Extreme HD Video SDHC Class 6 8GB",
+        "price": 45.00,
+        "producer": "SanDisk",
+        "promo": null,
+        "url": "http://www.oleole.pl/karty-pamieci/sandisk-extreme-iii-sdhc-8-gb-1.bhtml?from=nokaut",
+        "warranty": null,
+        "category_id": 94,
+        "photo_id": "36a21e8a8f00742e85b326cd71c0d31e",
+        "photo_ids": [],
+        "cpc_value": 31,
+        "expires_at": null,
+        "blocked_at": null,
+        "click_value": 0.31,
+        "visible": true,
+        "properties": [
+            {
+                "name": "EAN",
+                "value": "8714574541938"
+            }
+        ],
+        "description": "Wysoka pojemność i znakomita wydajność karty SanDisk Extreme III 30 MB/s pozwalają na pełną swobodę wykonywania zdjęć w wysokiej rozdzielczości oraz nagrywania filmów wideo. Dodatkowo karta posiada zdolność do pracy w ekstremalnych temperaturach od -25 do 85 stopni Celsjusza.",
+        "click_url": "/Click/Offer/?click=GWz1pXCzsaMZ7UqEhffZJ8yD1vq*d7xIoLhVWCm66G7RSzN5HZM*lqXH55RKcxtKOb0aobU259bexeQh1MIbCQ_O.API_8_9_",
+        "shop": {
+            "id": 4342,
+            "name": "OleOle!",
+            "url_logo": "/s/4342.gif",
+            "high_quality": true,
+            "opineo_rating": {
+                "rating": 9.0,
+                "rating_count": 11530,
+                "url": "http://www.opineo.pl/opinie/oleole-pl"
+            }
+        }
+    },
+    {
+        "id": "650f7f732fdef1c91c0dbde4f5e9b558",
+        "pattern_id": "50fe74782da47ccd9d000156",
+        "shop_id": 632,
+        "shop_product_id": "504738",
+        "availability": 4,
+        "category": "Karty pamięci",
+        "description_html": "<div>Karty pamięci SanDisk Extreme HD Video SDHC zapewniają doskonałą równowagę między szybkością i niezawodnością rejestracji filmów HD oraz krótszy czas oczekiwania na następne ujęcie w przypadku fotografowania. Klasa szybkości Class 6 zapewniająca szybkość odczytu i zapisu rzędu nawet 30 MB/s sprawia, że omawiane karty umożliwiają rejestrowanie filmów HD za pomocą najnowszych cyfrowych aparatów automatycznych i cyfrowych lustrzanek obsługujących funkcję nagrywania filmów w wysokiej rozdzielczości.</div>",
+        "title": "SanDisk Extreme HD Video SDHC Class 6 8GB",
+        "price": 54.99,
+        "producer": "SanDisk",
+        "promo": null,
+        "url": "http://www.euro.com.pl/karty-pamieci/sandisk-extreme-iii-sdhc-8-gb-1.bhtml?from=nokaut",
+        "warranty": null,
+        "category_id": 94,
+        "photo_id": "bdb7795a9180f7891e5de3a6387a7e28",
+        "photo_ids": [],
+        "cpc_value": 31,
+        "expires_at": null,
+        "blocked_at": null,
+        "click_value": 0.31,
+        "visible": true,
+        "properties": [
+            {
+                "name": "EAN",
+                "value": "8714574541938"
+            },
+            {
+                "name": "EAN",
+                "value": "8714574541938"
+            }
+        ],
+        "description": "Karty pamięci SanDisk Extreme HD Video SDHC zapewniają doskonałą równowagę między szybkością i niezawodnością rejestracji filmów HD oraz krótszy czas oczekiwania na następne ujęcie w przypadku fotografowania. Klasa szybkości Class 6 zapewniająca szybkość odczytu i zapisu rzędu nawet 30 MB/s sprawia, że omawiane karty umożliwiają rejestrowanie filmów HD za pomocą najnowszych cyfrowych aparatów automatycznych i cyfrowych lustrzanek obsługujących funkcję nagrywania filmów w wysokiej rozdzielczości.",
+        "click_url": "/Click/Offer/?click=I5NQ5xDudL45Fb3Xj5GLwE4wxscKCodEUL$3su5gzUTp5g4dsKiR**lSNDsCw2Y6qhyeZgi5dIHa8diaTIg81A_O.API_9_9_",
+        "shop": {
+            "id": 632,
+            "name": "RTV EURO AGD",
+            "url_logo": "/s/632.gif",
+            "high_quality": false,
+            "opineo_rating": {
+                "rating": 9.1,
+                "rating_count": 29854,
+                "url": "http://www.opineo.pl/opinie/euro-com-pl"
+            }
+        }
+    }
+], "_metadata": {
+    "price_min": 30.00,
+    "price_max": 68.00,
+    "total": 9,
+    "availability_min": 0
+}}
