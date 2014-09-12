@@ -34,7 +34,7 @@ class ProductsRepositoryTest extends \PHPUnit_Framework_TestCase
             'access_token' => '1111'
         );
         $oauth2->setAccessToken($accessToken);
-        $this->clientApiMock = $this->getMock('Nokaut\ApiKit\ClientApi\ClientApiInterface', array('send', 'sendMulti'));
+        $this->clientApiMock = $this->getMock('Nokaut\ApiKit\ClientApi\ClientApiInterface', array('send', 'sendMulti', 'toHash'));
 
         $this->sut = new ProductsRepository("http://32213:454/api/v2/", $this->clientApiMock);
     }
