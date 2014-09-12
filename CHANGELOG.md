@@ -1,8 +1,17 @@
 ChangeLog
 =========
+
+v1.3.0
+------
+ - Query: Refaktoring obsługi filtrów, ujednolicenie mechanizmu dodawania filtrów do Query
+ - Query: metodę Nokaut\ApiKit\ClientApi\Rest\Query\ProductsQuery::addFilter($filter, $searchValue) zastąpiła metoda Nokaut\ApiKit\ClientApi\Rest\Query\QueryBuilderAbstract::addFilter(Filter\FilterInterface $filter)
+ - Dodanie metody toHash() do Nokaut\ApiKit\ClientApi\ClientApiInterface
+ - Pokrycie testami repozytoriów
+
 v1.2.0
 ------
  - Product: Usunięcie pola description_html_generated
+
 v1.1.4
 ------
  - ProductsAsyncRepository i ProductsRepository: pobieranie produktów z najlepszą ofertą po URL
