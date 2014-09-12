@@ -13,12 +13,22 @@ use Nokaut\ApiKit\ClientApi\Rest\Query\QueryBuilderInterface;
 
 interface ClientApiInterface {
 
+    /**
+     * @param QueryBuilderInterface $query
+     * @return mixed
+     */
     public function send(QueryBuilderInterface $query);
+
     /**
      * @param QueryBuilderInterface[] $queries
      * @return array
      */
     public function sendMulti(array $queries);
 
+    /**
+     * Unique object hash
+     *
+     * @return string
+     */
     public function toHash();
 }

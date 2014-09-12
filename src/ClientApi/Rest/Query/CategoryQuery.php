@@ -9,12 +9,10 @@
 namespace Nokaut\ApiKit\ClientApi\Rest\Query;
 
 
-class CategoryQuery implements QueryBuilderInterface
+class CategoryQuery extends QueryBuilderAbstract
 {
-
     private $baseUrl;
     private $id;
-    private $url;
     private $fields;
 
     public function __construct($baseUrl)
@@ -35,7 +33,7 @@ class CategoryQuery implements QueryBuilderInterface
      */
     public function setUrl($url)
     {
-        $this->url = $url;
+        $this->addFilter(new Filter\Single('url', $url));
     }
 
     /**
@@ -49,6 +47,7 @@ class CategoryQuery implements QueryBuilderInterface
     public function createRequestPath()
     {
         $query = $this->baseUrl . $this->createMainPath() .
+            ($this->createFilterPart() ? $this->createFilterPart() . '&' : '') .
             $this->createFieldsPart();
 
         return $query;
@@ -56,8 +55,8 @@ class CategoryQuery implements QueryBuilderInterface
 
     private function createMainPath()
     {
-        if (!empty($this->url)) {
-            return "category?filter[url]=" . $this->url . "&";
+        if ($this->getFilters()) {
+            return "category?";
         }
         if (!empty($this->id)) {
             return "categories/" . $this->id . "?";

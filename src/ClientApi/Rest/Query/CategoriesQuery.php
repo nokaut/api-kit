@@ -11,15 +11,13 @@ namespace Nokaut\ApiKit\ClientApi\Rest\Query;
 
 use Guzzle\Common\Exception\InvalidArgumentException;
 
-class CategoriesQuery implements QueryBuilderInterface
+class CategoriesQuery extends QueryBuilderAbstract
 {
     const MAX_DEPTH = 2;
 
     private $baseUrl;
     private $fields;
-    private $filters = array();
     private $phrase;
-    private $categoryIds = array();
 
     public function __construct($baseUrl)
     {
@@ -31,7 +29,7 @@ class CategoriesQuery implements QueryBuilderInterface
      */
     public function setParentId($value)
     {
-        $this->filters['parent_id'] = intval($value);
+        $this->addFilter(new Filter\Single('parent_id', intval($value)));
     }
 
     /**
@@ -39,7 +37,7 @@ class CategoriesQuery implements QueryBuilderInterface
      */
     public function setTitleLike($value)
     {
-        $this->filters['title'] = array('operator' => 'like', 'value' => $value);
+        $this->addFilter(new Filter\SingleWithOperator('title', 'like', $value));
     }
 
     /**
@@ -47,7 +45,7 @@ class CategoriesQuery implements QueryBuilderInterface
      */
     public function setTitleStrict($value)
     {
-        $this->filters['title'] = array('operator' => 'eq', 'value' => $value);
+        $this->addFilter(new Filter\SingleWithOperator('title', 'eq', $value));
     }
 
     /**
@@ -75,25 +73,24 @@ class CategoriesQuery implements QueryBuilderInterface
         if ($depth > self::MAX_DEPTH) {
             throw new InvalidArgumentException("depth cant be bigger than 2");
         }
-        $this->filters['depth'] = intval($depth);
+        $this->addFilter(new Filter\Single('depth', intval($depth)));
     }
 
     public function setCategoryIds(array $ids)
     {
-        $this->categoryIds = $ids;
+        $this->addFilter(new Filter\MultipleWithOperator('id', 'in', $ids));
     }
 
     public function createRequestPath()
     {
 
-        if (empty($this->filters) && empty($this->phrase) && empty($this->categoryIds)) {
+        if (!$this->getFilters() && empty($this->phrase)) {
             throw new \InvalidArgumentException('set filers for CategoriesQuery');
         }
 
         $query = $this->baseUrl . 'categories?' .
             $this->createFieldsPart() .
-            $this->createFilterPart() .
-            $this->createCategoryIdsPart() .
+            ($this->createFilterPart() ? '&' . $this->createFilterPart() : '') .
             $this->createPhrasePart();
 
         return $query;
@@ -109,40 +106,6 @@ class CategoriesQuery implements QueryBuilderInterface
             throw new \InvalidArgumentException("fields can't be empty");
         }
         return "fields=" . implode(',', $this->fields);
-    }
-
-    /**
-     * @throws \InvalidArgumentException
-     * @return string
-     */
-    private function createFilterPart()
-    {
-        $result = "";
-        foreach ($this->filters as $field => $value) {
-            if (is_array($value) && isset($value['operator'])) {
-                $filerValue = urlencode($value['value']);
-                $result .= "&filter[{$field}][{$value['operator']}]={$filerValue}";
-
-            } else if (is_string($value) || is_numeric($value)) {
-                $result .= "&filter[{$field}]={$value}";
-
-            } else {
-                throw new \InvalidArgumentException("invalid filter value " . var_export($value, true));
-            }
-        }
-        return $result;
-    }
-
-    /**
-     * @return string
-     */
-    private function createCategoryIdsPart()
-    {
-        $result = "";
-        foreach ($this->categoryIds as $categoryId) {
-            $result .= "&filter[id][in][]={$categoryId}";
-        }
-        return $result;
     }
 
     private function createPhrasePart()
