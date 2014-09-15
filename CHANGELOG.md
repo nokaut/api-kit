@@ -1,6 +1,10 @@
 ChangeLog
 =========
 
+master
+------
+ - PhotoUrl::prepare - dodanie znaku / na początku adresu do zdjęcia
+
 v1.3.0
 ------
  - Query: Refaktoring obsługi filtrów, ujednolicenie mechanizmu dodawania filtrów do Query
