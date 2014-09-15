@@ -48,7 +48,6 @@ class ProductQuery extends QueryBuilderAbstract
 
     public function setUrl($url)
     {
-        $url = str_replace('+', '%2b', $url); // fix for + in URL
         $this->addFilter(new Filter\Single('url', $url));
     }
 

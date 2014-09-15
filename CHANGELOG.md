@@ -1,9 +1,10 @@
 ChangeLog
 =========
 
-master
+v1.3.1
 ------
  - PhotoUrl::prepare - dodanie znaku / na początku adresu do zdjęcia
+ - fix w pobieraniu produktu po URL-u
 
 v1.3.0
 ------
