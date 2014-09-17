@@ -380,6 +380,7 @@ class ProductsRepository
         $query->addFacet('producer_name');
         $query->addFacet('properties');
         $query->addFacetRange('price_min', 4);
+        $query->addFacetRange('properties', 4);
         $query->setLimit($limit);
         return $query;
     }

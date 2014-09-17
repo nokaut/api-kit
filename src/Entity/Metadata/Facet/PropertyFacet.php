@@ -11,6 +11,7 @@ namespace Nokaut\ApiKit\Entity\Metadata\Facet;
 
 use Nokaut\ApiKit\Entity\EntityAbstract;
 use Nokaut\ApiKit\Entity\Metadata\Facet\PropertyFacet\Value;
+use Nokaut\ApiKit\Entity\Metadata\Facet\PropertyFacet\Range;
 
 class PropertyFacet extends EntityAbstract
 {
@@ -29,7 +30,11 @@ class PropertyFacet extends EntityAbstract
     /**
      * @var Value[]
      */
-    protected $values;
+    protected $values = array();
+    /**
+     * @var Range[]
+     */
+    protected $ranges = array();
 
     /**
      * @param int $id
@@ -93,6 +98,22 @@ class PropertyFacet extends EntityAbstract
     public function getValues()
     {
         return $this->values;
+    }
+
+    /**
+     * @param \Nokaut\ApiKit\Entity\Metadata\Facet\PropertyFacet\Range[] $ranges
+     */
+    public function setRanges($ranges)
+    {
+        $this->ranges = $ranges;
+    }
+
+    /**
+     * @return \Nokaut\ApiKit\Entity\Metadata\Facet\PropertyFacet\Range[]
+     */
+    public function getRanges()
+    {
+        return $this->ranges;
     }
 
 }
