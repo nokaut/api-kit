@@ -1,6 +1,11 @@
 ChangeLog
 =========
 
+master
+------
+ - PhotoUrl - gdy puste photoId zwraca link do zaślepiki noimg<size>.png
+
+
 v1.3.1
 ------
  - PhotoUrl::prepare - dodanie znaku / na początku adresu do zdjęcia
