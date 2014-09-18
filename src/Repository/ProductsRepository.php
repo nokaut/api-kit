@@ -43,7 +43,8 @@ class ProductsRepository
 
     public static $fieldsForProductBox = array(
         'id', 'url', 'product_id', 'title', 'prices', 'offer_count', 'shop_count', 'category_id', 'offer_id',
-        'url_original', 'offer_shop_id', 'shop_name', 'shop_url', 'top_category_id', 'top_position', 'photo_id'
+        'url_original', 'offer_shop_id', 'shop_name', 'shop_url', 'top_category_id', 'top_position', 'photo_id',
+        'click_url'
     );
 
     public static $fieldsWithBestOfferForProductBox = array(
