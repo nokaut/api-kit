@@ -1,6 +1,17 @@
 ChangeLog
 =========
 
+master
+------
+ - PhotoUrl - gdy puste photoId zwraca link do zaślepiki noimg<size>.png
+ - ProductsReposytory - dodanie pola 'click_url' do 'fieldsForProductBox'
+ - Dodanie obsługi zakresów cech (properties ranges)
+
+v1.3.1
+------
+ - PhotoUrl::prepare - dodanie znaku / na początku adresu do zdjęcia
+ - fix w pobieraniu produktu po URL-u
+
 v1.3.0
 ------
  - Query: Refaktoring obsługi filtrów, ujednolicenie mechanizmu dodawania filtrów do Query
