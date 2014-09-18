@@ -4,7 +4,7 @@ ChangeLog
 master
 ------
  - PhotoUrl - gdy puste photoId zwraca link do zaślepiki noimg<size>.png
- - ProductsReposytory - dodanie pola 'click_url' do 'fieldsForProductBox'
+ - ProductsReposytory - dodanie pól 'click_url', 'click_value', 'shop', 'shop.url_logo', 'shop.name' do 'fieldsForProductBox'
  - Dodanie obsługi zakresów cech (properties ranges)
 
 v1.3.1
