@@ -5,7 +5,7 @@ master
 ------
  - PhotoUrl - gdy puste photoId zwraca link do zaślepiki noimg<size>.png
  - ProductsReposytory - dodanie pola 'click_url' do 'fieldsForProductBox'
-
+ - Dodanie obsługi zakresów cech (properties ranges)
 
 v1.3.1
 ------
