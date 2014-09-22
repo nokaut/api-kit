@@ -5,6 +5,7 @@ master
 ------
  - PhotoUrl - gdy puste photoId zwraca link do zaślepiki noimg<size>.png
  - ProductsRepository - dodanie pola 'click_url' do 'fieldsForProductBox'
+ - Offer - dodanie pola join id
 
 
 v1.3.1
