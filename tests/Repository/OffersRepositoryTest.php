@@ -52,6 +52,19 @@ class OffersRepositoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($productId, $offers->getLast()->getPatternId());
     }
 
+    public function testFetchOfferByJoinId()
+    {
+        $this->clientApiMock->expects($this->once())->method('send')
+            ->will($this->returnValue($this->getJsonFixture(__FUNCTION__)));
+
+        $joinId = '60fe74fsfwr4782dccd9d000156';
+
+        /** @var Offer $offer */
+        $offer = $this->sut->fetchOfferByJoinId($joinId, OffersRepository::$fieldsAll);
+        $this->assertInstanceOf('Nokaut\ApiKit\Entity\Offer', $offer);
+        $this->assertEquals($joinId, $offer->getJoinId());
+    }
+
     /**
      * @param $name
      * @return \stdClass

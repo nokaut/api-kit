@@ -10,8 +10,10 @@ namespace Nokaut\ApiKit\Repository;
 
 
 use Nokaut\ApiKit\ClientApi\ClientApiInterface;
+use Nokaut\ApiKit\ClientApi\Rest\Query\OfferQuery;
 use Nokaut\ApiKit\ClientApi\Rest\Query\OffersQuery;
 use Nokaut\ApiKit\ClientApi\Rest\Query\Sort;
+use Nokaut\ApiKit\Converter\OfferConverter;
 use Nokaut\ApiKit\Converter\OffersConverter;
 
 class OffersRepository
@@ -30,7 +32,7 @@ class OffersRepository
     protected $converterOffers;
 
     public static $fieldsAll = array(
-        'id', 'pattern_id', 'shop_id', 'shop_product_id', 'availability', 'category', 'description_html', 'title', 'price',
+        'id', 'join_id', 'pattern_id', 'shop_id', 'shop_product_id', 'availability', 'category', 'description_html', 'title', 'price',
         'producer', 'promo', 'url', 'warranty', 'category_id', 'photo_id', 'photo_ids', 'cpc_value', 'expires_at', 'blocked_at',
         'click_value', 'visible', 'properties', 'description', 'click_url', 'shop.id', 'shop.name', 'shop.opineo_rating',
         'shop.url_logo', 'shop.high_quality', '_metadata'
@@ -49,6 +51,7 @@ class OffersRepository
     public function __construct($apiBaseUrl, ClientApiInterface $clientApi)
     {
         $this->converterOffers = new OffersConverter();
+        $this->converterOffer = new OfferConverter();
         $this->clientApi = $clientApi;
         $this->apiBaseUrl = $apiBaseUrl;
     }
@@ -62,9 +65,22 @@ class OffersRepository
         return $this->convertOffers($objectsFromApi);
     }
 
+    public function fetchOfferByJoinId($joinId, array $fields)
+    {
+        $query = $this->prepareQueryForFetchOfferByJoinId($joinId, $fields);
+
+        $objectsFromApi = $this->clientApi->send($query);
+        return $this->convertOffer($objectsFromApi);
+    }
+
     protected function convertOffers($objectsFromApi)
     {
         return $this->converterOffers->convert($objectsFromApi);
+    }
+
+    protected function convertOffer($objectFromApi)
+    {
+        return $this->converterOffer->convert($objectFromApi);
     }
 
     /**
@@ -83,6 +99,20 @@ class OffersRepository
             $query->setOrder($sort->getField(), $sort->getOrder());
             return $query;
         }
+        return $query;
+    }
+
+    /**
+     * @param $joinId
+     * @param array $fields
+     * @return OfferQuery
+     */
+    protected function prepareQueryForFetchOfferByJoinId($joinId, array $fields)
+    {
+        $query = new OfferQuery($this->apiBaseUrl);
+        $query->setFields($fields);
+        $query->setJoinId($joinId);
+
         return $query;
     }
 } 
