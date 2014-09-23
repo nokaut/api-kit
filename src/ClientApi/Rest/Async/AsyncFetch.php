@@ -81,7 +81,7 @@ class AsyncFetch
     }
 
     /**
-     * @return CollectionInterface|EntityAbstract
+     * @return CollectionInterface|EntityAbstract|CollectionInterface|EntityAbstract[]
      */
     public function getResult()
     {
