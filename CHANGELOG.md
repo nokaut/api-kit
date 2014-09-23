@@ -7,6 +7,7 @@ master
  - ProductsRepository - dodanie pola 'click_url' do 'fieldsForProductBox'
  - OffersRepository - funkcja pobierania oferty po id
  - OffersRepository - funkcja pobierania ofert po shopId
+ - OffersRepository - funkcja pobierania oferty po OffersQuery
 
 
 v1.3.1

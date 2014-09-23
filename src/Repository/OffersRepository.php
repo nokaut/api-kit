@@ -82,6 +82,13 @@ class OffersRepository
         return $this->convertOffers($objectsFromApi);
     }
 
+    public function fetchOffersByQuery(OffersQuery $query)
+    {
+        $objectsFromApi = $this->clientApi->send($query);
+
+        return $this->convertOffers($objectsFromApi);
+    }
+
     protected function convertOffers($objectsFromApi)
     {
         return $this->converterOffers->convert($objectsFromApi);

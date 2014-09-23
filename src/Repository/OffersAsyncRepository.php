@@ -10,7 +10,9 @@ namespace Nokaut\ApiKit\Repository;
 
 
 use Nokaut\ApiKit\ClientApi\ClientApiInterface;
+use Nokaut\ApiKit\ClientApi\Rest\Async\OfferAsyncFetch;
 use Nokaut\ApiKit\ClientApi\Rest\Async\OffersAsyncFetch;
+use Nokaut\ApiKit\ClientApi\Rest\Query\OffersQuery;
 use Nokaut\ApiKit\ClientApi\Rest\Query\Sort;
 
 class OffersAsyncRepository extends OffersRepository implements AsyncRepositoryInterface
@@ -55,11 +57,21 @@ class OffersAsyncRepository extends OffersRepository implements AsyncRepositoryI
 
     public function fetchOfferById($id, array $fields)
     {
-        $offersAsyncFetch = new OffersAsyncFetch($this->prepareQueryForFetchOfferById($id, $fields));
+        $offersAsyncFetch = new OfferAsyncFetch($this->prepareQueryForFetchOfferById($id, $fields));
         $this->asyncRepo->addFetch($offersAsyncFetch);
         return $offersAsyncFetch;
     }
 
+    /**
+     * @param OffersQuery $query
+     * @return OffersAsyncFetch
+     */
+    public function fetchOffersByQuery(OffersQuery $query)
+    {
+        $offersAsyncFetch = new OffersAsyncFetch($query);
+        $this->asyncRepo->addFetch($offersAsyncFetch);
+        return $offersAsyncFetch;
+    }
 
     /**
      * @param $shopId
