@@ -52,6 +52,20 @@ class OffersRepositoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($productId, $offers->getLast()->getPatternId());
     }
 
+    public function testFetchOffersByShopId()
+    {
+        $this->clientApiMock->expects($this->once())->method('send')
+            ->will($this->returnValue($this->getJsonFixture('testFetchOffersByProductId')));
+
+        $shopId = 632;
+
+        /** @var Offers $offers */
+        $offers = $this->sut->fetchOffersByShopId($shopId, OffersRepository::$fieldsAll);
+        $this->assertCount(9, $offers);
+        $this->assertEquals($offers->getMetadata()->getTotal(), count($offers));
+        $this->assertEquals($shopId, $offers->getLast()->getShopId());
+    }
+
     public function testFetchOfferByJoinId()
     {
         $this->clientApiMock->expects($this->once())->method('send')

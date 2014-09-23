@@ -52,4 +52,18 @@ class OffersAsyncRepository extends OffersRepository implements AsyncRepositoryI
         $this->asyncRepo->addFetch($offersAsyncFetch);
         return $offersAsyncFetch;
     }
+
+    /**
+     * @param $shopId
+     * @param array $fields
+     * @param int $limit
+     * @param Sort $sort
+     * @return OffersAsyncFetch
+     */
+    public function fetchOffersByShopId($shopId, array $fields, $limit = 20, Sort $sort = null)
+    {
+        $offersAsyncFetch = new OffersAsyncFetch($this->prepareQueryForFetchOffersByShopId($shopId, $fields, $limit, $sort));
+        $this->asyncRepo->addFetch($offersAsyncFetch);
+        return $offersAsyncFetch;
+    }
 }

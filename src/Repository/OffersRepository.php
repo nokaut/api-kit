@@ -10,6 +10,7 @@ namespace Nokaut\ApiKit\Repository;
 
 
 use Nokaut\ApiKit\ClientApi\ClientApiInterface;
+use Nokaut\ApiKit\ClientApi\Rest\Query\Filter\Single;
 use Nokaut\ApiKit\ClientApi\Rest\Query\OfferQuery;
 use Nokaut\ApiKit\ClientApi\Rest\Query\OffersQuery;
 use Nokaut\ApiKit\ClientApi\Rest\Query\Sort;
@@ -73,6 +74,14 @@ class OffersRepository
         return $this->convertOffer($objectsFromApi);
     }
 
+    public function fetchOffersByShopId($shopId, array $fields, $limit = 20, Sort $sort = null)
+    {
+        $query = $this->prepareQueryForFetchOffersByShopId($shopId, $fields, $limit, $sort);
+
+        $objectsFromApi = $this->clientApi->send($query);
+        return $this->convertOffers($objectsFromApi);
+    }
+
     protected function convertOffers($objectsFromApi)
     {
         return $this->converterOffers->convert($objectsFromApi);
@@ -97,7 +106,6 @@ class OffersRepository
 
         if ($sort) {
             $query->setOrder($sort->getField(), $sort->getOrder());
-            return $query;
         }
         return $query;
     }
@@ -112,6 +120,26 @@ class OffersRepository
         $query = new OfferQuery($this->apiBaseUrl);
         $query->setFields($fields);
         $query->setJoinId($joinId);
+
+        return $query;
+    }
+
+    /**
+     * @param $shopId
+     * @param array $fields
+     * @param int $limit
+     * @param Sort $sort
+     * @return OffersQuery
+     */
+    protected function prepareQueryForFetchOffersByShopId($shopId, array $fields, $limit, Sort $sort = null)
+    {
+        $query = new OffersQuery($this->apiBaseUrl);
+        $query->setFields($fields);
+        $query->addFilter(new Single('shop_id', $shopId));
+        $query->setLimit($limit);
+        if ($sort) {
+            $query->setOrder($sort->getField(), $sort->getOrder());
+        }
 
         return $query;
     }

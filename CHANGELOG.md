@@ -7,6 +7,7 @@ master
  - ProductsRepository - dodanie pola 'click_url' do 'fieldsForProductBox'
  - Offer - dodanie pola join id
  - OffersRepository - funkcja pobierania oferty po joinId
+ - OffersRepository - funkcja pobierania ofert po shopId
 
 
 v1.3.1
