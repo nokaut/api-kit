@@ -50,6 +50,7 @@ class ProductWithBestPriceConverterTest extends PHPUnit_Framework_TestCase
     private function assertBestOffer($correctBestOffer, OfferWithBestPrice $bestOffer)
     {
         $this->assertEquals($correctBestOffer->click_url, $bestOffer->getClickUrl());
+        $this->assertEquals($correctBestOffer->price, $bestOffer->getPrice());
     }
 
     private function getCorrectObject()
@@ -59,7 +60,8 @@ class ProductWithBestPriceConverterTest extends PHPUnit_Framework_TestCase
             "title": "Apple iPad mini 64GB",
             "url": "tablety/apple-ipad-mini-64gb",
             "offer_with_minimum_price": {
-                "click_url": "/Click/Offer/?click=NycoA70pboxDHgLjorC2iKqMwEgIKlOorEflQhdXfzevyV1wMblHBaxf$P3YHaxmZG806J5khwe9Qkex8zhC6oOgyzKFfwUBCYzF*E$3rcw_P.API_1_1_category_sort3desc"
+                "click_url": "/Click/Offer/?click=NycoA70pboxDHgLjorC2iKqMwEgIKlOorEflQhdXfzevyV1wMblHBaxf$P3YHaxmZG806J5khwe9Qkex8zhC6oOgyzKFfwUBCYzF*E$3rcw_P.API_1_1_category_sort3desc",
+                "price": 490.00
             }
         }');
     }
