@@ -13,7 +13,7 @@ use Nokaut\ApiKit\Entity\Product\OfferWithBestPrice;
 use Nokaut\ApiKit\Entity\ProductWithBestOffer;
 use PHPUnit_Framework_TestCase;
 
-class ProductWithBestPriceConverterTest extends PHPUnit_Framework_TestCase
+class ProductWithBestOfferConverterTest extends PHPUnit_Framework_TestCase
 {
     public function testConverter()
     {

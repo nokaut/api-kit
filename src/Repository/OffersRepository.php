@@ -66,9 +66,9 @@ class OffersRepository
         return $this->convertOffers($objectsFromApi);
     }
 
-    public function fetchOfferByJoinId($joinId, array $fields)
+    public function fetchOfferById($id, array $fields)
     {
-        $query = $this->prepareQueryForFetchOfferByJoinId($joinId, $fields);
+        $query = $this->prepareQueryForFetchOfferById($id, $fields);
 
         $objectsFromApi = $this->clientApi->send($query);
         return $this->convertOffer($objectsFromApi);
@@ -111,15 +111,15 @@ class OffersRepository
     }
 
     /**
-     * @param $joinId
+     * @param $id
      * @param array $fields
      * @return OfferQuery
      */
-    protected function prepareQueryForFetchOfferByJoinId($joinId, array $fields)
+    protected function prepareQueryForFetchOfferById($id, array $fields)
     {
         $query = new OfferQuery($this->apiBaseUrl);
         $query->setFields($fields);
-        $query->setJoinId($joinId);
+        $query->setId($id);
 
         return $query;
     }

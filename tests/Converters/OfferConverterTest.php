@@ -102,7 +102,6 @@ class OfferConverterTest extends PHPUnit_Framework_TestCase
         return json_decode('
         {
             "id": "62e92fb1eda89d13fff280c4e91142db",
-            "join_id": "104b5683a2cfdf984d7b6fa30344bc1b",
             "pattern_id": "523000da82fff05ced000001",
             "shop_id": 18089,
             "shop_product_id": "10054",

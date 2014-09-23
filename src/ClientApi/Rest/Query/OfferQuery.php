@@ -19,7 +19,7 @@ class OfferQuery  extends QueryBuilderAbstract
     /**
      * @var string
      */
-    private $joinId;
+    private $id;
 
     public function __construct($baseUrl)
     {
@@ -35,20 +35,20 @@ class OfferQuery  extends QueryBuilderAbstract
     }
 
     /**
-     * @param string $joinId
+     * @param string $id
      */
-    public function setJoinId($joinId)
+    public function setId($id)
     {
-        $this->joinId = $joinId;
+        $this->id = $id;
     }
 
     public function createRequestPath()
     {
-        if (empty($this->joinId)) {
-            throw new \InvalidArgumentException("joinId can't be empty");
+        if (empty($this->id)) {
+            throw new \InvalidArgumentException("id can't be empty");
         }
 
-        $query = $this->baseUrl . 'offers/' . $this->joinId . '?' .
+        $query = $this->baseUrl . 'offers/' . $this->id . '?' .
             $this->createFieldsPart();
 
         return $query;

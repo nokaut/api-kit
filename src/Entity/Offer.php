@@ -114,10 +114,6 @@ class Offer extends EntityAbstract
      * @var Shop
      */
     protected $shop;
-    /**
-     * @var string
-     */
-    protected $join_id;
 
     /**
      * @param boolean $availability
@@ -518,22 +514,5 @@ class Offer extends EntityAbstract
     {
         return $this->warranty;
     }
-
-    /**
-     * @param string $join_id
-     */
-    public function setJoinId($join_id)
-    {
-        $this->join_id = $join_id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getJoinId()
-    {
-        return $this->join_id;
-    }
-
 
 }

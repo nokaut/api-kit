@@ -19,7 +19,7 @@ class OfferQueryTest extends \PHPUnit_Framework_TestCase
     {
         $cut = new OfferQuery(self::$baseUrl);
         $cut->setFields(array('id,title'));
-        $cut->setJoinId("523000da82fff05ced000001");
+        $cut->setId("523000da82fff05ced000001");
 
         $url = $cut->createRequestPath();
 
