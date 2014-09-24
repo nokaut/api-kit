@@ -16,33 +16,24 @@ use Nokaut\ApiKit\ClientApi\Rest\Async\AsyncFetches;
 class AsyncRepository implements AsyncRepositoryInterface
 {
     /**
-     * @var AsyncRepositoryInterface[]
-     */
-    private static $instance;
-    /**
      * @var AsyncFetches
      */
-    protected $fetches;
+    protected static $fetches;
 
-    public static function getInstance(ClientApiInterface $clientApi)
-    {
-        if (!isset(self::$instance[$clientApi->toHash()])) {
-            self::$instance[$clientApi->toHash()] = new self($clientApi);
-        }
-        return self::$instance[$clientApi->toHash()];
-    }
     /**
      * @param ClientApiInterface $clientApi
      */
-    private function __construct(ClientApiInterface $clientApi)
+    public function __construct(ClientApiInterface $clientApi)
     {
         $this->clientApi = $clientApi;
-        $this->fetches = new AsyncFetches();
+        if (empty(self::$fetches)) {
+            self::$fetches = new AsyncFetches();
+        }
     }
 
     public function addFetch(AsyncFetch $fetch)
     {
-        $this->fetches->addFetch($fetch);
+        self::$fetches->addFetch($fetch);
     }
 
     /**
@@ -50,7 +41,7 @@ class AsyncRepository implements AsyncRepositoryInterface
      */
     public function clearAllFetches()
     {
-        $this->fetches = new AsyncFetches();
+        self::$fetches = new AsyncFetches();
     }
 
     /**
@@ -59,11 +50,11 @@ class AsyncRepository implements AsyncRepositoryInterface
      */
     public function fetchAllAsync()
     {
-        if (empty($this->fetches)) {
+        if (empty(self::$fetches)) {
             throw new \InvalidArgumentException('Empty fetches. Use method addFetch(...) add Products/Categories AsyncFetch');
         }
 
-        $this->fetchAsync($this->fetches);
+        $this->fetchAsync(self::$fetches);
         $this->clearAllFetches();
     }
 

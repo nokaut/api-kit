@@ -30,7 +30,7 @@ class CategoriesAsyncRepository extends CategoriesRepository implements AsyncRep
     public function __construct($apiBaseUrl, ClientApiInterface $clientApi)
     {
         $this->apiBaseUrl = $apiBaseUrl;
-        $this->asyncRepo = AsyncRepository::getInstance($clientApi);
+        $this->asyncRepo = new AsyncRepository($clientApi);
     }
 
     public function clearAllFetches()

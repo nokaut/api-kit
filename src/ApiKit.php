@@ -143,7 +143,7 @@ class ApiKit
 
         $restClientApi = $this->getClientApi($config);
 
-        return AsyncRepository::getInstance($restClientApi);
+        return new AsyncRepository($restClientApi);
     }
 
     protected function validate(Config $config)
@@ -155,7 +155,7 @@ class ApiKit
      * @param Config $config
      * @return RestClientApi
      */
-    protected function getClientApi(Config $config)
+    public function getClientApi(Config $config)
     {
         $oauth2 = new Oauth2Plugin();
         $accessToken = array(

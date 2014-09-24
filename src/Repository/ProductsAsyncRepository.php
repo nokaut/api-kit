@@ -32,7 +32,7 @@ class ProductsAsyncRepository extends ProductsRepository implements AsyncReposit
     public function __construct($apiBaseUrl, ClientApiInterface $clientApi)
     {
         $this->apiBaseUrl = $apiBaseUrl;
-        $this->asyncRepo = AsyncRepository::getInstance($clientApi);
+        $this->asyncRepo = new AsyncRepository($clientApi);
     }
 
     public function clearAllFetches()
