@@ -8,6 +8,7 @@ master
  - OffersRepository - funkcja pobierania oferty po id
  - OffersRepository - funkcja pobierania ofert po shopId
  - OffersRepository - funkcja pobierania oferty po OffersQuery
+ - FIX: poprawka do async repository na różne konfiguracje
 
 
 v1.3.1
