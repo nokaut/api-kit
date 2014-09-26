@@ -13,7 +13,6 @@ use Guzzle\Http\Client;
 use Guzzle\Http\Exception\BadResponseException;
 use Guzzle\Http\Message\RequestInterface;
 use Guzzle\Http\Message\Response;
-use Nokaut\ApiKit\Cache\CacheInterface;
 use Nokaut\ApiKit\ClientApi\ClientApiInterface;
 use Nokaut\ApiKit\ClientApi\Rest\Exception\FatalResponseException;
 use Nokaut\ApiKit\ClientApi\Rest\Exception\InvalidRequestException;
@@ -60,14 +59,22 @@ class RestClientApi implements ClientApiInterface
         $fetchesForFilled = $requests = array();
         foreach ($fetches as $fetch) {
             /** @var Fetch $fetch */
+            if($fetch->isProcessed()) {
+                continue;
+            }
             $requests[] = $this->getClient()->createRequest('GET', $fetch->getQuery()->createRequestPath(), null, null, array('exceptions' => false));
             $fetchesForFilled[] = $fetch;
         }
-        $startTime = microtime(true);
 
+        if (count($requests) == 0) {
+            return;
+        }
+
+        $startTime = microtime(true);
         $responses = $this->getClient()->send($requests);
 
         $this->logMulti($requests, $responses, $startTime, LogLevel::DEBUG);
+
         foreach ($fetchesForFilled as $fetch) {
             $response = array_shift($responses);
             if ($response && $response->getStatusCode() == 200) {
