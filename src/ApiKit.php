@@ -47,7 +47,7 @@ class ApiKit
 
         $restClientApi = $this->getClientApi($config);
 
-        return new ProductsRepository($config->getApiUrl(), $restClientApi);
+        return new ProductsRepository($config, $restClientApi);
     }
 
     /**
@@ -63,7 +63,7 @@ class ApiKit
 
         $restClientApi = $this->getClientApi($config);
 
-        return new ProductsAsyncRepository($config->getApiUrl(), $restClientApi);
+        return new ProductsAsyncRepository($config, $restClientApi);
     }
 
     /**
@@ -79,7 +79,7 @@ class ApiKit
 
         $restClientApi = $this->getClientApi($config);
 
-        return new CategoriesRepository($config->getApiUrl(), $restClientApi);
+        return new CategoriesRepository($config, $restClientApi);
     }
 
     /**
@@ -95,7 +95,7 @@ class ApiKit
 
         $restClientApi = $this->getClientApi($config);
 
-        return new CategoriesAsyncRepository($config->getApiUrl(), $restClientApi);
+        return new CategoriesAsyncRepository($config, $restClientApi);
     }
 
     /**
@@ -111,7 +111,7 @@ class ApiKit
 
         $restClientApi = $this->getClientApi($config);
 
-        return new OffersRepository($config->getApiUrl(), $restClientApi);
+        return new OffersRepository($config, $restClientApi);
     }
 
     /**
@@ -127,7 +127,7 @@ class ApiKit
 
         $restClientApi = $this->getClientApi($config);
 
-        return new OffersAsyncRepository($config->getApiUrl(), $restClientApi);
+        return new OffersAsyncRepository($config, $restClientApi);
     }
 
     /**
@@ -162,6 +162,6 @@ class ApiKit
             'access_token' => $this->config->getApiAccessToken()
         );
         $oauth2->setAccessToken($accessToken);
-        return new RestClientApi($config->getCache(), $config->getLogger(), $oauth2);
+        return new RestClientApi($config->getLogger(), $oauth2);
     }
 }

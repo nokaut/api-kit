@@ -10,6 +10,9 @@ namespace Nokaut\ApiKit\Repository;
 
 
 use Nokaut\ApiKit\ClientApi\ClientApiInterface;
+use Nokaut\ApiKit\ClientApi\Rest\Fetch\CategoriesFetch;
+use Nokaut\ApiKit\ClientApi\Rest\Fetch\CategoryFetch;
+use Nokaut\ApiKit\ClientApi\Rest\Fetch\Fetch;
 use Nokaut\ApiKit\Collection\Categories;
 use Nokaut\ApiKit\Entity\Category;
 use Nokaut\ApiKit\ClientApi\Rest\Query\CategoriesQuery;
@@ -19,25 +22,8 @@ use Nokaut\ApiKit\Converter\CategoryConverter;
 use Nokaut\ApiKit\Converter\Category\CategoriesGrouperConverter;
 use Nokaut\ApiKit\Collection\Sort\CategoriesSort;
 
-class CategoriesRepository
+class CategoriesRepository extends RepositoryAbstract
 {
-
-    /**
-     * @var ClientApiInterface
-     */
-    protected $clientApi;
-    /**
-     * @var string
-     */
-    protected $apiBaseUrl;
-    /**
-     * @var CategoriesConverter
-     */
-    protected $converterCategories;
-    /**
-     * @var CategoryConverter
-     */
-    protected $converterCategory;
 
     protected static $fieldsAll = array(
         'id',
@@ -68,18 +54,6 @@ class CategoriesRepository
     }
 
     /**
-     * @param string $apiBaseUrl
-     * @param ClientApiInterface $clientApi
-     */
-    public function __construct($apiBaseUrl, ClientApiInterface $clientApi)
-    {
-        $this->converterCategories = new CategoriesConverter();
-        $this->converterCategory = new CategoryConverter();
-        $this->clientApi = $clientApi;
-        $this->apiBaseUrl = $apiBaseUrl;
-    }
-
-    /**
      * @param int $parentId
      * @param int $depth - max depth is 2
      * @return Categories
@@ -87,11 +61,10 @@ class CategoriesRepository
     public function fetchByParentIdWithChildren($parentId, $depth = 2)
     {
         $query = $this->prepareQueryForFetchByParentIdWithChildren($parentId, $depth);
-        $objectsFromApi = $this->clientApi->send($query);
+        $fetch = new Fetch($query, new CategoriesGrouperConverter(), $this->cache);
+        $this->clientApi->send($fetch);
 
-        $converter = new CategoriesGrouperConverter();
-        $categoriesGrouped = $converter->convert($objectsFromApi);
-        return $categoriesGrouped;
+        return $fetch->getResult();
     }
 
     /**
@@ -101,8 +74,9 @@ class CategoriesRepository
     public function fetchByParentId($parentId)
     {
         $query = $this->prepareQueryForFetchByParentId($parentId);
-        $object = $this->clientApi->send($query);
-        return $this->convertCategories($object);
+        $fetch = new CategoriesFetch($query, $this->cache);
+        $this->clientApi->send($fetch);
+        return $fetch->getResult();
     }
 
     /**
@@ -112,8 +86,9 @@ class CategoriesRepository
     public function fetchById($categoryId)
     {
         $query = $this->prepareQueryForFetchById($categoryId);
-        $object = $this->clientApi->send($query);
-        return $this->convertCategory($object);
+        $fetch = new CategoryFetch($query, $this->cache);
+        $this->clientApi->send($fetch);
+        return $fetch->getResult();
     }
 
     /**
@@ -123,16 +98,18 @@ class CategoriesRepository
     public function fetchByUrl($categoryUrl)
     {
         $query = $this->prepareQueryForFetchByUrl($categoryUrl);
-        $object = $this->clientApi->send($query);
-        return $this->convertCategory($object);
+        $fetch = new CategoryFetch($query, $this->cache);
+        $this->clientApi->send($fetch);
+        return $fetch->getResult();
     }
 
     public function fetchMenuCategories()
     {
         $query = $this->prepareQueryForFetchMenuCategories();
-        $object = $this->clientApi->send($query);
-
-        $categories = $this->convertCategories($object);
+        $fetch = new CategoriesFetch($query, $this->cache);
+        $this->clientApi->send($fetch);
+        /** @var Categories $categories */
+        $categories = $fetch->getResult();
         CategoriesSort::sortByTitle($categories);
         return $categories;
     }
@@ -140,30 +117,14 @@ class CategoriesRepository
     public function fetchCategoriesByIds(array $ids)
     {
         $query = $this->prepareQueryForFetchCategoriesByIds($ids);
-        $object = $this->clientApi->send($query);
-
-        $categories = $this->convertCategories($object);
+        $fetch = new CategoriesFetch($query, $this->cache);
+        $this->clientApi->send($fetch);
+        /** @var Categories $categories */
+        $categories = $fetch->getResult();
         CategoriesSort::sortByTitle($categories);
         return $categories;
     }
 
-    /**
-     * @param \stdClass $objectFromApi
-     * @return Category
-     */
-    protected function convertCategory(\stdClass $objectFromApi)
-    {
-        return $this->converterCategory->convert($objectFromApi);
-    }
-
-    /**
-     * @param \stdClass $objectFromApi
-     * @return Categories
-     */
-    protected function convertCategories(\stdClass $objectFromApi)
-    {
-        return $this->converterCategories->convert($objectFromApi);
-    }
 
     /**
      * @param $parentId

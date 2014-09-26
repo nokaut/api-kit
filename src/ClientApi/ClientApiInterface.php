@@ -9,26 +9,19 @@
 namespace Nokaut\ApiKit\ClientApi;
 
 
-use Nokaut\ApiKit\ClientApi\Rest\Query\QueryBuilderInterface;
+use Nokaut\ApiKit\ClientApi\Rest\Fetch\Fetch;
+use Nokaut\ApiKit\ClientApi\Rest\Fetch\Fetches;
 
 interface ClientApiInterface {
 
     /**
-     * @param QueryBuilderInterface $query
-     * @return mixed
+     * @param Fetch $fetch
      */
-    public function send(QueryBuilderInterface $query);
+    public function send(Fetch $fetch);
 
     /**
-     * @param QueryBuilderInterface[] $queries
-     * @return array
+     * @param Fetches $fetches
      */
-    public function sendMulti(array $queries);
+    public function sendMulti(Fetches $fetches);
 
-    /**
-     * Unique object hash
-     *
-     * @return string
-     */
-    public function toHash();
 }

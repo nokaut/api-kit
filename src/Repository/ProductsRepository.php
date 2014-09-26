@@ -10,6 +10,9 @@ namespace Nokaut\ApiKit\Repository;
 
 
 use Nokaut\ApiKit\ClientApi\ClientApiInterface;
+use Nokaut\ApiKit\ClientApi\Rest\Fetch\Fetch;
+use Nokaut\ApiKit\ClientApi\Rest\Fetch\ProductFetch;
+use Nokaut\ApiKit\ClientApi\Rest\Fetch\ProductsFetch;
 use Nokaut\ApiKit\ClientApi\Rest\Query\Sort;
 use Nokaut\ApiKit\ClientApi\Rest\Query\Filter;
 use Nokaut\ApiKit\Collection\Products;
@@ -22,24 +25,8 @@ use Nokaut\ApiKit\Converter\ProductConverter;
 use Nokaut\ApiKit\Converter\ProductsConverter;
 use Nokaut\ApiKit\Entity\ProductWithBestOffer;
 
-class ProductsRepository
+class ProductsRepository extends RepositoryAbstract
 {
-    /**
-     * @var ProductsConverter
-     */
-    protected $converterProducts;
-    /**
-     * @var ProductConverter
-     */
-    protected $converterProduct;
-    /**
-     * @var ClientApiInterface
-     */
-    protected $clientApi;
-    /**
-     * @var string
-     */
-    protected $apiBaseUrl;
 
     public static $fieldsForProductBox = array(
         'id', 'url', 'product_id', 'title', 'prices', 'offer_count', 'shop_count', 'category_id', 'offer_id',
@@ -69,17 +56,6 @@ class ProductsRepository
 
     public static $fieldsForSimilarProductsInProductPage = array('id', 'url', 'title', 'prices', 'photo_id');
 
-    /**
-     * @param string $apiBaseUrl
-     * @param ClientApiInterface $clientApi
-     */
-    public function __construct($apiBaseUrl, ClientApiInterface $clientApi)
-    {
-        $this->converterProducts = new ProductsConverter();
-        $this->converterProduct = new ProductConverter();
-        $this->clientApi = $clientApi;
-        $this->apiBaseUrl = $apiBaseUrl;
-    }
 
     /**
      * @param int $limit
@@ -89,10 +65,10 @@ class ProductsRepository
     public function fetchProducts($limit, array $fields)
     {
         $query = $this->prepareQueryForFetchProducts($limit, $fields);
+        $fetch = new ProductsFetch($query, $this->cache);
+        $this->clientApi->send($fetch);
 
-        $objectsFromApi = $this->clientApi->send($query);
-
-        return $this->convertProducts($objectsFromApi);
+        return $fetch->getResult();
     }
 
     /**
@@ -105,9 +81,10 @@ class ProductsRepository
     {
         $query = $this->prepareQueryForFetchProductsByProducerName($producerName, $limit, $fields);
 
-        $objectsFromApi = $this->clientApi->send($query);
+        $fetch = new ProductsFetch($query, $this->cache);
+        $this->clientApi->send($fetch);
 
-        return $this->convertProducts($objectsFromApi);
+        return $fetch->getResult();
     }
 
     /**
@@ -121,9 +98,10 @@ class ProductsRepository
     {
         $query = $this->prepareQueryForFetchProductsByCategory($categoryIds, $limit, $fields, $sort);
 
-        $objectsFromApi = $this->clientApi->send($query);
+        $fetch = new ProductsFetch($query, $this->cache);
+        $this->clientApi->send($fetch);
 
-        return $this->convertProducts($objectsFromApi);
+        return $fetch->getResult();
     }
 
     /**
@@ -136,9 +114,10 @@ class ProductsRepository
     {
         $query = $this->prepareQueryForFetchSimilarProductsWithHigherPrice($product, $limit, $fields);
 
-        $objectsFromApi = $this->clientApi->send($query);
+        $fetch = new ProductsFetch($query, $this->cache);
+        $this->clientApi->send($fetch);
 
-        return $this->convertProducts($objectsFromApi);
+        return $fetch->getResult();
     }
 
     /**
@@ -151,9 +130,10 @@ class ProductsRepository
     {
         $query = $this->prepareQueryForFetchSimilarProductsWithLowerPrice($product, $limit, $fields);
 
-        $objectsFromApi = $this->clientApi->send($query);
+        $fetch = new ProductsFetch($query, $this->cache);
+        $this->clientApi->send($fetch);
 
-        return $this->convertProducts($objectsFromApi);
+        return $fetch->getResult();
     }
 
     /**
@@ -162,9 +142,10 @@ class ProductsRepository
      */
     public function fetchProductsByQuery(ProductsQuery $query)
     {
-        $objectsFromApi = $this->clientApi->send($query);
+        $fetch = new ProductsFetch($query, $this->cache);
+        $this->clientApi->send($fetch);
 
-        return $this->convertProducts($objectsFromApi);
+        return $fetch->getResult();
     }
 
     /**
@@ -173,10 +154,10 @@ class ProductsRepository
      */
     public function fetchProductsWithBestOfferByQuery(ProductsQuery $query)
     {
-        $objectsFromApi = $this->clientApi->send($query);
+        $fetch = new Fetch($query, new ProductsWithBestOfferConverter(), $this->cache);
+        $this->clientApi->send($fetch);
 
-        $converterWithBestOffers = new ProductsWithBestOfferConverter();
-        return $converterWithBestOffers->convert($objectsFromApi);
+        return $fetch->getResult();
     }
 
     /**
@@ -187,9 +168,10 @@ class ProductsRepository
     public function fetchProductById($id, array $fields)
     {
         $query = $this->prepareQueryForFetchProductById($id, $fields);
-        $objectsFromApi = $this->clientApi->send($query);
+        $fetch = new ProductFetch($query, $this->cache);
+        $this->clientApi->send($fetch);
 
-        return $this->convertProduct($objectsFromApi);
+        return $fetch->getResult();
     }
 
     /**
@@ -201,9 +183,10 @@ class ProductsRepository
     public function fetchProductsByUrl($url, array $fields, $limit = 20)
     {
         $query = $this->prepareQueryForFetchProductsByUrl($url, $fields, $limit);
-        $objectsFromApi = $this->clientApi->send($query);
+        $fetch = new ProductsFetch($query, $this->cache);
+        $this->clientApi->send($fetch);
 
-        return $this->convertProducts($objectsFromApi);
+        return $fetch->getResult();
     }
 
     /**
@@ -215,10 +198,10 @@ class ProductsRepository
     public function fetchProductsWithBestOfferByUrl($url, array $fields, $limit = 20)
     {
         $query = $this->prepareQueryForFetchProductsByUrl($url, $fields, $limit);
-        $objectsFromApi = $this->clientApi->send($query);
+        $fetch = new Fetch($query, new ProductsWithBestOfferConverter(), $this->cache);
+        $this->clientApi->send($fetch);
 
-        $converterWithBestOffers = new ProductsWithBestOfferConverter();
-        return $converterWithBestOffers->convert($objectsFromApi);
+        return $fetch->getResult();
     }
 
     /**
@@ -229,9 +212,10 @@ class ProductsRepository
     public function fetchProductByUrl($url, array $fields)
     {
         $query = $this->prepareQueryForFetchProductByUrl($url, $fields);
-        $objectsFromApi = $this->clientApi->send($query);
+        $fetch = new ProductFetch($query, $this->cache);
+        $this->clientApi->send($fetch);
 
-        return $this->convertProduct($objectsFromApi);
+        return $fetch->getResult();
     }
 
     /**
@@ -242,31 +226,17 @@ class ProductsRepository
     {
         $query = $this->prepareQueryForFetchCountProductsByPhrase($phrase);
 
-        $objectsFromApi = $this->clientApi->send($query);
+        $fetch = new ProductsFetch($query, $this->cache);
+        $this->clientApi->send($fetch);
 
-        if (isset($objectsFromApi->_metadata->total)) {
-            return $objectsFromApi->_metadata->total;
+        /** @var Products $products */
+        $products = $fetch->getResult();
+
+        if ($products->getMetadata()) {
+            return $products->getMetadata()->getTotal();
         } else {
             return 0;
         }
-    }
-
-    /**
-     * @param \stdClass $objectFromApi
-     * @return Products
-     */
-    protected function convertProducts(\stdClass $objectFromApi)
-    {
-        return $this->converterProducts->convert($objectFromApi);
-    }
-
-    /**
-     * @param \stdClass $objectFromApi
-     * @return Product
-     */
-    protected function convertProduct(\stdClass $objectFromApi)
-    {
-        return $this->converterProduct->convert($objectFromApi);
     }
 
     /**

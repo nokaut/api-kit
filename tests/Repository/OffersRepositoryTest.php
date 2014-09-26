@@ -10,6 +10,7 @@ namespace Nokaut\ApiKit\Repository;
 
 use CommerceGuys\Guzzle\Plugin\Oauth2\Oauth2Plugin;
 use Nokaut\ApiKit\Collection\Offers;
+use Nokaut\ApiKit\Config;
 use Nokaut\ApiKit\Entity\Offer;
 use PHPUnit_Framework_MockObject_MockObject;
 use PHPUnit_Framework_TestCase;
@@ -33,14 +34,28 @@ class OffersRepositoryTest extends \PHPUnit_Framework_TestCase
             'access_token' => '1111'
         );
         $oauth2->setAccessToken($accessToken);
-        $this->clientApiMock = $this->getMock('Nokaut\ApiKit\ClientApi\ClientApiInterface', array('send', 'sendMulti', 'toHash'));
+        $cacheMock = $this->getMock('Nokaut\ApiKit\Cache\CacheInterface');
+        $loggerMock = $this->getMock('Psr\Log\LoggerInterface');
+        $client = $this->getMockBuilder('\Guzzle\Http\Client')->disableOriginalConstructor()->getMock();
+        $this->clientApiMock = $this->getMock(
+            'Nokaut\ApiKit\ClientApi\Rest\RestClientApi',
+            array('convertResponse', 'getClient', 'log'),
+            array($loggerMock, $oauth2)
+        );
+        $this->clientApiMock->expects($this->any())->method('getClient')
+            ->will($this->returnValue($client));
 
-        $this->sut = new OffersRepository("http://32213:454/api/v2/", $this->clientApiMock);
+        $config = new Config();
+        $config->setCache($cacheMock);
+        $config->setLogger($loggerMock);
+        $config->setApiUrl("http://32213:454/api/v2/");
+
+        $this->sut = new OffersRepository($config, $this->clientApiMock);
     }
 
     public function testFetchOffersByProductId()
     {
-        $this->clientApiMock->expects($this->once())->method('send')
+        $this->clientApiMock->expects($this->once())->method('convertResponse')
             ->will($this->returnValue($this->getJsonFixture(__FUNCTION__)));
 
         $productId = '50fe74782da47ccd9d000156';
@@ -54,7 +69,7 @@ class OffersRepositoryTest extends \PHPUnit_Framework_TestCase
 
     public function testFetchOffersByShopId()
     {
-        $this->clientApiMock->expects($this->once())->method('send')
+        $this->clientApiMock->expects($this->once())->method('convertResponse')
             ->will($this->returnValue($this->getJsonFixture('testFetchOffersByProductId')));
 
         $shopId = 632;
@@ -68,7 +83,7 @@ class OffersRepositoryTest extends \PHPUnit_Framework_TestCase
 
     public function testFetchOfferById()
     {
-        $this->clientApiMock->expects($this->once())->method('send')
+        $this->clientApiMock->expects($this->once())->method('convertResponse')
             ->will($this->returnValue($this->getJsonFixture(__FUNCTION__)));
 
         $id = '60930d026db577f93b98537bbb2f1219';
