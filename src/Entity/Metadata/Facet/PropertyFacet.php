@@ -26,7 +26,7 @@ class PropertyFacet extends EntityAbstract
     /**
      * @var string
      */
-    protected $unit;
+    protected $unit = '';
     /**
      * @var Value[]
      */

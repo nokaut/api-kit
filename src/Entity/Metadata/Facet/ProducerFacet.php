@@ -29,7 +29,6 @@ class ProducerFacet extends EntityAbstract
      * @var string
      */
     protected $url;
-
     /**
      * @var bool
      */
