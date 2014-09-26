@@ -6,6 +6,11 @@ master
  - PhotoUrl - gdy puste photoId zwraca link do zaślepiki noimg<size>.png
  - ProductsReposytory - dodanie pól 'click_url', 'click_value', 'shop', 'shop.url_logo', 'shop.name' do 'fieldsForProductBox'
  - Dodanie obsługi zakresów cech (properties ranges)
+ - OffersRepository - funkcja pobierania oferty po id
+ - OffersRepository - funkcja pobierania ofert po shopId
+ - OffersRepository - funkcja pobierania oferty po OffersQuery
+ - FIX: poprawka do async repository na różne konfiguracje
+ - Ustawienie domyślnych wartości dla atrybutów klas \Entity\Metadata\Facet
 
 v1.3.1
 ------

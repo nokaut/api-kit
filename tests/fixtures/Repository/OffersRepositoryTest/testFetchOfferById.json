@@ -1,0 +1,42 @@
+{
+    "id": "60930d026db577f93b98537bbb2f1219",
+    "pattern_id": "50fe74782da47ccd9d000156",
+    "shop_id": 17175,
+    "shop_product_id": "299",
+    "availability": 4,
+    "category": "SD / SD HC/Nośniki pamięci",
+    "description_html": "<p>Karty pamięci SanDisk ExtremeHD Video SDHCTM zapewniają doskonałą równowagę między szybkością i niezawodnością rejestracji filmów HD oraz krótszy czas oczekiwania na następne ujęcie w przypadku fotografowania. Klasa szybkości Class 10 zapewniająca szybkość odczytu i zapisu rzędu nawet 30 MB/s1 sprawia, że omawiane karty umożliwiają rejestrowanie filmów HD za pomocą najnowszych cyfrowych aparatów automatycznych i cyfrowych lustrzanek obsługujących funkcję nagrywania filmów w wysokiej rozdzielczości. Cechy produktu : Jedna karta pamięci spełniająca wszystkie potrzeby w zakresie filmów o wysokiej rozdzielczości i intensywnego fotografowania.</p> <p>Krótszy czas oczekiwania na rejestrację kolejnego ujęcia w przypadku zaawansowanych aparatów fotograficznych</p> <p>Rejestracja filmów HD za pomocą kamer wideo i cyfrowych lustrzanek z funkcją zapisu filmów (klasa szybkości Class 10)</p> <p>Szybkie i łatwe przesyłanie zdjęć i filmów do komputera dzięki szybkości odczytu rzędu nawet 30 MB/s**</p> <p>Rejestracja filmów HD bez żadnych kompromisów</p> <p>* Dane szacunkowe: Wyniki zależą od rozmiaru plików, rozdzielczości, stopnia kompresji, szybkości przesyłu danych, zawartości, używanego urządzenia, obecności wstępnie zapisanych plików i innych czynników.</p> <p>** Odczyt i zapis z maks. szybkością 30 MB/s. Na podstawie wewnętrznych testów firmy SanDisk; wydajność zależy od używanego urządzenia. 1 megabajt (MB) &#61; 1 milion bajtów.<br /> </p>",
+    "title": "SanDisk Karta Extreme Video HD SDHC 8 GB",
+    "price": 45.00,
+    "producer": "SanDisk",
+    "promo": null,
+    "url": "http://proclub.pl/pl/sandisk_karta_extreme_video_hd_sdhc_8_gb.html",
+    "warranty": null,
+    "category_id": 94,
+    "photo_id": "cdabcdf223723b80d83e317637b69163",
+    "photo_ids": [],
+    "cpc_value": 31,
+    "expires_at": null,
+    "blocked_at": null,
+    "click_value": 0.31,
+    "visible": true,
+    "properties": [
+        {
+            "name": "EAN",
+            "value": "619659033170"
+        }
+    ],
+    "description": "Karty pamięci SanDisk ExtremeHD Video SDHCTM zapewniają doskonałą równowagę między szybkością i niezawodnością rejestracji filmów HD oraz krótszy czas oczekiwania na następne ujęcie w przypadku fotografowania. Klasa szybkości Class 10 zapewniająca szybkość odczytu i zapisu rzędu nawet 30 MB/s1 sprawia, że omawiane karty umożliwiają rejestrowanie filmów HD za pomocą najnowszych cyfrowych aparatów automatycznych i cyfrowych lustrzanek obsługujących funkcję nagrywania filmów w wysokiej rozdzielczości. Cechy produktu : Jedna karta pamięci spełniająca wszystkie potrzeby w zakresie filmów o wysokiej rozdzielczości i intensywnego fotografowania. Krótszy czas oczekiwania na rejestrację kolejnego ujęcia w przypadku zaawansowanych aparatów fotograficznych Rejestracja filmów HD za pomocą kamer wideo i cyfrowych lustrzanek z funkcją zapisu filmów (klasa szybkości Class 10) Szybkie i łatwe przesyłanie zdjęć i filmów do komputera dzięki szybkości odczytu rzędu nawet 30 MB/s** Rejestracja filmów HD bez żadnych kompromisów * Dane szacunkowe: Wyniki zależą od rozmiaru plików, rozdzielczości, stopnia kompresji, szybkości przesyłu danych, zawartości, używanego urządzenia, obecności wstępnie zapisanych plików i innych czynników. ** Odczyt i zapis z maks. szybkością 30 MB/s. Na podstawie wewnętrznych testów firmy SanDisk; wydajność zależy od używanego urządzenia. 1 megabajt (MB) &#61; 1 milion bajtów.",
+    "click_url": "/Click/Offer/?click=SfUZ2hfAhMvIewlC8TJ$DllUKHmftP9CXDPoJFkJLwcDz0z4yFixrYSMfKYXZYdCU7j*PEdNvsQFvFG1YXWs*Q_O.API_1_9_",
+    "shop": {
+        "id": 17175,
+        "name": "Proclub - Profesjonalny Sklep Foto i Video",
+        "url_logo": "/s/17175.jpg",
+        "high_quality": false,
+        "opineo_rating": {
+            "rating": 9.4,
+            "rating_count": 222,
+            "url": "http://www.opineo.pl/opinie/proclub-pl"
+        }
+    }
+}

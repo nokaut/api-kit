@@ -17,6 +17,10 @@ class OfferWithBestPrice extends EntityAbstract
      * @var string
      */
     protected $click_url;
+    /**
+     * @var float
+     */
+    protected $price;
 
     /**
      * @param string $click_url
@@ -32,6 +36,22 @@ class OfferWithBestPrice extends EntityAbstract
     public function getClickUrl()
     {
         return $this->click_url;
+    }
+
+    /**
+     * @param float $price
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+    }
+
+    /**
+     * @return float
+     */
+    public function getPrice()
+    {
+        return $this->price;
     }
 
 

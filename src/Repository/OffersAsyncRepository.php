@@ -10,7 +10,9 @@ namespace Nokaut\ApiKit\Repository;
 
 
 use Nokaut\ApiKit\ClientApi\ClientApiInterface;
+use Nokaut\ApiKit\ClientApi\Rest\Async\OfferAsyncFetch;
 use Nokaut\ApiKit\ClientApi\Rest\Async\OffersAsyncFetch;
+use Nokaut\ApiKit\ClientApi\Rest\Query\OffersQuery;
 use Nokaut\ApiKit\ClientApi\Rest\Query\Sort;
 
 class OffersAsyncRepository extends OffersRepository implements AsyncRepositoryInterface
@@ -27,7 +29,7 @@ class OffersAsyncRepository extends OffersRepository implements AsyncRepositoryI
     public function __construct($apiBaseUrl, ClientApiInterface $clientApi)
     {
         $this->apiBaseUrl = $apiBaseUrl;
-        $this->asyncRepo = AsyncRepository::getInstance($clientApi);
+        $this->asyncRepo = new AsyncRepository($clientApi);
     }
 
     public function clearAllFetches()
@@ -49,6 +51,38 @@ class OffersAsyncRepository extends OffersRepository implements AsyncRepositoryI
     public function fetchOffersByProductId($productId, array $fields, Sort $sort = null)
     {
         $offersAsyncFetch = new OffersAsyncFetch($this->prepareQueryForFetchOffersByProductId($productId, $fields, $sort));
+        $this->asyncRepo->addFetch($offersAsyncFetch);
+        return $offersAsyncFetch;
+    }
+
+    public function fetchOfferById($id, array $fields)
+    {
+        $offersAsyncFetch = new OfferAsyncFetch($this->prepareQueryForFetchOfferById($id, $fields));
+        $this->asyncRepo->addFetch($offersAsyncFetch);
+        return $offersAsyncFetch;
+    }
+
+    /**
+     * @param OffersQuery $query
+     * @return OffersAsyncFetch
+     */
+    public function fetchOffersByQuery(OffersQuery $query)
+    {
+        $offersAsyncFetch = new OffersAsyncFetch($query);
+        $this->asyncRepo->addFetch($offersAsyncFetch);
+        return $offersAsyncFetch;
+    }
+
+    /**
+     * @param $shopId
+     * @param array $fields
+     * @param int $limit
+     * @param Sort $sort
+     * @return OffersAsyncFetch
+     */
+    public function fetchOffersByShopId($shopId, array $fields, $limit = 20, Sort $sort = null)
+    {
+        $offersAsyncFetch = new OffersAsyncFetch($this->prepareQueryForFetchOffersByShopId($shopId, $fields, $limit, $sort));
         $this->asyncRepo->addFetch($offersAsyncFetch);
         return $offersAsyncFetch;
     }
