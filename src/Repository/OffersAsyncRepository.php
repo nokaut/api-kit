@@ -10,10 +10,11 @@ namespace Nokaut\ApiKit\Repository;
 
 
 use Nokaut\ApiKit\ClientApi\ClientApiInterface;
-use Nokaut\ApiKit\ClientApi\Rest\Async\OfferAsyncFetch;
-use Nokaut\ApiKit\ClientApi\Rest\Async\OffersAsyncFetch;
+use Nokaut\ApiKit\ClientApi\Rest\Fetch\OfferFetch;
+use Nokaut\ApiKit\ClientApi\Rest\Fetch\OffersFetch;
 use Nokaut\ApiKit\ClientApi\Rest\Query\OffersQuery;
 use Nokaut\ApiKit\ClientApi\Rest\Query\Sort;
+use Nokaut\ApiKit\Config;
 
 class OffersAsyncRepository extends OffersRepository implements AsyncRepositoryInterface
 {
@@ -23,12 +24,12 @@ class OffersAsyncRepository extends OffersRepository implements AsyncRepositoryI
     protected $asyncRepo;
 
     /**
-     * @param string $apiBaseUrl
+     * @param Config $config
      * @param ClientApiInterface $clientApi
      */
-    public function __construct($apiBaseUrl, ClientApiInterface $clientApi)
+    public function __construct(Config $config, ClientApiInterface $clientApi)
     {
-        $this->apiBaseUrl = $apiBaseUrl;
+        parent::__construct($config, $clientApi);
         $this->asyncRepo = new AsyncRepository($clientApi);
     }
 
@@ -46,29 +47,29 @@ class OffersAsyncRepository extends OffersRepository implements AsyncRepositoryI
      * @param $productId
      * @param array $fields
      * @param Sort $sort
-     * @return OffersAsyncFetch
+     * @return OffersFetch
      */
     public function fetchOffersByProductId($productId, array $fields, Sort $sort = null)
     {
-        $offersAsyncFetch = new OffersAsyncFetch($this->prepareQueryForFetchOffersByProductId($productId, $fields, $sort));
+        $offersAsyncFetch = new OffersFetch($this->prepareQueryForFetchOffersByProductId($productId, $fields, $sort), $this->cache);
         $this->asyncRepo->addFetch($offersAsyncFetch);
         return $offersAsyncFetch;
     }
 
     public function fetchOfferById($id, array $fields)
     {
-        $offersAsyncFetch = new OfferAsyncFetch($this->prepareQueryForFetchOfferById($id, $fields));
+        $offersAsyncFetch = new OfferFetch($this->prepareQueryForFetchOfferById($id, $fields), $this->cache);
         $this->asyncRepo->addFetch($offersAsyncFetch);
         return $offersAsyncFetch;
     }
 
     /**
      * @param OffersQuery $query
-     * @return OffersAsyncFetch
+     * @return OffersFetch
      */
     public function fetchOffersByQuery(OffersQuery $query)
     {
-        $offersAsyncFetch = new OffersAsyncFetch($query);
+        $offersAsyncFetch = new OffersFetch($query, $this->cache);
         $this->asyncRepo->addFetch($offersAsyncFetch);
         return $offersAsyncFetch;
     }
@@ -78,11 +79,11 @@ class OffersAsyncRepository extends OffersRepository implements AsyncRepositoryI
      * @param array $fields
      * @param int $limit
      * @param Sort $sort
-     * @return OffersAsyncFetch
+     * @return OffersFetch
      */
     public function fetchOffersByShopId($shopId, array $fields, $limit = 20, Sort $sort = null)
     {
-        $offersAsyncFetch = new OffersAsyncFetch($this->prepareQueryForFetchOffersByShopId($shopId, $fields, $limit, $sort));
+        $offersAsyncFetch = new OffersFetch($this->prepareQueryForFetchOffersByShopId($shopId, $fields, $limit, $sort), $this->cache);
         $this->asyncRepo->addFetch($offersAsyncFetch);
         return $offersAsyncFetch;
     }

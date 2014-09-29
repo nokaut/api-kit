@@ -6,7 +6,7 @@
  * Time: 13:32
  */
 
-namespace Nokaut\ApiKit\ClientApi\Rest\Async;
+namespace Nokaut\ApiKit\ClientApi\Rest\Fetch;
 
 
 use ArrayIterator;
@@ -14,10 +14,10 @@ use Nokaut\ApiKit\ClientApi\Rest\Query\QueryBuilderInterface;
 use Nokaut\ApiKit\Collection\CollectionInterface;
 use Traversable;
 
-class AsyncFetches implements CollectionInterface
+class Fetches implements CollectionInterface
 {
     /**
-     * @var AsyncFetch[]
+     * @var Fetch[]
      */
     protected $fetch = array();
 
@@ -35,7 +35,7 @@ class AsyncFetches implements CollectionInterface
 
     /**
      * @param int $index
-     * @return AsyncFetch
+     * @return Fetch
      */
     public function getItem($index)
     {
@@ -56,13 +56,13 @@ class AsyncFetches implements CollectionInterface
         count($this->fetch);
     }
 
-    public function addFetch(AsyncFetch $fetch)
+    public function addFetch(Fetch $fetch)
     {
         $this->fetch[] = $fetch;
     }
 
     /**
-     * @param AsyncFetch[] $fetches
+     * @param Fetch[] $fetches
      */
     public function setFetches(array $fetches)
     {

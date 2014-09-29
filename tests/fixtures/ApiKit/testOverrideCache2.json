@@ -1,0 +1,26 @@
+{
+    "id": 688,
+    "cpc_value": 0.24,
+    "depth": 2,
+    "is_adult": null,
+    "is_visible": true,
+    "is_visible_on_homepage": true,
+    "title": "Telefony komórkowe",
+    "parent_id": "686",
+    "path": [
+        {
+            "id": 686,
+            "title": "Telefony i akcesoria",
+            "url": "/telefony-i-akcesoria"
+        },
+        {
+            "id": 687,
+            "title": "Telefony komórkowe",
+            "url": "/telefony-komorkowe"
+        }
+    ],
+    "photo_id": "07b3eb9f5a5f2b1ff4099a8c19aa6288",
+    "subcategory_count": 0,
+    "url": "/telefony-komorkowe",
+    "view_type": "picture"
+}

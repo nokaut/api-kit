@@ -10,13 +10,13 @@ namespace Nokaut\ApiKit\Repository;
 
 
 use Nokaut\ApiKit\ClientApi\ClientApiInterface;
-use Nokaut\ApiKit\ClientApi\Rest\Async\AsyncFetch;
-use Nokaut\ApiKit\ClientApi\Rest\Async\AsyncFetches;
+use Nokaut\ApiKit\ClientApi\Rest\Fetch\Fetch;
+use Nokaut\ApiKit\ClientApi\Rest\Fetch\Fetches;
 
 class AsyncRepository implements AsyncRepositoryInterface
 {
     /**
-     * @var AsyncFetches
+     * @var Fetches
      */
     protected static $fetches;
 
@@ -27,11 +27,11 @@ class AsyncRepository implements AsyncRepositoryInterface
     {
         $this->clientApi = $clientApi;
         if (empty(self::$fetches)) {
-            self::$fetches = new AsyncFetches();
+            self::$fetches = new Fetches();
         }
     }
 
-    public function addFetch(AsyncFetch $fetch)
+    public function addFetch(Fetch $fetch)
     {
         self::$fetches->addFetch($fetch);
     }
@@ -41,7 +41,7 @@ class AsyncRepository implements AsyncRepositoryInterface
      */
     public function clearAllFetches()
     {
-        self::$fetches = new AsyncFetches();
+        self::$fetches = new Fetches();
     }
 
     /**
@@ -51,7 +51,7 @@ class AsyncRepository implements AsyncRepositoryInterface
     public function fetchAllAsync()
     {
         if (empty(self::$fetches)) {
-            throw new \InvalidArgumentException('Empty fetches. Use method addFetch(...) add Products/Categories AsyncFetch');
+            throw new \InvalidArgumentException('Empty fetches. Use method addFetch(...) add Products/Categories/Offers Fetch');
         }
 
         $this->fetchAsync(self::$fetches);
@@ -59,16 +59,10 @@ class AsyncRepository implements AsyncRepositoryInterface
     }
 
     /**
-     * @param AsyncFetches $requests
+     * @param Fetches $fetches
      */
-    public function fetchAsync(AsyncFetches $requests)
+    public function fetchAsync(Fetches $fetches)
     {
-        $responses = $this->clientApi->sendMulti($requests->getQueries());
-
-        foreach ($responses as $index => $response) {
-            if ($response) {
-                $requests->getItem($index)->setResult($response);
-            }
-        }
+        $this->clientApi->sendMulti($fetches);
     }
 } 

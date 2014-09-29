@@ -13,14 +13,12 @@ use Guzzle\Http\Client;
 use Guzzle\Http\Exception\BadResponseException;
 use Guzzle\Http\Message\RequestInterface;
 use Guzzle\Http\Message\Response;
-use Nokaut\ApiKit\Cache\CacheInterface;
 use Nokaut\ApiKit\ClientApi\ClientApiInterface;
 use Nokaut\ApiKit\ClientApi\Rest\Exception\FatalResponseException;
 use Nokaut\ApiKit\ClientApi\Rest\Exception\InvalidRequestException;
 use Nokaut\ApiKit\ClientApi\Rest\Exception\NotFoundException;
-use Nokaut\ApiKit\ClientApi\Rest\Query\QueryBuilderInterface;
-use Nokaut\ApiKit\Collection\CollectionInterface;
-use Nokaut\ApiKit\Entity\EntityAbstract;
+use Nokaut\ApiKit\ClientApi\Rest\Fetch\Fetch;
+use Nokaut\ApiKit\ClientApi\Rest\Fetch\Fetches;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -31,129 +29,119 @@ class RestClientApi implements ClientApiInterface
     /**
      * @var \Guzzle\Http\Client
      */
-    private $client;
-
-    /**
-     * @var CacheInterface
-     */
-    private $cache;
+    protected $client;
 
     /**
      * @var LoggerInterface
      */
-    private $logger;
+    protected $logger;
 
     /**
      * @var \Symfony\Component\EventDispatcher\EventSubscriberInterface
      */
-    private $auth;
+    protected $auth;
 
-    public function __construct(CacheInterface $cache, LoggerInterface $logger, EventSubscriberInterface $auth)
+    public function __construct(LoggerInterface $logger, EventSubscriberInterface $auth)
     {
         $this->client = new Client();
         $this->client->addSubscriber($auth);
-        $this->cache = $cache;
         $this->auth = $auth;
         $this->logger = $logger;
     }
 
     /**
-     * @param QueryBuilderInterface[] $queries
-     * @return array
+     * @param Fetches $fetches
      */
-    public function sendMulti(array $queries)
+    public function sendMulti(Fetches $fetches)
     {
-        $results = array();
+        $this->getCacheResults($fetches);
 
-        $queriesToSend = array();
-        $this->getCacheResults($queries, $results, $queriesToSend);
-
-        $requests = array();
-        foreach ($queriesToSend as $query) {
-            /** @var QueryBuilderInterface $query */
-            $requests[] = $this->client->createRequest('GET', $query->createRequestPath(), null, null, array('exceptions' => false));
+        $fetchesForFilled = $requests = array();
+        foreach ($fetches as $fetch) {
+            /** @var Fetch $fetch */
+            if($fetch->isProcessed()) {
+                continue;
+            }
+            $requests[] = $this->getClient()->createRequest('GET', $fetch->getQuery()->createRequestPath(), null, null, array('exceptions' => false));
+            $fetchesForFilled[] = $fetch;
         }
-        $startTime = microtime(true);
 
-        $responses = $this->client->send($requests);
+        if (count($requests) == 0) {
+            return;
+        }
+
+        $startTime = microtime(true);
+        $responses = $this->getClient()->send($requests);
 
         $this->logMulti($requests, $responses, $startTime, LogLevel::DEBUG);
 
-        foreach ($queries as $index => $query) {
-            if(empty($results[$index])) {
-                $response = array_shift($responses);
-                if ($response && $response->getStatusCode() == 200) {
-                    $cacheKey = $this->prepareCacheKey($query);
-                    $this->cache->save($cacheKey, serialize($response));
-                    $results[$index] = $this->convertResponse($response);
-                } else {
-                    $results[$index] = null;
-                }
+        foreach ($fetchesForFilled as $fetch) {
+            $response = array_shift($responses);
+            if ($response && $response->getStatusCode() == 200) {
+                $cacheKey = $fetch->prepareCacheKey();
+                $fetch->getCache()->save($cacheKey, serialize($response));
+                $fetch->setResult($this->convertResponse($response));
             }
         }
-        return $results;
     }
 
     /**
-     * @param array $queries
-     * @param array $results
-     * @param array $queriesToSend - cacheKey => QueryBuilderInterface
+     * @param Fetches $fetches
      */
-    private function getCacheResults(array $queries, array &$results, array &$queriesToSend)
+    protected function getCacheResults(Fetches $fetches)
     {
-        foreach ($queries as $index => $query) {
-            /** @var QueryBuilderInterface $query */
-            $cacheKey = $this->prepareCacheKey($query);
+        foreach ($fetches as $fetch) {
+            /** @var Fetch $fetch */
+            $cacheKey = $fetch->prepareCacheKey();
 
-            $cacheResult = $this->cache->get($cacheKey);
+            $cacheResult = $fetch->getCache()->get($cacheKey);
             if ($cacheResult) {
-                $this->logger->debug("get data from cache, query: " . $query->createRequestPath());
-                $results[$index] = $this->convertResponse(unserialize($cacheResult));
-            } else {
-                $queriesToSend[] = $query;
+                $this->logger->debug("get data from cache, query: " . $fetch->getQuery()->createRequestPath());
+                $fetch->setResult($this->convertResponse(unserialize($cacheResult)));
+                $fetch->setProcessed(true);
             }
         }
     }
 
     /**
-     * @param QueryBuilderInterface $query
-     * @return EntityAbstract|CollectionInterface
-     *
-     * @throws Exception\NotFoundException
-     * @throws Exception\FatalResponseException
+     * @param Fetch $fetch
      */
-    public function send(QueryBuilderInterface $query)
+    public function send(Fetch $fetch)
     {
-        $requestPath = $query->createRequestPath();
-        $cacheKey = $this->prepareCacheKey($query);
+        $requestPath = $fetch->getQuery()->createRequestPath();
+        $cacheKey = $fetch->prepareCacheKey();
 
-        $cacheResult = $this->cache->get($cacheKey);
+        $cache = $fetch->getCache();;
+
+        $cacheResult = $cache->get($cacheKey);
         if ($cacheResult) {
             $this->logger->debug('get data from cache, query: ' . $requestPath);
-            return $this->convertResponse(unserialize($cacheResult));
+            $fetch->setResult($this->convertResponse(unserialize($cacheResult)));
+            return;
         }
 
         $startTime = microtime(true);
 
-        $request = $this->client->createRequest('GET', $requestPath);
+        $request = $this->getClient()->createRequest('GET', $requestPath);
         $response = null;
         try {
-            $response = $this->client->send($request);
+            $response = $this->getClient()->send($request);
             $this->log($request, $response, $startTime, LogLevel::DEBUG);
 
-            $this->cache->save($cacheKey, serialize($response));
+            $cache->save($cacheKey, serialize($response));
+
+            $fetch->setResult($this->convertResponse($response));
+
         } catch (BadResponseException $e) {
             $this->handleException($e, $startTime);
         }
-
-        return $this->convertResponse($response);
     }
 
     /**
      * @param Response $response
-     * @return \Guzzle\Http\EntityBodyInterface|string
+     * @return \stdClass
      */
-    private function convertResponse(Response $response)
+    protected function convertResponse($response)
     {
         return json_decode($response->getBody(true));
     }
@@ -165,7 +153,7 @@ class RestClientApi implements ClientApiInterface
      * @throws Exception\NotFoundException
      * @throws Exception\InvalidRequestException
      */
-    private function handleException(BadResponseException $e, $startTime)
+    protected function handleException(BadResponseException $e, $startTime)
     {
         $this->log($e->getRequest(), $e->getResponse(), $startTime);
 
@@ -183,11 +171,11 @@ class RestClientApi implements ClientApiInterface
 
     /**
      * @param RequestInterface $request
-     * @param \Guzzle\Http\Message\Response $response
+     * @param Response $response
      * @param $startTime
      * @param string $level - level form Psr\Log\LogLevel
      */
-    private function log(RequestInterface $request, Response $response, $startTime, $level = LogLevel::INFO)
+    protected function log($request, $response, $startTime, $level = LogLevel::INFO)
     {
         $url = $request->getUrl();
         $statusCode = $response->getStatusCode();
@@ -209,11 +197,11 @@ class RestClientApi implements ClientApiInterface
 
     /**
      * @param RequestInterface[] $requests
-     * @param \Guzzle\Http\Message\Response[] $responses
+     * @param Response[] $responses
      * @param $startTime
      * @param string $level - level form Psr\Log\LogLevel
      */
-    private function logMulti(array $requests, array $responses, $startTime, $level = LogLevel::INFO)
+    protected function logMulti($requests, $responses, $startTime, $level = LogLevel::INFO)
     {
         $countRequest = count($requests);
         $endTime = microtime(true);
@@ -240,17 +228,11 @@ class RestClientApi implements ClientApiInterface
     }
 
     /**
-     * @param QueryBuilderInterface $query
-     * @return string
+     * @return Client
      */
-    private function prepareCacheKey(QueryBuilderInterface $query)
+    protected function getClient()
     {
-        return 'api-' . md5($query->createRequestPath());
-    }
-
-    public function toHash()
-    {
-        return md5(serialize($this->cache).serialize($this->logger).serialize($this->auth));
+        return $this->client;
     }
 
 } 

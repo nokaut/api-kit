@@ -10,9 +10,10 @@ namespace Nokaut\ApiKit\Repository;
 
 
 use Nokaut\ApiKit\ClientApi\ClientApiInterface;
-use Nokaut\ApiKit\ClientApi\Rest\Async\AsyncFetch;
-use Nokaut\ApiKit\ClientApi\Rest\Async\CategoriesAsyncFetch;
-use Nokaut\ApiKit\ClientApi\Rest\Async\CategoryAsyncFetch;
+use Nokaut\ApiKit\ClientApi\Rest\Fetch\Fetch;
+use Nokaut\ApiKit\ClientApi\Rest\Fetch\CategoriesFetch;
+use Nokaut\ApiKit\ClientApi\Rest\Fetch\CategoryFetch;
+use Nokaut\ApiKit\Config;
 use Nokaut\ApiKit\Converter\Category\CategoriesGrouperConverter;
 use Nokaut\ApiKit\Entity\Category;
 
@@ -24,12 +25,12 @@ class CategoriesAsyncRepository extends CategoriesRepository implements AsyncRep
     protected $asyncRepo;
 
     /**
-     * @param string $apiBaseUrl
+     * @param \Nokaut\ApiKit\Config $config
      * @param ClientApiInterface $clientApi
      */
-    public function __construct($apiBaseUrl, ClientApiInterface $clientApi)
+    public function __construct(Config $config, ClientApiInterface $clientApi)
     {
-        $this->apiBaseUrl = $apiBaseUrl;
+        parent::__construct($config, $clientApi);
         $this->asyncRepo = new AsyncRepository($clientApi);
     }
 
@@ -46,65 +47,65 @@ class CategoriesAsyncRepository extends CategoriesRepository implements AsyncRep
     /**
      * @param int $parentId
      * @param int $depth
-     * @return CategoriesAsyncFetch
+     * @return CategoriesFetch
      */
     public function fetchByParentIdWithChildren($parentId, $depth = 2)
     {
-        $categoriesAsyncFetch = new AsyncFetch($this->prepareQueryForFetchByParentIdWithChildren($parentId, $depth),new CategoriesGrouperConverter());
+        $categoriesAsyncFetch = new Fetch($this->prepareQueryForFetchByParentIdWithChildren($parentId, $depth),new CategoriesGrouperConverter(), $this->cache);
         $this->asyncRepo->addFetch($categoriesAsyncFetch);
         return $categoriesAsyncFetch;
     }
 
     /**
      * @param $parentId
-     * @return CategoriesAsyncFetch
+     * @return CategoriesFetch
      */
     public function fetchByParentId($parentId)
     {
-        $categoriesAsyncFetch = new CategoriesAsyncFetch($this->prepareQueryForFetchByParentId($parentId));
+        $categoriesAsyncFetch = new CategoriesFetch($this->prepareQueryForFetchByParentId($parentId), $this->cache);
         $this->asyncRepo->addFetch($categoriesAsyncFetch);
         return $categoriesAsyncFetch;
     }
 
     /**
      * @param $categoryId
-     * @return CategoryAsyncFetch
+     * @return CategoryFetch
      */
     public function fetchById($categoryId)
     {
-        $categoryAsyncFetch = new CategoryAsyncFetch($this->prepareQueryForFetchById($categoryId));
+        $categoryAsyncFetch = new CategoryFetch($this->prepareQueryForFetchById($categoryId), $this->cache);
         $this->asyncRepo->addFetch($categoryAsyncFetch);
         return $categoryAsyncFetch;
     }
 
     /**
      * @param $categoryUrl
-     * @return CategoryAsyncFetch
+     * @return CategoryFetch
      */
     public function fetchByUrl($categoryUrl)
     {
-        $categoryAsyncFetch = new CategoryAsyncFetch($this->prepareQueryForFetchByUrl($categoryUrl));
+        $categoryAsyncFetch = new CategoryFetch($this->prepareQueryForFetchByUrl($categoryUrl), $this->cache);
         $this->asyncRepo->addFetch($categoryAsyncFetch);
         return $categoryAsyncFetch;
     }
 
     /**
-     * @return CategoriesAsyncFetch
+     * @return CategoriesFetch
      */
     public function fetchMenuCategories()
     {
-        $categoriesAsyncFetch = new CategoriesAsyncFetch($this->prepareQueryForFetchMenuCategories());
+        $categoriesAsyncFetch = new CategoriesFetch($this->prepareQueryForFetchMenuCategories(), $this->cache);
         $this->asyncRepo->addFetch($categoriesAsyncFetch);
         return $categoriesAsyncFetch;
     }
 
     /**
      * @param array $ids
-     * @return CategoriesAsyncFetch
+     * @return CategoriesFetch
      */
     public function fetchCategoriesByIds(array $ids)
     {
-        $categoriesAsyncFetch = new CategoriesAsyncFetch($this->prepareQueryForFetchCategoriesByIds($ids));
+        $categoriesAsyncFetch = new CategoriesFetch($this->prepareQueryForFetchCategoriesByIds($ids), $this->cache);
         $this->asyncRepo->addFetch($categoriesAsyncFetch);
         return $categoriesAsyncFetch;
     }
