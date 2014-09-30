@@ -4,14 +4,14 @@ ChangeLog
 v1.4.1
 ------
 - Ustawienie domyślnych wartości dla atrybutów klas \Entity\Metadata\Facet
-- ProductsReposytory - dodanie pól 'click_value', 'shop', 'shop.url_logo', 'shop.name' do 'fieldsForProductBox'
+- ProductsRepository - dodanie pól 'click_value', 'shop', 'shop.url_logo', 'shop.name' do 'fieldsForProductBox'
 - Dodanie obsługi zakresów cech (properties ranges)
 - FIX: CollectionAbstract klucze encji
 
 v1.4.0
 ------
  - PhotoUrl - gdy puste photoId zwraca link do zaślepiki noimg<size>.png
- - ProductsReposytory - dodanie pola 'click_url' do 'fieldsForProductBox'
+ - ProductsRepository - dodanie pola 'click_url' do 'fieldsForProductBox'
  - OffersRepository - funkcja pobierania oferty po id
  - OffersRepository - funkcja pobierania ofert po shopId
  - OffersRepository - funkcja pobierania oferty po OffersQuery
