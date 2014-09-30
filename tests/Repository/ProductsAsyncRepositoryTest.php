@@ -10,7 +10,8 @@ namespace Nokaut\ApiKit\Repository;
 
 
 use CommerceGuys\Guzzle\Plugin\Oauth2\Oauth2Plugin;
-use Nokaut\ApiKit\ClientApi\Rest\Async\ProductsAsyncFetch;
+use Nokaut\ApiKit\ClientApi\Rest\Fetch\ProductsFetch;
+use Nokaut\ApiKit\Config;
 use PHPUnit_Framework_MockObject_MockObject;
 
 class ProductsAsyncRepositoryTest extends \PHPUnit_Framework_TestCase
@@ -32,17 +33,37 @@ class ProductsAsyncRepositoryTest extends \PHPUnit_Framework_TestCase
             'access_token' => '1111'
         );
         $oauth2->setAccessToken($accessToken);
-        $this->clientApiMock = $this->getMock('Nokaut\ApiKit\ClientApi\ClientApiInterface', array('send', 'sendMulti', 'toHash'));
+        $cacheMock = $this->getMock('Nokaut\ApiKit\Cache\CacheInterface');
+        $loggerMock = $this->getMock('Psr\Log\LoggerInterface');
 
-        $this->sut = new ProductsAsyncRepository("http://32213:454/api/v2/", $this->clientApiMock);
+        $response = $this->getMockBuilder('Guzzle\Http\Message\Response')->disableOriginalConstructor()->getMock();
+        $response->expects($this->any())->method('getStatusCode')->will($this->returnValue(200));
+
+        $client = $this->getMockBuilder('\Guzzle\Http\Client')->disableOriginalConstructor()->getMock();
+        $client->expects($this->any())->method('send')->will($this->returnValue(array($response)));
+
+        $this->clientApiMock = $this->getMock(
+            'Nokaut\ApiKit\ClientApi\Rest\RestClientApi',
+            array('convertResponse', 'getClient', 'logMulti'),
+            array($loggerMock, $oauth2)
+        );
+        $this->clientApiMock->expects($this->any())->method('getClient')
+            ->will($this->returnValue($client));
+
+        $config = new Config();
+        $config->setCache($cacheMock);
+        $config->setLogger($loggerMock);
+        $config->setApiUrl("http://32213:454/api/v2/");
+
+        $this->sut = new ProductsAsyncRepository($config, $this->clientApiMock);
     }
 
     public function testFetchProducts()
     {
-        $this->clientApiMock->expects($this->once())->method('sendMulti')
+        $this->clientApiMock->expects($this->once())->method('convertResponse')
             ->will($this->returnValue($this->getJsonFixture('testFetchProducts')));
 
-        /** @var ProductsAsyncFetch $productsFetch */
+        /** @var ProductsFetch $productsFetch */
         $productsFetch = $this->sut->fetchProducts(2, ProductsRepository::$fieldsForList);
         $this->sut->fetchAllAsync();
         $this->assertCount(2, $productsFetch->getResult());
@@ -54,8 +75,6 @@ class ProductsAsyncRepositoryTest extends \PHPUnit_Framework_TestCase
      */
     private function getJsonFixture($name)
     {
-        return array(
-            json_decode(file_get_contents(dirname(__DIR__) . '/fixtures/Repository/ProductsRepositoryTest/' . $name . '.json'))
-        );
+        return json_decode(file_get_contents(dirname(__DIR__) . '/fixtures/Repository/ProductsRepositoryTest/' . $name . '.json'));
     }
 } 

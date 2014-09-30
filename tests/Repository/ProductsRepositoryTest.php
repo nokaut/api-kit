@@ -10,6 +10,7 @@ namespace Nokaut\ApiKit\Repository;
 
 use CommerceGuys\Guzzle\Plugin\Oauth2\Oauth2Plugin;
 use Nokaut\ApiKit\Collection\Products;
+use Nokaut\ApiKit\Config;
 use Nokaut\ApiKit\Entity\Product;
 use Nokaut\ApiKit\Converter\ProductConverter;
 use PHPUnit_Framework_MockObject_MockObject;
@@ -34,14 +35,28 @@ class ProductsRepositoryTest extends \PHPUnit_Framework_TestCase
             'access_token' => '1111'
         );
         $oauth2->setAccessToken($accessToken);
-        $this->clientApiMock = $this->getMock('Nokaut\ApiKit\ClientApi\ClientApiInterface', array('send', 'sendMulti', 'toHash'));
+        $cacheMock = $this->getMock('Nokaut\ApiKit\Cache\CacheInterface');
+        $loggerMock = $this->getMock('Psr\Log\LoggerInterface');
+        $client = $this->getMockBuilder('\Guzzle\Http\Client')->disableOriginalConstructor()->getMock();
+        $this->clientApiMock = $this->getMock(
+            'Nokaut\ApiKit\ClientApi\Rest\RestClientApi',
+            array('convertResponse', 'getClient', 'log'),
+            array($loggerMock, $oauth2)
+        );
+        $this->clientApiMock->expects($this->any())->method('getClient')
+            ->will($this->returnValue($client));
 
-        $this->sut = new ProductsRepository("http://32213:454/api/v2/", $this->clientApiMock);
+        $config = new Config();
+        $config->setCache($cacheMock);
+        $config->setLogger($loggerMock);
+        $config->setApiUrl("http://32213:454/api/v2/");
+
+        $this->sut = new ProductsRepository($config, $this->clientApiMock);
     }
 
     public function testFetchProducts()
     {
-        $this->clientApiMock->expects($this->once())->method('send')
+        $this->clientApiMock->expects($this->once())->method('convertResponse')
             ->will($this->returnValue($this->getJsonFixture('testFetchProducts')));
 
         /** @var Products $products */
@@ -51,7 +66,7 @@ class ProductsRepositoryTest extends \PHPUnit_Framework_TestCase
 
     public function testFetchProductsByProducerName()
     {
-        $this->clientApiMock->expects($this->once())->method('send')
+        $this->clientApiMock->expects($this->once())->method('convertResponse')
             ->will($this->returnValue($this->getJsonFixture('testFetchProducts')));
 
         /** @var Products $products */
@@ -61,7 +76,7 @@ class ProductsRepositoryTest extends \PHPUnit_Framework_TestCase
 
     public function testFetchProductsByCategory()
     {
-        $this->clientApiMock->expects($this->once())->method('send')
+        $this->clientApiMock->expects($this->once())->method('convertResponse')
             ->will($this->returnValue($this->getJsonFixture('testFetchProducts')));
 
         /** @var Products $products */
@@ -71,7 +86,7 @@ class ProductsRepositoryTest extends \PHPUnit_Framework_TestCase
 
     public function testFetchProductsByUrl()
     {
-        $this->clientApiMock->expects($this->once())->method('send')
+        $this->clientApiMock->expects($this->once())->method('convertResponse')
             ->will($this->returnValue($this->getJsonFixture('testFetchProducts')));
 
         /** @var Products $products */
@@ -81,7 +96,7 @@ class ProductsRepositoryTest extends \PHPUnit_Framework_TestCase
 
     public function testFetchProductsWithBestOfferByUrl()
     {
-        $this->clientApiMock->expects($this->once())->method('send')
+        $this->clientApiMock->expects($this->once())->method('convertResponse')
             ->will($this->returnValue($this->getJsonFixture('testFetchProducts')));
 
         /** @var Products $products */
@@ -91,7 +106,7 @@ class ProductsRepositoryTest extends \PHPUnit_Framework_TestCase
 
     public function testFetchCountProductsByPhrase()
     {
-        $this->clientApiMock->expects($this->once())->method('send')
+        $this->clientApiMock->expects($this->once())->method('convertResponse')
             ->will($this->returnValue($this->getJsonFixture('testFetchProducts')));
 
         $count = $this->sut->fetchCountProductsByPhrase('laptopy');
@@ -100,7 +115,7 @@ class ProductsRepositoryTest extends \PHPUnit_Framework_TestCase
 
     public function testFetchProductById()
     {
-        $this->clientApiMock->expects($this->once())->method('send')
+        $this->clientApiMock->expects($this->once())->method('convertResponse')
             ->will($this->returnValue($this->getJsonFixture('testFetchProduct')));
 
         $id = '50fe74782da47ccd9d000156';
@@ -112,7 +127,7 @@ class ProductsRepositoryTest extends \PHPUnit_Framework_TestCase
 
     public function testFetchProductByUrl()
     {
-        $this->clientApiMock->expects($this->once())->method('send')
+        $this->clientApiMock->expects($this->once())->method('convertResponse')
             ->will($this->returnValue($this->getJsonFixture('testFetchProduct')));
 
         $url = 'karty-pamieci/sandisk-extreme-pro-sdhc-uhs-i-8-gb-do-95-90-mb-s-60930d026db577f93b98537bbb2f1219';
@@ -127,7 +142,7 @@ class ProductsRepositoryTest extends \PHPUnit_Framework_TestCase
         $converter = new ProductConverter();
         $product = $converter->convert($this->getJsonFixture('testFetchProductForList'));
 
-        $this->clientApiMock->expects($this->once())->method('send')
+        $this->clientApiMock->expects($this->once())->method('convertResponse')
             ->will($this->returnValue($this->getJsonFixture('testFetchProducts')));
 
         /** @var Products $products */
@@ -141,7 +156,7 @@ class ProductsRepositoryTest extends \PHPUnit_Framework_TestCase
         /** @var Product $product */
         $product = $converter->convert($this->getJsonFixture('testFetchProductForList'));
 
-        $this->clientApiMock->expects($this->once())->method('send')
+        $this->clientApiMock->expects($this->once())->method('convertResponse')
             ->will($this->returnValue($this->getJsonFixture('testFetchProducts')));
 
         /** @var Products $products */

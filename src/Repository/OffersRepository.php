@@ -10,27 +10,19 @@ namespace Nokaut\ApiKit\Repository;
 
 
 use Nokaut\ApiKit\ClientApi\ClientApiInterface;
+use Nokaut\ApiKit\ClientApi\Rest\Fetch\OfferFetch;
+use Nokaut\ApiKit\ClientApi\Rest\Fetch\OffersFetch;
 use Nokaut\ApiKit\ClientApi\Rest\Query\Filter\Single;
 use Nokaut\ApiKit\ClientApi\Rest\Query\OfferQuery;
 use Nokaut\ApiKit\ClientApi\Rest\Query\OffersQuery;
 use Nokaut\ApiKit\ClientApi\Rest\Query\Sort;
+use Nokaut\ApiKit\Collection\Offers;
 use Nokaut\ApiKit\Converter\OfferConverter;
 use Nokaut\ApiKit\Converter\OffersConverter;
+use Nokaut\ApiKit\Entity\Offer;
 
-class OffersRepository
+class OffersRepository extends RepositoryAbstract
 {
-    /**
-     * @var ClientApiInterface
-     */
-    protected $clientApi;
-    /**
-     * @var string
-     */
-    protected $apiBaseUrl;
-    /**
-     * @var OffersConverter
-     */
-    protected $converterOffers;
 
     public static $fieldsAll = array(
         'id', 'join_id', 'pattern_id', 'shop_id', 'shop_product_id', 'availability', 'category', 'description_html', 'title', 'price',
@@ -46,57 +38,60 @@ class OffersRepository
     );
 
     /**
-     * @param string $apiBaseUrl
-     * @param ClientApiInterface $clientApi
+     * @param $productId
+     * @param array $fields
+     * @param Sort $sort
+     * @return Offers
      */
-    public function __construct($apiBaseUrl, ClientApiInterface $clientApi)
-    {
-        $this->converterOffers = new OffersConverter();
-        $this->converterOffer = new OfferConverter();
-        $this->clientApi = $clientApi;
-        $this->apiBaseUrl = $apiBaseUrl;
-    }
-
     public function fetchOffersByProductId($productId, array $fields, Sort $sort = null)
     {
         $query = $this->prepareQueryForFetchOffersByProductId($productId, $fields, $sort);
+        $fetch = new OffersFetch($query, $this->cache);
+        $this->clientApi->send($fetch);
 
-        $objectsFromApi = $this->clientApi->send($query);
-
-        return $this->convertOffers($objectsFromApi);
+        return $fetch->getResult();
     }
 
+    /**
+     * @param $id
+     * @param array $fields
+     * @return Offer
+     */
     public function fetchOfferById($id, array $fields)
     {
         $query = $this->prepareQueryForFetchOfferById($id, $fields);
+        $fetch = new OfferFetch($query, $this->cache);
+        $this->clientApi->send($fetch);
 
-        $objectsFromApi = $this->clientApi->send($query);
-        return $this->convertOffer($objectsFromApi);
+        return $fetch->getResult();
     }
 
+    /**
+     * @param $shopId
+     * @param array $fields
+     * @param int $limit
+     * @param Sort $sort
+     * @return Offers
+     */
     public function fetchOffersByShopId($shopId, array $fields, $limit = 20, Sort $sort = null)
     {
         $query = $this->prepareQueryForFetchOffersByShopId($shopId, $fields, $limit, $sort);
+        $fetch = new OffersFetch($query, $this->cache);
+        $this->clientApi->send($fetch);
 
-        $objectsFromApi = $this->clientApi->send($query);
-        return $this->convertOffers($objectsFromApi);
+        return $fetch->getResult();
     }
 
+    /**
+     * @param OffersQuery $query
+     * @return Offers
+     */
     public function fetchOffersByQuery(OffersQuery $query)
     {
-        $objectsFromApi = $this->clientApi->send($query);
+        $fetch = new OffersFetch($query, $this->cache);
+        $this->clientApi->send($fetch);
 
-        return $this->convertOffers($objectsFromApi);
-    }
-
-    protected function convertOffers($objectsFromApi)
-    {
-        return $this->converterOffers->convert($objectsFromApi);
-    }
-
-    protected function convertOffer($objectFromApi)
-    {
-        return $this->converterOffer->convert($objectFromApi);
+        return $fetch->getResult();
     }
 
     /**

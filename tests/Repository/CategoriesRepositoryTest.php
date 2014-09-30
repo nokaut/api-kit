@@ -11,6 +11,7 @@ namespace Nokaut\ApiKit\Repository;
 
 use CommerceGuys\Guzzle\Plugin\Oauth2\Oauth2Plugin;
 use Nokaut\ApiKit\Collection\Categories;
+use Nokaut\ApiKit\Config;
 use Nokaut\ApiKit\Entity\Category;
 use Nokaut\ApiKit\Entity\Category\Path;
 use PHPUnit_Framework_MockObject_MockObject;
@@ -35,14 +36,28 @@ class CategoriesRepositoryTest extends PHPUnit_Framework_TestCase
             'access_token' => '1111'
         );
         $oauth2->setAccessToken($accessToken);
-        $this->clientApiMock = $this->getMock('Nokaut\ApiKit\ClientApi\ClientApiInterface', array('send', 'sendMulti', 'toHash'));
+        $cacheMock = $this->getMock('Nokaut\ApiKit\Cache\CacheInterface');
+        $loggerMock = $this->getMock('Psr\Log\LoggerInterface');
+        $client = $this->getMockBuilder('\Guzzle\Http\Client')->disableOriginalConstructor()->getMock();
+        $this->clientApiMock = $this->getMock(
+            'Nokaut\ApiKit\ClientApi\Rest\RestClientApi',
+            array('convertResponse', 'getClient', 'log'),
+            array($loggerMock, $oauth2)
+        );
+        $this->clientApiMock->expects($this->any())->method('getClient')
+            ->will($this->returnValue($client));
 
-        $this->sut = new CategoriesRepository("http://32213:454/api/v2/", $this->clientApiMock);
+        $config = new Config();
+        $config->setCache($cacheMock);
+        $config->setLogger($loggerMock);
+        $config->setApiUrl("http://32213:454/api/v2/");
+
+        $this->sut = new CategoriesRepository($config, $this->clientApiMock);
     }
 
     public function testFetchByParentId()
     {
-        $this->clientApiMock->expects($this->once())->method('send')
+        $this->clientApiMock->expects($this->once())->method('convertResponse')
             ->will($this->returnValue($this->getJsonFixture(__FUNCTION__)));
 
         /** @var Categories $categories */
@@ -78,10 +93,10 @@ class CategoriesRepositoryTest extends PHPUnit_Framework_TestCase
 
     public function testFetchById()
     {
-        $this->clientApiMock->expects($this->once())->method('send')
+        $this->clientApiMock->expects($this->once())->method('convertResponse')->withAnyParameters()
             ->will($this->returnValue($this->getJsonFixture(__FUNCTION__)));
 
-        /** @var Category[] $categories */
+        /** @var Category $category */
         $category = $this->sut->fetchById(687);
 
         $this->assertEquals(687, $category->getId());
@@ -112,7 +127,7 @@ class CategoriesRepositoryTest extends PHPUnit_Framework_TestCase
     public function testFetchByParentIdWithChildren()
     {
         $categoriesWithChildrenFromApi = $this->getJsonFixture(__FUNCTION__);
-        $this->clientApiMock->expects($this->once())->method('send')
+        $this->clientApiMock->expects($this->once())->method('convertResponse')->withAnyParameters()
             ->will($this->returnValue($categoriesWithChildrenFromApi));
 
         /** @var Category[] $categories */
