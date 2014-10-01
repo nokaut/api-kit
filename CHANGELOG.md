@@ -1,5 +1,8 @@
 ChangeLog
 =========
+master
+------
+- SortAbstract: otworzenie metody sortującej
 
 v1.4.1
 ------

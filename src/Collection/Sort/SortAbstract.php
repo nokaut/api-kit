@@ -19,7 +19,7 @@ abstract class SortAbstract {
      * @param $functionGetField
      * @param $sorting
      */
-    protected  static function sortBy(CollectionAbstract $collection, $functionGetField, $sorting = SORT_ASC)
+    public static function sortBy(CollectionAbstract $collection, $functionGetField, $sorting = SORT_ASC)
     {
         $values = array();
         foreach ($collection as $key => $row) {
