@@ -20,7 +20,7 @@ abstract class CollectionAbstract implements CollectionInterface
 
     public function __construct(array $entities)
     {
-        $this->entities = $entities;
+        $this->entities = array_values($entities);
     }
 
 
@@ -65,7 +65,7 @@ abstract class CollectionAbstract implements CollectionInterface
      */
     public function setEntities(array $entities)
     {
-        $this->entities = $entities;
+        $this->entities = array_values($entities);
     }
 
     public function getItem($index)
@@ -75,10 +75,10 @@ abstract class CollectionAbstract implements CollectionInterface
 
     public function getLast()
     {
-        if (isset($this->entities[count($this->entities) - 1])) {
-            return ($this->entities[count($this->entities) - 1]);
-        } else {
+        if (empty($this->entities)) {
             return null;
+        } else {
+            return end($this->entities);
         }
     }
 

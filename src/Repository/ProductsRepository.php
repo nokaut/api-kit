@@ -31,7 +31,7 @@ class ProductsRepository extends RepositoryAbstract
     public static $fieldsForProductBox = array(
         'id', 'url', 'product_id', 'title', 'prices', 'offer_count', 'shop_count', 'category_id', 'offer_id',
         'url_original', 'offer_shop_id', 'shop_name', 'shop_url', 'top_category_id', 'top_position', 'photo_id',
-        'click_url'
+        'click_url', 'click_value', 'shop', 'shop.url_logo', 'shop.name'
     );
 
     public static $fieldsWithBestOfferForProductBox = array(
@@ -351,6 +351,7 @@ class ProductsRepository extends RepositoryAbstract
         $query->addFacet('producer_name');
         $query->addFacet('properties');
         $query->addFacetRange('price_min', 4);
+        $query->addFacetRange('properties', 4);
         $query->setLimit($limit);
         return $query;
     }

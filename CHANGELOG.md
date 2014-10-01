@@ -1,6 +1,13 @@
 ChangeLog
 =========
 
+v1.4.1
+------
+- Ustawienie domyślnych wartości dla atrybutów klas \Entity\Metadata\Facet
+- ProductsRepository - dodanie pól 'click_value', 'shop', 'shop.url_logo', 'shop.name' do 'fieldsForProductBox'
+- Dodanie obsługi zakresów cech (properties ranges)
+- FIX: CollectionAbstract klucze encji
+
 v1.4.0
 ------
  - PhotoUrl - gdy puste photoId zwraca link do zaślepiki noimg<size>.png
@@ -17,7 +24,6 @@ v1.4.0
 **na:**
 
     public function __construct(Config $config, ClientApiInterface $clientApi)
-
 
 v1.3.1
 ------

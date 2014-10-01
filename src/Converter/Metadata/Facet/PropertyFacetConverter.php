@@ -11,6 +11,7 @@ namespace Nokaut\ApiKit\Converter\Metadata\Facet;
 
 use Nokaut\ApiKit\Converter\ConverterInterface;
 use Nokaut\ApiKit\Converter\Metadata\Facet\PropertyFacet\ValueConverter;
+use Nokaut\ApiKit\Converter\Metadata\Facet\PropertyFacet\RangeConverter;
 use Nokaut\ApiKit\Entity\Metadata\Facet\PropertyFacet;
 
 class PropertyFacetConverter implements ConverterInterface
@@ -23,6 +24,9 @@ class PropertyFacetConverter implements ConverterInterface
             switch ($field) {
                 case 'values':
                     $propertyFacet->setValues($this->convertValues($value));
+                    break;
+                case 'ranges':
+                    $propertyFacet->setRanges($this->convertRanges($value));
                     break;
                 default:
                     $propertyFacet->set($field, $value);
@@ -38,6 +42,16 @@ class PropertyFacetConverter implements ConverterInterface
         $result = array();
         foreach ($values as $value) {
             $result[] = $valueConverter->convert($value);
+        }
+        return $result;
+    }
+
+    private function convertRanges(array $ranges)
+    {
+        $rangeConverter = new RangeConverter();
+        $result = array();
+        foreach ($ranges as $range) {
+            $result[] = $rangeConverter->convert($range);
         }
         return $result;
     }

@@ -1,24 +1,18 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jjuszkiewicz
- * Date: 11.07.2014
- * Time: 14:20
- */
 
-namespace Nokaut\ApiKit\Entity\Metadata\Facet;
+namespace Nokaut\ApiKit\Entity\Metadata\Facet\PropertyFacet;
 
 
 use Nokaut\ApiKit\Entity\EntityAbstract;
 
-class PriceFacet extends EntityAbstract
+class Range extends EntityAbstract
 {
     /**
-     * @var float
+     * @var int
      */
     protected $min;
     /**
-     * @var float
+     * @var int
      */
     protected $max;
     /**
@@ -35,7 +29,23 @@ class PriceFacet extends EntityAbstract
     protected $is_filter = false;
 
     /**
-     * @param float $max
+     * @param boolean $is_filter
+     */
+    public function setIsFilter($is_filter)
+    {
+        $this->is_filter = $is_filter;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getIsFilter()
+    {
+        return $this->is_filter;
+    }
+
+    /**
+     * @param int $max
      */
     public function setMax($max)
     {
@@ -43,7 +53,7 @@ class PriceFacet extends EntityAbstract
     }
 
     /**
-     * @return float
+     * @return int
      */
     public function getMax()
     {
@@ -51,7 +61,7 @@ class PriceFacet extends EntityAbstract
     }
 
     /**
-     * @param float $min
+     * @param int $min
      */
     public function setMin($min)
     {
@@ -59,7 +69,7 @@ class PriceFacet extends EntityAbstract
     }
 
     /**
-     * @return float
+     * @return int
      */
     public function getMin()
     {
@@ -97,21 +107,4 @@ class PriceFacet extends EntityAbstract
     {
         return $this->url;
     }
-
-    /**
-     * @param boolean $is_filter
-     */
-    public function setIsFilter($is_filter)
-    {
-        $this->is_filter = $is_filter;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function getIsFilter()
-    {
-        return $this->is_filter;
-    }
-
 }

@@ -28,7 +28,7 @@ class Value extends EntityAbstract
     /**
      * @var bool
      */
-    protected $is_filter;
+    protected $is_filter = false;
 
     /**
      * @param string $name
