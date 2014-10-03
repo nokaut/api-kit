@@ -25,6 +25,10 @@ class ProductsMetadata extends EntityAbstract
      */
     protected $url;
     /**
+     * @var string
+     */
+    protected $canonical;
+    /**
      * @var int
      */
     protected $quality;
@@ -137,5 +141,20 @@ class ProductsMetadata extends EntityAbstract
         return $this->url;
     }
 
+    /**
+     * @param string $canonical
+     */
+    public function setCanonical($canonical)
+    {
+        $this->canonical = $canonical;
+    }
 
-} 
+    /**
+     * @return string
+     */
+    public function getCanonical()
+    {
+        return $this->canonical;
+    }
+
+}

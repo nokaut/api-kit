@@ -3,6 +3,7 @@ ChangeLog
 master
 ------
 - SortAbstract: otworzenie metody sortującej
+- ProductsMetadata: Dodanie pola Canonical dla listy produktów
 
 v1.4.1
 ------
