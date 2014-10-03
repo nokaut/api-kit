@@ -1,0 +1,39 @@
+<?php
+
+
+namespace Nokaut\ApiKit\Ext\Data\Converter\Filters\Callback;
+
+use Nokaut\ApiKit\Collection\Products;
+use Nokaut\ApiKit\Ext\Data\Collection\Filters\Shops;
+use Nokaut\ApiKit\Ext\Data\Entity\Filter\Shop;
+
+class ShopsSetIsPopular implements ShopsCallbackInterface
+{
+    /**
+     * @param Shops $shops
+     * @param Products $products
+     */
+    public function __invoke(Shops $shops, Products $products)
+    {
+        $this->setShopsIsPopular($shops, $products);
+    }
+
+    /**
+     * @param Shops $shops
+     * @param Products $products
+     */
+    protected function setShopsIsPopular(Shops $shops, Products $products)
+    {
+        /** @var Shop $shop */
+        foreach ($shops as $shop) {
+            if ($products->getMetadata()->getTotal() > 0
+                and $shop->getTotal() / $products->getMetadata()->getTotal() > 0.1
+                and $shop->getTotal() > 2
+            ) {
+                $shop->setIsPopular(true);
+            } else {
+                $shop->setIsPopular(false);
+            }
+        }
+    }
+}
