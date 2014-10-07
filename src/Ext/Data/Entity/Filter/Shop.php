@@ -11,6 +11,11 @@ class Shop extends FilterAbstract
     protected $id;
 
     /**
+     * @var string
+     */
+    protected $url_base;
+
+    /**
      * @var bool
      */
     protected $is_popular = false;
@@ -29,6 +34,22 @@ class Shop extends FilterAbstract
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @param string $url_base
+     */
+    public function setUrlBase($url_base)
+    {
+        $this->url_base = $url_base;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrlBase()
+    {
+        return $this->url_base;
     }
 
     /**

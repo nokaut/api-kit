@@ -30,6 +30,10 @@ class ProducerFacet extends EntityAbstract
      */
     protected $url;
     /**
+     * @var string
+     */
+    protected $url_base;
+    /**
      * @var bool
      */
     protected $is_filter = false;
@@ -96,6 +100,22 @@ class ProducerFacet extends EntityAbstract
     public function getUrl()
     {
         return $this->url;
+    }
+
+    /**
+     * @param string $url_base
+     */
+    public function setUrlBase($url_base)
+    {
+        $this->url_base = $url_base;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrlBase()
+    {
+        return $this->url_base;
     }
 
     /**

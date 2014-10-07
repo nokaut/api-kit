@@ -40,6 +40,7 @@ class ProducersConverter implements ConverterInterface
             $producer = new Producer();
             $producer->setName($facetProducer->getName());
             $producer->setUrl($facetProducer->getUrl());
+            $producer->setUrlBase($facetProducer->getUrlBase());
             $producer->setIsFilter($facetProducer->getIsFilter());
             $producer->setTotal($facetProducer->getTotal());
 

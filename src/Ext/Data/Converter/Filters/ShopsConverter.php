@@ -41,6 +41,7 @@ class ShopsConverter implements ConverterInterface
             $shop->setId($facetShop->getId());
             $shop->setName($facetShop->getName());
             $shop->setUrl($facetShop->getUrl());
+            $shop->setUrlBase($facetShop->getUrlBase());
             $shop->setIsFilter($facetShop->getIsFilter());
             $shop->setTotal($facetShop->getTotal());
 
