@@ -38,6 +38,7 @@ class ShopsConverter implements ConverterInterface
 
         foreach ($facetShops as $facetShop) {
             $shop = new Shop();
+            $shop->setId($facetShop->getId());
             $shop->setName($facetShop->getName());
             $shop->setUrl($facetShop->getUrl());
             $shop->setIsFilter($facetShop->getIsFilter());

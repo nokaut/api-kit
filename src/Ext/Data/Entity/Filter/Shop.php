@@ -6,9 +6,30 @@ namespace Nokaut\ApiKit\Ext\Data\Entity\Filter;
 class Shop extends FilterAbstract
 {
     /**
+     * @var int
+     */
+    protected $id;
+
+    /**
      * @var bool
      */
     protected $is_popular = false;
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * @param boolean $is_popular

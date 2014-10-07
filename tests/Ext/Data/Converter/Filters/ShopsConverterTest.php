@@ -25,6 +25,7 @@ class ShopsConverterTest extends \PHPUnit_Framework_TestCase
             /** @var Shop $shop */
             $this->assertInstanceOf('Nokaut\ApiKit\Ext\Data\Entity\Filter\Shop', $shop);
             $this->assertFalse($shop->getIsPopular());
+            $this->assertGreaterThan(0, $shop->getId());
         }
     }
 
@@ -44,9 +45,11 @@ class ShopsConverterTest extends \PHPUnit_Framework_TestCase
         foreach ($shops as $shop) {
             /** @var Shop $shop */
             $this->assertInstanceOf('Nokaut\ApiKit\Ext\Data\Entity\Filter\Shop', $shop);
+            $this->assertGreaterThan(0, $shop->getId());
 
             if (in_array($shop->getName(), array('Karen.pl', 'SWIAT-LAPTOPOW.PL', 'Komputronik.pl', 'Agito.pl',
-                'Morele.net sp. z o.o.', 'kuzniewski.pl - Notebooki', 'Salurion', 'X-KOM.PL', 'Satysfakcja'))) {
+                'Morele.net sp. z o.o.', 'kuzniewski.pl - Notebooki', 'Salurion', 'X-KOM.PL', 'Satysfakcja'))
+            ) {
                 $this->assertTrue($shop->getIsPopular());
             } else {
                 $this->assertFalse($shop->getIsPopular());
