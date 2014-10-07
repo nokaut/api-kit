@@ -27,7 +27,7 @@ class ProducersSetIsPopular implements ProducersCallbackInterface
         /** @var Producer $producer */
         foreach ($producers as $producer) {
             if ($products->getMetadata()->getTotal() > 0
-                and $producer->getTotal() / $products->getMetadata()->getTotal() > 0.1
+                and $this->isPercentageOfProducerInTotalGreatherThenPercent($producer, $products, 10)
                 and $producer->getTotal() > 2
             ) {
                 $producer->setIsPopular(true);
@@ -35,5 +35,16 @@ class ProducersSetIsPopular implements ProducersCallbackInterface
                 $producer->setIsPopular(false);
             }
         }
+    }
+
+    /**
+     * @param Producer $producer
+     * @param Products $products
+     * @param float $percent
+     * @return bool
+     */
+    protected function isPercentageOfProducerInTotalGreatherThenPercent(Producer $producer, Products $products, $percent)
+    {
+        return $producer->getTotal() / $products->getMetadata()->getTotal() > ($percent / 100);
     }
 }

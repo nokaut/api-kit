@@ -34,12 +34,12 @@ class ProducersSetIsNofollow implements ProducersCallbackInterface
             return;
         }
 
-        $countSelectedProducerEntitiesCount = count($this->getSelectedProducerEntities($producers));
-        if ($countSelectedProducerEntitiesCount >= 1) {
+        $selectedProducerEntitiesCount = count($this->getSelectedProducerEntities($producers));
+        if ($selectedProducerEntitiesCount >= 1) {
             /** @var Producer $producer */
             foreach ($producers as $producer) {
                 if ($producer->getIsFilter()) {
-                    if ($countSelectedProducerEntitiesCount <= 2) {
+                    if ($selectedProducerEntitiesCount <= 2) {
                         $producer->setIsNofollow(false);
                     } else {
                         $producer->setIsNofollow(true);

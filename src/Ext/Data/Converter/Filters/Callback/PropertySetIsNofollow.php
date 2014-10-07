@@ -49,10 +49,11 @@ class PropertySetIsNofollow implements PropertyCallbackInterface
 
         // Jesli dany property ma zaznaczona jakas ceche
         // ale jesli jest filtrem to gdy ma zaznaczone wiecej niz dwie wartosci
-        if ($this->countSelectedFiltersEntities($property) > 0) {
+        $selectedFiltersEntitiesCount = $this->countSelectedFiltersEntities($property);
+        if ($selectedFiltersEntitiesCount >= 1) {
             /** @var FilterAbstract $value */
             foreach ($property as $value) {
-                if ($value->getIsFilter() and $this->countSelectedFiltersEntities($property) <= 2) {
+                if ($value->getIsFilter() and $selectedFiltersEntitiesCount <= 2) {
                     $value->setIsNofollow(false);
                 } else {
                     $value->setIsNofollow(true);

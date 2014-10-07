@@ -27,7 +27,7 @@ class ShopsSetIsPopular implements ShopsCallbackInterface
         /** @var Shop $shop */
         foreach ($shops as $shop) {
             if ($products->getMetadata()->getTotal() > 0
-                and $shop->getTotal() / $products->getMetadata()->getTotal() > 0.1
+                and $this->isPercentageOfShopInTotalGreatherThenPercent($shop, $products, 10)
                 and $shop->getTotal() > 2
             ) {
                 $shop->setIsPopular(true);
@@ -35,5 +35,16 @@ class ShopsSetIsPopular implements ShopsCallbackInterface
                 $shop->setIsPopular(false);
             }
         }
+    }
+
+    /**
+     * @param Shop $shop
+     * @param Products $products
+     * @param float $percent
+     * @return bool
+     */
+    protected function isPercentageOfShopInTotalGreatherThenPercent(Shop $shop, Products $products, $percent)
+    {
+        return $shop->getTotal() / $products->getMetadata()->getTotal() > ($percent / 100);
     }
 }

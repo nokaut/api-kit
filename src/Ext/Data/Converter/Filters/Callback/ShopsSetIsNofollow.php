@@ -34,12 +34,12 @@ class ShopsSetIsNofollow implements ShopsCallbackInterface
             return;
         }
 
-        $countSelectedShopEntitiesCount = count($this->getSelectedShopEntities($shops));
-        if ($countSelectedShopEntitiesCount >= 1) {
+        $selectedShopEntitiesCount = count($this->getSelectedShopEntities($shops));
+        if ($selectedShopEntitiesCount >= 1) {
             /** @var Shop $shop */
             foreach ($shops as $shop) {
                 if ($shop->getIsFilter()) {
-                    if ($countSelectedShopEntitiesCount <= 2) {
+                    if ($selectedShopEntitiesCount <= 2) {
                         $shop->setIsNofollow(false);
                     } else {
                         $shop->setIsNofollow(true);
