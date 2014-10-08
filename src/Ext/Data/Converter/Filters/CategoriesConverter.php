@@ -50,6 +50,9 @@ class CategoriesConverter implements ConverterInterface
             $categories[] = $category;
         }
 
-        return new Categories($categories);
+        $categoryCollection = new Categories($categories);
+        $categoryCollection->setName("Kategoria");
+
+        return $categoryCollection;
     }
 }

@@ -31,7 +31,10 @@ class PriceRangesConverterTest extends \PHPUnit_Framework_TestCase
             $this->assertGreaterThan(0, $priceRange->getMin());
             $this->assertGreaterThan(0, $priceRange->getMax());
             $this->assertGreaterThan($priceRange->getMin(), $priceRange->getMax());
-            $this->assertEquals($priceRange->getMin() . ' - ' . $priceRange->getMax(), $priceRange->getName());
+            $this->assertEquals(
+                sprintf("%s - %s", number_format($priceRange->getMin(), 2, ',', ''), number_format($priceRange->getMax(), 2, ',', '')),
+                $priceRange->getName()
+            );
         }
     }
 
@@ -57,7 +60,10 @@ class PriceRangesConverterTest extends \PHPUnit_Framework_TestCase
             $this->assertGreaterThan(0, $priceRange->getMin());
             $this->assertGreaterThan(0, $priceRange->getMax());
             $this->assertGreaterThan($priceRange->getMin(), $priceRange->getMax());
-            $this->assertEquals($priceRange->getMin() . ' - ' . $priceRange->getMax(), $priceRange->getName());
+            $this->assertEquals(
+                sprintf("%s - %s", number_format($priceRange->getMin(), 2, ',', ''), number_format($priceRange->getMax(), 2, ',', '')),
+                $priceRange->getName()
+            );
         }
     }
 

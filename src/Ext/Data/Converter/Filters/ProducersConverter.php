@@ -47,6 +47,9 @@ class ProducersConverter implements ConverterInterface
             $producers[] = $producer;
         }
 
-        return new Producers($producers);
+        $producersCollection = new Producers($producers);
+        $producersCollection->setName("Producent");
+
+        return $producersCollection;
     }
 }

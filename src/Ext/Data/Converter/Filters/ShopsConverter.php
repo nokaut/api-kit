@@ -48,6 +48,9 @@ class ShopsConverter implements ConverterInterface
             $shops[] = $shop;
         }
 
-        return new Shops($shops);
+        $shopsCollection = new Shops($shops);
+        $shopsCollection->setName('Sklep');
+
+        return $shopsCollection;
     }
 }
