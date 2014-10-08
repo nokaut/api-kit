@@ -7,7 +7,8 @@ namespace Nokaut\ApiKit\Ext\Data\Converter\Filters\Callback;
 use Nokaut\ApiKit\Collection\Products;
 use Nokaut\ApiKit\Ext\Data\Collection\Filters\Shops;
 
-interface ShopsCallbackInterface {
+interface ShopsCallbackInterface
+{
 
     /**
      * @param Shops $shops

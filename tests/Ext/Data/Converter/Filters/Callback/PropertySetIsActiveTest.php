@@ -8,7 +8,8 @@ use Nokaut\ApiKit\Collection\Products;
 use Nokaut\ApiKit\Ext\Data\Collection\Filters\PropertyValues;
 use Nokaut\ApiKit\Ext\Data\Entity\Filter\PropertyValue;
 
-class PropertySetIsActiveTest extends \PHPUnit_Framework_TestCase {
+class PropertySetIsActiveTest extends \PHPUnit_Framework_TestCase
+{
 
     public function testNotIsActive()
     {

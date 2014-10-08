@@ -65,9 +65,9 @@ class ShopsSetIsNofollowTest extends \PHPUnit_Framework_TestCase
 
         foreach ($shopsCollection as $shop) {
             /** @var Shop $shop */
-            if($shop->getIsFilter()){
+            if ($shop->getIsFilter()) {
                 $this->assertFalse($shop->getIsNofollow());
-            }else{
+            } else {
                 $this->assertTrue($shop->getIsNofollow());
             }
         }
@@ -92,9 +92,9 @@ class ShopsSetIsNofollowTest extends \PHPUnit_Framework_TestCase
 
         foreach ($shopsCollection as $shop) {
             /** @var Shop $shop */
-            if($shop->getIsFilter()){
+            if ($shop->getIsFilter()) {
                 $this->assertFalse($shop->getIsNofollow());
-            }else{
+            } else {
                 $this->assertTrue($shop->getIsNofollow());
             }
         }

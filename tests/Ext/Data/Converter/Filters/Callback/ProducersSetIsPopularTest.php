@@ -37,13 +37,13 @@ class ProducersSetIsPopularTest extends \PHPUnit_Framework_TestCase
     {
         $products = new Products(array());
         $metadata = new ProductsMetadata();
-        $metadata->setTotal(10);
+        $metadata->setTotal(1000);
         $products->setMetadata($metadata);
 
         $producers = array();
 
         $producer = new Producer();
-        $producer->setTotal(2);
+        $producer->setTotal(10); //1%
         $producers[] = $producer;
 
         $producersCollection = new Producers($producers);
@@ -79,13 +79,13 @@ class ProducersSetIsPopularTest extends \PHPUnit_Framework_TestCase
         /***/
         $products = new Products(array());
         $metadata = new ProductsMetadata();
-        $metadata->setTotal(100);
+        $metadata->setTotal(1000);
         $products->setMetadata($metadata);
 
         $producers = array();
 
         $producer = new Producer();
-        $producer->setTotal(11); // > 10%
+        $producer->setTotal(11); // > 1%
         $producers[] = $producer;
 
         $producersCollection = new Producers($producers);
@@ -101,7 +101,7 @@ class ProducersSetIsPopularTest extends \PHPUnit_Framework_TestCase
     {
         $products = new Products(array());
         $metadata = new ProductsMetadata();
-        $metadata->setTotal(100);
+        $metadata->setTotal(1000);
         $products->setMetadata($metadata);
 
         $producers = array();

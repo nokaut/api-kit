@@ -27,7 +27,7 @@ class ProducersSetIsPopular implements ProducersCallbackInterface
         /** @var Producer $producer */
         foreach ($producers as $producer) {
             if ($products->getMetadata()->getTotal() > 0
-                and $this->isPercentageOfProducerInTotalGreatherThenPercent($producer, $products, 10)
+                and $this->isPercentageOfProducerInTotalGreatherThenPercent($producer, $products, 1)
                 and $producer->getTotal() > 2
             ) {
                 $producer->setIsPopular(true);

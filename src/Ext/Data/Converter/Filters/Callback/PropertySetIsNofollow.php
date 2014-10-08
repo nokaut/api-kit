@@ -39,7 +39,7 @@ class PropertySetIsNofollow implements PropertyCallbackInterface
         }
 
         // Jesli jakikolwiek poza biezacym property jest nofollow, to ten tez ma - nofollow
-        if(ProductsAnalyzer::filtersNofollow($products, $property)){
+        if (ProductsAnalyzer::filtersNofollow($products, $property)) {
             /** @var FilterAbstract $value */
             foreach ($property as $value) {
                 $value->setIsNofollow(true);
@@ -107,7 +107,7 @@ class PropertySetIsNofollow implements PropertyCallbackInterface
                 ) {
                     if ($skipProperty and $property->getId() != $skipProperty->getId()) {
                         return true;
-                    }else{
+                    } else {
                         return false;
                     }
                 }
@@ -118,7 +118,7 @@ class PropertySetIsNofollow implements PropertyCallbackInterface
                 ) {
                     if ($skipProperty and $property->getId() != $skipProperty->getId()) {
                         return true;
-                    }else{
+                    } else {
                         return false;
                     }
                 }

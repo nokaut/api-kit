@@ -45,7 +45,9 @@ class ProducersConverterTest extends \PHPUnit_Framework_TestCase
             /** @var Producer $producer */
             $this->assertInstanceOf('Nokaut\ApiKit\Ext\Data\Entity\Filter\Producer', $producer);
 
-            if (in_array($producer->getName(), array('HP','Lenovo','Asus'))) {
+            if (in_array($producer->getName(), array('HP', 'Lenovo', 'Asus', 'Toshiba', 'Dell', 'Acer',
+                'Sony', 'MSI', 'Fujitsu'))
+            ) {
                 $this->assertTrue($producer->getIsPopular());
             } else {
                 $this->assertFalse($producer->getIsPopular());

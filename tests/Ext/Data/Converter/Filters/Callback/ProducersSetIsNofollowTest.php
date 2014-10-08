@@ -65,9 +65,9 @@ class ProducersSetIsNofollowTest extends \PHPUnit_Framework_TestCase
 
         foreach ($producersCollection as $producer) {
             /** @var Producer $producer */
-            if($producer->getIsFilter()){
+            if ($producer->getIsFilter()) {
                 $this->assertFalse($producer->getIsNofollow());
-            }else{
+            } else {
                 $this->assertTrue($producer->getIsNofollow());
             }
         }
@@ -92,9 +92,9 @@ class ProducersSetIsNofollowTest extends \PHPUnit_Framework_TestCase
 
         foreach ($producersCollection as $producer) {
             /** @var Producer $producer */
-            if($producer->getIsFilter()){
+            if ($producer->getIsFilter()) {
                 $this->assertFalse($producer->getIsNofollow());
-            }else{
+            } else {
                 $this->assertTrue($producer->getIsNofollow());
             }
         }
