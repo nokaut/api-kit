@@ -3,7 +3,7 @@
 namespace Nokaut\ApiKit\Ext\Data\Converter\Filters;
 
 use Nokaut\ApiKit\Converter\ProductsConverter;
-use Nokaut\ApiKit\Ext\Data\Converter\Filters\Callback\ShopsSetIsPopular;
+use Nokaut\ApiKit\Ext\Data\Converter\Filters\Callback\Shops\SetIsPopular;
 use Nokaut\ApiKit\Ext\Data\Entity\Filter\Shop;
 
 class ShopsConverterTest extends \PHPUnit_Framework_TestCase
@@ -35,7 +35,7 @@ class ShopsConverterTest extends \PHPUnit_Framework_TestCase
         $products = $productsConverter->convert($this->getJsonFixture('laptopy'));
 
         $shopsConverter = new ShopsConverter();
-        $shops = $shopsConverter->convert($products, array(new ShopsSetIsPopular()));
+        $shops = $shopsConverter->convert($products, array(new SetIsPopular()));
 
         $this->assertEquals(54, $shops->count());
         $this->assertEquals(count($products->getShops()), $shops->count());

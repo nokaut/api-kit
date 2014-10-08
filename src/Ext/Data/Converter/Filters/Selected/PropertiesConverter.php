@@ -4,7 +4,7 @@
 namespace Nokaut\ApiKit\Ext\Data\Converter\Filters\Selected;
 
 use Nokaut\ApiKit\Ext\Data\Collection\Filters\PropertyAbstract;
-use Nokaut\ApiKit\Ext\Data\Converter\Filters\Callback\PropertyCallbackInterface;
+use Nokaut\ApiKit\Ext\Data\Converter\Filters\Callback\Property\CallbackInterface;
 use Nokaut\ApiKit\Ext\Data\Converter\Filters\PropertiesConverter as PropertiesConverterParent;
 use Nokaut\ApiKit\Collection\Products;
 use Nokaut\ApiKit\Ext\Data\Entity\Filter\FilterAbstract;
@@ -13,7 +13,7 @@ class PropertiesConverter extends PropertiesConverterParent
 {
     /**
      * @param Products $products
-     * @param PropertyCallbackInterface[] $callbacks
+     * @param CallbackInterface[] $callbacks
      * @return PropertyAbstract[]
      */
     public function convert(Products $products, $callbacks = array())

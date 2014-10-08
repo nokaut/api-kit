@@ -9,7 +9,7 @@ use Nokaut\ApiKit\Ext\Data\Collection\Filters\PropertyRanges;
 use Nokaut\ApiKit\Ext\Data\Collection\Filters\PropertyValues;
 use Nokaut\ApiKit\Ext\Data\Converter\ConverterInterface;
 use Nokaut\ApiKit\Ext\Data\Collection\Filters\PropertyAbstract;
-use Nokaut\ApiKit\Ext\Data\Converter\Filters\Callback\PropertyCallbackInterface;
+use Nokaut\ApiKit\Ext\Data\Converter\Filters\Callback\Property\CallbackInterface;
 use Nokaut\ApiKit\Ext\Data\Entity\Filter\PropertyRange;
 use Nokaut\ApiKit\Ext\Data\Entity\Filter\PropertyValue;
 
@@ -17,7 +17,7 @@ class PropertiesConverter implements ConverterInterface
 {
     /**
      * @param Products $products
-     * @param PropertyCallbackInterface[] $callbacks
+     * @param CallbackInterface[] $callbacks
      * @return PropertyAbstract[]
      */
     public function convert(Products $products, $callbacks = array())

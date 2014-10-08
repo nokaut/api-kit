@@ -3,7 +3,7 @@
 namespace Nokaut\ApiKit\Ext\Data\Converter\Filters;
 
 use Nokaut\ApiKit\Converter\ProductsConverter;
-use Nokaut\ApiKit\Ext\Data\Converter\Filters\Callback\ProducersSetIsPopular;
+use Nokaut\ApiKit\Ext\Data\Converter\Filters\Callback\Producers\SetIsPopular;
 use Nokaut\ApiKit\Ext\Data\Entity\Filter\Producer;
 
 class ProducersConverterTest extends \PHPUnit_Framework_TestCase
@@ -34,7 +34,7 @@ class ProducersConverterTest extends \PHPUnit_Framework_TestCase
         $products = $productsConverter->convert($this->getJsonFixture('laptopy'));
 
         $producersConverter = new ProducersConverter();
-        $producers = $producersConverter->convert($products, array(new ProducersSetIsPopular()));
+        $producers = $producersConverter->convert($products, array(new SetIsPopular()));
 
         $this->assertEquals(15, $producers->count());
         $this->assertEquals(count($products->getProducers()), $producers->count());

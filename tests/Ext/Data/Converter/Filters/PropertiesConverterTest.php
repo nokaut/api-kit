@@ -4,7 +4,7 @@ namespace Nokaut\ApiKit\Ext\Data\Converter\Filters;
 
 use Nokaut\ApiKit\Converter\ProductsConverter;
 use Nokaut\ApiKit\Collection\Products;
-use Nokaut\ApiKit\Ext\Data\Converter\Filters\Callback\PropertySetIsActive;
+use Nokaut\ApiKit\Ext\Data\Converter\Filters\Callback\Property\SetIsActive;
 
 class PropertiesConverterTest extends \PHPUnit_Framework_TestCase
 {
@@ -32,7 +32,7 @@ class PropertiesConverterTest extends \PHPUnit_Framework_TestCase
         $products = $productsConverter->convert($this->getJsonFixture('telewizory-led-with-filters-without-range'));
 
         $propertiesConverter = new PropertiesConverter();
-        $properties = $propertiesConverter->convert($products, array(new PropertySetIsActive()));
+        $properties = $propertiesConverter->convert($products, array(new SetIsActive()));
 
         $this->assertEquals(count($products->getProperties()), count($properties));
 

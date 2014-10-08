@@ -3,7 +3,7 @@
 namespace Nokaut\ApiKit\Ext\Data\Converter\Filters;
 
 use Nokaut\ApiKit\Converter\ProductsConverter;
-use Nokaut\ApiKit\Ext\Data\Converter\Filters\Callback\PriceRangesSetIsNofollow;
+use Nokaut\ApiKit\Ext\Data\Converter\Filters\Callback\PriceRanges\SetIsNofollow;
 use Nokaut\ApiKit\Ext\Data\Entity\Filter\PriceRange;
 
 class PriceRangesConverterTest extends \PHPUnit_Framework_TestCase
@@ -41,7 +41,7 @@ class PriceRangesConverterTest extends \PHPUnit_Framework_TestCase
         $products = $productsConverter->convert($this->getJsonFixture('laptopy'));
 
         $priceRangesConverter = new PriceRangesConverter();
-        $priceRanges = $priceRangesConverter->convert($products, array(new PriceRangesSetIsNofollow()));
+        $priceRanges = $priceRangesConverter->convert($products, array(new SetIsNofollow()));
 
         $this->assertEquals(4, $priceRanges->count());
         $this->assertEquals(count($products->getPrices()), $priceRanges->count());
