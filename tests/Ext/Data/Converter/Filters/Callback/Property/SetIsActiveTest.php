@@ -10,7 +10,6 @@ use Nokaut\ApiKit\Ext\Data\Entity\Filter\PropertyValue;
 
 class SetIsActiveTest extends \PHPUnit_Framework_TestCase
 {
-
     public function testNotIsActive()
     {
         $products = new Products(array());
@@ -39,8 +38,9 @@ class SetIsActiveTest extends \PHPUnit_Framework_TestCase
         $propertyValue = new PropertyValue();
         $propertyValue->setIsFilter(false);
         $propertyValues[] = $propertyValue;
-        $propertyValues[] = $propertyValue;
+        $propertyValue = new PropertyValue();
         $propertyValue->setIsFilter(true);
+        $propertyValues[] = $propertyValue;
         $propertyValues[] = $propertyValue;
 
         $property = new PropertyValues($propertyValues);
@@ -48,7 +48,7 @@ class SetIsActiveTest extends \PHPUnit_Framework_TestCase
         $callback = new SetIsActive();
         $callback($property, $products);
 
-        $this->assertFalse($property->getIsActive());
+        $this->assertTrue($property->getIsActive());
 
         /***/
         $propertyValues = array();
