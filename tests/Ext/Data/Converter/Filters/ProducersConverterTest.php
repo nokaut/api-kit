@@ -16,7 +16,7 @@ class ProducersConverterTest extends \PHPUnit_Framework_TestCase
         $producersConverter = new ProducersConverter();
         $producers = $producersConverter->convert($products);
 
-        $this->assertEquals('Producent',$producers->getName());
+        $this->assertEquals('Producent', $producers->getName());
         $this->assertEquals(15, $producers->count());
         $this->assertEquals(count($products->getProducers()), $producers->count());
 
@@ -37,7 +37,7 @@ class ProducersConverterTest extends \PHPUnit_Framework_TestCase
         $producersConverter = new ProducersConverter();
         $producers = $producersConverter->convert($products, array(new SetIsPopular()));
 
-        $this->assertEquals('Producent',$producers->getName());
+        $this->assertEquals('Producent', $producers->getName());
         $this->assertEquals(15, $producers->count());
         $this->assertEquals(count($products->getProducers()), $producers->count());
 

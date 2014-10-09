@@ -16,7 +16,7 @@ class ShopsConverterTest extends \PHPUnit_Framework_TestCase
         $shopsConverter = new ShopsConverter();
         $shops = $shopsConverter->convert($products);
 
-        $this->assertEquals('Sklep',$shops->getName());
+        $this->assertEquals('Sklep', $shops->getName());
         $this->assertEquals(54, $shops->count());
         $this->assertEquals(count($products->getShops()), $shops->count());
 
@@ -38,7 +38,7 @@ class ShopsConverterTest extends \PHPUnit_Framework_TestCase
         $shopsConverter = new ShopsConverter();
         $shops = $shopsConverter->convert($products, array(new SetIsPopular()));
 
-        $this->assertEquals('Sklep',$shops->getName());
+        $this->assertEquals('Sklep', $shops->getName());
         $this->assertEquals(54, $shops->count());
         $this->assertEquals(count($products->getShops()), $shops->count());
 

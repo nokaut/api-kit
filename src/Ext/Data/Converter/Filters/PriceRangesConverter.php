@@ -52,6 +52,9 @@ class PriceRangesConverter implements ConverterInterface
         $priceRangesCollection = new PriceRanges($priceRanges);
         $priceRangesCollection->setName('Cena');
         $priceRangesCollection->setUnit('zł');
+        if ($priceRanges) {
+            $priceRangesCollection->setUrlInTemplate($this->prepareUrlInTemplate(current($priceRanges)));
+        }
 
         return $priceRangesCollection;
     }
@@ -67,5 +70,14 @@ class PriceRangesConverter implements ConverterInterface
         } else {
             return sprintf("%s - %s", number_format($range->getMin(), 2, ',', ''), number_format($range->getMax(), 2, ',', ''));
         }
+    }
+
+    /**
+     * @param PriceRange $priceRange
+     * @return string
+     */
+    protected function prepareUrlInTemplate(PriceRange $priceRange)
+    {
+        return preg_replace('/cena:\d+(.\d+)?~\d+(.\d+)?/', 'cena:%s~%s', $priceRange->getUrl());
     }
 }
