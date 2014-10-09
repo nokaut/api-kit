@@ -17,7 +17,7 @@ class ShopsConverterTest extends \PHPUnit_Framework_TestCase
         $shops = $shopsConverter->convert($products);
 
         $this->assertEquals(1, $shops->count());
-
+        $this->assertEquals('Sklep',$shops->getName());
         $this->assertInstanceOf('\Nokaut\ApiKit\Ext\Data\Collection\Filters\Shops', $shops);
 
         foreach ($shops as $shop) {
@@ -36,7 +36,7 @@ class ShopsConverterTest extends \PHPUnit_Framework_TestCase
         $shops = $shopsConverter->convert($products, array(new SetIsPopular()));
 
         $this->assertEquals(1, $shops->count());
-
+        $this->assertEquals('Sklep',$shops->getName());
         $this->assertInstanceOf('\Nokaut\ApiKit\Ext\Data\Collection\Filters\Shops', $shops);
 
         foreach ($shops as $shop) {

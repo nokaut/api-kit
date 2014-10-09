@@ -16,6 +16,7 @@ class CategoriesConverterTest extends \PHPUnit_Framework_TestCase
         $categoriesConverter = new CategoriesConverter();
         $categories = $categoriesConverter->convert($products);
 
+        $this->assertEquals('Kategoria',$categories->getName());
         $this->assertEquals(1, $categories->count());
         $this->assertEquals(count($products->getCategories()), $categories->count());
 
@@ -36,6 +37,7 @@ class CategoriesConverterTest extends \PHPUnit_Framework_TestCase
         $categoriesConverter = new CategoriesConverter();
         $categories = $categoriesConverter->convert($products, array(new SortByName()));
 
+        $this->assertEquals('Kategoria',$categories->getName());
         $this->assertEquals(1, $categories->count());
         $this->assertEquals(count($products->getCategories()), $categories->count());
 

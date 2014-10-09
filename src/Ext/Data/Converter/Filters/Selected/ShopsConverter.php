@@ -20,7 +20,7 @@ class ShopsConverter extends ShopsConverterParent
     {
         $shops = parent::convert($products, array());
 
-        $shops = new Shops(array_filter($shops->getEntities(), function ($entity) {
+        $shops->setEntities(array_filter($shops->getEntities(), function ($entity) {
             /** @var Shop $entity */
             return $entity->getIsFilter();
         }));

@@ -21,7 +21,8 @@ class PriceRangesConverterTest extends \PHPUnit_Framework_TestCase
         $priceRanges = $priceRangesConverter->convert($products);
 
         $this->assertEquals(1, $priceRanges->count());
-
+        $this->assertEquals('Cena',$priceRanges->getName());
+        $this->assertEquals('zł',$priceRanges->getUnit());
         $this->assertInstanceOf('\Nokaut\ApiKit\Ext\Data\Collection\Filters\PriceRanges', $priceRanges);
 
         foreach ($priceRanges as $priceRange) {

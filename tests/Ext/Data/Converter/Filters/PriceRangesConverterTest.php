@@ -17,6 +17,8 @@ class PriceRangesConverterTest extends \PHPUnit_Framework_TestCase
         $priceRanges = $priceRangesConverter->convert($products);
 
 
+        $this->assertEquals('Cena',$priceRanges->getName());
+        $this->assertEquals('zł',$priceRanges->getUnit());
         $this->assertEquals(4, $priceRanges->count());
         $this->assertEquals(count($products->getPrices()), $priceRanges->count());
 
@@ -46,6 +48,8 @@ class PriceRangesConverterTest extends \PHPUnit_Framework_TestCase
         $priceRangesConverter = new PriceRangesConverter();
         $priceRanges = $priceRangesConverter->convert($products, array(new SetIsNofollow()));
 
+        $this->assertEquals('Cena',$priceRanges->getName());
+        $this->assertEquals('zł',$priceRanges->getUnit());
         $this->assertEquals(4, $priceRanges->count());
         $this->assertEquals(count($products->getPrices()), $priceRanges->count());
 

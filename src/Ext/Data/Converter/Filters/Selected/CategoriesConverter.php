@@ -20,7 +20,7 @@ class CategoriesConverter extends CategoriesConverterParent
     {
         $categories = parent::convert($products, array());
 
-        $categories = new Categories(array_filter($categories->getEntities(), function ($entity) {
+        $categories->setEntities(array_filter($categories->getEntities(), function ($entity) {
             /** @var Category $entity */
             return $entity->getIsFilter();
         }));

@@ -17,7 +17,7 @@ class ProducersConverterTest extends \PHPUnit_Framework_TestCase
         $producers = $producersConverter->convert($products);
 
         $this->assertEquals(1, $producers->count());
-
+        $this->assertEquals('Producent',$producers->getName());
         $this->assertInstanceOf('\Nokaut\ApiKit\Ext\Data\Collection\Filters\Producers', $producers);
 
         foreach ($producers as $producer) {
@@ -36,7 +36,7 @@ class ProducersConverterTest extends \PHPUnit_Framework_TestCase
         $producers = $producersConverter->convert($products, array(new SetIsPopular()));
 
         $this->assertEquals(1, $producers->count());
-
+        $this->assertEquals('Producent',$producers->getName());
         $this->assertInstanceOf('\Nokaut\ApiKit\Ext\Data\Collection\Filters\Producers', $producers);
 
         foreach ($producers as $producer) {

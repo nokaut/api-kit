@@ -17,6 +17,7 @@ class CategoriesConverterTest extends \PHPUnit_Framework_TestCase
         $categories = $categoriesConverter->convert($products);
 
         $this->assertEquals(1, $categories->count());
+        $this->assertEquals('Kategoria',$categories->getName());
         $this->assertEquals(count($products->getCategories()), $categories->count());
 
         $this->assertInstanceOf('\Nokaut\ApiKit\Ext\Data\Collection\Filters\Categories', $categories);
@@ -36,6 +37,7 @@ class CategoriesConverterTest extends \PHPUnit_Framework_TestCase
         $categoriesConverter = new CategoriesConverter();
         $categories = $categoriesConverter->convert($products, array(new SortByName()));
 
+        $this->assertEquals('Kategoria',$categories->getName());
         $this->assertEquals(1, $categories->count());
         $this->assertEquals(count($products->getCategories()), $categories->count());
 

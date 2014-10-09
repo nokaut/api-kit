@@ -20,7 +20,7 @@ class ProducersConverter extends ProducersConverterParent
     {
         $producers = parent::convert($products, array());
 
-        $producers = new Producers(array_filter($producers->getEntities(), function ($entity) {
+        $producers->setEntities(array_filter($producers->getEntities(), function ($entity) {
             /** @var Producer $entity */
             return $entity->getIsFilter();
         }));

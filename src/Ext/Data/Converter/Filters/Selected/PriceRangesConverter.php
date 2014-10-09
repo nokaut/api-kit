@@ -20,7 +20,7 @@ class PriceRangesConverter extends PriceRangesConverterParent
     {
         $priceRanges = parent::convert($products, array());
 
-        $priceRanges = new PriceRanges(array_filter($priceRanges->getEntities(), function ($entity) {
+        $priceRanges->setEntities(array_filter($priceRanges->getEntities(), function ($entity) {
             /** @var PriceRange $entity */
             return $entity->getIsFilter();
         }));
