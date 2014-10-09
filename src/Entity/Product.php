@@ -32,11 +32,15 @@ class Product extends EntityAbstract
     /**
      * @var string
      */
+    protected $description;
+    /**
+     * @var string
+     */
     protected $description_html;
     /**
      * @var string
      */
-    protected $description;
+    protected $description_short;
     /**
      * @var Property[]
      */
@@ -181,6 +185,22 @@ class Product extends EntityAbstract
     public function getDescriptionHtml()
     {
         return $this->description_html;
+    }
+
+    /**
+     * @param string $description_short
+     */
+    public function setDescriptionShort($description_short)
+    {
+        $this->description_short = $description_short;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescriptionShort()
+    {
+        return $this->description_short;
     }
 
     /**
