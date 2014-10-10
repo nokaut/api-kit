@@ -43,7 +43,7 @@ class ShopsConverter implements ConverterInterface
             $shop->setUrl($facetShop->getUrl());
             $shop->setUrlBase($facetShop->getUrlBase());
             $shop->setIsFilter($facetShop->getIsFilter());
-            $shop->setTotal($facetShop->getTotal());
+            $shop->setTotal((int)$facetShop->getTotal());
 
             $shops[] = $shop;
         }

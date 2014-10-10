@@ -42,7 +42,7 @@ class PriceRangesConverter implements ConverterInterface
             $priceRange->setName($this->getPriceRangeName($facetPriceRange));
             $priceRange->setUrl($facetPriceRange->getUrl());
             $priceRange->setIsFilter($facetPriceRange->getIsFilter());
-            $priceRange->setTotal($facetPriceRange->getTotal());
+            $priceRange->setTotal((int)$facetPriceRange->getTotal());
             $priceRange->setMin($facetPriceRange->getMin());
             $priceRange->setMax($facetPriceRange->getMax());
 

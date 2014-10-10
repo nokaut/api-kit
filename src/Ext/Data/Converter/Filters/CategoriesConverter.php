@@ -45,7 +45,7 @@ class CategoriesConverter implements ConverterInterface
             $category->setUrlIn($facetCategory->getUrlIn());
             $category->setUrlOut($facetCategory->getUrlOut());
             $category->setIsFilter($facetCategory->getIsFilter());
-            $category->setTotal($facetCategory->getTotal());
+            $category->setTotal((int)$facetCategory->getTotal());
 
             $categories[] = $category;
         }

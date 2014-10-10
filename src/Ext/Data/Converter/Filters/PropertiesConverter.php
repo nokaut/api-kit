@@ -53,7 +53,7 @@ class PropertiesConverter implements ConverterInterface
                     $entity->setName($this->getPropertyRangeName($range));
                     $entity->setUrl($range->getUrl());
                     $entity->setIsFilter($range->getIsFilter());
-                    $entity->setTotal($range->getTotal());
+                    $entity->setTotal((int)$range->getTotal());
                     $entity->setMin($range->getMin());
                     $entity->setMax($range->getMax());
                     $entities[] = $entity;
