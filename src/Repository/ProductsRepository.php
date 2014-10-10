@@ -349,6 +349,7 @@ class ProductsRepository extends RepositoryAbstract
         $query->addFacet('query');
         $query->addFacet('categories');
         $query->addFacet('producer_name');
+        $query->addFacet('shops');
         $query->addFacet('properties');
         $query->addFacetRange('price_min', 4);
         $query->addFacetRange('properties', 4);
