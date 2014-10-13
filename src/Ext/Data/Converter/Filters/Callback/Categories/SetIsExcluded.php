@@ -13,14 +13,14 @@ class SetIsExcluded implements CallbackInterface
      */
     public function __invoke(Categories $categories, Products $products)
     {
-        $this->setPropertyIsExcluded($categories, $products->getMetadata()->getTotal());
+        $this->setIsExcluded($categories, $products->getMetadata()->getTotal());
     }
 
     /**
      * @param Categories $categories
      * @param $productsTotal
      */
-    protected function setPropertyIsExcluded(Categories $categories, $productsTotal)
+    protected function setIsExcluded(Categories $categories, $productsTotal)
     {
         $nonEmptyEntities = array_filter($categories->getEntities(), function ($entity) {
             return $entity->getTotal() > 0;
@@ -32,7 +32,6 @@ class SetIsExcluded implements CallbackInterface
         }
 
         if (count($nonEmptyEntities) === 1
-            and current($nonEmptyEntities)->getIsFilter() === false
             and current($nonEmptyEntities)->getTotal() == $productsTotal
         ) {
             $categories->setIsExcluded(true);
