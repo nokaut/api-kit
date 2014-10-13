@@ -70,6 +70,7 @@ class CategoryConverterTest extends PHPUnit_Framework_TestCase
                  "title": "Alkohole",
                  "popularity": 76,
                  "parent_id": "6118",
+                 "total": "123",
                  "path": [
                   {
                    "id": 6118,
