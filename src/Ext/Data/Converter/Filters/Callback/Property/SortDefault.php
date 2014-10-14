@@ -28,7 +28,10 @@ class SortDefault implements CallbackInterface
 
         $entities = $property->getEntities();
 
-        if (!is_numeric(substr($entities[0]->getName(), 0, 1)) or strstr($entities[0]->getName(), ' x ')) {
+        if (!is_numeric(substr($entities[0]->getName(), 0, 1))
+            or strstr($entities[0]->getName(), ' x ')
+            or $property->isPropertyRanges()
+        ) {
             usort($entities, function ($entity1, $entity2) {
                 return strnatcmp(strtolower($entity1->getName()), strtolower($entity2->getName()));
             });
