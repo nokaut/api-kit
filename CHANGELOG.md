@@ -5,6 +5,11 @@ master
 - SortAbstract: otworzenie metody sortującej
 - ProductsMetadata: Dodanie pola Canonical dla listy produktów
 - ProductsRepository: dodanie funkcji fetchProductsByUrlWithQuality
+- Dodanie url_base do facets kategorii, producenta, sklepu
+- Dodanie description_short do Product
+- Dodanie total do Category
+- Dodanie shops do fetchProductsByUrl w repozytorium Products
+- Dodanie Ext - rozszerzenie biblioteki, generujące struktury przystosowane do łatwego użycia w widokach
 
 v1.4.1
 ------
