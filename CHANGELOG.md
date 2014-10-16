@@ -4,6 +4,7 @@ master
 ------
 - SortAbstract: otworzenie metody sortującej
 - ProductsMetadata: Dodanie pola Canonical dla listy produktów
+- ProductsRepository: dodanie funkcji fetchProductsByUrlWithQuality
 
 v1.4.1
 ------

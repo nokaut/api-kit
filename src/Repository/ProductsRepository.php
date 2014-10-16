@@ -193,6 +193,22 @@ class ProductsRepository extends RepositoryAbstract
      * @param $url
      * @param array $fields
      * @param int $limit
+     * @param int $quality
+     * @return Products
+     */
+    public function fetchProductsByUrlWithQuality($url, array $fields, $limit = 20, $quality = 60)
+    {
+        $query = $this->prepareQueryForFetchProductsByUrlWithQuality($url, $fields, $limit, $quality);
+        $fetch = new ProductsFetch($query, $this->cache);
+        $this->clientApi->send($fetch);
+
+        return $fetch->getResult();
+    }
+
+    /**
+     * @param $url
+     * @param array $fields
+     * @param int $limit
      * @return Products - return collection of ProductsWithBestOffer
      */
     public function fetchProductsWithBestOfferByUrl($url, array $fields, $limit = 20)
@@ -354,6 +370,20 @@ class ProductsRepository extends RepositoryAbstract
         $query->addFacetRange('price_min', 4);
         $query->addFacetRange('properties', 4);
         $query->setLimit($limit);
+        return $query;
+    }
+
+    /**
+     * @param string $url
+     * @param array $fields
+     * @param int $limit
+     * @param int $quality
+     * @return ProductsQuery
+     */
+    protected function prepareQueryForFetchProductsByUrlWithQuality($url, array $fields, $limit, $quality)
+    {
+        $query = $this->prepareQueryForFetchProductsByUrl($url, $fields, $limit);
+        $query->setQuality($quality);
         return $query;
     }
 
