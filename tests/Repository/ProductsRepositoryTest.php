@@ -94,6 +94,16 @@ class ProductsRepositoryTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(2, $products);
     }
 
+    public function testFetchProductsByUrlWithQuality()
+    {
+        $this->clientApiMock->expects($this->once())->method('convertResponse')
+            ->will($this->returnValue($this->getJsonFixture('testFetchProducts')));
+
+        /** @var Products $products */
+        $products = $this->sut->fetchProductsByUrl('/laptopy', ProductsRepository::$fieldsForList, 2, 60);
+        $this->assertCount(2, $products);
+    }
+
     public function testFetchProductsWithBestOfferByUrl()
     {
         $this->clientApiMock->expects($this->once())->method('convertResponse')

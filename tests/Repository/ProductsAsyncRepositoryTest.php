@@ -69,6 +69,28 @@ class ProductsAsyncRepositoryTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(2, $productsFetch->getResult());
     }
 
+    public function testFetchProductsByUrl()
+    {
+        $this->clientApiMock->expects($this->once())->method('convertResponse')
+            ->will($this->returnValue($this->getJsonFixture('testFetchProducts')));
+
+        /** @var ProductsFetch $productsFetch */
+        $productsFetch = $this->sut->fetchProductsByUrl(2, ProductsRepository::$fieldsForList);
+        $this->sut->fetchAllAsync();
+        $this->assertCount(2, $productsFetch->getResult());
+    }
+
+    public function testFetchProductsByUrlWithQuality()
+    {
+        $this->clientApiMock->expects($this->once())->method('convertResponse')
+            ->will($this->returnValue($this->getJsonFixture('testFetchProducts')));
+
+        /** @var ProductsFetch $productsFetch */
+        $productsFetch = $this->sut->fetchProductsByUrlWithQuality(2, ProductsRepository::$fieldsForList, 2, 60);
+        $this->sut->fetchAllAsync();
+        $this->assertCount(2, $productsFetch->getResult());
+    }
+
     /**
      * @param $name
      * @return \stdClass

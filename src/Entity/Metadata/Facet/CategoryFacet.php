@@ -33,6 +33,10 @@ class CategoryFacet extends EntityAbstract
     /**
      * @var string
      */
+    protected $url_base;
+    /**
+     * @var string
+     */
     protected $url_in;
     /**
      * @var string
@@ -105,6 +109,22 @@ class CategoryFacet extends EntityAbstract
     public function getUrl()
     {
         return $this->url;
+    }
+
+    /**
+     * @param string $url_base
+     */
+    public function setUrlBase($url_base)
+    {
+        $this->url_base = $url_base;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrlBase()
+    {
+        return $this->url_base;
     }
 
     /**

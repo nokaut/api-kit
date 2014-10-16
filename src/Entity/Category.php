@@ -14,21 +14,37 @@ use Nokaut\ApiKit\Entity\Category\Path;
 
 class Category extends EntityAbstract
 {
+    /**
+     * @var int
+     */
     protected $id;
+    /**
+     * @var float
+     */
     protected $cpc_value;
+    /**
+     * @var int
+     */
     protected $depth;
+    /**
+     * @var string
+     */
     protected $description;
+    /**
+     * @var bool
+     */
     protected $is_adult;
     /**
      * @var bool
      */
     protected $is_visible;
-
     /**
      * @var bool
      */
     protected $is_visible_on_homepage;
-
+    /**
+     * @var string
+     */
     protected $title;
     /**
      * @var int
@@ -38,11 +54,17 @@ class Category extends EntityAbstract
      * @var Path[]
      */
     protected $path;
+    /**
+     * @var string
+     */
     protected $photo_id;
     /**
      * @var int
      */
     protected $subcategory_count;
+    /**
+     * @var string
+     */
     protected $url;
     /**
      * @var string - picture|list
@@ -56,9 +78,13 @@ class Category extends EntityAbstract
      * @var int
      */
     protected $popularity;
+    /**
+     * @var int
+     */
+    protected $total;
 
     /**
-     * @param mixed $cpc_value
+     * @param float $cpc_value
      */
     public function setCpcValue($cpc_value)
     {
@@ -66,7 +92,7 @@ class Category extends EntityAbstract
     }
 
     /**
-     * @return mixed
+     * @return float
      */
     public function getCpcValue()
     {
@@ -74,7 +100,7 @@ class Category extends EntityAbstract
     }
 
     /**
-     * @param mixed $depth
+     * @param int $depth
      */
     public function setDepth($depth)
     {
@@ -82,7 +108,7 @@ class Category extends EntityAbstract
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getDepth()
     {
@@ -90,7 +116,7 @@ class Category extends EntityAbstract
     }
 
     /**
-     * @param mixed $description
+     * @param string $description
      */
     public function setDescription($description)
     {
@@ -98,7 +124,7 @@ class Category extends EntityAbstract
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getDescription()
     {
@@ -106,7 +132,7 @@ class Category extends EntityAbstract
     }
 
     /**
-     * @param mixed $id
+     * @param int $id
      */
     public function setId($id)
     {
@@ -114,7 +140,7 @@ class Category extends EntityAbstract
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getId()
     {
@@ -122,7 +148,7 @@ class Category extends EntityAbstract
     }
 
     /**
-     * @param mixed $is_adult
+     * @param bool $is_adult
      */
     public function setIsAdult($is_adult)
     {
@@ -130,7 +156,7 @@ class Category extends EntityAbstract
     }
 
     /**
-     * @return mixed
+     * @return bool
      */
     public function getIsAdult()
     {
@@ -202,7 +228,7 @@ class Category extends EntityAbstract
     }
 
     /**
-     * @param mixed $photo_id
+     * @param string $photo_id
      */
     public function setPhotoId($photo_id)
     {
@@ -210,7 +236,7 @@ class Category extends EntityAbstract
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getPhotoId()
     {
@@ -234,7 +260,7 @@ class Category extends EntityAbstract
     }
 
     /**
-     * @param mixed $title
+     * @param string $title
      */
     public function setTitle($title)
     {
@@ -242,7 +268,7 @@ class Category extends EntityAbstract
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getTitle()
     {
@@ -250,7 +276,7 @@ class Category extends EntityAbstract
     }
 
     /**
-     * @param mixed $url
+     * @param string $url
      */
     public function setUrl($url)
     {
@@ -258,7 +284,7 @@ class Category extends EntityAbstract
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getUrl()
     {
@@ -311,6 +337,22 @@ class Category extends EntityAbstract
     public function getPopularity()
     {
         return $this->popularity;
+    }
+
+    /**
+     * @param int $total
+     */
+    public function setTotal($total)
+    {
+        $this->total = $total;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTotal()
+    {
+        return $this->total;
     }
 
 }
