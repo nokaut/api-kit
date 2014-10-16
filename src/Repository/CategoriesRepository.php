@@ -115,9 +115,9 @@ class CategoriesRepository extends RepositoryAbstract
         return $categories;
     }
 
-    public function fetchCategoriesByIds(array $ids)
+    public function fetchCategoriesByIds(array $ids, $limit = 200)
     {
-        $query = $this->prepareQueryForFetchCategoriesByIds($ids);
+        $query = $this->prepareQueryForFetchCategoriesByIds($ids, $limit);
         $fetch = new CategoriesFetch($query, $this->cache);
         $this->clientApi->send($fetch);
         /** @var Categories $categories */
@@ -191,13 +191,15 @@ class CategoriesRepository extends RepositoryAbstract
 
     /**
      * @param array $ids
+     * @param int $limit
      * @return CategoriesQuery
      */
-    protected function prepareQueryForFetchCategoriesByIds(array $ids)
+    protected function prepareQueryForFetchCategoriesByIds(array $ids, $limit)
     {
         $query = new CategoriesQuery($this->apiBaseUrl);
         $query->setFields(self::getFieldsWithoutDescription());
         $query->setCategoryIds($ids);
+        $query->setLimit($limit);
         return $query;
     }
 

@@ -101,11 +101,12 @@ class CategoriesAsyncRepository extends CategoriesRepository implements AsyncRep
 
     /**
      * @param array $ids
+     * @param int $limit
      * @return CategoriesFetch
      */
-    public function fetchCategoriesByIds(array $ids)
+    public function fetchCategoriesByIds(array $ids, $limit = 200)
     {
-        $categoriesAsyncFetch = new CategoriesFetch($this->prepareQueryForFetchCategoriesByIds($ids), $this->cache);
+        $categoriesAsyncFetch = new CategoriesFetch($this->prepareQueryForFetchCategoriesByIds($ids, $limit), $this->cache);
         $this->asyncRepo->addFetch($categoriesAsyncFetch);
         return $categoriesAsyncFetch;
     }

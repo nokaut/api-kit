@@ -69,4 +69,16 @@ class CategoriesQueryTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(self::$baseUrl . "categories?fields=id,title&filter[id][in][]=1&filter[id][in][]=45", $url);
     }
+
+    public function testCreateRequestPathWithIdsAndLimit()
+    {
+        $cut = new CategoriesQuery(self::$baseUrl);
+        $cut->setFields(array('id', 'title'));
+        $cut->setCategoryIds(array(1,45));
+        $cut->setLimit(200);
+
+        $url = $cut->createRequestPath();
+
+        $this->assertEquals(self::$baseUrl . "categories?fields=id,title&filter[id][in][]=1&filter[id][in][]=45&limit=200", $url);
+    }
 }

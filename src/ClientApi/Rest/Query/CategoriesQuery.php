@@ -15,9 +15,10 @@ class CategoriesQuery extends QueryBuilderAbstract
 {
     const MAX_DEPTH = 2;
 
-    private $baseUrl;
-    private $fields;
-    private $phrase;
+    protected $baseUrl;
+    protected $fields;
+    protected $phrase;
+    protected $limit;
 
     public function __construct($baseUrl)
     {
@@ -81,6 +82,14 @@ class CategoriesQuery extends QueryBuilderAbstract
         $this->addFilter(new Filter\MultipleWithOperator('id', 'in', $ids));
     }
 
+    /**
+     * @param int $limit
+     */
+    public function setLimit($limit)
+    {
+        $this->limit = $limit;
+    }
+
     public function createRequestPath()
     {
 
@@ -91,7 +100,8 @@ class CategoriesQuery extends QueryBuilderAbstract
         $query = $this->baseUrl . 'categories?' .
             $this->createFieldsPart() .
             ($this->createFilterPart() ? '&' . $this->createFilterPart() : '') .
-            $this->createPhrasePart();
+            $this->createPhrasePart() .
+            $this->createLimitPart();
 
         return $query;
     }
@@ -100,7 +110,7 @@ class CategoriesQuery extends QueryBuilderAbstract
      * @return string
      * @throws \InvalidArgumentException
      */
-    private function createFieldsPart()
+    protected function createFieldsPart()
     {
         if (empty($this->fields)) {
             throw new \InvalidArgumentException("fields can't be empty");
@@ -108,11 +118,19 @@ class CategoriesQuery extends QueryBuilderAbstract
         return "fields=" . implode(',', $this->fields);
     }
 
-    private function createPhrasePart()
+    protected function createPhrasePart()
     {
         if (empty($this->phrase)) {
             return "";
         }
         return "&phrase=" . urlencode($this->phrase);
+    }
+
+    protected function createLimitPart()
+    {
+        if (empty($this->limit)) {
+            return "";
+        }
+        return "&limit=" . (int)$this->limit;
     }
 } 
