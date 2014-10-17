@@ -105,6 +105,7 @@ class ProductsRepository extends RepositoryAbstract
     }
 
     /**
+     * @deprecated
      * @param Product $product
      * @param int $limit
      * @param array $fields
@@ -121,6 +122,7 @@ class ProductsRepository extends RepositoryAbstract
     }
 
     /**
+     * @deprecated
      * @param Product $product
      * @param int $limit
      * @param array $fields
@@ -304,6 +306,7 @@ class ProductsRepository extends RepositoryAbstract
     }
 
     /**
+     * @deprecated
      * @param Product $product
      * @param $limit
      * @param array $fields
@@ -321,6 +324,7 @@ class ProductsRepository extends RepositoryAbstract
     }
 
     /**
+     * @deprecated
      * @param Product $product
      * @param $limit
      * @param array $fields
