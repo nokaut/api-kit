@@ -44,6 +44,10 @@ class ProductsMetadata extends EntityAbstract
      * @var Query
      */
     protected $query;
+    /**
+     * @var bool
+     */
+    protected $block_adsense;
 
     /**
      * @param \Nokaut\ApiKit\Entity\Metadata\Products\Paging $paging
@@ -155,6 +159,22 @@ class ProductsMetadata extends EntityAbstract
     public function getCanonical()
     {
         return $this->canonical;
+    }
+
+    /**
+     * @param boolean $block_adsense
+     */
+    public function setBlockAdsense($block_adsense)
+    {
+        $this->block_adsense = $block_adsense;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getBlockAdsense()
+    {
+        return $this->block_adsense;
     }
 
 }
