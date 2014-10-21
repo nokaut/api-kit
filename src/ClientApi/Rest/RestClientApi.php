@@ -62,6 +62,7 @@ class RestClientApi implements ClientApiInterface
 
             $doRetry = $retry && $counterRetry < self::MAX_RETRY;
             if ($doRetry) {
+                $this->logger->info("retry multi send");
                 usleep(50);
             }
         } while ($doRetry);
@@ -150,6 +151,7 @@ class RestClientApi implements ClientApiInterface
                         throw $e;
                     }
                     $retry = true;
+                    $this->logger->info("retry multi send, url:" . $fetch->getQuery()->createRequestPath());
                     usleep(50);
 
                 } else {
