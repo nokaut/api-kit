@@ -11,6 +11,7 @@ master
 - Dodanie shops do fetchProductsByUrl w repozytorium Products
 - Dodanie Ext - rozszerzenie biblioteki, generujące struktury przystosowane do łatwego użycia w widokach
 - limit na Categories
+- Dodanie offer id w Product->OfferWithBestPrice
 
 v1.4.1
 ------
