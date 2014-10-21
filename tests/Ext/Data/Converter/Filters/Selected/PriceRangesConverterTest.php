@@ -3,6 +3,7 @@
 namespace Nokaut\ApiKit\Ext\Data\Converter\Filters\Selected;
 
 use Nokaut\ApiKit\Converter\ProductsConverter;
+use Nokaut\ApiKit\Entity\Metadata\ProductsMetadata;
 use Nokaut\ApiKit\Ext\Data\Entity\Filter\PriceRange;
 
 class PriceRangesConverterTest extends \PHPUnit_Framework_TestCase
@@ -17,10 +18,15 @@ class PriceRangesConverterTest extends \PHPUnit_Framework_TestCase
         $prices[0]->setIsFilter(true);
         $products->setPrices($prices);
 
+        // musimy zmienic url, do cache convertera
+        $metadata = new ProductsMetadata();
+        $metadata->setUrl('asd');
+        $products->setMetadata($metadata);
+
         $priceRangesConverter = new PriceRangesConverter();
         $priceRanges = $priceRangesConverter->convert($products);
 
-        $this->assertEquals(0, $priceRanges->count());
+        $this->assertEquals(1, $priceRanges->count());
         $this->assertEquals('Cena', $priceRanges->getName());
         $this->assertEquals('/laptopy/cena:%s~%s.html', $priceRanges->getUrlInTemplate());
         $this->assertEquals('zł', $priceRanges->getUnit());

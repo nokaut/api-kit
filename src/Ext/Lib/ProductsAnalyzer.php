@@ -38,7 +38,7 @@ class ProductsAnalyzer
 
     private static function getCacheKey(Products $products, FiltersAbstract $skipFilter = null)
     {
-        $cacheKey = $products->getMetadata() ? $products->getMetadata()->getUrl() : serialize($products);
+        $cacheKey = $products->getMetadata() ? $products->getMetadata()->getUrl() : serialize($products->getEntities());
         $cacheKey .= get_class($skipFilter);
         $cacheKey .= ($skipFilter instanceof PropertyAbstract ? $skipFilter->getId() : '');
 
