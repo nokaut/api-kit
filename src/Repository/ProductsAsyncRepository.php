@@ -86,6 +86,7 @@ class ProductsAsyncRepository extends ProductsRepository implements AsyncReposit
     }
 
     /**
+     * @deprecated
      * @param Product $product
      * @param int $limit
      * @param array $fields
@@ -99,6 +100,7 @@ class ProductsAsyncRepository extends ProductsRepository implements AsyncReposit
     }
 
     /**
+     * @deprecated
      * @param Product $product
      * @param int $limit
      * @param array $fields
