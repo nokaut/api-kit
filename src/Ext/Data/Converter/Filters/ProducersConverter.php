@@ -12,6 +12,11 @@ use Nokaut\ApiKit\Ext\Data\Entity\Filter\Producer;
 class ProducersConverter implements ConverterInterface
 {
     /**
+     * @var array
+     */
+    private static $cache = array();
+
+    /**
      * @param Products $products
      * @param CallbackInterface[] $callbacks
      * @return Producers
@@ -33,23 +38,29 @@ class ProducersConverter implements ConverterInterface
      */
     public function initialConvert(Products $products)
     {
-        $facetProducers = $products->getProducers();
-        $producers = array();
+        $cacheKey = md5($products->getMetadata()->getUrl());
 
-        foreach ($facetProducers as $facetProducer) {
-            $producer = new Producer();
-            $producer->setName($facetProducer->getName());
-            $producer->setUrl($facetProducer->getUrl());
-            $producer->setUrlBase($facetProducer->getUrlBase());
-            $producer->setIsFilter($facetProducer->getIsFilter());
-            $producer->setTotal((int)$facetProducer->getTotal());
+        if (!isset(self::$cache[$cacheKey])) {
+            $facetProducers = $products->getProducers();
+            $producers = array();
 
-            $producers[] = $producer;
+            foreach ($facetProducers as $facetProducer) {
+                $producer = new Producer();
+                $producer->setName($facetProducer->getName());
+                $producer->setUrl($facetProducer->getUrl());
+                $producer->setUrlBase($facetProducer->getUrlBase());
+                $producer->setIsFilter($facetProducer->getIsFilter());
+                $producer->setTotal((int)$facetProducer->getTotal());
+
+                $producers[] = $producer;
+            }
+
+            $producersCollection = new Producers($producers);
+            $producersCollection->setName("Producent");
+
+            self::$cache[$cacheKey] = $producersCollection;
         }
 
-        $producersCollection = new Producers($producers);
-        $producersCollection->setName("Producent");
-
-        return $producersCollection;
+        return self::$cache[$cacheKey];
     }
 }

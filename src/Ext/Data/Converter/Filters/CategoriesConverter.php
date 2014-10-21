@@ -12,6 +12,11 @@ use Nokaut\ApiKit\Ext\Data\Entity\Filter\Category;
 class CategoriesConverter implements ConverterInterface
 {
     /**
+     * @var array
+     */
+    private static $cache = array();
+
+    /**
      * @param Products $products
      * @param CallbackInterface[] $callbacks
      * @return Categories
@@ -33,26 +38,32 @@ class CategoriesConverter implements ConverterInterface
      */
     public function initialConvert(Products $products)
     {
-        $facetCategories = $products->getCategories();
-        $categories = array();
+        $cacheKey = md5($products->getMetadata()->getUrl());
 
-        foreach ($facetCategories as $facetCategory) {
-            $category = new Category();
-            $category->setId($facetCategory->getId());
-            $category->setName($facetCategory->getName());
-            $category->setUrl($facetCategory->getUrl());
-            $category->setUrlBase($facetCategory->getUrlBase());
-            $category->setUrlIn($facetCategory->getUrlIn());
-            $category->setUrlOut($facetCategory->getUrlOut());
-            $category->setIsFilter($facetCategory->getIsFilter());
-            $category->setTotal((int)$facetCategory->getTotal());
+        if (!isset(self::$cache[$cacheKey])) {
+            $facetCategories = $products->getCategories();
+            $categories = array();
 
-            $categories[] = $category;
+            foreach ($facetCategories as $facetCategory) {
+                $category = new Category();
+                $category->setId($facetCategory->getId());
+                $category->setName($facetCategory->getName());
+                $category->setUrl($facetCategory->getUrl());
+                $category->setUrlBase($facetCategory->getUrlBase());
+                $category->setUrlIn($facetCategory->getUrlIn());
+                $category->setUrlOut($facetCategory->getUrlOut());
+                $category->setIsFilter($facetCategory->getIsFilter());
+                $category->setTotal((int)$facetCategory->getTotal());
+
+                $categories[] = $category;
+            }
+
+            $categoryCollection = new Categories($categories);
+            $categoryCollection->setName("Kategoria");
+
+            self::$cache[$cacheKey] = $categoryCollection;
         }
 
-        $categoryCollection = new Categories($categories);
-        $categoryCollection->setName("Kategoria");
-
-        return $categoryCollection;
+        return self::$cache[$cacheKey];
     }
 }
