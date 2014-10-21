@@ -25,6 +25,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class RestClientApi implements ClientApiInterface
 {
+    const MAX_RETRY = 2;
 
     /**
      * @var \Guzzle\Http\Client
@@ -54,12 +55,30 @@ class RestClientApi implements ClientApiInterface
      */
     public function sendMulti(Fetches $fetches)
     {
+        $counterRetry = 0;
+        do {
+            $retry = $this->sendMultiProcess($fetches, $counterRetry);
+            ++$counterRetry;
+
+            $doRetry = $retry && $counterRetry < self::MAX_RETRY;
+            if ($doRetry) {
+                usleep(50);
+            }
+        } while ($doRetry);
+    }
+
+    /**
+     * @param Fetches $fetches
+     * @return bool - need retry to get all results
+     */
+    protected function sendMultiProcess(Fetches $fetches)
+    {
         $this->getCacheResults($fetches);
 
         $fetchesForFilled = $requests = array();
         foreach ($fetches as $fetch) {
             /** @var Fetch $fetch */
-            if($fetch->isProcessed()) {
+            if ($fetch->isProcessed()) {
                 continue;
             }
             $requests[] = $this->getClient()->createRequest('GET', $fetch->getQuery()->createRequestPath(), null, null, array('exceptions' => false));
@@ -67,7 +86,7 @@ class RestClientApi implements ClientApiInterface
         }
 
         if (count($requests) == 0) {
-            return;
+            return false;
         }
 
         $startTime = microtime(true);
@@ -75,14 +94,20 @@ class RestClientApi implements ClientApiInterface
 
         $this->logMulti($requests, $responses, $startTime, LogLevel::DEBUG);
 
+        $retry = false;
         foreach ($fetchesForFilled as $fetch) {
             $response = array_shift($responses);
             if ($response && $response->getStatusCode() == 200) {
                 $cacheKey = $fetch->prepareCacheKey();
                 $fetch->getCache()->save($cacheKey, serialize($response));
                 $fetch->setResult($this->convertResponse($response));
+                $fetch->setProcessed(true);
+            } else if ($response && $response->getStatusCode() == 502) {
+                $retry = true;
             }
         }
+        return $retry;
+
     }
 
     /**

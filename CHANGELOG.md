@@ -14,6 +14,7 @@ master
 - oznaczenie fetchSimilarProductsWithHigherPrice, fetchSimilarProductsWithLowerPrice jako deprecated w repozytoriach produktowych
 - dodanie block_adsense do metadata produktów
 - Dodanie offer id w Product->OfferWithBestPrice
+- Ponawianie requestu gdy API odpowie statusem 502
 
 v1.4.1
 ------
