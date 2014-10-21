@@ -20,7 +20,7 @@ class PriceRangesConverterTest extends \PHPUnit_Framework_TestCase
         $priceRangesConverter = new PriceRangesConverter();
         $priceRanges = $priceRangesConverter->convert($products);
 
-        $this->assertEquals(1, $priceRanges->count());
+        $this->assertEquals(0, $priceRanges->count());
         $this->assertEquals('Cena', $priceRanges->getName());
         $this->assertEquals('/laptopy/cena:%s~%s.html', $priceRanges->getUrlInTemplate());
         $this->assertEquals('zł', $priceRanges->getUnit());

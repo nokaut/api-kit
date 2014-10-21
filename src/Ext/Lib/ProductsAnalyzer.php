@@ -28,12 +28,21 @@ class ProductsAnalyzer
      */
     public static function filtersNofollow(Products $products, FiltersAbstract $skipFilter = null)
     {
-        $cacheKey = md5($products->getMetadata()->getUrl() . get_class($skipFilter) . ($skipFilter instanceof PropertyAbstract ? $skipFilter->getId() : ''));
+        $cacheKey = self::getCacheKey($products, $skipFilter);
         if (!isset(self::$cache[$cacheKey])) {
             self::$cache[$cacheKey] = self::areFiltersNofollow($products, $skipFilter);
         }
 
         return self::$cache[$cacheKey];
+    }
+
+    private static function getCacheKey(Products $products, FiltersAbstract $skipFilter = null)
+    {
+        $cacheKey = $products->getMetadata() ? $products->getMetadata()->getUrl() : serialize($products);
+        $cacheKey .= get_class($skipFilter);
+        $cacheKey .= ($skipFilter instanceof PropertyAbstract ? $skipFilter->getId() : '');
+
+        return md5($cacheKey);
     }
 
     /**
