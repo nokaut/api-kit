@@ -16,11 +16,108 @@ use Nokaut\ApiKit\ClientApi\Rest\Fetch\ProductsFetch;
 
 class RestClientApiTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @expectedException \Nokaut\ApiKit\ClientApi\Rest\Exception\FatalResponseException
+     */
+    public function testSendWithRetry()
+    {
+        $oauth2 = $this->prepareOauth();
+        $loggerMock = $this->getMock('Psr\Log\LoggerInterface');
+
+        $request = $this->getMockBuilder('\Guzzle\Http\Message\Request')->disableOriginalConstructor()->getMock();
+        $response = $this->getMockBuilder('\Guzzle\Http\Message\Response')->disableOriginalConstructor()->getMock();
+        $response->expects($this->any())->method('getStatusCode')->will($this->returnValue(502));
+
+        $exceptionFromApi = new \Guzzle\Http\Exception\BadResponseException();
+        $exceptionFromApi->setRequest($request);
+        $exceptionFromApi->setResponse($response);
+        $client = $this->getMockBuilder('\Guzzle\Http\Client')->disableOriginalConstructor()->getMock();
+        $client->expects($this->exactly(2))->method('send')->will($this->throwException($exceptionFromApi));
+
+        $cutMock = $this->prepareCut($loggerMock, $oauth2, $client);
+
+        $fetch = $this->prepareFetch();
+        $cutMock->send($fetch);
+
+    }
+
+    public function testSendWithRetryAndSecondSuccessful()
+    {
+        $oauth2 = $this->prepareOauth();
+        $loggerMock = $this->getMock('Psr\Log\LoggerInterface');
+
+        $request = $this->getMockBuilder('\Guzzle\Http\Message\Request')->disableOriginalConstructor()->getMock();
+        $response = $this->getMockBuilder('\Guzzle\Http\Message\Response')->disableOriginalConstructor()->getMock();
+        $response->expects($this->any())->method('getStatusCode')->will($this->returnValue(502));
+        $responseSuccess = $this->getMockBuilder('\Guzzle\Http\Message\Response')->disableOriginalConstructor()->getMock();
+        $responseSuccess->expects($this->any())->method('getStatusCode')->will($this->returnValue(200));
+        $responseSuccess->expects($this->any())->method('getBody')->will($this->returnValue("{}"));
+
+        $exceptionFromApi = new \Guzzle\Http\Exception\BadResponseException();
+        $exceptionFromApi->setRequest($request);
+        $exceptionFromApi->setResponse($response);
+        $client = $this->getMockBuilder('\Guzzle\Http\Client')->disableOriginalConstructor()->getMock();
+        $client->expects($this->exactly(2))
+            ->method('send')
+            ->will(
+                $this->onConsecutiveCalls($this->throwException($exceptionFromApi), $this->returnValue($responseSuccess))
+            );
+
+        $cutMock = $this->prepareCut($loggerMock, $oauth2, $client);
+
+        $fetch = $this->prepareFetch();
+        $cutMock->send($fetch);
+
+    }
+
+    public function testSendCorrectResponse()
+    {
+        $oauth2 = $this->prepareOauth();
+        $loggerMock = $this->getMock('Psr\Log\LoggerInterface');
+
+        $response = $this->getMockBuilder('\Guzzle\Http\Message\Response')->disableOriginalConstructor()->getMock();
+        $response->expects($this->any())->method('getStatusCode')->will($this->returnValue(200));
+        $response->expects($this->any())->method('getBody')->will($this->returnValue("{}"));
+
+        $client = $this->getMockBuilder('\Guzzle\Http\Client')->disableOriginalConstructor()->getMock();
+        $client->expects($this->exactly(1))->method('send')->will($this->returnValue($response));
+
+        $cutMock = $this->prepareCut($loggerMock, $oauth2, $client);
+
+        $fetch = $this->prepareFetch();
+        $cutMock->send($fetch);
+
+    }
+
+    /**
+     * @expectedException \Nokaut\ApiKit\ClientApi\Rest\Exception\FatalResponseException
+     */
+    public function testSendWithIncorrectResponse()
+    {
+        $oauth2 = $this->prepareOauth();
+        $loggerMock = $this->getMock('Psr\Log\LoggerInterface');
+
+        $request = $this->getMockBuilder('\Guzzle\Http\Message\Request')->disableOriginalConstructor()->getMock();
+        $response = $this->getMockBuilder('\Guzzle\Http\Message\Response')->disableOriginalConstructor()->getMock();
+        $response->expects($this->any())->method('getStatusCode')->will($this->returnValue(500));
+
+        $exceptionFromApi = new \Guzzle\Http\Exception\BadResponseException();
+        $exceptionFromApi->setRequest($request);
+        $exceptionFromApi->setResponse($response);
+
+        $client = $this->getMockBuilder('\Guzzle\Http\Client')->disableOriginalConstructor()->getMock();
+        $client->expects($this->exactly(1))->method('send')->will($this->throwException($exceptionFromApi));
+
+        $cutMock = $this->prepareCut($loggerMock, $oauth2, $client);
+
+        $fetch = $this->prepareFetch();
+        $cutMock->send($fetch);
+
+    }
 
     public function testSendMultiWithRetry()
     {
         $oauth2 = $this->prepareOauth();
-        $cacheMock = $this->getMock('Nokaut\ApiKit\Cache\CacheInterface');
         $loggerMock = $this->getMock('Psr\Log\LoggerInterface');
 
         $response = $this->getMockBuilder('\Guzzle\Http\Message\Response')->disableOriginalConstructor()->getMock();
@@ -31,7 +128,7 @@ class RestClientApiTest extends \PHPUnit_Framework_TestCase
 
         $cutMock = $this->prepareCut($loggerMock, $oauth2, $client);
 
-        $fetches = $this->prepareFetches($cacheMock);
+        $fetches = $this->prepareFetches();
         $cutMock->sendMulti($fetches);
 
     }
@@ -39,7 +136,6 @@ class RestClientApiTest extends \PHPUnit_Framework_TestCase
     public function testSendMultiWithoutRetry()
     {
         $oauth2 = $this->prepareOauth();
-        $cacheMock = $this->getMock('Nokaut\ApiKit\Cache\CacheInterface');
         $loggerMock = $this->getMock('Psr\Log\LoggerInterface');
 
         $response = $this->getMockBuilder('\Guzzle\Http\Message\Response')->disableOriginalConstructor()->getMock();
@@ -57,10 +153,7 @@ class RestClientApiTest extends \PHPUnit_Framework_TestCase
         $cutMock->expects($this->any())->method('getClient')
             ->will($this->returnValue($client));
 
-        $queryMock = $this->getMockBuilder('Nokaut\ApiKit\ClientApi\Rest\Query\ProductsQuery')->disableOriginalConstructor()->getMock();
-        $converterMock = $this->getMockBuilder('Nokaut\ApiKit\Converter\ConverterInterface')->getMock();
-        $fetches = new Fetches();
-        $fetches->addFetch(new Fetch($queryMock, $converterMock, $cacheMock));
+        $fetches = $this->prepareFetches();
         $cutMock->sendMulti($fetches);
 
     }
@@ -88,7 +181,7 @@ class RestClientApiTest extends \PHPUnit_Framework_TestCase
     {
         $cutMock = $this->clientApiMock = $this->getMock(
             'Nokaut\ApiKit\ClientApi\Rest\RestClientApi',
-            array('getClient', 'logMulti'),
+            array('getClient', 'logMulti', 'log'),
             array($loggerMock, $oauth2)
         );
         $cutMock->expects($this->any())->method('getClient')
@@ -97,14 +190,24 @@ class RestClientApiTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param $cacheMock
      * @return Fetches
      */
-    protected function prepareFetches($cacheMock)
+    protected function prepareFetches()
     {
-        $queryMock = $this->getMockBuilder('Nokaut\ApiKit\ClientApi\Rest\Query\ProductsQuery')->disableOriginalConstructor()->getMock();
+        $fetch = $this->prepareFetch();
         $fetches = new Fetches();
-        $fetches->addFetch(new ProductsFetch($queryMock, $cacheMock));
+        $fetches->addFetch($fetch);
         return $fetches;
+    }
+
+    /**
+     * @return ProductsFetch
+     */
+    protected function prepareFetch()
+    {
+        $cacheMock = $this->getMock('Nokaut\ApiKit\Cache\CacheInterface');
+        $queryMock = $this->getMockBuilder('Nokaut\ApiKit\ClientApi\Rest\Query\ProductsQuery')->disableOriginalConstructor()->getMock();
+        $converterMock = $this->getMockBuilder('Nokaut\ApiKit\Converter\ConverterInterface')->getMock();
+        return new Fetch($queryMock, $converterMock, $cacheMock);
     }
 } 

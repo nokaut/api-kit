@@ -57,7 +57,7 @@ class RestClientApi implements ClientApiInterface
     {
         $counterRetry = 0;
         do {
-            $retry = $this->sendMultiProcess($fetches, $counterRetry);
+            $retry = $this->sendMultiProcess($fetches);
             ++$counterRetry;
 
             $doRetry = $retry && $counterRetry < self::MAX_RETRY;
@@ -130,8 +130,37 @@ class RestClientApi implements ClientApiInterface
 
     /**
      * @param Fetch $fetch
+     * @throws Exception\NotFoundException
+     * @throws Exception\InvalidRequestException
+     * @throws Exception\FatalResponseException
      */
     public function send(Fetch $fetch)
+    {
+        $counterRetry = 0;
+        do {
+            $retry = false;
+
+            try {
+                $this->sendProcess($fetch);
+
+            } catch (FatalResponseException $e) {
+                if ($e->getCode() == 502) {
+                    ++$counterRetry;
+                    if ($counterRetry >= self::MAX_RETRY) {
+                        throw $e;
+                    }
+                    $retry = true;
+                    usleep(50);
+
+                } else {
+                    throw $e;
+                }
+            }
+
+        } while ($retry);
+    }
+
+    protected function sendProcess(Fetch $fetch)
     {
         $requestPath = $fetch->getQuery()->createRequestPath();
         $cacheKey = $fetch->prepareCacheKey();
@@ -191,7 +220,7 @@ class RestClientApi implements ClientApiInterface
         }
 
         throw new FatalResponseException((isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '') . " bad response from api (status: " . $e->getResponse()->getStatusCode() . ") "
-            . "for request: " . $e->getRequest()->getUrl());
+            . "for request: " . $e->getRequest()->getUrl(), $e->getResponse()->getStatusCode());
     }
 
     /**
