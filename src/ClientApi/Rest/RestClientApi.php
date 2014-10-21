@@ -151,7 +151,7 @@ class RestClientApi implements ClientApiInterface
                         throw $e;
                     }
                     $retry = true;
-                    $this->logger->info("retry multi send, url:" . $fetch->getQuery()->createRequestPath());
+                    $this->logger->info("retry send, url:" . $fetch->getQuery()->createRequestPath());
                     usleep(50);
 
                 } else {
