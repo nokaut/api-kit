@@ -67,7 +67,7 @@ class PriceRangesConverter implements ConverterInterface
             self::$cache[$cacheKey] = $priceRangesCollection;
         }
 
-        return self::$cache[$cacheKey];
+        return clone self::$cache[$cacheKey];
     }
 
     /**

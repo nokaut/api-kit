@@ -64,6 +64,6 @@ class CategoriesConverter implements ConverterInterface
             self::$cache[$cacheKey] = $categoryCollection;
         }
 
-        return self::$cache[$cacheKey];
+        return clone self::$cache[$cacheKey];
     }
 }

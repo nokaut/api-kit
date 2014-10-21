@@ -61,6 +61,6 @@ class ProducersConverter implements ConverterInterface
             self::$cache[$cacheKey] = $producersCollection;
         }
 
-        return self::$cache[$cacheKey];
+        return clone self::$cache[$cacheKey];
     }
 }

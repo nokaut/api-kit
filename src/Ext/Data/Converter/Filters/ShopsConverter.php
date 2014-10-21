@@ -62,6 +62,6 @@ class ShopsConverter implements ConverterInterface
             self::$cache[$cacheKey] = $shopsCollection;
         }
 
-        return self::$cache[$cacheKey];
+        return clone self::$cache[$cacheKey];
     }
 }
