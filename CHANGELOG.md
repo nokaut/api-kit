@@ -13,6 +13,7 @@ master
 - limit na Categories
 - oznaczenie fetchSimilarProductsWithHigherPrice, fetchSimilarProductsWithLowerPrice jako deprecated w repozytoriach produktowych
 - dodanie block_adsense do metadata produktów
+- Dodanie offer id w Product->OfferWithBestPrice
 
 v1.4.1
 ------

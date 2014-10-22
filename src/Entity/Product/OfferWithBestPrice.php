@@ -23,6 +23,11 @@ class OfferWithBestPrice extends EntityAbstract
     protected $price;
 
     /**
+     * @var string
+     */
+    protected $id;
+
+    /**
      * @param string $click_url
      */
     public function setClickUrl($click_url)
@@ -54,5 +59,20 @@ class OfferWithBestPrice extends EntityAbstract
         return $this->price;
     }
 
+    /**
+     * @param string $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
 
-} 
+    /**
+     * @return string
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+}
