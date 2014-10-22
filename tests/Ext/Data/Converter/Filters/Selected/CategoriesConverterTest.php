@@ -8,6 +8,25 @@ use Nokaut\ApiKit\Ext\Data\Entity\Filter\Category;
 
 class CategoriesConverterTest extends \PHPUnit_Framework_TestCase
 {
+    public function testCache()
+    {
+        $productsConverter = new ProductsConverter();
+        $products = $productsConverter->convert($this->getJsonFixture('search-telewizor'));
+
+        // facets
+        $categoriesConverter = new \Nokaut\ApiKit\Ext\Data\Converter\Filters\CategoriesConverter();
+        $categories = $categoriesConverter->convert($products);
+        $this->assertEquals(4, $categories->count());
+
+        // selected
+        $categoriesConverter = new CategoriesConverter();
+        $categoriesSelected = $categoriesConverter->convert($products);
+
+        // nie moga sie zmienic po konwersji selected
+        $this->assertEquals(4, $categories->count());
+        $this->assertEquals(0, $categoriesSelected->count());
+    }
+
     public function testCategoryConverterWithoutCallbacks()
     {
         $productsConverter = new ProductsConverter();

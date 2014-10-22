@@ -91,7 +91,9 @@ class PropertiesConverter implements ConverterInterface
             self::$cache[$cacheKey] = $properties;
         }
 
-        return self::$cache[$cacheKey];
+        return array_map(function ($collection) {
+            return clone $collection;
+        }, self::$cache[$cacheKey]);
     }
 
     /**

@@ -9,6 +9,46 @@ use Nokaut\ApiKit\Ext\Data\Entity\Filter\FilterAbstract;
 
 class PropertiesConverterTest extends \PHPUnit_Framework_TestCase
 {
+    public function testCache()
+    {
+        $productsConverter = new ProductsConverter();
+        /** @var Products $products */
+        $products = $productsConverter->convert($this->getJsonFixture('telewizory-led-with-filters-without-range'));
+
+        // facets
+        $propertiesConverter = new \Nokaut\ApiKit\Ext\Data\Converter\Filters\PropertiesConverter();
+        $properties = $propertiesConverter->convert($products, array());
+        $this->assertEquals(9, count($properties));
+        foreach ($properties as $property) {
+            if ($property->getId() == 382) {
+                $this->assertEquals(3, count($property));
+                break;
+            }
+        }
+
+        // selected
+        $propertiesConverterSelected = new PropertiesConverter();
+        $propertiesSelected = $propertiesConverterSelected->convert($products, array());
+        $this->assertEquals(1, count($propertiesSelected));
+        foreach ($propertiesSelected as $property) {
+            if ($property->getId() == 382) {
+                $this->assertEquals(2, count($property));
+                break;
+            }
+        }
+
+        /**
+         * nie moga sie zmienic po konwersji selected
+         */
+        $this->assertEquals(9, count($properties));
+        foreach ($properties as $property) {
+            if ($property->getId() == 382) {
+                $this->assertEquals(3, count($property));
+                break;
+            }
+        }
+    }
+
     public function testPropertiesConverterWithoutCallbacks()
     {
         $productsConverter = new ProductsConverter();

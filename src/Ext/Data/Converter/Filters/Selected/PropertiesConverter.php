@@ -22,6 +22,7 @@ class PropertiesConverter extends PropertiesConverterParent
         $properties = array();
 
         foreach ($propertiesInitialConverted as $property) {
+//            $property = clone $property;
             $selectedFilterEntities = array_filter($property->getEntities(), function ($entity) {
                 /** @var FilterAbstract $entity */
                 return $entity->getIsFilter();

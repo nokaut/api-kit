@@ -8,6 +8,25 @@ use Nokaut\ApiKit\Ext\Data\Entity\Filter\PriceRange;
 
 class PriceRangesConverterTest extends \PHPUnit_Framework_TestCase
 {
+    public function testCache()
+    {
+        $productsConverter = new ProductsConverter();
+        $products = $productsConverter->convert($this->getJsonFixture('laptopy'));
+
+        // facets
+        $priceRangesConverter = new \Nokaut\ApiKit\Ext\Data\Converter\Filters\PriceRangesConverter();
+        $priceRanges = $priceRangesConverter->convert($products);
+        $this->assertEquals(4, $priceRanges->count());
+
+        // selected
+        $priceRangesConverter = new PriceRangesConverter();
+        $priceRangesSelected = $priceRangesConverter->convert($products);
+
+        // nie moga sie zmienic po konwersji selected
+        $this->assertEquals(4, $priceRanges->count());
+        $this->assertEquals(0, $priceRangesSelected->count());
+    }
+
     public function testPriceRangeConverterWithoutCallbacks()
     {
         $productsConverter = new ProductsConverter();
