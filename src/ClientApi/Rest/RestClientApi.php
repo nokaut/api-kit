@@ -60,10 +60,10 @@ class RestClientApi implements ClientApiInterface
             $retry = $this->sendMultiProcess($fetches);
             ++$counterRetry;
 
-            $doRetry = $retry && $counterRetry < self::MAX_RETRY;
+            $doRetry = $retry && $counterRetry <= self::MAX_RETRY;
             if ($doRetry) {
                 $this->logger->info("retry multi send");
-                usleep(50);
+                usleep(100);
             }
         } while ($doRetry);
     }
@@ -147,12 +147,12 @@ class RestClientApi implements ClientApiInterface
             } catch (FatalResponseException $e) {
                 if ($e->getCode() == 502) {
                     ++$counterRetry;
-                    if ($counterRetry >= self::MAX_RETRY) {
+                    if ($counterRetry > self::MAX_RETRY) {
                         throw $e;
                     }
                     $retry = true;
                     $this->logger->info("retry send, url:" . $fetch->getQuery()->createRequestPath());
-                    usleep(50);
+                    usleep(100);
 
                 } else {
                     throw $e;
