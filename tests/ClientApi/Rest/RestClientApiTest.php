@@ -32,7 +32,7 @@ class RestClientApiTest extends \PHPUnit_Framework_TestCase
         $exceptionFromApi->setRequest($request);
         $exceptionFromApi->setResponse($response);
         $client = $this->getMockBuilder('\Guzzle\Http\Client')->disableOriginalConstructor()->getMock();
-        $client->expects($this->exactly(2))->method('send')->will($this->throwException($exceptionFromApi));
+        $client->expects($this->exactly(3))->method('send')->will($this->throwException($exceptionFromApi));
 
         $cutMock = $this->prepareCut($loggerMock, $oauth2, $client);
 
@@ -124,7 +124,7 @@ class RestClientApiTest extends \PHPUnit_Framework_TestCase
         $response->expects($this->any())->method('getStatusCode')->will($this->returnValue(502));
 
         $client = $this->getMockBuilder('\Guzzle\Http\Client')->disableOriginalConstructor()->getMock();
-        $client->expects($this->exactly(2))->method('send')->will($this->returnValue(array($response, $response)));
+        $client->expects($this->exactly(3))->method('send')->will($this->returnValue(array($response, $response)));
 
         $cutMock = $this->prepareCut($loggerMock, $oauth2, $client);
 
