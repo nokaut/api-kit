@@ -13,6 +13,7 @@ master
 - Limit na Categories
 - Oznaczenie fetchSimilarProductsWithHigherPrice, fetchSimilarProductsWithLowerPrice jako deprecated w repozytoriach produktowych
 - Dodanie block_adsense do metadata produktów
+- Dodanie offer id w Product->OfferWithBestPrice
 - Dodanie węwnętrznego cache w konwerterach Ext
 
 v1.4.1
