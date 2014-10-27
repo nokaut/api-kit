@@ -12,6 +12,11 @@ use Nokaut\ApiKit\Ext\Data\Entity\Filter\Shop;
 class ShopsConverter implements ConverterInterface
 {
     /**
+     * @var array
+     */
+    private static $cache = array();
+
+    /**
      * @param Products $products
      * @param CallbackInterface[] $callbacks
      * @return Shops
@@ -33,24 +38,30 @@ class ShopsConverter implements ConverterInterface
      */
     public function initialConvert(Products $products)
     {
-        $facetShops = $products->getShops();
-        $shops = array();
+        $cacheKey = md5($products->getMetadata()->getUrl());
 
-        foreach ($facetShops as $facetShop) {
-            $shop = new Shop();
-            $shop->setId($facetShop->getId());
-            $shop->setName($facetShop->getName());
-            $shop->setUrl($facetShop->getUrl());
-            $shop->setUrlBase($facetShop->getUrlBase());
-            $shop->setIsFilter($facetShop->getIsFilter());
-            $shop->setTotal((int)$facetShop->getTotal());
+        if (!isset(self::$cache[$cacheKey])) {
+            $facetShops = $products->getShops();
+            $shops = array();
 
-            $shops[] = $shop;
+            foreach ($facetShops as $facetShop) {
+                $shop = new Shop();
+                $shop->setId($facetShop->getId());
+                $shop->setName($facetShop->getName());
+                $shop->setUrl($facetShop->getUrl());
+                $shop->setUrlBase($facetShop->getUrlBase());
+                $shop->setIsFilter($facetShop->getIsFilter());
+                $shop->setTotal((int)$facetShop->getTotal());
+
+                $shops[] = $shop;
+            }
+
+            $shopsCollection = new Shops($shops);
+            $shopsCollection->setName('Sklep');
+
+            self::$cache[$cacheKey] = $shopsCollection;
         }
 
-        $shopsCollection = new Shops($shops);
-        $shopsCollection->setName('Sklep');
-
-        return $shopsCollection;
+        return clone self::$cache[$cacheKey];
     }
 }

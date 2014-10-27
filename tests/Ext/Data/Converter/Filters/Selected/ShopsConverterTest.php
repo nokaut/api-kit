@@ -8,6 +8,25 @@ use Nokaut\ApiKit\Ext\Data\Entity\Filter\Shop;
 
 class ShopsConverterTest extends \PHPUnit_Framework_TestCase
 {
+    public function testCache()
+    {
+        $productsConverter = new ProductsConverter();
+        $products = $productsConverter->convert($this->getJsonFixture('telewizory-led-with-shop-selected'));
+
+        // facets
+        $shopsConverter = new \Nokaut\ApiKit\Ext\Data\Converter\Filters\ShopsConverter();
+        $shops = $shopsConverter->convert($products);
+        $this->assertEquals(22, $shops->count());
+
+        // selected
+        $shopsConverter = new ShopsConverter();
+        $shopsSelected = $shopsConverter->convert($products);
+
+        // nie moga sie zmienic po konwersji selected
+        $this->assertEquals(22, $shops->count());
+        $this->assertEquals(1, $shopsSelected->count());
+    }
+
     public function testShopConverterWithoutCallbacks()
     {
         $productsConverter = new ProductsConverter();

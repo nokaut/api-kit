@@ -13,6 +13,11 @@ use Nokaut\ApiKit\Ext\Data\Entity\Filter\PriceRange;
 class PriceRangesConverter implements ConverterInterface
 {
     /**
+     * @var array
+     */
+    private static $cache = array();
+
+    /**
      * @param Products $products
      * @param CallbackInterface[] $callbacks
      * @return PriceRanges
@@ -34,29 +39,35 @@ class PriceRangesConverter implements ConverterInterface
      */
     public function initialConvert(Products $products)
     {
-        $facetPriceRanges = $products->getPrices();
-        $priceRanges = array();
+        $cacheKey = md5($products->getMetadata()->getUrl());
 
-        foreach ($facetPriceRanges as $facetPriceRange) {
-            $priceRange = new PriceRange();
-            $priceRange->setName($this->getPriceRangeName($facetPriceRange));
-            $priceRange->setUrl($facetPriceRange->getUrl());
-            $priceRange->setIsFilter($facetPriceRange->getIsFilter());
-            $priceRange->setTotal((int)$facetPriceRange->getTotal());
-            $priceRange->setMin($facetPriceRange->getMin());
-            $priceRange->setMax($facetPriceRange->getMax());
+        if (!isset(self::$cache[$cacheKey])) {
+            $facetPriceRanges = $products->getPrices();
+            $priceRanges = array();
 
-            $priceRanges[] = $priceRange;
+            foreach ($facetPriceRanges as $facetPriceRange) {
+                $priceRange = new PriceRange();
+                $priceRange->setName($this->getPriceRangeName($facetPriceRange));
+                $priceRange->setUrl($facetPriceRange->getUrl());
+                $priceRange->setIsFilter($facetPriceRange->getIsFilter());
+                $priceRange->setTotal((int)$facetPriceRange->getTotal());
+                $priceRange->setMin($facetPriceRange->getMin());
+                $priceRange->setMax($facetPriceRange->getMax());
+
+                $priceRanges[] = $priceRange;
+            }
+
+            $priceRangesCollection = new PriceRanges($priceRanges);
+            $priceRangesCollection->setName('Cena');
+            $priceRangesCollection->setUnit('zł');
+            if ($priceRanges) {
+                $priceRangesCollection->setUrlInTemplate($this->prepareUrlInTemplate(current($priceRanges)));
+            }
+
+            self::$cache[$cacheKey] = $priceRangesCollection;
         }
 
-        $priceRangesCollection = new PriceRanges($priceRanges);
-        $priceRangesCollection->setName('Cena');
-        $priceRangesCollection->setUnit('zł');
-        if ($priceRanges) {
-            $priceRangesCollection->setUrlInTemplate($this->prepareUrlInTemplate(current($priceRanges)));
-        }
-
-        return $priceRangesCollection;
+        return clone self::$cache[$cacheKey];
     }
 
     /**

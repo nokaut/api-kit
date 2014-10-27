@@ -9,7 +9,6 @@
 namespace Nokaut\ApiKit\Ext\Data\Converter\Filters\Callback\Categories;
 
 
-
 use Nokaut\ApiKit\Collection\Products;
 use Nokaut\ApiKit\Entity\Category;
 use Nokaut\ApiKit\Ext\Data\Collection\Filters\Categories;
@@ -22,7 +21,7 @@ class SetParentCategoryTest extends \PHPUnit_Framework_TestCase
         $cut = new SetParentCategory($this->prepareCurrentCategory());
 
 
-        $cut($categories,  new Products(array()));
+        $cut($categories, new Products(array()));
 
         $parentCategory = $categories->getParentCategory();
         $parentCategoryPath = $this->prepareParentCategoryPath();

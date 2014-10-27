@@ -17,11 +17,40 @@ use Nokaut\ApiKit\Ext\Data\Collection\Filters\Shops;
 class ProductsAnalyzer
 {
     /**
+     * @var array
+     */
+    private static $cache = array();
+
+    /**
      * @param Products $products
      * @param FiltersAbstract $skipFilter
      * @return bool
      */
     public static function filtersNofollow(Products $products, FiltersAbstract $skipFilter = null)
+    {
+        $cacheKey = self::getCacheKey($products, $skipFilter);
+        if (!isset(self::$cache[$cacheKey])) {
+            self::$cache[$cacheKey] = self::areFiltersNofollow($products, $skipFilter);
+        }
+
+        return self::$cache[$cacheKey];
+    }
+
+    private static function getCacheKey(Products $products, FiltersAbstract $skipFilter = null)
+    {
+        $cacheKey = $products->getMetadata() ? $products->getMetadata()->getUrl() : serialize($products->getEntities());
+        $cacheKey .= get_class($skipFilter);
+        $cacheKey .= ($skipFilter instanceof PropertyAbstract ? $skipFilter->getId() : '');
+
+        return md5($cacheKey);
+    }
+
+    /**
+     * @param Products $products
+     * @param FiltersAbstract $skipFilter
+     * @return bool
+     */
+    private static function areFiltersNofollow(Products $products, FiltersAbstract $skipFilter = null)
     {
         if (!($skipFilter instanceof Shops) and count(array_filter($products->getShops(), function ($shop) {
                 /** @var ShopFacet $shop */

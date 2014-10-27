@@ -16,6 +16,11 @@ use Nokaut\ApiKit\Ext\Data\Entity\Filter\PropertyValue;
 class PropertiesConverter implements ConverterInterface
 {
     /**
+     * @var array
+     */
+    private static $cache = array();
+
+    /**
      * @param Products $products
      * @param CallbackInterface[] $callbacks
      * @return PropertyAbstract[]
@@ -41,46 +46,54 @@ class PropertiesConverter implements ConverterInterface
      */
     protected function initialConvert(Products $products)
     {
-        $facetProperties = $products->getProperties();
+        $cacheKey = md5($products->getMetadata()->getUrl());
 
-        $properties = array();
+        if (!isset(self::$cache[$cacheKey])) {
+            $facetProperties = $products->getProperties();
 
-        foreach ($facetProperties as $facetProperty) {
-            $entities = array();
-            if ($facetProperty->getRanges()) {
-                foreach ($facetProperty->getRanges() as $range) {
-                    $entity = new PropertyRange();
-                    $entity->setName($this->getPropertyRangeName($range));
-                    $entity->setUrl($range->getUrl());
-                    $entity->setIsFilter($range->getIsFilter());
-                    $entity->setTotal((int)$range->getTotal());
-                    $entity->setMin($range->getMin());
-                    $entity->setMax($range->getMax());
-                    $entities[] = $entity;
+            $properties = array();
+
+            foreach ($facetProperties as $facetProperty) {
+                $entities = array();
+                if ($facetProperty->getRanges()) {
+                    foreach ($facetProperty->getRanges() as $range) {
+                        $entity = new PropertyRange();
+                        $entity->setName($this->getPropertyRangeName($range));
+                        $entity->setUrl($range->getUrl());
+                        $entity->setIsFilter($range->getIsFilter());
+                        $entity->setTotal((int)$range->getTotal());
+                        $entity->setMin($range->getMin());
+                        $entity->setMax($range->getMax());
+                        $entities[] = $entity;
+                    }
+
+                    $property = new PropertyRanges($entities);
+                } else {
+                    foreach ($facetProperty->getValues() as $value) {
+                        $entity = new PropertyValue();
+                        $entity->setName($value->getName());
+                        $entity->setUrl($value->getUrl());
+                        $entity->setIsFilter($value->getIsFilter());
+                        $entity->setTotal($value->getTotal());
+                        $entities[] = $entity;
+                    }
+
+                    $property = new PropertyValues($entities);
                 }
 
-                $property = new PropertyRanges($entities);
-            } else {
-                foreach ($facetProperty->getValues() as $value) {
-                    $entity = new PropertyValue();
-                    $entity->setName($value->getName());
-                    $entity->setUrl($value->getUrl());
-                    $entity->setIsFilter($value->getIsFilter());
-                    $entity->setTotal($value->getTotal());
-                    $entities[] = $entity;
-                }
+                $property->setUnit($facetProperty->getUnit());
+                $property->setName($facetProperty->getName());
+                $property->setId($facetProperty->getId());
 
-                $property = new PropertyValues($entities);
+                $properties[] = $property;
             }
 
-            $property->setUnit($facetProperty->getUnit());
-            $property->setName($facetProperty->getName());
-            $property->setId($facetProperty->getId());
-
-            $properties[] = $property;
+            self::$cache[$cacheKey] = $properties;
         }
 
-        return $properties;
+        return array_map(function ($collection) {
+            return clone $collection;
+        }, self::$cache[$cacheKey]);
     }
 
     /**

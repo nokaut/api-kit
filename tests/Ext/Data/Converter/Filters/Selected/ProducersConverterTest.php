@@ -8,6 +8,25 @@ use Nokaut\ApiKit\Ext\Data\Entity\Filter\Producer;
 
 class ProducersConverterTest extends \PHPUnit_Framework_TestCase
 {
+    public function testCache()
+    {
+        $productsConverter = new ProductsConverter();
+        $products = $productsConverter->convert($this->getJsonFixture('laptopy-with-filters'));
+
+        // facets
+        $producersConverter = new \Nokaut\ApiKit\Ext\Data\Converter\Filters\ProducersConverter();
+        $producers = $producersConverter->convert($products);
+        $this->assertEquals(6, $producers->count());
+
+        // selected
+        $producersConverter = new ProducersConverter();
+        $producersSelected = $producersConverter->convert($products);
+
+        // nie moga sie zmienic po konwersji selected
+        $this->assertEquals(6, $producers->count());
+        $this->assertEquals(1, $producersSelected->count());
+    }
+
     public function testProducerConverterWithoutCallbacks()
     {
         $productsConverter = new ProductsConverter();
