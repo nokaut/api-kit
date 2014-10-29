@@ -28,18 +28,18 @@ class SortDefault implements CallbackInterface
 
         $entities = $property->getEntities();
 
-        if (!is_numeric(substr($entities[0]->getName(), 0, 1))
-            or strstr($entities[0]->getName(), ' x ')
-            or $property->isPropertyRanges()
-        ) {
-            usort($entities, function ($entity1, $entity2) {
-                return strnatcmp(strtolower($entity1->getName()), strtolower($entity2->getName()));
-            });
-        } else {
-            usort($entities, function ($entity1, $entity2) {
-                return ($entity1->getTotal() > $entity2->getTotal()) ? -1 : 1;
-            });
-        }
+        usort($entities, function ($entity1, $entity2) {
+            $result = strnatcmp(strtolower($entity1->getName()), strtolower($entity2->getName()));
+
+            if ($result == 0) {
+                if ($entity1->getTotal() != $entity2->getTotal()) {
+                    $result = ($entity1->getTotal() < $entity2->getTotal()) ? 1 : -1;
+                }
+            }
+
+            return $result;
+        });
+
         $property->setEntities($entities);
     }
 } 

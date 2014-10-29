@@ -43,6 +43,11 @@ class SortDefaultTest extends \PHPUnit_Framework_TestCase
         $propertyValue->setTotal(4);
         $propertyValues[] = $propertyValue;
 
+        $propertyValue = new PropertyValue();
+        $propertyValue->setName('csdfsd');
+        $propertyValue->setTotal(5);
+        $propertyValues[] = $propertyValue;
+
         $property = new PropertyValues($propertyValues);
 
         $callback = new SortDefault();
@@ -53,8 +58,11 @@ class SortDefaultTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Asdfsdf', $entities[0]->getName());
         $this->assertEquals('Bsdfsfd', $entities[1]->getName());
         $this->assertEquals('csdfsd', $entities[2]->getName());
-        $this->assertEquals('csdfsdf', $entities[3]->getName());
-        $this->assertEquals('Dsdfsdf', $entities[4]->getName());
+        $this->assertEquals(5, $entities[2]->getTotal());
+        $this->assertEquals('csdfsd', $entities[3]->getName());
+        $this->assertEquals(4, $entities[3]->getTotal());
+        $this->assertEquals('csdfsdf', $entities[4]->getName());
+        $this->assertEquals('Dsdfsdf', $entities[5]->getName());
         $this->assertEquals('Dsdfsdf', $property->getLast()->getName());
     }
 
@@ -80,12 +88,17 @@ class SortDefaultTest extends \PHPUnit_Framework_TestCase
         $propertyValues[] = $propertyValue;
 
         $propertyValue = new PropertyValue();
+        $propertyValue->setName('23');
+        $propertyValue->setTotal(6);
+        $propertyValues[] = $propertyValue;
+
+        $propertyValue = new PropertyValue();
         $propertyValue->setName('345');
         $propertyValue->setTotal(3);
         $propertyValues[] = $propertyValue;
 
         $propertyValue = new PropertyValue();
-        $propertyValue->setName('456');
+        $propertyValue->setName('4');
         $propertyValue->setTotal(4);
         $propertyValues[] = $propertyValue;
 
@@ -96,12 +109,15 @@ class SortDefaultTest extends \PHPUnit_Framework_TestCase
 
         $entities = $property->getEntities();
 
-        $this->assertEquals(5, $entities[0]->getTotal());
-        $this->assertEquals(4, $entities[1]->getTotal());
-        $this->assertEquals(3, $entities[2]->getTotal());
-        $this->assertEquals(2, $entities[3]->getTotal());
-        $this->assertEquals(1, $entities[4]->getTotal());
-        $this->assertEquals(1, $property->getLast()->getTotal());
+        $this->assertEquals("4", $entities[0]->getName());
+        $this->assertEquals("23", $entities[1]->getName());
+        $this->assertEquals(6, $entities[1]->getTotal());
+        $this->assertEquals("23", $entities[2]->getName());
+        $this->assertEquals(5, $entities[2]->getTotal());
+        $this->assertEquals("123", $entities[3]->getName());
+        $this->assertEquals("234", $entities[4]->getName());
+        $this->assertEquals("345", $entities[5]->getName());
+        $this->assertEquals("345", $property->getLast()->getName());
     }
 
     public function testNaturalRanges()
