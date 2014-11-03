@@ -47,13 +47,21 @@ class ProductsConverter implements ConverterInterface
      */
     protected function convertMetadataAndFacets(\stdClass $object, Products $products)
     {
-        $products->setMetadata($this->convertMetadata($object));
+        $metadata = $this->convertMetadata($object);
+        if ($metadata) {
+            $products->setMetadata($metadata);
+        }
+
         $products->setCategories($this->convertCategories($object));
         $products->setShops($this->convertShops($object));
         $products->setProducers($this->convertProducers($object));
         $products->setPrices($this->convertPrices($object));
         $products->setProperties($this->convertProperties($object));
-        $products->setPhrase($this->convertPhrase($object));
+
+        $phrase = $this->convertPhrase($object);
+        if ($phrase) {
+            $products->setPhrase($phrase);
+        }
 
         $this->setCategoriesFromMetadata($products);
     }

@@ -30,7 +30,10 @@ class OffersConverter implements ConverterInterface
 
         $offers = new Offers($offersArray);
 
-        $offers->setMetadata($this->convertMetadata($object));
+        $metadata = $this->convertMetadata($object);
+        if ($metadata) {
+            $offers->setMetadata($metadata);
+        }
 
         return $offers;
     }

@@ -54,7 +54,7 @@ class Products extends CollectionAbstract
     /**
      * @param ProductsMetadata $metadata
      */
-    public function setMetadata($metadata)
+    public function setMetadata(ProductsMetadata $metadata)
     {
         $this->metadata = $metadata;
     }
@@ -148,15 +148,15 @@ class Products extends CollectionAbstract
     }
 
     /**
-     * @param \Nokaut\ApiKit\Entity\Metadata\Facet\PhraseFacet $phrase
+     * @param PhraseFacet $phrase
      */
-    public function setPhrase($phrase)
+    public function setPhrase(PhraseFacet $phrase)
     {
         $this->phrase = $phrase;
     }
 
     /**
-     * @return \Nokaut\ApiKit\Entity\Metadata\Facet\PhraseFacet
+     * @return PhraseFacet
      */
     public function getPhrase()
     {

@@ -22,7 +22,7 @@ class Offers extends CollectionAbstract
     /**
      * @param OffersMetadata $metadata
      */
-    public function setMetadata($metadata)
+    public function setMetadata(OffersMetadata $metadata)
     {
         $this->metadata = $metadata;
     }
