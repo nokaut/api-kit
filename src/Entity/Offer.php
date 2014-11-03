@@ -101,7 +101,7 @@ class Offer extends EntityAbstract
     /**
      * @var Property[]
      */
-    protected $properties;
+    protected $properties = array();
     /**
      * @var string
      */
@@ -515,4 +515,16 @@ class Offer extends EntityAbstract
         return $this->warranty;
     }
 
+    public function __clone()
+    {
+        if (is_object($this->shop)) {
+            $this->shop = clone $this->shop;
+        }
+        $this->properties = array_map(
+            function ($property) {
+                return clone $property;
+            },
+            $this->properties
+        );
+    }
 }

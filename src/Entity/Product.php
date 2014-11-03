@@ -44,7 +44,7 @@ class Product extends EntityAbstract
     /**
      * @var Property[]
      */
-    protected $properties;
+    protected $properties = array();
     /**
      * @var array
      */
@@ -456,4 +456,25 @@ class Product extends EntityAbstract
         return $this->rating;
     }
 
+    public function __clone()
+    {
+        if (is_object($this->category_facet)) {
+            $this->category_facet = clone $this->category_facet;
+        }
+        if (is_object($this->shop)) {
+            $this->shop = clone $this->shop;
+        }
+        if (is_object($this->prices)) {
+            $this->prices = clone $this->prices;
+        }
+        if (is_object($this->rating)) {
+            $this->rating = clone $this->rating;
+        }
+        $this->properties = array_map(
+            function ($property) {
+                return clone $property;
+            },
+            $this->properties
+        );
+    }
 }

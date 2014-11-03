@@ -115,4 +115,10 @@ class Shop extends EntityAbstract
         return $this->url_logo;
     }
 
+    public function __clone()
+    {
+        if (is_object($this->opineo_rating)) {
+            $this->opineo_rating = clone $this->opineo_rating;
+        }
+    }
 }

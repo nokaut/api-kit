@@ -116,4 +116,19 @@ class PropertyFacet extends EntityAbstract
         return $this->ranges;
     }
 
+    public function __clone()
+    {
+        $this->values = array_map(
+            function ($value) {
+                return clone $value;
+            },
+            $this->values
+        );
+        $this->ranges = array_map(
+            function ($range) {
+                return clone $range;
+            },
+            $this->ranges
+        );
+    }
 }

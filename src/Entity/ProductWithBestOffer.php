@@ -34,4 +34,10 @@ class ProductWithBestOffer extends Product
         return $this->offer_with_minimum_price;
     }
 
+    public function __clone()
+    {
+        if (is_object($this->offer_with_minimum_price)) {
+            $this->offer_with_minimum_price = clone $this->offer_with_minimum_price;
+        }
+    }
 }

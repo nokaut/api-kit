@@ -177,4 +177,21 @@ class ProductsMetadata extends EntityAbstract
         return $this->block_adsense;
     }
 
+    public function __clone()
+    {
+        if(is_object($this->paging)){
+            $this->paging = clone $this->paging;
+        }
+
+        if(is_object($this->query)){
+            $this->query = clone $this->query;
+        }
+
+        $this->sorts = array_map(
+            function ($sort) {
+                return clone $sort;
+            },
+            $this->sorts
+        );
+    }
 }

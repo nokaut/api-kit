@@ -53,7 +53,7 @@ class Category extends EntityAbstract
     /**
      * @var Path[]
      */
-    protected $path;
+    protected $path = array();
     /**
      * @var string
      */
@@ -73,7 +73,7 @@ class Category extends EntityAbstract
     /**
      * @var Category[]
      */
-    protected $children;
+    protected $children = array();
     /**
      * @var int
      */
@@ -355,4 +355,20 @@ class Category extends EntityAbstract
         return $this->total;
     }
 
+    public function __clone()
+    {
+        $this->path = array_map(
+            function ($item) {
+                return clone $item;
+            },
+            $this->path
+        );
+
+        $this->children = array_map(
+            function ($item) {
+                return clone $item;
+            },
+            $this->children
+        );
+    }
 }
