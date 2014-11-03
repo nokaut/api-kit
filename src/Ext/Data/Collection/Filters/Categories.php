@@ -28,5 +28,13 @@ class Categories extends FiltersAbstract
         return $this->parentCategory;
     }
 
+    public function __clone()
+    {
+        parent::__clone();
+
+        if (is_object($this->parentCategory)) {
+            $this->parentCategory = clone $this->parentCategory;
+        }
+    }
 
 }

@@ -30,6 +30,10 @@ class SetParentCategoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($parentCategory->getUrl(), $parentCategoryPath->getUrl());
         $this->assertEquals($parentCategory->getIsFilter(), false);
         $this->assertEquals($parentCategory->getIsNofollow(), false);
+
+        $categoriesClone = clone $categories;
+        $this->assertNotEquals(spl_object_hash($categories->getParentCategory()), spl_object_hash($categoriesClone->getParentCategory()));
+        $this->assertEquals($categories->getParentCategory()->getName(), $categoriesClone->getParentCategory()->getName());
     }
 
     protected function prepareCurrentCategory()
