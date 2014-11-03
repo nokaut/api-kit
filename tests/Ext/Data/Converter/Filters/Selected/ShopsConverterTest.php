@@ -25,6 +25,9 @@ class ShopsConverterTest extends \PHPUnit_Framework_TestCase
         // nie moga sie zmienic po konwersji selected
         $this->assertEquals(22, $shops->count());
         $this->assertEquals(1, $shopsSelected->count());
+
+        // nie moga byc wspoldzielone przez referencje te same obiekty
+        $this->assertNotEquals(spl_object_hash($shops->getItem(2)),spl_object_hash($shopsSelected->getItem(0)));
     }
 
     public function testShopConverterWithoutCallbacks()

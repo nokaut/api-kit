@@ -11,7 +11,8 @@ namespace Nokaut\ApiKit\Collection;
 
 use Nokaut\ApiKit\Entity\Category;
 
-class Categories extends CollectionAbstract{
+class Categories extends CollectionAbstract
+{
 
     /**
      * @param int $index

@@ -25,6 +25,9 @@ class ProducersConverterTest extends \PHPUnit_Framework_TestCase
         // nie moga sie zmienic po konwersji selected
         $this->assertEquals(6, $producers->count());
         $this->assertEquals(1, $producersSelected->count());
+
+        // nie moga byc wspoldzielone przez referencje te same obiekty
+        $this->assertNotEquals(spl_object_hash($producers->getItem(4)),spl_object_hash($producersSelected->getItem(0)));
     }
 
     public function testProducerConverterWithoutCallbacks()

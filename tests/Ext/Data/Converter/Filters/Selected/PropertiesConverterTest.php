@@ -32,6 +32,7 @@ class PropertiesConverterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, count($propertiesSelected));
         foreach ($propertiesSelected as $property) {
             if ($property->getId() == 382) {
+                $propertySelected382ObjectId = spl_object_hash($property);
                 $this->assertEquals(2, count($property));
                 break;
             }
@@ -43,10 +44,15 @@ class PropertiesConverterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(9, count($properties));
         foreach ($properties as $property) {
             if ($property->getId() == 382) {
+                $property382ObjectId = spl_object_hash($property);
                 $this->assertEquals(3, count($property));
                 break;
             }
         }
+
+        $this->assertNotNull($propertySelected382ObjectId);
+        $this->assertNotNull($property382ObjectId);
+        $this->assertNotEquals($propertySelected382ObjectId, $property382ObjectId);
     }
 
     public function testPropertiesConverterWithoutCallbacks()

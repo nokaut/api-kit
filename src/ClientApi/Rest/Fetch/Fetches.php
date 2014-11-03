@@ -19,7 +19,7 @@ class Fetches implements CollectionInterface
     /**
      * @var Fetch[]
      */
-    protected $fetch = array();
+    protected $fetches = array();
 
     /**
      * (PHP 5 &gt;= 5.0.0)<br/>
@@ -30,7 +30,7 @@ class Fetches implements CollectionInterface
      */
     public function getIterator()
     {
-        return new ArrayIterator($this->fetch);
+        return new ArrayIterator($this->fetches);
     }
 
     /**
@@ -39,7 +39,7 @@ class Fetches implements CollectionInterface
      */
     public function getItem($index)
     {
-        return $this->fetch[$index];
+        return $this->fetches[$index];
     }
 
     /**
@@ -53,12 +53,12 @@ class Fetches implements CollectionInterface
      */
     public function count()
     {
-        count($this->fetch);
+        count($this->fetches);
     }
 
     public function addFetch(Fetch $fetch)
     {
-        $this->fetch[] = $fetch;
+        $this->fetches[] = $fetch;
     }
 
     /**
@@ -66,7 +66,7 @@ class Fetches implements CollectionInterface
      */
     public function setFetches(array $fetches)
     {
-        $this->fetch = $fetches;
+        $this->fetches = array_values($fetches);
     }
 
     /**
@@ -75,9 +75,19 @@ class Fetches implements CollectionInterface
     public function getQueries()
     {
         $queries = array();
-        foreach ($this->fetch as $fetch) {
+        foreach ($this->fetches as $fetch) {
             $queries[] = $fetch->getQuery();
         }
         return $queries;
+    }
+
+    public function __clone()
+    {
+        $this->fetches = array_map(
+            function ($fetch) {
+                return clone $fetch;
+            },
+            $this->fetches
+        );
     }
 }

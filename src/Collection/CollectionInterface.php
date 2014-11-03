@@ -9,6 +9,6 @@
 namespace Nokaut\ApiKit\Collection;
 
 
-interface CollectionInterface extends \Countable, \IteratorAggregate{
-
-} 
+interface CollectionInterface extends \Countable, \IteratorAggregate
+{
+}

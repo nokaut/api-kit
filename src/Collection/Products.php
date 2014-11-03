@@ -176,4 +176,52 @@ class Products extends CollectionAbstract
             }
         }
     }
+
+    public function __clone()
+    {
+        parent::__clone();
+
+        if ($this->metadata) {
+            $this->metadata = clone $this->metadata;
+        }
+
+        if ($this->phrase) {
+            $this->phrase = clone $this->phrase;
+        }
+
+        $this->categories = array_map(
+            function ($category) {
+                return clone $category;
+            },
+            $this->categories
+        );
+
+        $this->shops = array_map(
+            function ($shop) {
+                return clone $shop;
+            },
+            $this->shops
+        );
+
+        $this->producers = array_map(
+            function ($producer) {
+                return clone $producer;
+            },
+            $this->producers
+        );
+
+        $this->prices = array_map(
+            function ($price) {
+                return clone $price;
+            },
+            $this->prices
+        );
+
+        $this->properties = array_map(
+            function ($property) {
+                return clone $property;
+            },
+            $this->properties
+        );
+    }
 }

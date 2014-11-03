@@ -20,7 +20,7 @@ abstract class CollectionAbstract implements CollectionInterface
 
     public function __construct(array $entities)
     {
-        $this->entities = array_values($entities);
+        $this->setEntities($entities);
     }
 
 
@@ -89,5 +89,16 @@ abstract class CollectionAbstract implements CollectionInterface
     public function unshift(EntityAbstract $value)
     {
         array_unshift($this->entities, $value);
+    }
+
+    public function __clone()
+    {
+        $this->setEntities(array_map(function ($entity) {
+            if (is_object($entity)) {
+                return clone $entity;
+            } else {
+                return $entity;
+            }
+        }, $this->getEntities()));
     }
 }

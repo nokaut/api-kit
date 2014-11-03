@@ -11,7 +11,8 @@ namespace Nokaut\ApiKit\Collection\Sort;
 
 use Nokaut\ApiKit\Collection\CollectionAbstract;
 
-abstract class SortAbstract {
+abstract class SortAbstract
+{
 
 
     /**

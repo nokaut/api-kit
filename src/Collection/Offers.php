@@ -34,4 +34,13 @@ class Offers extends CollectionAbstract
     {
         return $this->metadata;
     }
+
+    public function __clone()
+    {
+        parent::__clone();
+
+        if ($this->metadata) {
+            $this->metadata = clone $this->metadata;
+        }
+    }
 }
