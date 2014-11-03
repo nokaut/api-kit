@@ -16,6 +16,7 @@ master
 - Dodanie offer id w Product->OfferWithBestPrice
 - Ponawianie requestu gdy API odpowie statusem 502
 - Dodanie węwnętrznego cache w konwerterach Ext
+- Zdefiniowane klonowane kolekcji i entity
 
 v1.4.1
 ------
