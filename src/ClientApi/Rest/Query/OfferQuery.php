@@ -11,15 +11,15 @@ namespace Nokaut\ApiKit\ClientApi\Rest\Query;
 
 class OfferQuery  extends QueryBuilderAbstract
 {
-    private $baseUrl;
+    protected $baseUrl;
     /**
      * @var array
      */
-    private $fields;
+    protected $fields;
     /**
      * @var string
      */
-    private $id;
+    protected $id;
 
     public function __construct($baseUrl)
     {
@@ -58,7 +58,7 @@ class OfferQuery  extends QueryBuilderAbstract
      * @return string
      * @throws \InvalidArgumentException
      */
-    private function createFieldsPart()
+    protected function createFieldsPart()
     {
         if (empty($this->fields)) {
             throw new \InvalidArgumentException("fields can't be empty");
