@@ -9,7 +9,6 @@
 namespace Nokaut\ApiKit\Entity;
 
 
-use Nokaut\ApiKit\Entity\Metadata\Facet\CategoryFacet;
 use Nokaut\ApiKit\Entity\Product\Prices;
 use Nokaut\ApiKit\Entity\Product\Property;
 use Nokaut\ApiKit\Entity\Product\Rating;
@@ -94,9 +93,9 @@ class Product extends EntityAbstract
      */
     protected $shop;
     /**
-     * @var CategoryFacet
+     * @var Category
      */
-    protected $category_facet;
+    protected $category;
     /**
      * @var float
      */
@@ -411,17 +410,17 @@ class Product extends EntityAbstract
         return $this->valid_cpa;
     }
 
-    public function setCategory(CategoryFacet $category)
+    public function setCategory(Category $category)
     {
-        $this->category_facet = $category;
+        $this->category = $category;
     }
 
     /**
-     * @return CategoryFacet
+     * @return Category
      */
     public function getCategory()
     {
-        return $this->category_facet;
+        return $this->category;
     }
 
     /**
@@ -458,8 +457,8 @@ class Product extends EntityAbstract
 
     public function __clone()
     {
-        if (is_object($this->category_facet)) {
-            $this->category_facet = clone $this->category_facet;
+        if (is_object($this->category)) {
+            $this->category = clone $this->category;
         }
         if (is_object($this->shop)) {
             $this->shop = clone $this->shop;

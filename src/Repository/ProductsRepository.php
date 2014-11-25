@@ -368,7 +368,7 @@ class ProductsRepository extends RepositoryAbstract
         $query->addFilter(new Filter\Single('url', $url));
         $query->setFields($fields);
         $query->addFacet('query');
-        $query->addFacet('categories');
+        $query->addFacet('categories', 'relatives');
         $query->addFacet('producer_name');
         $query->addFacet('shops');
         $query->addFacet('properties');

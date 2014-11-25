@@ -17,6 +17,8 @@ master
 - Ponawianie requestu gdy API odpowie statusem 502
 - Dodanie węwnętrznego cache w konwerterach Ext
 - Zdefiniowane klonowane kolekcji i entity
+- Product: zmiana typu obiektu kategorii (Category zamiast CategoryFacet).
+- ProductsConverter: koniec z ustawianiem kategorii (CategoryFacet) przez konwerter, w razie potrzeby należy uzupełnić produkty pobranymi oddzielnie obiektami Category.
 
 v1.4.1
 ------

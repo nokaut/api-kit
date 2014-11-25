@@ -75,9 +75,9 @@ class ProductsQuery extends QueryBuilderAbstract
         $this->order[$field] = $order;
     }
 
-    public function addFacet($name)
+    public function addFacet($name, $value = 'true')
     {
-        $this->facets[$name] = $name;
+        $this->facets[$name] = $value;
     }
 
     public function setFields(array $fields)
@@ -176,8 +176,8 @@ class ProductsQuery extends QueryBuilderAbstract
     private function createFacetsPart()
     {
         $result = "";
-        foreach ($this->facets as $name) {
-            $result .= "&facet[{$name}]=true";
+        foreach ($this->facets as $name => $value) {
+            $result .= "&facet[{$name}]={$value}";
         }
         return $result;
     }
