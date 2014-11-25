@@ -62,29 +62,6 @@ class ProductsConverter implements ConverterInterface
         if ($phrase) {
             $products->setPhrase($phrase);
         }
-
-        $this->setCategoriesFromMetadata($products);
-    }
-
-    protected function setCategoriesFromMetadata(Products $products)
-    {
-        if (!$products->getCategories()) {
-            return;
-        }
-        $categories = $products->getCategories();
-        $categoriesById = array();
-
-        foreach ($categories as $category) {
-            $categoriesById[$category->getId()] = $category;
-        }
-
-        foreach ($products as $product) {
-            /** @var Product $product */
-            if (isset($categoriesById[$product->getCategoryId()])) {
-                $product->setCategory($categoriesById[$product->getCategoryId()]);
-            }
-        }
-
     }
 
     /**
