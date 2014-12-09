@@ -42,7 +42,7 @@ class ProductsRepository extends RepositoryAbstract
     );
 
     public static $fieldsForProductPage = array(
-        'id', 'url', 'category_id', 'description_html', 'id', 'price_min', 'price_max',
+        'id', 'url', 'category_id', 'description_html', 'id', 'prices',
         'is_with_photo', 'photo_id', 'producer_name', 'product_type_id', 'source', 'source_id', 'title', 'title_normalized',
         'properties', 'photo_ids', 'block_adsense', 'movie', 'rating'
     );

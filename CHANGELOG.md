@@ -19,6 +19,7 @@ master
 - Zdefiniowane klonowane kolekcji i entity
 - Product: zmiana typu obiektu kategorii (Category zamiast CategoryFacet).
 - ProductsConverter: koniec z ustawianiem kategorii (CategoryFacet) przez konwerter, w razie potrzeby należy uzupełnić produkty pobranymi oddzielnie obiektami Category.
+- FIX: wyrzucenie starych pół price_min price_max
 
 v1.4.1
 ------
