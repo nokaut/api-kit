@@ -1,5 +1,9 @@
 ChangeLog
 =========
+master
+------
+- CategoryFacet: dodanie pola subcategory_count
+
 v1.5.0
 ------
 - SortAbstract: otworzenie metody sortującej

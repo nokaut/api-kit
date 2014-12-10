@@ -46,6 +46,10 @@ class CategoryFacet extends EntityAbstract
      * @var bool
      */
     protected $is_filter = false;
+    /**
+     * @var int
+     */
+    protected $subcategory_count;
 
     /**
      * @param int $id
@@ -173,6 +177,22 @@ class CategoryFacet extends EntityAbstract
     public function getUrlOut()
     {
         return $this->url_out;
+    }
+
+    /**
+     * @param int $subcategory_count
+     */
+    public function setSubcategoryCount($subcategory_count)
+    {
+        $this->subcategory_count = $subcategory_count;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSubcategoryCount()
+    {
+        return $this->subcategory_count;
     }
 
 }
