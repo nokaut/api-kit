@@ -135,6 +135,33 @@ class RestClientApiTest extends \PHPUnit_Framework_TestCase
 
     }
 
+    public function testSendMultiWithRetryAndSecondSuccess()
+    {
+        $oauth2 = $this->prepareOauth();
+        $loggerMock = $this->getMock('Psr\Log\LoggerInterface');
+
+        $response = $this->getMockBuilder('\Guzzle\Http\Message\Response')->disableOriginalConstructor()->getMock();
+        $response->expects($this->any())->method('getStatusCode')->will($this->returnValue(502));
+
+        $responseSuccess = $this->getMockBuilder('\Guzzle\Http\Message\Response')->disableOriginalConstructor()->getMock();
+        $responseSuccess->expects($this->any())->method('getStatusCode')->will($this->returnValue(200));
+        $responseSuccess->expects($this->any())->method('getBody')->will($this->returnValue("{}"));
+
+        $client = $this->getMockBuilder('\Guzzle\Http\Client')->disableOriginalConstructor()->getMock();
+        $client->expects($this->exactly(2))
+            ->method('send')
+            ->will(
+                $this->onConsecutiveCalls($this->returnValue(array($response)), $this->returnValue(array($responseSuccess)))
+            );
+
+        $cutMock = $this->prepareCut($loggerMock, $oauth2, $client);
+
+        $fetches = $this->prepareFetches();
+        $cutMock->sendMulti($fetches);
+
+        $this->assertNull($fetches->getItem(0)->getResponseException());
+    }
+
     public function testSendMultiWithoutRetry()
     {
         $oauth2 = $this->prepareOauth();
