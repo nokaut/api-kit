@@ -97,18 +97,43 @@ class RestClientApi implements ClientApiInterface
 
         $retry = false;
         foreach ($fetchesForFilled as $fetch) {
+            $fetch->setResponseException(null); //reset exception because after retry request maybe done successful
+
             $response = array_shift($responses);
             if ($response && $response->getStatusCode() == 200) {
                 $cacheKey = $fetch->prepareCacheKey();
                 $fetch->getCache()->save($cacheKey, serialize($response));
                 $fetch->setResult($this->convertResponse($response));
                 $fetch->setProcessed(true);
-            } else if ($response && $response->getStatusCode() == 502) {
-                $retry = true;
+            } else {
+                $retry = $this->handleMultiFailedResponse($response, $fetch);
             }
         }
         return $retry;
 
+    }
+
+    /**
+     * @param Response $response
+     * @param Fetch $fetch
+     * @return bool - return if response failed response candidate to retry
+     */
+    protected function handleMultiFailedResponse($response, $fetch)
+    {
+        if ($response) {
+            $statusCode = $response->getStatusCode();
+            $fetch->setResponseException($this->factoryException($statusCode, 'wrong status from api ' . $statusCode));
+        } else {
+            $fetch->setResponseException($this->factoryException(500, 'empty response from api'));
+        }
+
+        if ($response && $response->getStatusCode() == 502) {
+            $retry = true;
+        } else {
+            $retry = false;
+        }
+
+        return $retry;
     }
 
     /**
@@ -213,16 +238,36 @@ class RestClientApi implements ClientApiInterface
     {
         $this->log($e->getRequest(), $e->getResponse(), $startTime);
 
-        if ($e->getResponse()->getStatusCode() == 404) {
-            throw new NotFoundException((isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '') . " 404 from api for request: " . $e->getResponse()->getRawHeaders());
+        $statusCode = $e->getResponse()->getStatusCode();
+        if ($statusCode == 404) {
+            $exceptionMessage = (isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '') . " 404 from api for request: " . $e->getResponse()->getRawHeaders();
+        } else if ($statusCode == 400) {
+            $exceptionMessage = (isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '') . " 400 from api for request: " . $e->getResponse()->getRawHeaders();
+        } else {
+            $exceptionMessage = (isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '') . " bad response from api (status: " . $statusCode . ") "
+                . "for request: " . $e->getRequest()->getUrl();
         }
 
-        if ($e->getResponse()->getStatusCode() == 400) {
-            throw new InvalidRequestException((isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '') . " 400 from api for request: " . $e->getResponse()->getRawHeaders());
+        throw $this->factoryException($statusCode, $exceptionMessage);
+    }
+
+    /**
+     * return exception depends of API response status
+     * @param $statusCode
+     * @param $exceptionMessage
+     * @return FatalResponseException|InvalidRequestException|NotFoundException
+     */
+    protected function factoryException($statusCode, $exceptionMessage)
+    {
+        if ($statusCode == 404) {
+            return new NotFoundException($exceptionMessage);
         }
 
-        throw new FatalResponseException((isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '') . " bad response from api (status: " . $e->getResponse()->getStatusCode() . ") "
-            . "for request: " . $e->getRequest()->getUrl(), $e->getResponse()->getStatusCode());
+        if ($statusCode == 400) {
+            return new InvalidRequestException($exceptionMessage);
+        }
+
+        return new FatalResponseException($exceptionMessage, $statusCode);
     }
 
     /**

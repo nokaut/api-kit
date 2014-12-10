@@ -42,6 +42,11 @@ class Fetch
     protected $processed = false;
 
     /**
+     * @var \Exception
+     */
+    protected $responseException;
+
+    /**
      * @param QueryBuilderInterface $query
      * @param ConverterInterface $converter
      * @param CacheInterface $cache
@@ -95,10 +100,15 @@ class Fetch
     }
 
     /**
+     * @param bool $throwException
+     * @throws \Exception
      * @return CollectionInterface|EntityAbstract
      */
-    public function getResult()
+    public function getResult($throwException = false)
     {
+        if ($this->result === null && $this->responseException !== null && $throwException) {
+            throw $this->responseException;
+        }
         return $this->result;
     }
 
@@ -142,5 +152,20 @@ class Fetch
         return $this->processed;
     }
 
+    /**
+     * @param \Exception $responseException
+     */
+    public function setResponseException($responseException)
+    {
+        $this->responseException = $responseException;
+    }
+
+    /**
+     * @return \Exception
+     */
+    public function getResponseException()
+    {
+        return $this->responseException;
+    }
 
 }
