@@ -101,7 +101,7 @@ class RestClientApi implements ClientApiInterface
 
             $response = array_shift($responses);
             $request = array_shift($requests);
-            $additionalLogMessage = "Multi requests, request " . $index . "/" . $requestsCount;
+            $additionalLogMessage = "Multi requests, request " . ($index + 1) . "/" . $requestsCount . " ";
             if ($response && $response->getStatusCode() == 200) {
                 $this->handleMultiSuccessResponse($request, $response, $fetch, $startTime, $additionalLogMessage);
             } else {
