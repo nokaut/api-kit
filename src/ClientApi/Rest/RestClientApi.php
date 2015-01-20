@@ -94,21 +94,18 @@ class RestClientApi implements ClientApiInterface
         $startTime = microtime(true);
         $responses = $this->getClient()->send($requests);
 
-        $this->logMulti($requests, $responses, $startTime, LogLevel::DEBUG);
-
         $retry = false;
-        foreach ($fetchesForFilled as $fetch) {
+        $requestsCount = count($fetchesForFilled);
+        foreach ($fetchesForFilled as $index => $fetch) {
             $fetch->setResponseException(null); //reset exception because after retry request maybe done successful
 
             $response = array_shift($responses);
             $request = array_shift($requests);
+            $additionalLogMessage = "Multi requests, request " . $index . "/" . $requestsCount;
             if ($response && $response->getStatusCode() == 200) {
-                $cacheKey = $fetch->prepareCacheKey();
-                $fetch->getCache()->save($cacheKey, serialize($response));
-                $fetch->setResult($this->convertResponse($response));
-                $fetch->setProcessed(true);
+                $this->handleMultiSuccessResponse($request, $response, $fetch, $startTime, $additionalLogMessage);
             } else {
-                $retry = $this->handleMultiFailedResponse($request, $response, $fetch);
+                $retry = $this->handleMultiFailedResponse($request, $response, $fetch, $startTime, $additionalLogMessage);
             }
         }
         return $retry;
@@ -119,11 +116,31 @@ class RestClientApi implements ClientApiInterface
      * @param Request $request
      * @param Response $response
      * @param Fetch $fetch
+     * @param $startTime
+     * @param string $additionalLogMessage
+     */
+    protected function handleMultiSuccessResponse($request, $response, $fetch, $startTime, $additionalLogMessage)
+    {
+        $this->log($request, $response, $startTime, LogLevel::DEBUG, $additionalLogMessage);
+
+        $cacheKey = $fetch->prepareCacheKey();
+        $fetch->getCache()->save($cacheKey, serialize($response));
+        $fetch->setResult($this->convertResponse($response));
+        $fetch->setProcessed(true);
+    }
+
+    /**
+     * @param Request $request
+     * @param Response $response
+     * @param Fetch $fetch
+     * @param $startTime
+     * @param string $additionalLogMessage
      * @return bool - return if response failed response candidate to retry
      */
-    protected function handleMultiFailedResponse($request, $response, $fetch)
+    protected function handleMultiFailedResponse($request, $response, $fetch, $startTime, $additionalLogMessage = '')
     {
         $logLevel = LogLevel::ERROR;
+
         if ($response) {
             $statusCode = $response->getStatusCode();
             if ($statusCode == 404) {
@@ -131,19 +148,19 @@ class RestClientApi implements ClientApiInterface
             }
             $fetch->setResponseException($this->factoryException($statusCode, 'wrong status from api ' . $statusCode));
 
-            $this->logger->log($logLevel, "Fail response: "
+            $additionalLogMessage .= "Fail response: "
                 . " " . $statusCode . " (" . $response->getBody(true) . ") in " . $request->getUrl()
                 . "\n" . $request->getRawHeaders()
-                . "\n" . $response->getRawHeaders()
-            );
+                . "\n" . $response->getRawHeaders() . "\n";
         } else {
             $fetch->setResponseException($this->factoryException(500, 'empty response from api'));
 
-            $this->logger->log($logLevel, "Fail response: "
+            $additionalLogMessage .= "Fail response: "
                 . " empty response from api in " . $request->getUrl()
-                . "\n" . $request->getRawHeaders()
-            );
+                . "\n" . $request->getRawHeaders() . "\n";
         }
+
+        $this->log($request, $response, $startTime, $logLevel, $additionalLogMessage);
 
         if ($response && $response->getStatusCode() == 502) {
             $retry = true;
@@ -313,36 +330,14 @@ class RestClientApi implements ClientApiInterface
         if ($additionalMessage) {
             $additionalMessage = $additionalMessage . ' ';
         }
+        $apiStatusMessage = $response ? 'status from API: ' . $response->getStatusCode() . ' ' : 'empty response ';
 
         $runTime = (string)$response->getHeader('X-Runtime');
         $endTime = microtime(true);
         $totalTime = ($endTime - $startTime);
         $timeInfo = '| runtime: ' . round($runTime, 3) . ' s, total: ' . round($totalTime, 3) . ' s';
 
-        $this->logger->log($level, $additionalMessage . $url . ' ' . $timeInfo);
-    }
-
-    /**
-     * @param RequestInterface[] $requests
-     * @param Response[] $responses
-     * @param $startTime
-     * @param string $level - level form Psr\Log\LogLevel
-     */
-    protected function logMulti($requests, $responses, $startTime, $level = LogLevel::DEBUG)
-    {
-        $countRequest = count($requests);
-        $endTime = microtime(true);
-        foreach ($requests as $index => $request) {
-            $response = $responses[$index];
-            $url = $request->getUrl();
-
-            $runTime = (string)$response->getHeader('X-Runtime');
-            $totalTime = ($endTime - $startTime);
-            $timeInfo = '| request runtime: ' . round($runTime, 3) . ' s, all requests: ' . round($totalTime, 3) . ' s';
-
-            $this->logger->log($level, "Multi requests, request " . ($index + 1) . "/" . $countRequest
-                . " " . $url . ' ' . $timeInfo);
-        }
+        $this->logger->log($level, $additionalMessage . $apiStatusMessage . $url . ' ' . $timeInfo);
     }
 
     /**
