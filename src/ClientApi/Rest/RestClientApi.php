@@ -11,6 +11,7 @@ namespace Nokaut\ApiKit\ClientApi\Rest;
 
 use Guzzle\Http\Client;
 use Guzzle\Http\Exception\BadResponseException;
+use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\RequestInterface;
 use Guzzle\Http\Message\Response;
 use Nokaut\ApiKit\ClientApi\ClientApiInterface;
@@ -100,13 +101,14 @@ class RestClientApi implements ClientApiInterface
             $fetch->setResponseException(null); //reset exception because after retry request maybe done successful
 
             $response = array_shift($responses);
+            $request = array_shift($requests);
             if ($response && $response->getStatusCode() == 200) {
                 $cacheKey = $fetch->prepareCacheKey();
                 $fetch->getCache()->save($cacheKey, serialize($response));
                 $fetch->setResult($this->convertResponse($response));
                 $fetch->setProcessed(true);
             } else {
-                $retry = $this->handleMultiFailedResponse($response, $fetch);
+                $retry = $this->handleMultiFailedResponse($request, $response, $fetch);
             }
         }
         return $retry;
@@ -114,17 +116,33 @@ class RestClientApi implements ClientApiInterface
     }
 
     /**
+     * @param Request $request
      * @param Response $response
      * @param Fetch $fetch
      * @return bool - return if response failed response candidate to retry
      */
-    protected function handleMultiFailedResponse($response, $fetch)
+    protected function handleMultiFailedResponse($request, $response, $fetch)
     {
+        $logLevel = LogLevel::ERROR;
         if ($response) {
             $statusCode = $response->getStatusCode();
+            if ($statusCode == 404) {
+                $logLevel = LogLevel::INFO;
+            }
             $fetch->setResponseException($this->factoryException($statusCode, 'wrong status from api ' . $statusCode));
+
+            $this->logger->log($logLevel, "Fail response: "
+                . " " . $statusCode . " (" . $response->getBody(true) . ") in " . $request->getUrl()
+                . "\n" . $request->getRawHeaders()
+                . "\n" . $response->getRawHeaders()
+            );
         } else {
             $fetch->setResponseException($this->factoryException(500, 'empty response from api'));
+
+            $this->logger->log($logLevel, "Fail response: "
+                . " empty response from api in " . $request->getUrl()
+                . "\n" . $request->getRawHeaders()
+            );
         }
 
         if ($response && $response->getStatusCode() == 502) {
@@ -207,7 +225,7 @@ class RestClientApi implements ClientApiInterface
         $response = null;
         try {
             $response = $this->getClient()->send($request);
-            $this->log($request, $response, $startTime, LogLevel::DEBUG);
+            $this->log($request, $response, $startTime);
 
             $cache->save($cacheKey, serialize($response));
 
@@ -236,13 +254,24 @@ class RestClientApi implements ClientApiInterface
      */
     protected function handleException(BadResponseException $e, $startTime)
     {
-        $this->log($e->getRequest(), $e->getResponse(), $startTime);
+        $response = $e->getResponse();
+        $request = $e->getRequest();
+        $statusCode = $response->getStatusCode();
+
+        $additionalLogMessage = "Fail response: " . $statusCode . " (" . $response->getBody(true) . ") "
+            . "\n" . $request->getRawHeaders()
+            . "\n" . $response->getRawHeaders(). "\n";
+
+        $logLever = LogLevel::ERROR;
+        if ($statusCode == 404) {
+            $logLever = LogLevel::INFO;
+        }
+
+        $this->log($e->getRequest(), $e->getResponse(), $startTime, $logLever, $additionalLogMessage);
 
         $statusCode = $e->getResponse()->getStatusCode();
-        if ($statusCode == 404) {
-            $exceptionMessage = (isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '') . " 404 from api for request: " . $e->getResponse()->getRawHeaders();
-        } else if ($statusCode == 400) {
-            $exceptionMessage = (isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '') . " 400 from api for request: " . $e->getResponse()->getRawHeaders();
+        if ($statusCode == 404 || $statusCode == 400) {
+            $exceptionMessage = (isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '') . " " . $statusCode . " from api for request: " . $e->getResponse()->getRawHeaders();
         } else {
             $exceptionMessage = (isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '') . " bad response from api (status: " . $statusCode . ") "
                 . "for request: " . $e->getRequest()->getUrl();
@@ -275,17 +304,14 @@ class RestClientApi implements ClientApiInterface
      * @param Response $response
      * @param $startTime
      * @param string $level - level form Psr\Log\LogLevel
+     * @param string $additionalMessage
      */
-    protected function log($request, $response, $startTime, $level = LogLevel::INFO)
+    protected function log($request, $response, $startTime, $level = LogLevel::DEBUG, $additionalMessage = '')
     {
         $url = $request->getUrl();
-        $statusCode = $response->getStatusCode();
 
-        if (!in_array($statusCode, array(200))) {
-            $this->logger->error("Fail response: " . $statusCode . " (" . $response->getBody(true) . ") in " . $url
-                . "\n" . $request->getRawHeaders()
-                . "\n" . $response->getRawHeaders()
-            );
+        if ($additionalMessage) {
+            $additionalMessage = $additionalMessage . ' ';
         }
 
         $runTime = (string)$response->getHeader('X-Runtime');
@@ -293,7 +319,7 @@ class RestClientApi implements ClientApiInterface
         $totalTime = ($endTime - $startTime);
         $timeInfo = '| runtime: ' . round($runTime, 3) . ' s, total: ' . round($totalTime, 3) . ' s';
 
-        $this->logger->log($level, $url . ' ' . $timeInfo);
+        $this->logger->log($level, $additionalMessage . $url . ' ' . $timeInfo);
     }
 
     /**
@@ -302,29 +328,20 @@ class RestClientApi implements ClientApiInterface
      * @param $startTime
      * @param string $level - level form Psr\Log\LogLevel
      */
-    protected function logMulti($requests, $responses, $startTime, $level = LogLevel::INFO)
+    protected function logMulti($requests, $responses, $startTime, $level = LogLevel::DEBUG)
     {
         $countRequest = count($requests);
         $endTime = microtime(true);
         foreach ($requests as $index => $request) {
             $response = $responses[$index];
             $url = $request->getUrl();
-            $statusCode = $response->getStatusCode();
 
-            if (!in_array($statusCode, array(200))) {
-                $this->logger->error("Fail response: " . ($index + 1) . "/" . $countRequest
-                    . " " . $statusCode . " (" . $response->getBody(true) . ") in " . $url
-                    . "\n" . $request->getRawHeaders()
-                    . "\n" . $response->getRawHeaders()
-                );
-            } else {
-                $runTime = (string)$response->getHeader('X-Runtime');
-                $totalTime = ($endTime - $startTime);
-                $timeInfo = '| request runtime: ' . round($runTime, 3) . ' s, all requests: ' . round($totalTime, 3) . ' s';
+            $runTime = (string)$response->getHeader('X-Runtime');
+            $totalTime = ($endTime - $startTime);
+            $timeInfo = '| request runtime: ' . round($runTime, 3) . ' s, all requests: ' . round($totalTime, 3) . ' s';
 
-                $this->logger->log($level, "Multi requests, request " . ($index + 1) . "/" . $countRequest
-                    . " " . $url . ' ' . $timeInfo);
-            }
+            $this->logger->log($level, "Multi requests, request " . ($index + 1) . "/" . $countRequest
+                . " " . $url . ' ' . $timeInfo);
         }
     }
 
