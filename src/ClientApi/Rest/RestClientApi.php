@@ -279,12 +279,12 @@ class RestClientApi implements ClientApiInterface
             . "\n" . $request->getRawHeaders()
             . "\n" . $response->getRawHeaders(). "\n";
 
-        $logLever = LogLevel::ERROR;
+        $logLevel = LogLevel::ERROR;
         if ($statusCode == 404) {
-            $logLever = LogLevel::INFO;
+            $logLevel = LogLevel::INFO;
         }
 
-        $this->log($e->getRequest(), $e->getResponse(), $startTime, $logLever, $additionalLogMessage);
+        $this->log($e->getRequest(), $e->getResponse(), $startTime, $logLevel, $additionalLogMessage);
 
         $statusCode = $e->getResponse()->getStatusCode();
         if ($statusCode == 404 || $statusCode == 400) {
