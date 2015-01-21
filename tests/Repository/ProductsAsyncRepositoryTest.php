@@ -39,14 +39,18 @@ class ProductsAsyncRepositoryTest extends \PHPUnit_Framework_TestCase
         $response = $this->getMockBuilder('Guzzle\Http\Message\Response')->disableOriginalConstructor()->getMock();
         $response->expects($this->any())->method('getStatusCode')->will($this->returnValue(200));
 
+        $request = $this->getMockBuilder('\Guzzle\Http\Message\Request')->disableOriginalConstructor()->getMock();
+
         $client = $this->getMockBuilder('\Guzzle\Http\Client')->disableOriginalConstructor()->getMock();
         $client->expects($this->any())->method('send')->will($this->returnValue(array($response)));
+        $client->expects($this->any())->method('createRequest')->will($this->returnValue($request));
 
         $this->clientApiMock = $this->getMock(
             'Nokaut\ApiKit\ClientApi\Rest\RestClientApi',
             array('convertResponse', 'getClient', 'logMulti'),
             array($loggerMock, $oauth2)
         );
+
         $this->clientApiMock->expects($this->any())->method('getClient')
             ->will($this->returnValue($client));
 
