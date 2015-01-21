@@ -3,6 +3,7 @@ ChangeLog
 master
 ------
 - CategoryFacet: dodanie pola subcategory_count
+- logi: zmiana poziomu logowania odpowiedzi z API z statusem 404 z ERROR na INFO
 
 v1.5.0
 ------
