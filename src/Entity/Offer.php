@@ -109,6 +109,10 @@ class Offer extends EntityAbstract
     /**
      * @var string
      */
+    protected $description_short;
+    /**
+     * @var string
+     */
     protected $click_url;
     /**
      * @var Shop
@@ -241,6 +245,22 @@ class Offer extends EntityAbstract
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * @param string $description_short
+     */
+    public function setDescriptionShort($description_short)
+    {
+        $this->description_short = $description_short;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescriptionShort()
+    {
+        return $this->description_short;
     }
 
     /**
