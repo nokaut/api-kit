@@ -18,8 +18,8 @@
     ],
     "require": {
         "php": ">=5.3",
-        "guzzle/guzzle": "3.8.*",
-        "commerceguys/guzzle-oauth2-plugin": "dev-master",
+        "guzzle/guzzle": "~3.9",
+        "commerceguys/guzzle-oauth2-plugin": "~1.0",
         "psr/log": "~1.0"
     },
     "require-dev": {
