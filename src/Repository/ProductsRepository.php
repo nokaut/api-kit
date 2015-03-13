@@ -55,7 +55,9 @@ class ProductsRepository extends RepositoryAbstract
         '_metadata.canonical','_phrase.value', '_phrase.url_out', '_phrase.url_category_template', '_phrase.url_in_template'
     );
 
-    public static $fieldsForSimilarProductsInProductPage = array('id', 'url', 'title', 'prices', 'photo_id');
+    public static $fieldsForSimilarProductsInProductPage = array(
+        'id', 'url', 'title', 'prices', 'photo_id', 'description_html', 'properties'
+    );
 
 
     /**
