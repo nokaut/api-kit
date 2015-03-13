@@ -56,7 +56,7 @@ class ProductsRepository extends RepositoryAbstract
     );
 
     public static $fieldsForSimilarProductsInProductPage = array(
-        'id', 'url', 'title', 'prices', 'photo_id', 'description_html', 'properties'
+        'id', 'url', 'title', 'prices', 'photo_id', 'description_short', 'properties'
     );
 
 
