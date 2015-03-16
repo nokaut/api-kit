@@ -203,7 +203,7 @@ class ProductsAnalyzer
         if (self::countGroupsWithFilterSet($products) >= 2) {
             return true;
         }
-
+        
         foreach ($products->getProperties() as $property) {
             if ($property->getRanges()) {
                 if (self::countPropertyFilterSet($products, $property) >= 1) {

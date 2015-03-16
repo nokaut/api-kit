@@ -2,6 +2,7 @@ ChangeLog
 =========
 master
 ------
+- Ext: zmiany w regułach analizy produktów dla noindex, nofollow
 - Podbicie i zamrożenie Guzzle na wersji 3.9 i Guzzle OAuth2 Plugin na wersji 1.0 (composer)
 - Dodanie description_short do Offer
 - CategoryFacet: dodanie pola subcategory_count
