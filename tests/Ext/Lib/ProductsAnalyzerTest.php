@@ -22,16 +22,16 @@ class ProductsAnalyzerTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(ProductsAnalyzer::filtersNofollow($products));
 
         $products = $productsConverter->convert($this->getJsonFixture('laptopy-with-filters'));
-        $this->assertFalse(ProductsAnalyzer::filtersNofollow($products));
+        $this->assertTrue(ProductsAnalyzer::filtersNofollow($products));
 
         $products = $productsConverter->convert($this->getJsonFixture('telewizory-led-with-filters'));
-        $this->assertFalse(ProductsAnalyzer::filtersNofollow($products));
+        $this->assertTrue(ProductsAnalyzer::filtersNofollow($products));
 
         $products = $productsConverter->convert($this->getJsonFixture('telewizory-led-with-filters-without-range'));
         $this->assertFalse(ProductsAnalyzer::filtersNofollow($products));
 
         $products = $productsConverter->convert($this->getJsonFixture('telewizory-led-with-shop-selected'));
-        $this->assertFalse(ProductsAnalyzer::filtersNofollow($products));
+        $this->assertTrue(ProductsAnalyzer::filtersNofollow($products));
     }
 
     public function testProductsNoindex()
