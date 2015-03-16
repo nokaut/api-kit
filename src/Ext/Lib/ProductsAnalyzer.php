@@ -141,7 +141,24 @@ class ProductsAnalyzer
             return true;
         }
 
-        $propertyFiltersGroupSet = 0;
+        $filtersGroupSetCount = 0;
+
+        if (count(array_filter($products->getShops(), function ($shop) {
+                /** @var ShopFacet $shop */
+                return $shop->getIsFilter();
+            })) >= 1
+        ) {
+            $filtersGroupSetCount++;
+        }
+
+        if (count(array_filter($products->getProducers(), function ($producer) {
+                /** @var ProducerFacet $producer */
+                return $producer->getIsFilter();
+            })) >= 1
+        ) {
+            $filtersGroupSetCount++;
+        }
+
         foreach ($products->getProperties() as $property) {
             if ($property->getRanges()) {
                 // if range filter is set
@@ -165,12 +182,12 @@ class ProductsAnalyzer
                         return $value->getIsFilter();
                     })) >= 1
                 ) {
-                    $propertyFiltersGroupSet++;
+                    $filtersGroupSetCount++;
                 }
             }
         }
 
-        if ($propertyFiltersGroupSet > 1) {
+        if ($filtersGroupSetCount > 1) {
             return true;
         }
 
