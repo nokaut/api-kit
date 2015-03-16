@@ -47,19 +47,43 @@ class SetIsNofollow implements CallbackInterface
             return;
         }
 
-        // Jesli dany property ma zaznaczona jakas ceche
-        // ale jesli jest filtrem to gdy ma zaznaczone wiecej niz dwie wartosci
-        $selectedFiltersEntitiesCount = $this->countSelectedFiltersEntities($property);
-        if ($selectedFiltersEntitiesCount >= 1) {
+        $countGroupsWithFilterSet = ProductsAnalyzer::countGroupsWithFilterSet($products, $property);
+
+        if ($countGroupsWithFilterSet >= 1) {
             /** @var FilterAbstract $value */
             foreach ($property as $value) {
-                if ($value->getIsFilter() and $selectedFiltersEntitiesCount <= 2) {
+                $value->setIsNofollow(true);
+            }
+            return;
+        }
+
+        $selectedFiltersEntitiesCount = $this->countSelectedFiltersEntities($property);
+
+        // jesli wartosc numeryczna filtra: nofollow, chyba ze odklik z jedynego filtra
+        $numericValueCount = 0;
+        foreach ($property as $value) {
+            if (is_numeric($value->getName())) {
+                $numericValueCount++;
+                if ($value->getIsFilter() and $selectedFiltersEntitiesCount == 1 and $countGroupsWithFilterSet == 0) {
                     $value->setIsNofollow(false);
                 } else {
                     $value->setIsNofollow(true);
                 }
+            }
+        }
 
-                if ($value->getIsFilter() and is_numeric($value->getName())) {
+        if ($numericValueCount) {
+            return;
+        }
+
+        // Jesli dany property ma zaznaczona jakas ceche
+        // ale jesli jest filtrem to gdy ma zaznaczone wiecej niz dwie wartosci
+        if ($selectedFiltersEntitiesCount >= 1) {
+            /** @var FilterAbstract $value */
+            foreach ($property as $value) {
+                if ($value->getIsFilter() and $selectedFiltersEntitiesCount <= 2 and $countGroupsWithFilterSet == 0) {
+                    $value->setIsNofollow(false);
+                } else {
                     $value->setIsNofollow(true);
                 }
             }

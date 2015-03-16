@@ -34,12 +34,23 @@ class SetIsNofollow implements CallbackInterface
             return;
         }
 
+        $countGroupsWithFilterSet = ProductsAnalyzer::countGroupsWithFilterSet($products,$shops);
+
+        if($countGroupsWithFilterSet >=1 ){
+            /** @var Shop $shop */
+            foreach ($shops as $shop) {
+                $shop->setIsNofollow(true);
+            }
+
+            return;
+        }
+
         $selectedShopEntitiesCount = count($this->getSelectedShopEntities($shops));
         if ($selectedShopEntitiesCount >= 1) {
             /** @var Shop $shop */
             foreach ($shops as $shop) {
                 if ($shop->getIsFilter()) {
-                    if ($selectedShopEntitiesCount <= 2) {
+                    if ($selectedShopEntitiesCount <= 2 and $countGroupsWithFilterSet == 0) {
                         $shop->setIsNofollow(false);
                     } else {
                         $shop->setIsNofollow(true);
