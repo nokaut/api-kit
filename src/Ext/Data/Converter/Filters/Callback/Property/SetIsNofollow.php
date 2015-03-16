@@ -58,6 +58,10 @@ class SetIsNofollow implements CallbackInterface
                 } else {
                     $value->setIsNofollow(true);
                 }
+
+                if ($value->getIsFilter() and is_numeric($value->getName())) {
+                    $value->setIsNofollow(true);
+                }
             }
             return;
         }

@@ -76,6 +76,7 @@ class ProductsAnalyzer
             return true;
         }
 
+        $propertyFiltersGroupSet = 0;
         foreach ($products->getProperties() as $property) {
             if ($property->getRanges()) {
                 if (count(array_filter($property->getRanges(), function ($range) {
@@ -84,8 +85,6 @@ class ProductsAnalyzer
                 ) {
                     if ($skipFilter instanceof PropertyAbstract and $property->getId() != $skipFilter->getId()) {
                         return true;
-                    } else {
-                        return false;
                     }
                 }
             } elseif ($property->getValues()) {
@@ -95,11 +94,33 @@ class ProductsAnalyzer
                 ) {
                     if ($skipFilter instanceof PropertyAbstract and $property->getId() != $skipFilter->getId()) {
                         return true;
-                    } else {
-                        return false;
+                    }
+                }
+
+                // if numeric filter is set
+                if (count(array_filter($property->getValues(), function ($value) {
+                        return (is_numeric($value->getName()) and $value->getIsFilter());
+                    })) >= 1
+                ) {
+                    if ($skipFilter instanceof PropertyAbstract and $property->getId() != $skipFilter->getId()) {
+                        return true;
+                    }
+                }
+
+                // if filter group is set - count them
+                if (count(array_filter($property->getValues(), function ($value) {
+                        return $value->getIsFilter();
+                    })) >= 1
+                ) {
+                    if ($skipFilter instanceof PropertyAbstract and $property->getId() != $skipFilter->getId()) {
+                        $propertyFiltersGroupSet++;
                     }
                 }
             }
+        }
+
+        if ($propertyFiltersGroupSet > 1) {
+            return true;
         }
 
         return false;
@@ -111,10 +132,65 @@ class ProductsAnalyzer
      */
     public static function productsNoindex(Products $products)
     {
-        if ($products->getMetadata()->getCanonical() != $products->getMetadata()->getUrl()) {
+        // if price filter is set
+        if (count(array_filter($products->getPrices(), function ($priceRange) {
+                /** @var PriceFacet $priceRange */
+                return $priceRange->getIsFilter();
+            })) >= 1
+        ) {
             return true;
-        } else {
-            return false;
         }
+
+        $filtersGroupSetCount = 0;
+
+        if (count(array_filter($products->getShops(), function ($shop) {
+                /** @var ShopFacet $shop */
+                return $shop->getIsFilter();
+            })) >= 1
+        ) {
+            $filtersGroupSetCount++;
+        }
+
+        if (count(array_filter($products->getProducers(), function ($producer) {
+                /** @var ProducerFacet $producer */
+                return $producer->getIsFilter();
+            })) >= 1
+        ) {
+            $filtersGroupSetCount++;
+        }
+
+        foreach ($products->getProperties() as $property) {
+            if ($property->getRanges()) {
+                // if range filter is set
+                if (count(array_filter($property->getRanges(), function ($range) {
+                        return $range->getIsFilter();
+                    })) >= 1
+                ) {
+                    return true;
+                }
+            } elseif ($property->getValues()) {
+                // if numeric filter is set
+                if (count(array_filter($property->getValues(), function ($value) {
+                        return (is_numeric($value->getName()) and $value->getIsFilter());
+                    })) >= 1
+                ) {
+                    return true;
+                }
+
+                // if filter group is set - count them
+                if (count(array_filter($property->getValues(), function ($value) {
+                        return $value->getIsFilter();
+                    })) >= 1
+                ) {
+                    $filtersGroupSetCount++;
+                }
+            }
+        }
+
+        if ($filtersGroupSetCount > 1) {
+            return true;
+        }
+
+        return false;
     }
 }

@@ -163,7 +163,7 @@ class SetIsNofollowTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    public function testOtherPropertiesValuesNoFollow()
+    public function testNumericPropertiesValuesNoFollow()
     {
         $productsConverter = new ProductsConverter();
         $products = $productsConverter->convert($this->getJsonFixture('telewizory-led-with-filters-without-range'));
@@ -204,7 +204,7 @@ class SetIsNofollowTest extends \PHPUnit_Framework_TestCase
                 /** @var PropertyAbstract $property */
                 foreach ($property as $value) {
                     if ($value->getIsFilter()) {
-                        $this->assertFalse($value->getIsNofollow());
+                        $this->assertTrue($value->getIsNofollow());
                     } else {
                         $this->assertTrue($value->getIsNofollow());
                     }

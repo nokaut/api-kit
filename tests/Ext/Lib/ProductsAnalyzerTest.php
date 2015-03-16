@@ -36,20 +36,24 @@ class ProductsAnalyzerTest extends \PHPUnit_Framework_TestCase
 
     public function testProductsNoindex()
     {
-        $products = new Products(array());
-        $metadata = new ProductsMetadata();
-        $metadata->setCanonical('/laptopy/sklep:x-kom-pl.html');
-        $metadata->setUrl('/laptopy/sklep:x-kom-pl.html');
-        $products->setMetadata($metadata);
+        $productsConverter = new ProductsConverter();
 
+        $products = $productsConverter->convert($this->getJsonFixture('laptopy'));
         $this->assertFalse(ProductsAnalyzer::productsNoindex($products));
 
-        $products = new Products(array());
-        $metadata = new ProductsMetadata();
-        $metadata->setCanonical('/laptopy/sklep:x-kom-pl.html');
-        $metadata->setUrl('/laptopy/sklep:x-kom-pl,cena:799.00~1775.25.html');
-        $products->setMetadata($metadata);
+        $products = $productsConverter->convert($this->getJsonFixture('laptopy-nofollow'));
+        $this->assertTrue(ProductsAnalyzer::productsNoindex($products));
 
+        $products = $productsConverter->convert($this->getJsonFixture('laptopy-with-filters'));
+        $this->assertTrue(ProductsAnalyzer::productsNoindex($products));
+
+        $products = $productsConverter->convert($this->getJsonFixture('telewizory-led-with-filters'));
+        $this->assertTrue(ProductsAnalyzer::productsNoindex($products));
+
+        $products = $productsConverter->convert($this->getJsonFixture('telewizory-led-with-filters-without-range'));
+        $this->assertTrue(ProductsAnalyzer::productsNoindex($products));
+
+        $products = $productsConverter->convert($this->getJsonFixture('telewizory-led-with-shop-selected'));
         $this->assertTrue(ProductsAnalyzer::productsNoindex($products));
     }
 
