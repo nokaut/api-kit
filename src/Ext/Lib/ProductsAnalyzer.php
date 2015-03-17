@@ -17,6 +17,15 @@ use Nokaut\ApiKit\Ext\Data\Collection\Filters\Shops;
 
 class ProductsAnalyzer
 {
+    const NOFOLLOW_SHOP_FILTER_SET_COUNT_MAX = 2;
+    const NOFOLLOW_PRODUCER_FILTER_SET_COUNT_MAX = 2;
+    const NOFOLLOW_PRICE_RANGE_FILTER_SET_COUNT_MAX = 1;
+    const NOFOLLOW_PROPERTY_FILTER_RANGE_SET_COUNT_MAX = 1;
+    const NOFOLLOW_PROPERTY_FILTER_VALUE_SET_COUNT_MAX = 2;
+    const NOFOLLOW_PROPERTY_FILTER_VALUE_NUMERIC_SET_COUNT_MAX = 1;
+    const NOFOLLOW_GROUPS_FILTER_SET_COUNT_MAX = 2;
+    const NOINDEX_GROUPS_FILTER_SET_COUNT_MAX = 2;
+
     /**
      * @var array
      */
@@ -142,30 +151,30 @@ class ProductsAnalyzer
     private static function areFiltersNofollow(Products $products, FiltersAbstract $skipFilter = null)
     {
         // shops
-        if (!($skipFilter instanceof Shops) and self::countShopFilterSet($products) >= 2) {
+        if (!($skipFilter instanceof Shops) and self::countShopFilterSet($products) >= self::NOFOLLOW_SHOP_FILTER_SET_COUNT_MAX) {
             return true;
         }
 
         // producers
-        if (!($skipFilter instanceof Producers) and self::countProducerFilterSet($products) >= 2) {
+        if (!($skipFilter instanceof Producers) and self::countProducerFilterSet($products) >= self::NOFOLLOW_PRODUCER_FILTER_SET_COUNT_MAX) {
             return true;
         }
 
         // price ranges
-        if (!($skipFilter instanceof PriceRanges) and self::countPriceRangeFilterSet($products) >= 1) {
+        if (!($skipFilter instanceof PriceRanges) and self::countPriceRangeFilterSet($products) >= self::NOFOLLOW_PRICE_RANGE_FILTER_SET_COUNT_MAX) {
             return true;
         }
 
         // properties
         foreach ($products->getProperties() as $property) {
             if ($property->getRanges()) {
-                if (self::countPropertyFilterSet($products, $property) >= 1) {
+                if (self::countPropertyFilterSet($products, $property) >= self::NOFOLLOW_PROPERTY_FILTER_RANGE_SET_COUNT_MAX) {
                     if ($skipFilter instanceof PropertyAbstract and $property->getId() != $skipFilter->getId()) {
                         return true;
                     }
                 }
             } elseif ($property->getValues()) {
-                if (self::countPropertyFilterSet($products, $property) >= 2) {
+                if (self::countPropertyFilterSet($products, $property) >= self::NOFOLLOW_PROPERTY_FILTER_VALUE_SET_COUNT_MAX) {
                     if ($skipFilter instanceof PropertyAbstract and $property->getId() != $skipFilter->getId()) {
                         return true;
                     }
@@ -174,7 +183,7 @@ class ProductsAnalyzer
                 // if numeric filter is set
                 if (count(array_filter($property->getValues(), function ($value) {
                         return (is_numeric($value->getName()) and $value->getIsFilter());
-                    })) >= 1
+                    })) >= self::NOFOLLOW_PROPERTY_FILTER_VALUE_NUMERIC_SET_COUNT_MAX
                 ) {
                     if ($skipFilter instanceof PropertyAbstract and $property->getId() != $skipFilter->getId()) {
                         return true;
@@ -183,7 +192,7 @@ class ProductsAnalyzer
             }
         }
 
-        if (self::countGroupsWithFilterSet($products, $skipFilter) > 1) {
+        if (self::countGroupsWithFilterSet($products, $skipFilter) >= self::NOFOLLOW_GROUPS_FILTER_SET_COUNT_MAX) {
             return true;
         }
 
@@ -196,24 +205,24 @@ class ProductsAnalyzer
      */
     public static function productsNoindex(Products $products)
     {
-        if (self::countPriceRangeFilterSet($products) >= 1) {
+        if (self::countPriceRangeFilterSet($products) >= self::NOFOLLOW_PRICE_RANGE_FILTER_SET_COUNT_MAX) {
             return true;
         }
 
-        if (self::countGroupsWithFilterSet($products) >= 2) {
+        if (self::countGroupsWithFilterSet($products) >= self::NOFOLLOW_GROUPS_FILTER_SET_COUNT_MAX) {
             return true;
         }
-        
+
         foreach ($products->getProperties() as $property) {
             if ($property->getRanges()) {
-                if (self::countPropertyFilterSet($products, $property) >= 1) {
+                if (self::countPropertyFilterSet($products, $property) >= self::NOFOLLOW_PROPERTY_FILTER_RANGE_SET_COUNT_MAX) {
                     return true;
                 }
             } elseif ($property->getValues()) {
                 // if numeric filter is set
                 if (count(array_filter($property->getValues(), function ($value) {
                         return (is_numeric($value->getName()) and $value->getIsFilter());
-                    })) >= 1
+                    })) >= self::NOFOLLOW_PROPERTY_FILTER_VALUE_NUMERIC_SET_COUNT_MAX
                 ) {
                     return true;
                 }
