@@ -47,9 +47,9 @@ class SetIsNofollow implements CallbackInterface
             return;
         }
 
-        $countGroupsWithFilterSet = ProductsAnalyzer::countGroupsWithFilterSet($products, $property);
+        $countOtherGroupsWithFilterSet = ProductsAnalyzer::countGroupsWithFilterSet($products, $property);
 
-        if ($countGroupsWithFilterSet >= 1) {
+        if ($countOtherGroupsWithFilterSet >= 1) {
             /** @var FilterAbstract $value */
             foreach ($property as $value) {
                 $value->setIsNofollow(true);
@@ -64,7 +64,7 @@ class SetIsNofollow implements CallbackInterface
         foreach ($property as $value) {
             if (is_numeric($value->getName())) {
                 $numericValueCount++;
-                if ($value->getIsFilter() and $selectedFiltersEntitiesCount == 1 and $countGroupsWithFilterSet == 0) {
+                if ($value->getIsFilter() and $selectedFiltersEntitiesCount == 1 and $countOtherGroupsWithFilterSet == 0) {
                     $value->setIsNofollow(false);
                 } else {
                     $value->setIsNofollow(true);
@@ -81,7 +81,7 @@ class SetIsNofollow implements CallbackInterface
         if ($selectedFiltersEntitiesCount >= 1) {
             /** @var FilterAbstract $value */
             foreach ($property as $value) {
-                if ($value->getIsFilter() and $selectedFiltersEntitiesCount <= 2 and $countGroupsWithFilterSet == 0) {
+                if ($value->getIsFilter() and $selectedFiltersEntitiesCount <= 2 and $countOtherGroupsWithFilterSet == 0) {
                     $value->setIsNofollow(false);
                 } else {
                     $value->setIsNofollow(true);

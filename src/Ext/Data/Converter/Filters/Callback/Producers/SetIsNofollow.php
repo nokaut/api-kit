@@ -34,9 +34,9 @@ class SetIsNofollow implements CallbackInterface
             return;
         }
 
-        $countGroupsWithFilterSet = ProductsAnalyzer::countGroupsWithFilterSet($products,$producers);
+        $countOtherGroupsWithFilterSet = ProductsAnalyzer::countGroupsWithFilterSet($products,$producers);
 
-        if($countGroupsWithFilterSet >=1 ){
+        if($countOtherGroupsWithFilterSet >=1 ){
             /** @var Producer $producer */
             foreach ($producers as $producer) {
                 $producer->setIsNofollow(true);
@@ -50,7 +50,7 @@ class SetIsNofollow implements CallbackInterface
             /** @var Producer $producer */
             foreach ($producers as $producer) {
                 if ($producer->getIsFilter()) {
-                    if ($selectedProducerEntitiesCount <= 2 and $countGroupsWithFilterSet == 0) {
+                    if ($selectedProducerEntitiesCount <= 2 and $countOtherGroupsWithFilterSet == 0) {
                         $producer->setIsNofollow(false);
                     } else {
                         $producer->setIsNofollow(true);
