@@ -27,9 +27,14 @@ class SetIsNofollow implements CallbackInterface
     {
         // kategorie nie wplywaja na globalny stan nofollow, nie ma znaczenia ich ilosc
         if (ProductsAnalyzer::filtersNofollow($products)) {
+            $countGroupsWithFilterSet = ProductsAnalyzer::countGroupsWithFilterSet($products);
             /** @var Category $category */
             foreach ($categories as $category) {
-                $category->setIsNofollow(true);
+                if($countGroupsWithFilterSet > 1) {
+                    $category->setIsNofollow(true);
+                }else{
+                    $category->setIsNofollow(false);
+                }
             }
 
             return;
