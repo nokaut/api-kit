@@ -41,11 +41,13 @@ class OffersRepository extends RepositoryAbstract
      * @param $productId
      * @param array $fields
      * @param Sort $sort
+     * @param int $limit
      * @return Offers
+     * @throws \Exception
      */
-    public function fetchOffersByProductId($productId, array $fields, Sort $sort = null)
+    public function fetchOffersByProductId($productId, array $fields, Sort $sort = null, $limit = 200)
     {
-        $query = $this->prepareQueryForFetchOffersByProductId($productId, $fields, $sort);
+        $query = $this->prepareQueryForFetchOffersByProductId($productId, $fields, $sort, $limit);
         $fetch = new OffersFetch($query, $this->cache);
         $this->clientApi->send($fetch);
 
@@ -98,9 +100,10 @@ class OffersRepository extends RepositoryAbstract
      * @param $productId
      * @param array $fields
      * @param Sort $sort
+     * @param int $limit
      * @return OffersQuery
      */
-    protected function prepareQueryForFetchOffersByProductId($productId, array $fields, Sort $sort = null)
+    protected function prepareQueryForFetchOffersByProductId($productId, array $fields, Sort $sort = null, $limit = 200)
     {
         $query = new OffersQuery($this->apiBaseUrl);
         $query->setFields($fields);
@@ -108,6 +111,9 @@ class OffersRepository extends RepositoryAbstract
 
         if ($sort) {
             $query->setOrder($sort->getField(), $sort->getOrder());
+        }
+        if ($limit) {
+            $query->setLimit($limit);
         }
         return $query;
     }
