@@ -7,6 +7,7 @@ namespace Nokaut\ApiKit\Ext\Lib;
 use Nokaut\ApiKit\Collection\Products;
 use Nokaut\ApiKit\Entity\Metadata\Facet\PriceFacet;
 use Nokaut\ApiKit\Entity\Metadata\Facet\ProducerFacet;
+use Nokaut\ApiKit\Entity\Metadata\Facet\PropertyFacet;
 use Nokaut\ApiKit\Entity\Metadata\Facet\ShopFacet;
 use Nokaut\ApiKit\Ext\Data\Collection\Filters\FiltersAbstract;
 use Nokaut\ApiKit\Ext\Data\Collection\Filters\PriceRanges;
@@ -16,6 +17,15 @@ use Nokaut\ApiKit\Ext\Data\Collection\Filters\Shops;
 
 class ProductsAnalyzer
 {
+    const NOFOLLOW_SHOP_FILTER_SET_COUNT_MAX = 2;
+    const NOFOLLOW_PRODUCER_FILTER_SET_COUNT_MAX = 2;
+    const NOFOLLOW_PRICE_RANGE_FILTER_SET_COUNT_MAX = 1;
+    const NOFOLLOW_PROPERTY_FILTER_RANGE_SET_COUNT_MAX = 1;
+    const NOFOLLOW_PROPERTY_FILTER_VALUE_SET_COUNT_MAX = 2;
+    const NOFOLLOW_PROPERTY_FILTER_VALUE_NUMERIC_SET_COUNT_MAX = 1;
+    const NOFOLLOW_GROUPS_FILTER_SET_COUNT_MAX = 2;
+    const NOINDEX_GROUPS_FILTER_SET_COUNT_MAX = 2;
+
     /**
      * @var array
      */
@@ -36,13 +46,101 @@ class ProductsAnalyzer
         return self::$cache[$cacheKey];
     }
 
-    private static function getCacheKey(Products $products, FiltersAbstract $skipFilter = null)
+    private static function getCacheKey(Products $products, FiltersAbstract $skipFilter = null, $additionalKey = null)
     {
         $cacheKey = $products->getMetadata() ? $products->getMetadata()->getUrl() : serialize($products->getEntities());
         $cacheKey .= get_class($skipFilter);
         $cacheKey .= ($skipFilter instanceof PropertyAbstract ? $skipFilter->getId() : '');
 
+        if ($additionalKey) {
+            $cacheKey .= $additionalKey;
+        }
+
         return md5($cacheKey);
+    }
+
+    private static function countShopFilterSet(Products $products)
+    {
+        $cacheKey = self::getCacheKey($products, null, __METHOD__);
+
+        if (!isset(self::$cache[$cacheKey])) {
+            self::$cache[$cacheKey] = count(array_filter($products->getShops(), function ($shop) {
+                /** @var ShopFacet $shop */
+                return $shop->getIsFilter();
+            }));
+
+        }
+
+        return self::$cache[$cacheKey];
+    }
+
+    private static function countProducerFilterSet(Products $products)
+    {
+        $cacheKey = self::getCacheKey($products, null, __METHOD__);
+
+        if (!isset(self::$cache[$cacheKey])) {
+            self::$cache[$cacheKey] = count(array_filter($products->getProducers(), function ($producer) {
+                /** @var ProducerFacet $producer */
+                return $producer->getIsFilter();
+            }));
+
+        }
+
+        return self::$cache[$cacheKey];
+    }
+
+    private static function countPriceRangeFilterSet(Products $products)
+    {
+        $cacheKey = self::getCacheKey($products, null, __METHOD__);
+
+        if (!isset(self::$cache[$cacheKey])) {
+            self::$cache[$cacheKey] = count(array_filter($products->getPrices(), function ($priceRange) {
+                /** @var PriceFacet $priceRange */
+                return $priceRange->getIsFilter();
+            }));
+        }
+
+        return self::$cache[$cacheKey];
+    }
+
+    private static function countPropertyFilterSet(Products $products, PropertyFacet $property)
+    {
+        $cacheKey = self::getCacheKey($products, null, __METHOD__ . $property->getId());
+
+        if (!isset(self::$cache[$cacheKey])) {
+
+            if ($property->getRanges()) {
+                self::$cache[$cacheKey] = count(array_filter($property->getRanges(), function ($range) {
+                    return $range->getIsFilter();
+                }));
+            } elseif ($property->getValues()) {
+                self::$cache[$cacheKey] = count(array_filter($property->getValues(), function ($value) {
+                    return $value->getIsFilter();
+                }));
+            }
+        }
+
+        return self::$cache[$cacheKey];
+    }
+
+    public static function countGroupsWithFilterSet(Products $products, FiltersAbstract $skipFilter = null)
+    {
+        $groupsWithFiltersCount = 0;
+        $groupsWithFiltersCount += (!($skipFilter instanceof Shops) and self::countShopFilterSet($products)) ? 1 : 0;
+        $groupsWithFiltersCount += (!($skipFilter instanceof Producers) and self::countProducerFilterSet($products)) ? 1 : 0;
+        $groupsWithFiltersCount += (!($skipFilter instanceof PriceRanges) and self::countPriceRangeFilterSet($products)) ? 1 : 0;
+
+        foreach ($products->getProperties() as $property) {
+            if (($skipFilter instanceof PropertyAbstract)) {
+                if ($property->getId() != $skipFilter->getId()) {
+                    $groupsWithFiltersCount += self::countPropertyFilterSet($products, $property) ? 1 : 0;
+                }
+            } else {
+                $groupsWithFiltersCount += self::countPropertyFilterSet($products, $property) ? 1 : 0;
+            }
+        }
+
+        return $groupsWithFiltersCount;
     }
 
     /**
@@ -52,46 +150,31 @@ class ProductsAnalyzer
      */
     private static function areFiltersNofollow(Products $products, FiltersAbstract $skipFilter = null)
     {
-        if (!($skipFilter instanceof Shops) and count(array_filter($products->getShops(), function ($shop) {
-                /** @var ShopFacet $shop */
-                return $shop->getIsFilter();
-            })) >= 2
-        ) {
+        // shops
+        if (!($skipFilter instanceof Shops) and self::countShopFilterSet($products) >= self::NOFOLLOW_SHOP_FILTER_SET_COUNT_MAX) {
             return true;
         }
 
-        if (!($skipFilter instanceof Producers) and count(array_filter($products->getProducers(), function ($producer) {
-                /** @var ProducerFacet $producer */
-                return $producer->getIsFilter();
-            })) >= 2
-        ) {
+        // producers
+        if (!($skipFilter instanceof Producers) and self::countProducerFilterSet($products) >= self::NOFOLLOW_PRODUCER_FILTER_SET_COUNT_MAX) {
             return true;
         }
 
-        if (!($skipFilter instanceof PriceRanges) and count(array_filter($products->getPrices(), function ($priceRange) {
-                /** @var PriceFacet $priceRange */
-                return $priceRange->getIsFilter();
-            })) >= 1
-        ) {
+        // price ranges
+        if (!($skipFilter instanceof PriceRanges) and self::countPriceRangeFilterSet($products) >= self::NOFOLLOW_PRICE_RANGE_FILTER_SET_COUNT_MAX) {
             return true;
         }
 
-        $propertyFiltersGroupSet = 0;
+        // properties
         foreach ($products->getProperties() as $property) {
             if ($property->getRanges()) {
-                if (count(array_filter($property->getRanges(), function ($range) {
-                        return $range->getIsFilter();
-                    })) >= 1
-                ) {
+                if (self::countPropertyFilterSet($products, $property) >= self::NOFOLLOW_PROPERTY_FILTER_RANGE_SET_COUNT_MAX) {
                     if ($skipFilter instanceof PropertyAbstract and $property->getId() != $skipFilter->getId()) {
                         return true;
                     }
                 }
             } elseif ($property->getValues()) {
-                if (count(array_filter($property->getValues(), function ($range) {
-                        return $range->getIsFilter();
-                    })) >= 2
-                ) {
+                if (self::countPropertyFilterSet($products, $property) >= self::NOFOLLOW_PROPERTY_FILTER_VALUE_SET_COUNT_MAX) {
                     if ($skipFilter instanceof PropertyAbstract and $property->getId() != $skipFilter->getId()) {
                         return true;
                     }
@@ -100,26 +183,16 @@ class ProductsAnalyzer
                 // if numeric filter is set
                 if (count(array_filter($property->getValues(), function ($value) {
                         return (is_numeric($value->getName()) and $value->getIsFilter());
-                    })) >= 1
+                    })) >= self::NOFOLLOW_PROPERTY_FILTER_VALUE_NUMERIC_SET_COUNT_MAX
                 ) {
                     if ($skipFilter instanceof PropertyAbstract and $property->getId() != $skipFilter->getId()) {
                         return true;
                     }
                 }
-
-                // if filter group is set - count them
-                if (count(array_filter($property->getValues(), function ($value) {
-                        return $value->getIsFilter();
-                    })) >= 1
-                ) {
-                    if ($skipFilter instanceof PropertyAbstract and $property->getId() != $skipFilter->getId()) {
-                        $propertyFiltersGroupSet++;
-                    }
-                }
             }
         }
 
-        if ($propertyFiltersGroupSet > 1) {
+        if (self::countGroupsWithFilterSet($products, $skipFilter) >= self::NOFOLLOW_GROUPS_FILTER_SET_COUNT_MAX) {
             return true;
         }
 
@@ -132,63 +205,28 @@ class ProductsAnalyzer
      */
     public static function productsNoindex(Products $products)
     {
-        // if price filter is set
-        if (count(array_filter($products->getPrices(), function ($priceRange) {
-                /** @var PriceFacet $priceRange */
-                return $priceRange->getIsFilter();
-            })) >= 1
-        ) {
+        if (self::countPriceRangeFilterSet($products) >= self::NOFOLLOW_PRICE_RANGE_FILTER_SET_COUNT_MAX) {
             return true;
         }
 
-        $filtersGroupSetCount = 0;
-
-        if (count(array_filter($products->getShops(), function ($shop) {
-                /** @var ShopFacet $shop */
-                return $shop->getIsFilter();
-            })) >= 1
-        ) {
-            $filtersGroupSetCount++;
-        }
-
-        if (count(array_filter($products->getProducers(), function ($producer) {
-                /** @var ProducerFacet $producer */
-                return $producer->getIsFilter();
-            })) >= 1
-        ) {
-            $filtersGroupSetCount++;
+        if (self::countGroupsWithFilterSet($products) >= self::NOFOLLOW_GROUPS_FILTER_SET_COUNT_MAX) {
+            return true;
         }
 
         foreach ($products->getProperties() as $property) {
             if ($property->getRanges()) {
-                // if range filter is set
-                if (count(array_filter($property->getRanges(), function ($range) {
-                        return $range->getIsFilter();
-                    })) >= 1
-                ) {
+                if (self::countPropertyFilterSet($products, $property) >= self::NOFOLLOW_PROPERTY_FILTER_RANGE_SET_COUNT_MAX) {
                     return true;
                 }
             } elseif ($property->getValues()) {
                 // if numeric filter is set
                 if (count(array_filter($property->getValues(), function ($value) {
                         return (is_numeric($value->getName()) and $value->getIsFilter());
-                    })) >= 1
+                    })) >= self::NOFOLLOW_PROPERTY_FILTER_VALUE_NUMERIC_SET_COUNT_MAX
                 ) {
                     return true;
                 }
-
-                // if filter group is set - count them
-                if (count(array_filter($property->getValues(), function ($value) {
-                        return $value->getIsFilter();
-                    })) >= 1
-                ) {
-                    $filtersGroupSetCount++;
-                }
             }
-        }
-
-        if ($filtersGroupSetCount > 1) {
-            return true;
         }
 
         return false;

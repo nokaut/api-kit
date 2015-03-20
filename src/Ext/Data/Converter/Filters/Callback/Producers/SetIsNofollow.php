@@ -34,12 +34,23 @@ class SetIsNofollow implements CallbackInterface
             return;
         }
 
+        $countOtherGroupsWithFilterSet = ProductsAnalyzer::countGroupsWithFilterSet($products,$producers);
+
+        if($countOtherGroupsWithFilterSet >=1 ){
+            /** @var Producer $producer */
+            foreach ($producers as $producer) {
+                $producer->setIsNofollow(true);
+            }
+
+            return;
+        }
+
         $selectedProducerEntitiesCount = count($this->getSelectedProducerEntities($producers));
         if ($selectedProducerEntitiesCount >= 1) {
             /** @var Producer $producer */
             foreach ($producers as $producer) {
                 if ($producer->getIsFilter()) {
-                    if ($selectedProducerEntitiesCount <= 2) {
+                    if ($selectedProducerEntitiesCount <= 2 and $countOtherGroupsWithFilterSet == 0) {
                         $producer->setIsNofollow(false);
                     } else {
                         $producer->setIsNofollow(true);
