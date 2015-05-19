@@ -30,7 +30,7 @@ class CategoryConverter implements ConverterInterface
         return $category;
     }
 
-    private function convertSubObject(Category $category, $filed, $value)
+    protected function convertSubObject(Category $category, $filed, $value)
     {
         switch ($filed) {
             case 'path':
