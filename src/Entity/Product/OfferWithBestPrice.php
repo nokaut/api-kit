@@ -28,6 +28,11 @@ class OfferWithBestPrice extends EntityAbstract
     protected $id;
 
     /**
+     * @var \Nokaut\ApiKit\Entity\Offer\Shop
+     */
+    protected $shop;
+
+    /**
      * @param string $click_url
      */
     public function setClickUrl($click_url)
@@ -73,6 +78,22 @@ class OfferWithBestPrice extends EntityAbstract
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return \Nokaut\ApiKit\Entity\Offer\Shop
+     */
+    public function getShop()
+    {
+        return $this->shop;
+    }
+
+    /**
+     * @param \Nokaut\ApiKit\Entity\Offer\Shop $shop
+     */
+    public function setShop($shop)
+    {
+        $this->shop = $shop;
     }
 
 }

@@ -7,6 +7,7 @@ master
 - Dodanie description_short do Offer
 - CategoryFacet: dodanie pola subcategory_count
 - logi: zmiana poziomu logowania odpowiedzi z API z statusem 404 z ERROR na INFO
+- OfferWithBestPrice: dodanie pola sklep
 
 v1.5.0
 ------

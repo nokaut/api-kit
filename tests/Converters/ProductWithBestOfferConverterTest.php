@@ -52,19 +52,16 @@ class ProductWithBestOfferConverterTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($correctBestOffer->click_url, $bestOffer->getClickUrl());
         $this->assertEquals($correctBestOffer->price, $bestOffer->getPrice());
         $this->assertEquals($correctBestOffer->id, $bestOffer->getId());
+        $this->assertEquals($correctBestOffer->shop->id, $bestOffer->getShop()->getId());
+        $this->assertEquals($correctBestOffer->shop->name, $bestOffer->getShop()->getName());
+        $this->assertEquals($correctBestOffer->shop->url_logo, $bestOffer->getShop()->getUrlLogo());
+        $this->assertEquals($correctBestOffer->shop->opineo_rating->rating, $bestOffer->getShop()->getOpineoRating()->getRating());
+        $this->assertEquals($correctBestOffer->shop->opineo_rating->rating_count, $bestOffer->getShop()->getOpineoRating()->getRatingCount());
+        $this->assertEquals($correctBestOffer->shop->opineo_rating->url, $bestOffer->getShop()->getOpineoRating()->getUrl());
     }
 
     private function getCorrectObject()
     {
-        return json_decode('{
-            "id": "50ab37b982fff088e8000ee9",
-            "title": "Apple iPad mini 64GB",
-            "url": "tablety/apple-ipad-mini-64gb",
-            "offer_with_minimum_price": {
-                "click_url": "/Click/Offer/?click=NycoA70pboxDHgLjorC2iKqMwEgIKlOorEflQhdXfzevyV1wMblHBaxf$P3YHaxmZG806J5khwe9Qkex8zhC6oOgyzKFfwUBCYzF*E$3rcw_P.API_1_1_category_sort3desc",
-                "price": 490.00,
-                "id": "658feec1da0d4841bdcdaf2546bf3d80"
-            }
-        }');
+        return json_decode(file_get_contents(dirname(__DIR__) . '/fixtures/Converters/testProductWithBestOffer.json'));
     }
 }
