@@ -57,11 +57,13 @@ class CategoriesRepository extends RepositoryAbstract
     /**
      * @param int $parentId
      * @param int $depth - max depth is 2
+     * @param array $fields
      * @return Categories
+     * @throws \Exception
      */
-    public function fetchByParentIdWithChildren($parentId, $depth = 2)
+    public function fetchByParentIdWithChildren($parentId, $depth = 2, $fields = null)
     {
-        $query = $this->prepareQueryForFetchByParentIdWithChildren($parentId, $depth);
+        $query = $this->prepareQueryForFetchByParentIdWithChildren($parentId, $depth, $fields);
         $fetch = new Fetch($query, new CategoriesGrouperConverter(), $this->cache);
         $this->clientApi->send($fetch);
 
@@ -70,11 +72,13 @@ class CategoriesRepository extends RepositoryAbstract
 
     /**
      * @param $parentId
+     * @param array $fields
      * @return Categories
+     * @throws \Exception
      */
-    public function fetchByParentId($parentId)
+    public function fetchByParentId($parentId, $fields = null)
     {
-        $query = $this->prepareQueryForFetchByParentId($parentId);
+        $query = $this->prepareQueryForFetchByParentId($parentId, $fields);
         $fetch = new CategoriesFetch($query, $this->cache);
         $this->clientApi->send($fetch);
         return $fetch->getResult();
@@ -82,11 +86,13 @@ class CategoriesRepository extends RepositoryAbstract
 
     /**
      * @param $categoryId
+     * @param array $fields
      * @return Category
+     * @throws \Exception
      */
-    public function fetchById($categoryId)
+    public function fetchById($categoryId, $fields = null)
     {
-        $query = $this->prepareQueryForFetchById($categoryId);
+        $query = $this->prepareQueryForFetchById($categoryId, $fields);
         $fetch = new CategoryFetch($query, $this->cache);
         $this->clientApi->send($fetch);
         return $fetch->getResult();
@@ -94,11 +100,13 @@ class CategoriesRepository extends RepositoryAbstract
 
     /**
      * @param $categoryUrl
+     * @param array $fields
      * @return Category
+     * @throws \Exception
      */
-    public function fetchByUrl($categoryUrl)
+    public function fetchByUrl($categoryUrl, $fields = null)
     {
-        $query = $this->prepareQueryForFetchByUrl($categoryUrl);
+        $query = $this->prepareQueryForFetchByUrl($categoryUrl, $fields);
         $fetch = new CategoryFetch($query, $this->cache);
         $this->clientApi->send($fetch);
         return $fetch->getResult();
@@ -115,9 +123,9 @@ class CategoriesRepository extends RepositoryAbstract
         return $categories;
     }
 
-    public function fetchCategoriesByIds(array $ids, $limit = 200)
+    public function fetchCategoriesByIds(array $ids, $limit = 200, $fields = null)
     {
-        $query = $this->prepareQueryForFetchCategoriesByIds($ids, $limit);
+        $query = $this->prepareQueryForFetchCategoriesByIds($ids, $limit, $fields);
         $fetch = new CategoriesFetch($query, $this->cache);
         $this->clientApi->send($fetch);
         /** @var Categories $categories */
@@ -130,12 +138,17 @@ class CategoriesRepository extends RepositoryAbstract
     /**
      * @param $parentId
      * @param $depth
+     * @param array $fields
      * @return CategoriesQuery
      */
-    protected function prepareQueryForFetchByParentIdWithChildren($parentId, $depth)
+    protected function prepareQueryForFetchByParentIdWithChildren($parentId, $depth, $fields = null)
     {
         $query = new CategoriesQuery($this->apiBaseUrl);
-        $query->setFields($this->getFieldsWithoutDescription());
+        if ($fields) {
+            $query->setFields($fields);
+        } else {
+            $query->setFields($this->getFieldsWithoutDescription());
+        }
         $query->setParentId($parentId);
         $query->setDepth($depth);
         return $query;
@@ -143,36 +156,51 @@ class CategoriesRepository extends RepositoryAbstract
 
     /**
      * @param $parentId
+     * @param array $fields
      * @return CategoriesQuery
      */
-    protected function prepareQueryForFetchByParentId($parentId)
+    protected function prepareQueryForFetchByParentId($parentId, $fields = null)
     {
         $query = new CategoriesQuery($this->apiBaseUrl);
-        $query->setFields($this->getFieldsWithoutDescription());
+        if ($fields) {
+            $query->setFields($fields);
+        } else {
+            $query->setFields($this->getFieldsWithoutDescription());
+        }
         $query->setParentId($parentId);
         return $query;
     }
 
     /**
      * @param $categoryId
+     * @param array $fields
      * @return CategoryQuery
      */
-    protected function prepareQueryForFetchById($categoryId)
+    protected function prepareQueryForFetchById($categoryId, $fields = null)
     {
         $query = new CategoryQuery($this->apiBaseUrl);
-        $query->setFields(self::$fieldsAll);
+        if ($fields) {
+            $query->setFields($fields);
+        } else {
+            $query->setFields(self::$fieldsAll);
+        }
         $query->setId($categoryId);
         return $query;
     }
 
     /**
      * @param $categoryUrl
+     * @param array $fields
      * @return CategoryQuery
      */
-    protected function prepareQueryForFetchByUrl($categoryUrl)
+    protected function prepareQueryForFetchByUrl($categoryUrl, $fields = null)
     {
         $query = new CategoryQuery($this->apiBaseUrl);
-        $query->setFields(self::$fieldsAll);
+        if ($fields) {
+            $query->setFields($fields);
+        } else {
+            $query->setFields(self::$fieldsAll);
+        }
         $query->setUrl($categoryUrl);
         return $query;
     }
@@ -192,12 +220,17 @@ class CategoriesRepository extends RepositoryAbstract
     /**
      * @param array $ids
      * @param int $limit
+     * @param array $fields
      * @return CategoriesQuery
      */
-    protected function prepareQueryForFetchCategoriesByIds(array $ids, $limit)
+    protected function prepareQueryForFetchCategoriesByIds(array $ids, $limit, $fields = null)
     {
         $query = new CategoriesQuery($this->apiBaseUrl);
-        $query->setFields(self::getFieldsWithoutDescription());
+        if ($fields) {
+            $query->setFields($fields);
+        } else {
+            $query->setFields($this->getFieldsWithoutDescription());
+        }
         $query->setCategoryIds($ids);
         $query->setLimit($limit);
         return $query;

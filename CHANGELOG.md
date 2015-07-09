@@ -8,6 +8,7 @@ master
 - CategoryFacet: dodanie pola subcategory_count
 - logi: zmiana poziomu logowania odpowiedzi z API z statusem 404 z ERROR na INFO
 - OfferWithBestPrice: dodanie pola sklep
+- CategoriesRepository, CategoriesAsyncRepository: możliwość podania pól kategorii w odpytaniach do API
 
 v1.5.0
 ------

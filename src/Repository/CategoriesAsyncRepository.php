@@ -47,44 +47,48 @@ class CategoriesAsyncRepository extends CategoriesRepository implements AsyncRep
     /**
      * @param int $parentId
      * @param int $depth
+     * @param array $fields
      * @return CategoriesFetch
      */
-    public function fetchByParentIdWithChildren($parentId, $depth = 2)
+    public function fetchByParentIdWithChildren($parentId, $depth = 2, $fields = null)
     {
-        $categoriesAsyncFetch = new Fetch($this->prepareQueryForFetchByParentIdWithChildren($parentId, $depth),new CategoriesGrouperConverter(), $this->cache);
+        $categoriesAsyncFetch = new Fetch($this->prepareQueryForFetchByParentIdWithChildren($parentId, $depth, $fields),new CategoriesGrouperConverter(), $this->cache);
         $this->asyncRepo->addFetch($categoriesAsyncFetch);
         return $categoriesAsyncFetch;
     }
 
     /**
      * @param $parentId
+     * @param array $fields
      * @return CategoriesFetch
      */
-    public function fetchByParentId($parentId)
+    public function fetchByParentId($parentId, $fields = null)
     {
-        $categoriesAsyncFetch = new CategoriesFetch($this->prepareQueryForFetchByParentId($parentId), $this->cache);
+        $categoriesAsyncFetch = new CategoriesFetch($this->prepareQueryForFetchByParentId($parentId, $fields), $this->cache);
         $this->asyncRepo->addFetch($categoriesAsyncFetch);
         return $categoriesAsyncFetch;
     }
 
     /**
      * @param $categoryId
+     * @param array $fields
      * @return CategoryFetch
      */
-    public function fetchById($categoryId)
+    public function fetchById($categoryId, $fields = null)
     {
-        $categoryAsyncFetch = new CategoryFetch($this->prepareQueryForFetchById($categoryId), $this->cache);
+        $categoryAsyncFetch = new CategoryFetch($this->prepareQueryForFetchById($categoryId, $fields), $this->cache);
         $this->asyncRepo->addFetch($categoryAsyncFetch);
         return $categoryAsyncFetch;
     }
 
     /**
      * @param $categoryUrl
+     * @param array $fields
      * @return CategoryFetch
      */
-    public function fetchByUrl($categoryUrl)
+    public function fetchByUrl($categoryUrl, $fields = null)
     {
-        $categoryAsyncFetch = new CategoryFetch($this->prepareQueryForFetchByUrl($categoryUrl), $this->cache);
+        $categoryAsyncFetch = new CategoryFetch($this->prepareQueryForFetchByUrl($categoryUrl, $fields), $this->cache);
         $this->asyncRepo->addFetch($categoryAsyncFetch);
         return $categoryAsyncFetch;
     }
@@ -102,11 +106,12 @@ class CategoriesAsyncRepository extends CategoriesRepository implements AsyncRep
     /**
      * @param array $ids
      * @param int $limit
+     * @param array $fields
      * @return CategoriesFetch
      */
-    public function fetchCategoriesByIds(array $ids, $limit = 200)
+    public function fetchCategoriesByIds(array $ids, $limit = 200, $fields = null)
     {
-        $categoriesAsyncFetch = new CategoriesFetch($this->prepareQueryForFetchCategoriesByIds($ids, $limit), $this->cache);
+        $categoriesAsyncFetch = new CategoriesFetch($this->prepareQueryForFetchCategoriesByIds($ids, $limit, $fields), $this->cache);
         $this->asyncRepo->addFetch($categoriesAsyncFetch);
         return $categoriesAsyncFetch;
     }
