@@ -25,7 +25,7 @@ use Nokaut\ApiKit\Collection\Sort\CategoriesSort;
 class CategoriesRepository extends RepositoryAbstract
 {
 
-    protected static $fieldsAll = array(
+    public static $fieldsAll = array(
         'id',
         'cpc_value',
         'depth',
