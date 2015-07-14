@@ -18,6 +18,7 @@ use Nokaut\ApiKit\ClientApi\ClientApiInterface;
 use Nokaut\ApiKit\ClientApi\Rest\Exception\FatalResponseException;
 use Nokaut\ApiKit\ClientApi\Rest\Exception\InvalidRequestException;
 use Nokaut\ApiKit\ClientApi\Rest\Exception\NotFoundException;
+use Nokaut\ApiKit\ClientApi\Rest\Exception\UnprocessableEntityException;
 use Nokaut\ApiKit\ClientApi\Rest\Fetch\Fetch;
 use Nokaut\ApiKit\ClientApi\Rest\Fetch\Fetches;
 use Psr\Log\LoggerInterface;
@@ -311,6 +312,10 @@ class RestClientApi implements ClientApiInterface
 
         if ($statusCode == 400) {
             return new InvalidRequestException($exceptionMessage);
+        }
+
+        if ($statusCode == 422) {
+            return new UnprocessableEntityException($exceptionMessage);
         }
 
         return new FatalResponseException($exceptionMessage, $statusCode);

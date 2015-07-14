@@ -228,6 +228,33 @@ class RestClientApiTest extends \PHPUnit_Framework_TestCase
         $fetches->getItem(0)->getResult(true);
     }
 
+
+    /**
+     * @expectedException \Nokaut\ApiKit\ClientApi\Rest\Exception\UnprocessableEntityException
+     */
+    public function testSendWithUnprocessableEntityException()
+    {
+        $oauth2 = $this->prepareOauth();
+        $loggerMock = $this->getMock('Psr\Log\LoggerInterface');
+
+        $request = $this->getMockBuilder('\Guzzle\Http\Message\Request')->disableOriginalConstructor()->getMock();
+        $response = $this->getMockBuilder('\Guzzle\Http\Message\Response')->disableOriginalConstructor()->getMock();
+        $response->expects($this->any())->method('getStatusCode')->will($this->returnValue(422));
+
+        $exceptionFromApi = new \Guzzle\Http\Exception\BadResponseException();
+        $exceptionFromApi->setRequest($request);
+        $exceptionFromApi->setResponse($response);
+
+        $client = $this->getMockBuilder('\Guzzle\Http\Client')->disableOriginalConstructor()->getMock();
+        $client->expects($this->exactly(1))->method('send')->will($this->throwException($exceptionFromApi));
+
+        $cutMock = $this->prepareCut($loggerMock, $oauth2, $client);
+
+        $fetch = $this->prepareFetch();
+        $cutMock->send($fetch);
+
+    }
+
     /**
      * @return Oauth2Plugin
      */
