@@ -159,7 +159,7 @@ class ApiKit
     {
         $oauth2 = new Oauth2Plugin();
         $accessToken = array(
-            'access_token' => $this->config->getApiAccessToken()
+            'access_token' => $config->getApiAccessToken()
         );
         $oauth2->setAccessToken($accessToken);
         return new RestClientApi($config->getLogger(), $oauth2);
