@@ -86,7 +86,8 @@ class CategoryConverterTest extends PHPUnit_Framework_TestCase
                  "photo_id": "9f91883f268a2674c9166c9339e0eed6",
                  "subcategory_count": 0,
                  "url": "/alkohole",
-                 "view_type": "list"
+                 "view_type": "list",
+                 "title_type_singular": "Alkohol"
                 }';
     }
 } 

@@ -82,6 +82,10 @@ class Category extends EntityAbstract
      * @var int
      */
     protected $total;
+    /**
+     * @var string
+     */
+    protected $title_type_singular;
 
     /**
      * @param float $cpc_value
@@ -354,6 +358,23 @@ class Category extends EntityAbstract
     {
         return $this->total;
     }
+
+    /**
+     * @return string
+     */
+    public function getTitleTypeSingular()
+    {
+        return $this->title_type_singular;
+    }
+
+    /**
+     * @param string $title_type_singular
+     */
+    public function setTitleTypeSingular($title_type_singular)
+    {
+        $this->title_type_singular = $title_type_singular;
+    }
+
 
     public function __clone()
     {

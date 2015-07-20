@@ -10,7 +10,8 @@ master
 - OfferWithBestPrice: dodanie pola sklep
 - CategoriesRepository, CategoriesAsyncRepository: możliwość podania pól kategorii w odpytaniach do API
 - RestClientApi: obsługa http status 422 - rzucany jest wyjątek UnprocessableEntityException,
-- FIX: błąd przy nadpisywaniu Config przy pobieraniu reposytoriów
+- FIX: błąd przy nadpisywaniu Config przy pobieraniu reposytoriów,
+- Category: dodanie pola title_type_singular (liczba pojedyńcza od nazwy kategorii)
 
 v1.5.0
 ------
