@@ -9,7 +9,8 @@ master
 - logi: zmiana poziomu logowania odpowiedzi z API z statusem 404 z ERROR na INFO
 - OfferWithBestPrice: dodanie pola sklep
 - CategoriesRepository, CategoriesAsyncRepository: możliwość podania pól kategorii w odpytaniach do API
-- RestClientApi: obsługa http status 422 - rzucany jest wyjątek UnprocessableEntityException
+- RestClientApi: obsługa http status 422 - rzucany jest wyjątek UnprocessableEntityException,
+- FIX: błąd przy nadpisywaniu Config przy pobieraniu reposytoriów
 
 v1.5.0
 ------
