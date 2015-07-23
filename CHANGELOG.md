@@ -1,6 +1,6 @@
 ChangeLog
 =========
-master
+v1.5.1
 ------
 - Ext: zmiany w regułach analizy produktów dla noindex, nofollow
 - Podbicie i zamrożenie Guzzle na wersji 3.9 i Guzzle OAuth2 Plugin na wersji 1.0 (composer)
