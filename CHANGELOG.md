@@ -1,5 +1,10 @@
 ChangeLog
 =========
+
+master
+------
+- Dodanie standalone query filter
+
 v1.5.1
 ------
 - Ext: zmiany w regułach analizy produktów dla noindex, nofollow
