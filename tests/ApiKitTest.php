@@ -139,7 +139,6 @@ class ApiKitTest extends PHPUnit_Framework_TestCase
      */
     private function getResponseFixture($name)
     {
-        $response = new Response(200, [], file_get_contents(__DIR__ . '/fixtures/ApiKit/' . $name . '.json'));
-        return serialize($response);
+        return file_get_contents(__DIR__ . '/fixtures/ApiKit/' . $name . '.json');
     }
 }

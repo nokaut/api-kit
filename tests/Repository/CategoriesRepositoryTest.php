@@ -36,7 +36,7 @@ class CategoriesRepositoryTest extends PHPUnit_Framework_TestCase
         $client = $this->getMockBuilder('\GuzzleHttp\Client')->disableOriginalConstructor()->getMock();
         $this->clientApiMock = $this->getMock(
             'Nokaut\ApiKit\ClientApi\Rest\RestClientApi',
-            array('convertResponse', 'getClient', 'log'),
+            array('convertResponse', 'getClient', 'log', 'convertResponseToSaveCache'),
             array($loggerMock, $oauth2)
         );
         $this->clientApiMock->expects($this->any())->method('getClient')

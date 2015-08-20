@@ -137,7 +137,7 @@ class RestClientApi implements ClientApiInterface
         $this->log($request, $response, $startTime, LogLevel::DEBUG, $additionalLogMessage);
 
         $cacheKey = $fetch->prepareCacheKey();
-        $fetch->getCache()->save($cacheKey, serialize($response));
+        $fetch->getCache()->save($cacheKey, $this->convertResponseToSaveCache($response));
         $fetch->setResult($this->convertResponse($response));
         $fetch->setProcessed(true);
     }
@@ -196,7 +196,7 @@ class RestClientApi implements ClientApiInterface
             $cacheResult = $fetch->getCache()->get($cacheKey);
             if ($cacheResult) {
                 $this->logger->debug("get data from cache, query: " . $fetch->getQuery()->createRequestPath());
-                $fetch->setResult($this->convertResponse(unserialize($cacheResult)));
+                $fetch->setResult($this->convertCacheResponse($cacheResult));
                 $fetch->setProcessed(true);
             }
         }
@@ -245,7 +245,7 @@ class RestClientApi implements ClientApiInterface
         $cacheResult = $cache->get($cacheKey);
         if ($cacheResult) {
             $this->logger->debug('get data from cache, query: ' . $requestPath);
-            $fetch->setResult($this->convertResponse(unserialize($cacheResult)));
+            $fetch->setResult($this->convertCacheResponse($cacheResult));
             return;
         }
 
@@ -257,7 +257,7 @@ class RestClientApi implements ClientApiInterface
             $response = $this->getClient()->send($request);
             $this->log($request, $response, $startTime);
 
-            $cache->save($cacheKey, serialize($response));
+            $cache->save($cacheKey, $this->convertResponseToSaveCache($response));
 
             $fetch->setResult($this->convertResponse($response));
 
@@ -364,6 +364,20 @@ class RestClientApi implements ClientApiInterface
     protected function getClient()
     {
         return $this->client;
+    }
+
+    private function convertCacheResponse($cacheResult)
+    {
+        return json_decode($cacheResult);
+    }
+
+    /**
+     * @param Response $response
+     * @return mixed
+     */
+    protected function convertResponseToSaveCache($response)
+    {
+        return $response->getBody()->__toString();
     }
 
 } 

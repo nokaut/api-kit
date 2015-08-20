@@ -43,7 +43,7 @@ class ProductsAsyncRepositoryTest extends \PHPUnit_Framework_TestCase
 
         $this->clientApiMock = $this->getMock(
             'Nokaut\ApiKit\ClientApi\Rest\RestClientApi',
-            array('convertResponse', 'getClient', 'logMulti'),
+            array('convertResponse', 'getClient', 'log', 'logMulti', 'convertResponseToSaveCache'),
             array($loggerMock, $oauth2)
         );
 
