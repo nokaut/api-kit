@@ -13,7 +13,7 @@ Bibioteka jest w trakcie tworzenia, obecnie pokrywa funkcjonalność pobierania 
 Wymagania
 ---------
 
-* PHP 5.4+
+* PHP 5.5+
 * dostęp do Search API (klucz OAuth)
 
 Instalacja
