@@ -28,7 +28,7 @@ class ProductQuery extends QueryBuilderAbstract
     /**
      * @param string $baseUrl
      */
-    public function __construct($baseUrl)
+    public function __construct($baseUrl = '')
     {
         $this->baseUrl = $baseUrl;
     }

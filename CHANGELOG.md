@@ -1,5 +1,9 @@
 ChangeLog
 =========
+master
+-----
+- aktualizacja guzzle do wersji 5.3.*
+- kompatibilność z PHP 5.4+
 v1.5.1
 ------
 - Ext: zmiany w regułach analizy produktów dla noindex, nofollow

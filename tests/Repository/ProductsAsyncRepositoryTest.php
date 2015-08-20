@@ -28,20 +28,16 @@ class ProductsAsyncRepositoryTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $oauth2 = new Oauth2Plugin();
-        $accessToken = array(
-            'access_token' => '1111'
-        );
-        $oauth2->setAccessToken($accessToken);
+        $oauth2 = "1/token111accessoauth2";
         $cacheMock = $this->getMock('Nokaut\ApiKit\Cache\CacheInterface');
         $loggerMock = $this->getMock('Psr\Log\LoggerInterface');
 
-        $response = $this->getMockBuilder('Guzzle\Http\Message\Response')->disableOriginalConstructor()->getMock();
+        $response = $this->getMockBuilder('\GuzzleHttp\Psr7\Response')->disableOriginalConstructor()->getMock();
         $response->expects($this->any())->method('getStatusCode')->will($this->returnValue(200));
 
-        $request = $this->getMockBuilder('\Guzzle\Http\Message\Request')->disableOriginalConstructor()->getMock();
+        $request = $this->getMockBuilder('\GuzzleHttp\Psr7\Request')->disableOriginalConstructor()->getMock();
 
-        $client = $this->getMockBuilder('\Guzzle\Http\Client')->disableOriginalConstructor()->getMock();
+        $client = $this->getMockBuilder('\GuzzleHttp\Client')->disableOriginalConstructor()->getMock();
         $client->expects($this->any())->method('send')->will($this->returnValue(array($response)));
         $client->expects($this->any())->method('createRequest')->will($this->returnValue($request));
 

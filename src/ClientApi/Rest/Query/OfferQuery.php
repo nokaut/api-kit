@@ -21,7 +21,7 @@ class OfferQuery  extends QueryBuilderAbstract
      */
     protected $id;
 
-    public function __construct($baseUrl)
+    public function __construct($baseUrl = '')
     {
         $this->baseUrl = $baseUrl;
     }

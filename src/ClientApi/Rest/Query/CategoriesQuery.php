@@ -9,8 +9,6 @@
 namespace Nokaut\ApiKit\ClientApi\Rest\Query;
 
 
-use Guzzle\Common\Exception\InvalidArgumentException;
-
 class CategoriesQuery extends QueryBuilderAbstract
 {
     const MAX_DEPTH = 2;
@@ -20,7 +18,7 @@ class CategoriesQuery extends QueryBuilderAbstract
     protected $phrase;
     protected $limit;
 
-    public function __construct($baseUrl)
+    public function __construct($baseUrl = '')
     {
         $this->baseUrl = $baseUrl;
     }
@@ -67,12 +65,12 @@ class CategoriesQuery extends QueryBuilderAbstract
 
     /**
      * @param int $depth - max 2
-     * @throws \Guzzle\Common\Exception\InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public function setDepth($depth)
     {
         if ($depth > self::MAX_DEPTH) {
-            throw new InvalidArgumentException("depth cant be bigger than 2");
+            throw new \InvalidArgumentException("depth cant be bigger than 2");
         }
         $this->addFilter(new Filter\Single('depth', intval($depth)));
     }

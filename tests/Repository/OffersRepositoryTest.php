@@ -29,14 +29,10 @@ class OffersRepositoryTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $oauth2 = new Oauth2Plugin();
-        $accessToken = array(
-            'access_token' => '1111'
-        );
-        $oauth2->setAccessToken($accessToken);
+        $oauth2 = "1/token111accessoauth2";
         $cacheMock = $this->getMock('Nokaut\ApiKit\Cache\CacheInterface');
         $loggerMock = $this->getMock('Psr\Log\LoggerInterface');
-        $client = $this->getMockBuilder('\Guzzle\Http\Client')->disableOriginalConstructor()->getMock();
+        $client = $this->getMockBuilder('\GuzzleHttp\Client')->disableOriginalConstructor()->getMock();
         $this->clientApiMock = $this->getMock(
             'Nokaut\ApiKit\ClientApi\Rest\RestClientApi',
             array('convertResponse', 'getClient', 'log'),
