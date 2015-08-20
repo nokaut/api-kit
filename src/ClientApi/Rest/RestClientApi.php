@@ -46,7 +46,7 @@ class RestClientApi implements ClientApiInterface
 
     public function __construct(LoggerInterface $logger, EventSubscriberInterface $auth)
     {
-        $this->client = new Client();
+        $this->client = new Client('',['request.options'=>['timeout'=>15,'connect_timeout'=>10]]);
         $this->client->addSubscriber($auth);
         $this->auth = $auth;
         $this->logger = $logger;
