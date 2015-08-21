@@ -113,11 +113,36 @@ class RestClientApiTest extends \PHPUnit_Framework_TestCase
 
         $client = $this->getMockBuilder('\GuzzleHttp\Client')->disableOriginalConstructor()->getMock();
 
-        $cutMock = $this->prepareCutForMultiSend($loggerMock, $oauth2, $client);
+        $cutMock = $this->prepareCutWithMockSendMultiProcess($loggerMock, $oauth2, $client);
         $cutMock->expects($this->exactly(3))->method('sendMultiProcess')->will($this->returnValue(true));
 
         $fetches = $this->prepareFetches();
         $cutMock->sendMulti($fetches);
+    }
+
+    /**
+     * @expectedException \Nokaut\ApiKit\ClientApi\Rest\Exception\FatalResponseException
+     */
+    public function testFunctionalitySendMultiWithRetry()
+    {
+        $oauth2 = $this->prepareOauth();
+        $loggerMock = $this->getMock('Psr\Log\LoggerInterface');
+
+        $mockClientHandler = new MockHandler([
+            new Response(502, [], '{}'),
+            new Response(502, [], '{}'),
+            new Response(502, [], '{}'),
+        ]);
+
+        $handler = HandlerStack::create($mockClientHandler);
+        $client = new Client(['handler' => $handler]);
+
+        $cutMock = $this->prepareCut($loggerMock, $oauth2, $client);
+
+        $fetches = $this->prepareFetches();
+        $cutMock->sendMulti($fetches);
+
+        $fetches->getItem(0)->getResult(true);
     }
 
     public function testSendMultiWithRetryAndSecondSuccess()
@@ -127,7 +152,7 @@ class RestClientApiTest extends \PHPUnit_Framework_TestCase
 
         $client = $this->getMockBuilder('\GuzzleHttp\Client')->disableOriginalConstructor()->getMock();
 
-        $cutMock = $this->prepareCutForMultiSend($loggerMock, $oauth2, $client);
+        $cutMock = $this->prepareCutWithMockSendMultiProcess($loggerMock, $oauth2, $client);
         $cutMock->expects($this->exactly(2))
             ->method('sendMultiProcess')
             ->will(
@@ -245,7 +270,7 @@ class RestClientApiTest extends \PHPUnit_Framework_TestCase
      * @param $client
      * @return \PHPUnit_Framework_MockObject_MockObject
      */
-    protected function prepareCutForMultiSend($loggerMock, $oauth2, $client)
+    protected function prepareCutWithMockSendMultiProcess($loggerMock, $oauth2, $client)
     {
         $cutMock = $this->clientApiMock = $this->getMock(
             'Nokaut\ApiKit\ClientApi\Rest\RestClientApi',
