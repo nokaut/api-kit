@@ -15,7 +15,7 @@ class CategoryQuery extends QueryBuilderAbstract
     private $id;
     private $fields;
 
-    public function __construct($baseUrl)
+    public function __construct($baseUrl = '')
     {
         $this->baseUrl = $baseUrl;
     }

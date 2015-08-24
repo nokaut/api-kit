@@ -9,11 +9,11 @@
 namespace Nokaut\ApiKit\ClientApi\Rest;
 
 
-use Guzzle\Http\Client;
-use Guzzle\Http\Exception\BadResponseException;
-use Guzzle\Http\Message\Request;
-use Guzzle\Http\Message\RequestInterface;
-use Guzzle\Http\Message\Response;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\BadResponseException;
+use GuzzleHttp\Pool;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 use Nokaut\ApiKit\ClientApi\ClientApiInterface;
 use Nokaut\ApiKit\ClientApi\Rest\Exception\FatalResponseException;
 use Nokaut\ApiKit\ClientApi\Rest\Exception\InvalidRequestException;
@@ -21,16 +21,17 @@ use Nokaut\ApiKit\ClientApi\Rest\Exception\NotFoundException;
 use Nokaut\ApiKit\ClientApi\Rest\Exception\UnprocessableEntityException;
 use Nokaut\ApiKit\ClientApi\Rest\Fetch\Fetch;
 use Nokaut\ApiKit\ClientApi\Rest\Fetch\Fetches;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class RestClientApi implements ClientApiInterface
 {
     const MAX_RETRY = 2;
 
     /**
-     * @var \Guzzle\Http\Client
+     * @var Client
      */
     protected $client;
 
@@ -40,15 +41,19 @@ class RestClientApi implements ClientApiInterface
     protected $logger;
 
     /**
-     * @var \Symfony\Component\EventDispatcher\EventSubscriberInterface
+     * @var string
      */
-    protected $auth;
+    protected $authToken;
 
-    public function __construct(LoggerInterface $logger, EventSubscriberInterface $auth)
+    public function __construct(LoggerInterface $logger, $authToken, $baseUrl = '')
     {
-        $this->client = new Client();
-        $this->client->addSubscriber($auth);
-        $this->auth = $auth;
+        $guzzleConfig = [];
+        $guzzleConfig['headers'] = ['Authorization' => 'Bearer ' . $authToken];
+        if ($baseUrl) {
+            $guzzleConfig['base_uri'] = $baseUrl;
+        }
+        $this->client = new Client($guzzleConfig);
+        $this->authToken = $authToken;
         $this->logger = $logger;
     }
 
@@ -84,7 +89,7 @@ class RestClientApi implements ClientApiInterface
             if ($fetch->isProcessed()) {
                 continue;
             }
-            $requests[] = $this->getClient()->createRequest('GET', $fetch->getQuery()->createRequestPath(), null, null, array('exceptions' => false));
+            $requests[] = new Request('GET', $fetch->getQuery()->createRequestPath());
             $fetchesForFilled[] = $fetch;
         }
 
@@ -92,23 +97,30 @@ class RestClientApi implements ClientApiInterface
             return false;
         }
 
-        $startTime = microtime(true);
-        $responses = $this->getClient()->send($requests);
-
         $retry = false;
-        $requestsCount = count($fetchesForFilled);
-        foreach ($fetchesForFilled as $index => $fetch) {
-            $fetch->setResponseException(null); //reset exception because after retry request maybe done successful
-
-            $response = array_shift($responses);
-            $request = array_shift($requests);
-            $additionalLogMessage = "Multi requests, request " . ($index + 1) . "/" . $requestsCount . " ";
-            if ($response && $response->getStatusCode() == 200) {
+        $requestsCount = count($requests);
+        $startTime = microtime(true);
+        $pool = new Pool($this->getClient(), $requests, [
+            'fulfilled' => function ($response, $index) use ($fetchesForFilled, $requests, $requestsCount, $startTime) {
+                /** @var Response $response */
+                /** @var Fetch $fetch */
+                $fetch = $fetchesForFilled[$index];
+                $request = $requests[$index];
+                $fetch->setResponseException(null); //reset exception because after retry request maybe done successful
+                $additionalLogMessage = "Multi requests, request " . ($index + 1) . "/" . $requestsCount . " ";
                 $this->handleMultiSuccessResponse($request, $response, $fetch, $startTime, $additionalLogMessage);
-            } else {
-                $retry = $this->handleMultiFailedResponse($request, $response, $fetch, $startTime, $additionalLogMessage);
-            }
-        }
+            },
+            'rejected' => function ($reason, $index) use ($fetchesForFilled, $requestsCount, $startTime, &$retry) {
+                /** @var \GuzzleHttp\Exception\ClientException $reason */
+                /** @var Fetch $fetch */
+                $fetch = $fetchesForFilled[$index];
+                $additionalLogMessage = "Multi requests, request " . ($index + 1) . "/" . $requestsCount . " ";
+                $retry = $this->handleMultiFailedResponse($reason->getRequest(), $reason->getResponse(), $fetch, $startTime, $additionalLogMessage);
+            },
+        ]);
+        $promise = $pool->promise();
+        $promise->wait();
+
         return $retry;
 
     }
@@ -125,14 +137,14 @@ class RestClientApi implements ClientApiInterface
         $this->log($request, $response, $startTime, LogLevel::DEBUG, $additionalLogMessage);
 
         $cacheKey = $fetch->prepareCacheKey();
-        $fetch->getCache()->save($cacheKey, serialize($response));
+        $fetch->getCache()->save($cacheKey, $this->convertResponseToSaveCache($response));
         $fetch->setResult($this->convertResponse($response));
         $fetch->setProcessed(true);
     }
 
     /**
-     * @param Request $request
-     * @param Response $response
+     * @param RequestInterface $request
+     * @param ResponseInterface $response
      * @param Fetch $fetch
      * @param $startTime
      * @param string $additionalLogMessage
@@ -150,15 +162,15 @@ class RestClientApi implements ClientApiInterface
             $fetch->setResponseException($this->factoryException($statusCode, 'wrong status from api ' . $statusCode));
 
             $additionalLogMessage .= "Fail response: "
-                . " " . $statusCode . " (" . $response->getBody(true) . ") in " . $request->getUrl()
-                . "\n" . $request->getRawHeaders()
-                . "\n" . $response->getRawHeaders() . "\n";
+                . " " . $statusCode . " (" . $response->getBody() . ") in " . $request->getUri()
+                . "\n" . print_r($request->getHeaders(), true) . "\n"
+                . "\n" . print_r($response->getHeaders(), true) . "\n";
         } else {
             $fetch->setResponseException($this->factoryException(500, 'empty response from api'));
 
             $additionalLogMessage .= "Fail response: "
-                . " empty response from api in " . $request->getUrl()
-                . "\n" . $request->getRawHeaders() . "\n";
+                . " empty response from api in " . $request->getUri()
+                . "\n" . print_r($request->getHeaders(), true) . "\n";
         }
 
         $this->log($request, $response, $startTime, $logLevel, $additionalLogMessage);
@@ -184,7 +196,7 @@ class RestClientApi implements ClientApiInterface
             $cacheResult = $fetch->getCache()->get($cacheKey);
             if ($cacheResult) {
                 $this->logger->debug("get data from cache, query: " . $fetch->getQuery()->createRequestPath());
-                $fetch->setResult($this->convertResponse(unserialize($cacheResult)));
+                $fetch->setResult($this->convertCacheResponse($cacheResult));
                 $fetch->setProcessed(true);
             }
         }
@@ -233,19 +245,19 @@ class RestClientApi implements ClientApiInterface
         $cacheResult = $cache->get($cacheKey);
         if ($cacheResult) {
             $this->logger->debug('get data from cache, query: ' . $requestPath);
-            $fetch->setResult($this->convertResponse(unserialize($cacheResult)));
+            $fetch->setResult($this->convertCacheResponse($cacheResult));
             return;
         }
 
         $startTime = microtime(true);
 
-        $request = $this->getClient()->createRequest('GET', $requestPath);
+        $request = new Request('GET', $requestPath);
         $response = null;
         try {
             $response = $this->getClient()->send($request);
             $this->log($request, $response, $startTime);
 
-            $cache->save($cacheKey, serialize($response));
+            $cache->save($cacheKey, $this->convertResponseToSaveCache($response));
 
             $fetch->setResult($this->convertResponse($response));
 
@@ -260,7 +272,7 @@ class RestClientApi implements ClientApiInterface
      */
     protected function convertResponse($response)
     {
-        return json_decode($response->getBody(true));
+        return json_decode($response->getBody());
     }
 
     /**
@@ -276,9 +288,10 @@ class RestClientApi implements ClientApiInterface
         $request = $e->getRequest();
         $statusCode = $response->getStatusCode();
 
-        $additionalLogMessage = "Fail response: " . $statusCode . " (" . $response->getBody(true) . ") "
-            . "\n" . $request->getRawHeaders()
-            . "\n" . $response->getRawHeaders(). "\n";
+        $additionalLogMessage = "Fail response: " . $statusCode . " (" . $response->getBody() . ") "
+            . "\n" . $request->getUri()
+            . "\n" . print_r($request->getHeaders(), true) . "\n";
+
 
         $logLevel = LogLevel::ERROR;
         if ($statusCode == 404) {
@@ -289,10 +302,10 @@ class RestClientApi implements ClientApiInterface
 
         $statusCode = $e->getResponse()->getStatusCode();
         if ($statusCode == 404 || $statusCode == 400) {
-            $exceptionMessage = (isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '') . " " . $statusCode . " from api for request: " . $e->getResponse()->getRawHeaders();
+            $exceptionMessage = (isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '') . " " . $statusCode . " from api for request: " . $request->getUri();
         } else {
             $exceptionMessage = (isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '') . " bad response from api (status: " . $statusCode . ") "
-                . "for request: " . $e->getRequest()->getUrl();
+                . "for request: " . $request->getUri();
         }
 
         throw $this->factoryException($statusCode, $exceptionMessage);
@@ -323,21 +336,21 @@ class RestClientApi implements ClientApiInterface
 
     /**
      * @param RequestInterface $request
-     * @param Response $response
+     * @param ResponseInterface $response
      * @param $startTime
      * @param string $level - level form Psr\Log\LogLevel
      * @param string $additionalMessage
      */
     protected function log($request, $response, $startTime, $level = LogLevel::DEBUG, $additionalMessage = '')
     {
-        $url = $request->getUrl();
+        $url = $request->getUri();
 
         if ($additionalMessage) {
             $additionalMessage = $additionalMessage . ' ';
         }
         $apiStatusMessage = $response ? 'status from API: ' . $response->getStatusCode() . ' ' : 'empty response ';
 
-        $runTime = (string)$response->getHeader('X-Runtime');
+        $runTime = (string)$response->getHeaderLine('X-Runtime');
         $endTime = microtime(true);
         $totalTime = ($endTime - $startTime);
         $timeInfo = '| runtime: ' . round($runTime, 3) . ' s, total: ' . round($totalTime, 3) . ' s';
@@ -351,6 +364,20 @@ class RestClientApi implements ClientApiInterface
     protected function getClient()
     {
         return $this->client;
+    }
+
+    private function convertCacheResponse($cacheResult)
+    {
+        return json_decode($cacheResult);
+    }
+
+    /**
+     * @param Response $response
+     * @return mixed
+     */
+    protected function convertResponseToSaveCache($response)
+    {
+        return $response->getBody()->__toString();
     }
 
 } 

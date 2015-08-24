@@ -49,13 +49,9 @@ class ProductsQuery extends QueryBuilderAbstract
     /**
      * @var array
      */
-    private $pricesFilter = array();
-    /**
-     * @var array
-     */
     private $facetsRange = array();
 
-    public function __construct($baseUrl)
+    public function __construct($baseUrl = '')
     {
         $this->baseUrl = $baseUrl;
     }

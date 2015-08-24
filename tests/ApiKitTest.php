@@ -9,7 +9,7 @@
 namespace Nokaut\ApiKit;
 
 
-use Guzzle\Http\Message\Response;
+use GuzzleHttp\Psr7\Response;
 use PHPUnit_Framework_TestCase;
 
 class ApiKitTest extends PHPUnit_Framework_TestCase
@@ -139,8 +139,6 @@ class ApiKitTest extends PHPUnit_Framework_TestCase
      */
     private function getResponseFixture($name)
     {
-        $response = new Response(200);
-        $response->setBody(file_get_contents(__DIR__ . '/fixtures/ApiKit/' . $name . '.json'));
-        return serialize($response);
+        return file_get_contents(__DIR__ . '/fixtures/ApiKit/' . $name . '.json');
     }
 }

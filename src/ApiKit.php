@@ -157,11 +157,6 @@ class ApiKit
      */
     public function getClientApi(Config $config)
     {
-        $oauth2 = new Oauth2Plugin();
-        $accessToken = array(
-            'access_token' => $config->getApiAccessToken()
-        );
-        $oauth2->setAccessToken($accessToken);
-        return new RestClientApi($config->getLogger(), $oauth2);
+        return new RestClientApi($config->getLogger(), $config->getApiAccessToken(), $config->getApiUrl());
     }
 }
