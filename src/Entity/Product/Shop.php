@@ -10,6 +10,7 @@ namespace Nokaut\ApiKit\Entity\Product;
 
 
 use Nokaut\ApiKit\Entity\EntityAbstract;
+use Nokaut\ApiKit\Entity\Product\Shop\OpineoRating;
 
 class Shop extends EntityAbstract
 {
@@ -29,6 +30,10 @@ class Shop extends EntityAbstract
      * @var bool
      */
     protected $high_quality;
+    /**
+     * @var OpineoRating
+     */
+    protected $opineo_rating;
 
     /**
      * @param boolean $high_quality
@@ -94,5 +99,19 @@ class Shop extends EntityAbstract
         return $this->url_logo;
     }
 
+    /**
+     * @return OpineoRating
+     */
+    public function getOpineoRating()
+    {
+        return $this->opineo_rating;
+    }
 
+    /**
+     * @param OpineoRating $opineo_rating
+     */
+    public function setOpineoRating($opineo_rating)
+    {
+        $this->opineo_rating = $opineo_rating;
+    }
 } 

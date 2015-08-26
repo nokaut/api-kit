@@ -13,6 +13,7 @@ use Nokaut\ApiKit\Entity\Product;
 use Nokaut\ApiKit\Entity\Product\Prices;
 use Nokaut\ApiKit\Entity\Product\Property;
 use Nokaut\ApiKit\Converter\Product\PropertyConverter;
+use Nokaut\ApiKit\Entity\Product\Shop\OpineoRating;
 use PHPUnit_Framework_TestCase;
 
 class ProductConverterTest extends PHPUnit_Framework_TestCase
@@ -99,7 +100,18 @@ class ProductConverterTest extends PHPUnit_Framework_TestCase
     private function assertShop($correctShop, Product\Shop $shop)
     {
         foreach ($correctShop as $field => $value) {
-            $this->assertEquals($value, $shop->get($field));
+            if ('opineo_rating' == $field) {
+                $this->assertOpineoRating($value, $shop->getOpineoRating());
+            } else {
+                $this->assertEquals($value, $shop->get($field));
+            }
+        }
+    }
+
+    private function assertOpineoRating($correctOpineoRating, OpineoRating $opineRating)
+    {
+        foreach ($correctOpineoRating as $field => $value) {
+            $this->assertEquals($value, $opineRating->get($field));
         }
     }
 
@@ -174,7 +186,12 @@ class ProductConverterTest extends PHPUnit_Framework_TestCase
                         "id": 854,
                         "name": "Mall.pl",
                         "url_logo": "/s/854.jpg",
-                        "high_quality": false
+                        "high_quality": false,
+                        "opineo_rating": {
+                          "rating": 8.9,
+                          "rating_count": 1021,
+                          "url": "http://www.opineo.pl/opinie/sarenza-pl"
+                        }
                     },
                     "category_id": 9162,
                     "click_url": null,
