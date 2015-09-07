@@ -3,8 +3,11 @@ ChangeLog
 
 master
 -----
-- aktualizacja guzzle do wersji 6
-- kompatibilność z PHP 5.5+ (kompatybilność z PHP 5.3. i 5.4 nie jest wspierana od tej wersji)
+- Dodanie pól do porównań dla cech produktu
+- Dodanie standalone query filter
+- Dodanie oceny sklepu w produkcie
+- Aktualizacja guzzle do wersji 6
+- Kompatibilność z PHP 5.5+ (kompatybilność z PHP 5.3. i 5.4 nie jest wspierana od tej wersji)
 
 v1.5.2
 ------

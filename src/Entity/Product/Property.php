@@ -29,6 +29,14 @@ class Property extends EntityAbstract
      * @var string
      */
     protected $unit;
+    /**
+     * @var bool
+     */
+    protected $is_fight = false;
+    /**
+     * @var string
+     */
+    protected $fight_sort;
 
     /**
      * @param int $id
@@ -94,4 +102,35 @@ class Property extends EntityAbstract
         return $this->unit;
     }
 
+    /**
+     * @return boolean
+     */
+    public function getIsFight()
+    {
+        return $this->is_fight;
+    }
+
+    /**
+     * @param boolean $is_fight
+     */
+    public function setIsFight($is_fight)
+    {
+        $this->is_fight = $is_fight;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFightSort()
+    {
+        return $this->fight_sort;
+    }
+
+    /**
+     * @param string $fight_sort
+     */
+    public function setFightSort($fight_sort)
+    {
+        $this->fight_sort = $fight_sort;
+    }
 }

@@ -138,7 +138,9 @@ class ProductConverterTest extends PHPUnit_Framework_TestCase
                             "id": 1951,
                             "name": "Maksymalna waga użytkownika",
                             "value": "100",
-                            "unit": "kg"
+                            "unit": "kg",
+                            "is_fight": true,
+                            "fight_sort": "asc"
                         },
                         {
                             "id": 2336,
