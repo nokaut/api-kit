@@ -8,6 +8,7 @@ master
 - Dodanie oceny sklepu w produkcie
 - Aktualizacja guzzle do wersji 6
 - Kompatibilność z PHP 5.5+ (kompatybilność z PHP 5.3. i 5.4 nie jest wspierana od tej wersji)
+- RestClientApi: możliwość podania zamiast tokena jako string obiekt który implementuje \Nokaut\ApiKit\ClientApi\Rest\Auth\AuthHeader
 
 v1.5.2
 ------

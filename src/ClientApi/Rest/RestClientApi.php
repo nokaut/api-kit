@@ -15,6 +15,7 @@ use GuzzleHttp\Pool;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use Nokaut\ApiKit\ClientApi\ClientApiInterface;
+use Nokaut\ApiKit\ClientApi\Rest\Auth\AuthHeader;
 use Nokaut\ApiKit\ClientApi\Rest\Exception\FatalResponseException;
 use Nokaut\ApiKit\ClientApi\Rest\Exception\InvalidRequestException;
 use Nokaut\ApiKit\ClientApi\Rest\Exception\NotFoundException;
@@ -41,14 +42,19 @@ class RestClientApi implements ClientApiInterface
     protected $logger;
 
     /**
-     * @var string
+     * @var string|AuthHeader
      */
     protected $authToken;
 
+    /**
+     * @param LoggerInterface $logger
+     * @param string|AuthHeader $authToken
+     * @param string $baseUrl
+     */
     public function __construct(LoggerInterface $logger, $authToken, $baseUrl = '')
     {
         $guzzleConfig = [];
-        $guzzleConfig['headers'] = ['Authorization' => 'Bearer ' . $authToken];
+        $guzzleConfig['headers'] = $this->getAuthorizationHeader($authToken);
         if ($baseUrl) {
             $guzzleConfig['base_uri'] = $baseUrl;
         }
@@ -378,6 +384,18 @@ class RestClientApi implements ClientApiInterface
     protected function convertResponseToSaveCache($response)
     {
         return $response->getBody()->__toString();
+    }
+
+    /**
+     * @param $authToken
+     * @return array
+     */
+    private function getAuthorizationHeader($authToken)
+    {
+        if ($authToken instanceof AuthHeader) {
+            return $authToken->getAuthHeader();
+        }
+        return ['Authorization' => 'Bearer ' . $authToken];
     }
 
 } 
