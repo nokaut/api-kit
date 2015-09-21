@@ -205,7 +205,7 @@ class ProductsQuery extends QueryBuilderAbstract
 
     private function createLimitPart()
     {
-        if (empty($this->limit)) {
+        if (!is_numeric($this->limit)) {
             return "";
         }
         return "&limit={$this->limit}";

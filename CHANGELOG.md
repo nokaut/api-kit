@@ -3,6 +3,7 @@ ChangeLog
 
 master
 -----
+- Umożliwienie pobierania produktów z limitem 0 (tylko faceting)
 - Dodanie pól do porównań dla cech produktu
 - Dodanie standalone query filter
 - Dodanie oceny sklepu w produkcie
