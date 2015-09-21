@@ -31,6 +31,10 @@ class Category extends EntityAbstract
      */
     protected $description;
     /**
+     * @var string
+     */
+    protected $description_html;
+    /**
      * @var bool
      */
     protected $is_adult;
@@ -137,6 +141,22 @@ class Category extends EntityAbstract
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescriptionHtml()
+    {
+        return $this->description_html;
+    }
+
+    /**
+     * @param string $description_html
+     */
+    public function setDescriptionHtml($description_html)
+    {
+        $this->description_html = $description_html;
     }
 
     /**
