@@ -140,7 +140,8 @@ class ProductConverterTest extends PHPUnit_Framework_TestCase
                             "value": "100",
                             "unit": "kg",
                             "is_fight": true,
-                            "fight_sort": "asc"
+                            "fight_sort": "asc",
+                            "fight_rating": "100"
                         },
                         {
                             "id": 2336,

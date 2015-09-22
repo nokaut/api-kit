@@ -32,6 +32,9 @@ class PropertyConverter implements ConverterInterface
         if (isset($object->fight_sort)) {
             $property->setFightSort($object->fight_sort);
         }
+        if (isset($object->fight_rating)) {
+            $property->setFightRating($object->fight_rating);
+        }
 
         return $property;
     }
