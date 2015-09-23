@@ -3,6 +3,7 @@ ChangeLog
 
 master
 -----
+- Dodanie do facetingu pól ułatwiających budowanie adresów z filtrami
 - Dodanie description_html do encji Category
 - Umożliwienie pobierania produktów z limitem 0 (tylko faceting)
 - Dodanie pól do porównań dla cech produktu

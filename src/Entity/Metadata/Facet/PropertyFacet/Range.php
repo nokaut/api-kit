@@ -16,6 +16,10 @@ class Range extends EntityAbstract
      */
     protected $max;
     /**
+     * @var string
+     */
+    protected $param;
+    /**
      * @var int
      */
     protected $total;
@@ -74,6 +78,22 @@ class Range extends EntityAbstract
     public function getMin()
     {
         return $this->min;
+    }
+
+    /**
+     * @return string
+     */
+    public function getParam()
+    {
+        return $this->param;
+    }
+
+    /**
+     * @param string $param
+     */
+    public function setParam($param)
+    {
+        $this->param = $param;
     }
 
     /**

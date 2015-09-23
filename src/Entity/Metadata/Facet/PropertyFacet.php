@@ -28,6 +28,14 @@ class PropertyFacet extends EntityAbstract
      */
     protected $unit = '';
     /**
+     * @var string
+     */
+    protected $url_out;
+    /**
+     * @var string
+     */
+    protected $url_in_template;
+    /**
      * @var Value[]
      */
     protected $values = array();
@@ -82,6 +90,38 @@ class PropertyFacet extends EntityAbstract
     public function getUnit()
     {
         return $this->unit;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrlOut()
+    {
+        return $this->url_out;
+    }
+
+    /**
+     * @param string $url_out
+     */
+    public function setUrlOut($url_out)
+    {
+        $this->url_out = $url_out;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrlInTemplate()
+    {
+        return $this->url_in_template;
+    }
+
+    /**
+     * @param string $url_in_template
+     */
+    public function setUrlInTemplate($url_in_template)
+    {
+        $this->url_in_template = $url_in_template;
     }
 
     /**
