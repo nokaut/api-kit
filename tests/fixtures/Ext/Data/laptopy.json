@@ -755,6 +755,7 @@
     {
         "id": 3376,
         "name": "SWIAT-LAPTOPOW.PL",
+        "param": "SWIAT-LAPTOPOW.PL",
         "total": 669,
         "url": "/laptopy/sklep:swiatlaptopow-pl.html"
     },
@@ -1080,6 +1081,7 @@
     {
         "id": "hp",
         "name": "HP",
+        "param": "hp",
         "total": 811,
         "url": "/laptopy/producent:hp.html"
     },
@@ -1172,6 +1174,7 @@
         "min": 609.99,
         "max": 1979.19,
         "total": 954,
+        "param": "609.99~1979.19",
         "url": "/laptopy/cena:609.99~1979.19.html"
     },
     {
@@ -1200,6 +1203,7 @@
         "values": [
             {
                 "name": "15.6",
+                "param": "15.6",
                 "total": 869,
                 "url": "/laptopy/przekatna-ekranu:15.60.html"
             },

@@ -48,6 +48,7 @@ class PriceRangesConverter implements ConverterInterface
             foreach ($facetPriceRanges as $facetPriceRange) {
                 $priceRange = new PriceRange();
                 $priceRange->setName($this->getPriceRangeName($facetPriceRange));
+                $priceRange->setParam($facetPriceRange->getParam());
                 $priceRange->setUrl($facetPriceRange->getUrl());
                 $priceRange->setIsFilter($facetPriceRange->getIsFilter());
                 $priceRange->setTotal((int)$facetPriceRange->getTotal());

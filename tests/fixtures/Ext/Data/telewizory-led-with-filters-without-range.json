@@ -1892,11 +1892,13 @@
         "values": [
             {
                 "name": "16/9",
+                "param": "16-9",
                 "total": 165,
                 "url": "/telewizory-led/format-obrazu:16-9,zlacze-usb:1;3.html"
             },
             {
                 "name": "4/3",
+                "param": "4-3",
                 "total": 7,
                 "url": "/telewizory-led/format-obrazu:4-3,zlacze-usb:1;3.html"
             }

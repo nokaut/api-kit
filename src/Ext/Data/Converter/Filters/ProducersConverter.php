@@ -47,6 +47,7 @@ class ProducersConverter implements ConverterInterface
             foreach ($facetProducers as $facetProducer) {
                 $producer = new Producer();
                 $producer->setName($facetProducer->getName());
+                $producer->setParam($facetProducer->getParam());
                 $producer->setUrl($facetProducer->getUrl());
                 $producer->setUrlBase($facetProducer->getUrlBase());
                 $producer->setIsFilter($facetProducer->getIsFilter());

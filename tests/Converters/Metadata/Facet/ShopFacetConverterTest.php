@@ -32,6 +32,7 @@ class ShopFacetConverterTest extends \PHPUnit_Framework_TestCase
         {
             "id": 23239,
             "name": "Saturn",
+            "param": "saturn",
             "total": 257,
             "url": "/aparaty-fotograficzne/sklep:saturn-pl.html"
 

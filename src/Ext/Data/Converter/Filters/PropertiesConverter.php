@@ -59,6 +59,7 @@ class PropertiesConverter implements ConverterInterface
                     foreach ($facetProperty->getRanges() as $range) {
                         $entity = new PropertyRange();
                         $entity->setName($this->getPropertyRangeName($range));
+                        $entity->setParam($range->getParam());
                         $entity->setUrl($range->getUrl());
                         $entity->setIsFilter($range->getIsFilter());
                         $entity->setTotal((int)$range->getTotal());
@@ -72,6 +73,7 @@ class PropertiesConverter implements ConverterInterface
                     foreach ($facetProperty->getValues() as $value) {
                         $entity = new PropertyValue();
                         $entity->setName($value->getName());
+                        $entity->setParam($value->getParam());
                         $entity->setUrl($value->getUrl());
                         $entity->setIsFilter($value->getIsFilter());
                         $entity->setTotal($value->getTotal());

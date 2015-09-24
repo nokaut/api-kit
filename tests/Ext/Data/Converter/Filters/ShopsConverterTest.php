@@ -22,11 +22,14 @@ class ShopsConverterTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('\Nokaut\ApiKit\Ext\Data\Collection\Filters\Shops', $shops);
 
-        foreach ($shops as $shop) {
+        foreach ($shops as $key => $shop) {
             /** @var Shop $shop */
             $this->assertInstanceOf('Nokaut\ApiKit\Ext\Data\Entity\Filter\Shop', $shop);
             $this->assertFalse($shop->getIsPopular());
             $this->assertGreaterThan(0, $shop->getId());
+            if ($key == 0) {
+                $this->assertEquals('SWIAT-LAPTOPOW.PL', $shop->getParam());
+            }
         }
     }
 

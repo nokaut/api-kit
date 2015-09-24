@@ -5,6 +5,8 @@ namespace Nokaut\ApiKit\Ext\Data\Converter\Filters;
 use Nokaut\ApiKit\Converter\ProductsConverter;
 use Nokaut\ApiKit\Collection\Products;
 use Nokaut\ApiKit\Ext\Data\Converter\Filters\Callback\Property\SetIsActive;
+use Nokaut\ApiKit\Ext\Data\Entity\Filter\PropertyRange;
+use Nokaut\ApiKit\Ext\Data\Entity\Filter\PropertyValue;
 
 class PropertiesConverterTest extends \PHPUnit_Framework_TestCase
 {
@@ -22,6 +24,36 @@ class PropertiesConverterTest extends \PHPUnit_Framework_TestCase
         foreach ($properties as $property) {
             $this->assertInstanceOf('\Nokaut\ApiKit\Ext\Data\Collection\Filters\PropertyAbstract', $property);
             $this->assertFalse($property->getIsActive());
+            if ($property->getId() == 2271) {
+                /** @var PropertyValue $value */
+                foreach ($property->getEntities() as $value) {
+                    $this->assertTrue(in_array($value->getParam(), array('16-9', '4-3')));
+                }
+
+            }
+        }
+    }
+
+    public function testPropertiesConverterWithoutCallbacksWithRanges()
+    {
+        $productsConverter = new ProductsConverter();
+        /** @var Products $products */
+        $products = $productsConverter->convert($this->getJsonFixture('telewizory-led-with-filters'));
+
+        $propertiesConverter = new PropertiesConverter();
+        $properties = $propertiesConverter->convert($products, array());
+
+        $this->assertEquals(count($products->getProperties()), count($properties));
+
+        foreach ($properties as $property) {
+            $this->assertInstanceOf('\Nokaut\ApiKit\Ext\Data\Collection\Filters\PropertyAbstract', $property);
+            $this->assertFalse($property->getIsActive());
+            if ($property->getId() == 669) {
+                /** @var PropertyRange $value */
+                foreach ($property->getEntities() as $value) {
+                    $this->assertEquals('180.00;200.00;220.00;230.00;250.00', $value->getParam());
+                }
+            }
         }
     }
 

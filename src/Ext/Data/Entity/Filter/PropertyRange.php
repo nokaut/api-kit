@@ -13,6 +13,10 @@ class PropertyRange extends FilterAbstract
      * @var float
      */
     protected $max;
+    /**
+     * @var string
+     */
+    protected $param;
 
     /**
      * @param float $max
@@ -44,6 +48,22 @@ class PropertyRange extends FilterAbstract
     public function getMin()
     {
         return $this->min;
+    }
+
+    /**
+     * @return string
+     */
+    public function getParam()
+    {
+        return $this->param;
+    }
+
+    /**
+     * @param string $param
+     */
+    public function setParam($param)
+    {
+        $this->param = $param;
     }
 
 } 

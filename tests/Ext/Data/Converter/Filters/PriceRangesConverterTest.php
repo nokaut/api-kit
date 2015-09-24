@@ -25,7 +25,7 @@ class PriceRangesConverterTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('\Nokaut\ApiKit\Ext\Data\Collection\Filters\PriceRanges', $priceRanges);
 
-        foreach ($priceRanges as $priceRange) {
+        foreach ($priceRanges as $key => $priceRange) {
             /** @var PriceRange $priceRange */
             $this->assertInstanceOf('Nokaut\ApiKit\Ext\Data\Entity\Filter\PriceRange', $priceRange);
             $this->assertFalse($priceRange->getIsNofollow());
@@ -38,6 +38,9 @@ class PriceRangesConverterTest extends \PHPUnit_Framework_TestCase
                 sprintf("%s - %s", number_format($priceRange->getMin(), 2, ',', ''), number_format($priceRange->getMax(), 2, ',', '')),
                 $priceRange->getName()
             );
+            if ($key == 0) {
+                $this->assertEquals('609.99~1979.19', $priceRange->getParam());
+            }
         }
     }
 

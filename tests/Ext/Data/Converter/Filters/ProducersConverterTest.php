@@ -22,10 +22,13 @@ class ProducersConverterTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('\Nokaut\ApiKit\Ext\Data\Collection\Filters\Producers', $producers);
 
-        foreach ($producers as $producer) {
+        foreach ($producers as $key => $producer) {
             /** @var Producer $producer */
             $this->assertInstanceOf('Nokaut\ApiKit\Ext\Data\Entity\Filter\Producer', $producer);
             $this->assertFalse($producer->getIsPopular());
+            if ($key == 0) {
+                $this->assertEquals('hp', $producer->getParam());
+            }
         }
     }
 
