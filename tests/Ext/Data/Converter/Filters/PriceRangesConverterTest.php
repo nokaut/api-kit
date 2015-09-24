@@ -18,7 +18,8 @@ class PriceRangesConverterTest extends \PHPUnit_Framework_TestCase
 
 
         $this->assertEquals('Cena', $priceRanges->getName());
-        $this->assertEquals('/laptopy/cena:%s~%s.html', $priceRanges->getUrlInTemplate());
+        $this->assertEquals('/laptopy/', $priceRanges->getUrlOut());
+        $this->assertEquals('/laptopy/cena:%s.html', $priceRanges->getUrlInTemplate());
         $this->assertEquals('zł', $priceRanges->getUnit());
         $this->assertEquals(4, $priceRanges->count());
         $this->assertEquals(count($products->getPrices()), $priceRanges->count());
@@ -53,7 +54,8 @@ class PriceRangesConverterTest extends \PHPUnit_Framework_TestCase
         $priceRanges = $priceRangesConverter->convert($products, array(new SetIsNofollow()));
 
         $this->assertEquals('Cena', $priceRanges->getName());
-        $this->assertEquals('/laptopy/cena:%s~%s.html', $priceRanges->getUrlInTemplate());
+        $this->assertEquals('/laptopy/', $priceRanges->getUrlOut());
+        $this->assertEquals('/laptopy/cena:%s.html', $priceRanges->getUrlInTemplate());
         $this->assertEquals('zł', $priceRanges->getUnit());
         $this->assertEquals(4, $priceRanges->count());
         $this->assertEquals(count($products->getPrices()), $priceRanges->count());

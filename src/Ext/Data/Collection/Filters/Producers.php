@@ -2,7 +2,7 @@
 
 namespace Nokaut\ApiKit\Ext\Data\Collection\Filters;
 
-class Producers extends FiltersAbstract
+class Producers extends FiltersWithUrlsAbstract
 {
 
 }

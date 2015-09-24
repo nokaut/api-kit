@@ -25,11 +25,13 @@ class PropertiesConverterTest extends \PHPUnit_Framework_TestCase
             $this->assertInstanceOf('\Nokaut\ApiKit\Ext\Data\Collection\Filters\PropertyAbstract', $property);
             $this->assertFalse($property->getIsActive());
             if ($property->getId() == 2271) {
+                $this->assertEquals('/laptopy/sklep:salurion-pl,producent:asus;lenovo.html', $property->getUrlOut());
+                $this->assertEquals('/laptopy/sklep:salurion-pl,producent:asus;lenovo,przekatna-ekranu:%s.html', $property->getUrlInTemplate());
+
                 /** @var PropertyValue $value */
                 foreach ($property->getEntities() as $value) {
                     $this->assertTrue(in_array($value->getParam(), array('16-9', '4-3')));
                 }
-
             }
         }
     }

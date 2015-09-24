@@ -19,6 +19,8 @@ class ShopsConverterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Sklep', $shops->getName());
         $this->assertEquals(54, $shops->count());
         $this->assertEquals(count($products->getShops()), $shops->count());
+        $this->assertEquals('/laptopy/producent:lenovo.html', $shops->getUrlOut());
+        $this->assertEquals('/laptopy/sklep:%s,producent:lenovo.html', $shops->getUrlInTemplate());
 
         $this->assertInstanceOf('\Nokaut\ApiKit\Ext\Data\Collection\Filters\Shops', $shops);
 

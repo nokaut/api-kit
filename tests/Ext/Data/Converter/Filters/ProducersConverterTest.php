@@ -19,6 +19,8 @@ class ProducersConverterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Producent', $producers->getName());
         $this->assertEquals(15, $producers->count());
         $this->assertEquals(count($products->getProducers()), $producers->count());
+        $this->assertEquals('/laptopy/sklep:sklep-morele-net.html', $producers->getUrlOut());
+        $this->assertEquals('/laptopy/sklep:sklep-morele-net,producent:%s.html', $producers->getUrlInTemplate());
 
         $this->assertInstanceOf('\Nokaut\ApiKit\Ext\Data\Collection\Filters\Producers', $producers);
 

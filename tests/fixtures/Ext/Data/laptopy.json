@@ -742,6 +742,18 @@
         "sort": {
             "category_sort3": "desc"
         }
+    },
+    "shops": {
+        "url_out": "/laptopy/producent:lenovo.html",
+        "url_in_template": "/laptopy/sklep:%s,producent:lenovo.html"
+    },
+    "producers": {
+        "url_out": "/laptopy/sklep:sklep-morele-net.html",
+        "url_in_template": "/laptopy/sklep:sklep-morele-net,producent:%s.html"
+    },
+    "prices":  {
+        "url_out": "/laptopy/",
+        "url_in_template": "/laptopy/cena:%s.html"
     }
 }, "categories": [
     {
@@ -1199,6 +1211,8 @@
     {
         "id": 246,
         "name": "Przek\u0105tna ekranu",
+        "url_out": "/laptopy/sklep:salurion-pl,producent:asus;lenovo.html",
+        "url_in_template": "/laptopy/sklep:salurion-pl,producent:asus;lenovo,przekatna-ekranu:%s.html",
         "unit": "\"",
         "values": [
             {
@@ -1322,6 +1336,8 @@
     },
     {
         "id": 634,
+        "url_out": null,
+        "url_in_template": "/laptopy/sklep:salurion-pl,producent:asus;lenovo,karta-graficzna:%s,przekatna-ekranu:11.60;12.50.html",
         "name": "Karta graficzna",
         "values": [
             {

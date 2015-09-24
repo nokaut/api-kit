@@ -2,7 +2,7 @@
 
 namespace Nokaut\ApiKit\Ext\Data\Collection\Filters;
 
-abstract class PropertyAbstract extends FiltersAbstract
+abstract class PropertyAbstract extends FiltersWithUrlsAbstract
 {
     /**
      * @return bool

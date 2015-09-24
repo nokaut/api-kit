@@ -11,7 +11,10 @@ namespace Nokaut\ApiKit\Entity\Metadata;
 
 use Nokaut\ApiKit\Entity\EntityAbstract;
 use Nokaut\ApiKit\Entity\Metadata\Products\Paging;
+use Nokaut\ApiKit\Entity\Metadata\Products\Prices;
+use Nokaut\ApiKit\Entity\Metadata\Products\Producers;
 use Nokaut\ApiKit\Entity\Metadata\Products\Query;
+use Nokaut\ApiKit\Entity\Metadata\Products\Shops;
 use Nokaut\ApiKit\Entity\Metadata\Products\Sort;
 
 class ProductsMetadata extends EntityAbstract
@@ -48,6 +51,18 @@ class ProductsMetadata extends EntityAbstract
      * @var bool
      */
     protected $block_adsense;
+    /**
+     * @var Shops
+     */
+    protected $shops;
+    /**
+     * @var Producers
+     */
+    protected $producers;
+    /**
+     * @var Prices
+     */
+    protected $prices;
 
     /**
      * @param \Nokaut\ApiKit\Entity\Metadata\Products\Paging $paging
@@ -177,6 +192,54 @@ class ProductsMetadata extends EntityAbstract
         return $this->block_adsense;
     }
 
+    /**
+     * @return Shops
+     */
+    public function getShops()
+    {
+        return $this->shops;
+    }
+
+    /**
+     * @param Shops $shops
+     */
+    public function setShops($shops)
+    {
+        $this->shops = $shops;
+    }
+
+    /**
+     * @return Producers
+     */
+    public function getProducers()
+    {
+        return $this->producers;
+    }
+
+    /**
+     * @param Producers $producers
+     */
+    public function setProducers($producers)
+    {
+        $this->producers = $producers;
+    }
+
+    /**
+     * @return Prices
+     */
+    public function getPrices()
+    {
+        return $this->prices;
+    }
+
+    /**
+     * @param Prices $prices
+     */
+    public function setPrices($prices)
+    {
+        $this->prices = $prices;
+    }
+
     public function __clone()
     {
         if(is_object($this->paging)){
@@ -193,5 +256,17 @@ class ProductsMetadata extends EntityAbstract
             },
             $this->sorts
         );
+
+        if(is_object($this->shops)){
+            $this->shops = clone $this->shops;
+        }
+
+        if(is_object($this->producers)){
+            $this->producers = clone $this->producers;
+        }
+
+        if(is_object($this->prices)){
+            $this->prices = clone $this->prices;
+        }
     }
 }

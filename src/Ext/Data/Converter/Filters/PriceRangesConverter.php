@@ -61,7 +61,16 @@ class PriceRangesConverter implements ConverterInterface
             $priceRangesCollection = new PriceRanges($priceRanges);
             $priceRangesCollection->setName('Cena');
             $priceRangesCollection->setUnit('zł');
-            if ($priceRanges) {
+
+            if ($products->getMetadata()->getPrices()) {
+                $priceRangesCollection->setUrlOut($products->getMetadata()->getPrices()->getUrlOut());
+                $priceRangesCollection->setUrlInTemplate($products->getMetadata()->getPrices()->getUrlInTemplate());
+            }
+
+            /**
+             * @deprecated stara wersja url in template, jesli nie korzystamy z nowej jawnie
+             */
+            if ($priceRanges && !$priceRangesCollection->getUrlInTemplate()) {
                 $priceRangesCollection->setUrlInTemplate($this->prepareUrlInTemplate(current($priceRanges)));
             }
 

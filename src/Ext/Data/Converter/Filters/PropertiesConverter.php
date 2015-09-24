@@ -85,6 +85,8 @@ class PropertiesConverter implements ConverterInterface
 
                 $property->setUnit($facetProperty->getUnit());
                 $property->setName($facetProperty->getName());
+                $property->setUrlOut($facetProperty->getUrlOut());
+                $property->setUrlInTemplate($facetProperty->getUrlInTemplate());
                 $property->setId($facetProperty->getId());
 
                 $properties[] = $property;
