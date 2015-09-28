@@ -44,6 +44,11 @@ class ProductsMetadataConverterTest extends \PHPUnit_Framework_TestCase
                 break;
             case 'paging':
             case 'query':
+            case 'categories':
+            case 'shops':
+            case 'producers':
+            case 'prices':
+            case 'properties':
                 $this->assertObject($value, $metadata->get($field));
                 break;
         }
@@ -137,8 +142,27 @@ class ProductsMetadataConverterTest extends \PHPUnit_Framework_TestCase
                 "sort": {
                     "category_sort3": "desc"
                 }
+            },
+            "categories": {
+                "url_out": "/sklep:sklep-morele-net;x-kom-pl,producent:lenovo.html",
+                "url_in_template": "/%s/sklep:sklep-morele-net;x-kom-pl,producent:lenovo,rozdzielczosc-px:2560-x-1440+px.html"
+            },
+            "shops": {
+                "url_out": "/laptopy/producent:lenovo.html",
+                "url_in_template": "/laptopy/sklep:%s,producent:lenovo.html"
+            },
+            "producers": {
+                "url_out": "/laptopy/sklep:sklep-morele-net.html",
+                "url_in_template": "/laptopy/sklep:sklep-morele-net,producent:%s.html"
+            },
+            "prices":  {
+                "url_out": "/laptopy/sklep:sklep-morele-net.html",
+                "url_in_template": "/laptopy/sklep:sklep-morele-net,cena:%s.html"
+            },
+            "properties": {
+                 "url_out": "/laptopy/sklep:sklep-morele-net;x-kom-pl,producent:lenovo.html",
+                 "url_in_template": "/laptopy/sklep:sklep-morele-net;x-kom-pl,producent:lenovo,%s.html"
             }
-
         }');
     }
 }

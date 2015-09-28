@@ -10,9 +10,11 @@ namespace Nokaut\ApiKit\Entity\Metadata;
 
 
 use Nokaut\ApiKit\Entity\EntityAbstract;
+use Nokaut\ApiKit\Entity\Metadata\Products\Categories;
 use Nokaut\ApiKit\Entity\Metadata\Products\Paging;
 use Nokaut\ApiKit\Entity\Metadata\Products\Prices;
 use Nokaut\ApiKit\Entity\Metadata\Products\Producers;
+use Nokaut\ApiKit\Entity\Metadata\Products\Properties;
 use Nokaut\ApiKit\Entity\Metadata\Products\Query;
 use Nokaut\ApiKit\Entity\Metadata\Products\Shops;
 use Nokaut\ApiKit\Entity\Metadata\Products\Sort;
@@ -52,6 +54,10 @@ class ProductsMetadata extends EntityAbstract
      */
     protected $block_adsense;
     /**
+     * @var Categories
+     */
+    protected $categories;
+    /**
      * @var Shops
      */
     protected $shops;
@@ -63,6 +69,10 @@ class ProductsMetadata extends EntityAbstract
      * @var Prices
      */
     protected $prices;
+    /**
+     * @var Properties
+     */
+    protected $properties;
 
     /**
      * @param \Nokaut\ApiKit\Entity\Metadata\Products\Paging $paging
@@ -193,6 +203,22 @@ class ProductsMetadata extends EntityAbstract
     }
 
     /**
+     * @return Categories
+     */
+    public function getCategories()
+    {
+        return $this->categories;
+    }
+
+    /**
+     * @param Categories $categories
+     */
+    public function setCategories($categories)
+    {
+        $this->categories = $categories;
+    }
+
+    /**
      * @return Shops
      */
     public function getShops()
@@ -240,13 +266,29 @@ class ProductsMetadata extends EntityAbstract
         $this->prices = $prices;
     }
 
+    /**
+     * @return Properties
+     */
+    public function getProperties()
+    {
+        return $this->properties;
+    }
+
+    /**
+     * @param Properties $properties
+     */
+    public function setProperties($properties)
+    {
+        $this->properties = $properties;
+    }
+
     public function __clone()
     {
-        if(is_object($this->paging)){
+        if (is_object($this->paging)) {
             $this->paging = clone $this->paging;
         }
 
-        if(is_object($this->query)){
+        if (is_object($this->query)) {
             $this->query = clone $this->query;
         }
 
@@ -257,16 +299,24 @@ class ProductsMetadata extends EntityAbstract
             $this->sorts
         );
 
-        if(is_object($this->shops)){
+        if (is_object($this->categories)) {
+            $this->categories = clone $this->categories;
+        }
+
+        if (is_object($this->shops)) {
             $this->shops = clone $this->shops;
         }
 
-        if(is_object($this->producers)){
+        if (is_object($this->producers)) {
             $this->producers = clone $this->producers;
         }
 
-        if(is_object($this->prices)){
+        if (is_object($this->prices)) {
             $this->prices = clone $this->prices;
+        }
+
+        if (is_object($this->properties)) {
+            $this->properties = clone $this->properties;
         }
     }
 }
