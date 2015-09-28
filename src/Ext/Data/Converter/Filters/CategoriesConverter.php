@@ -48,6 +48,7 @@ class CategoriesConverter implements ConverterInterface
                 $category = new Category();
                 $category->setId($facetCategory->getId());
                 $category->setName($facetCategory->getName());
+                $category->setParam($facetCategory->getParam());
                 $category->setUrl($facetCategory->getUrl());
                 $category->setUrlBase($facetCategory->getUrlBase());
                 $category->setUrlIn($facetCategory->getUrlIn());
@@ -60,6 +61,11 @@ class CategoriesConverter implements ConverterInterface
 
             $categoryCollection = new Categories($categories);
             $categoryCollection->setName("Kategoria");
+
+            if ($products->getMetadata()->getCategories()) {
+                $categoryCollection->setUrlOut($products->getMetadata()->getCategories()->getUrlOut());
+                $categoryCollection->setUrlInTemplate($products->getMetadata()->getCategories()->getUrlInTemplate());
+            }
 
             self::$cache[$cacheKey] = $categoryCollection;
         }

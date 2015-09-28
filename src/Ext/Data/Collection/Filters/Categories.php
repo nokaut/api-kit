@@ -5,7 +5,7 @@ namespace Nokaut\ApiKit\Ext\Data\Collection\Filters;
 
 use Nokaut\ApiKit\Ext\Data\Entity\Filter\ParentCategory;
 
-class Categories extends FiltersAbstract
+class Categories extends FiltersWithUrlsAbstract
 {
     /**
      * @var ParentCategory

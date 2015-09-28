@@ -12,6 +12,10 @@ class Category extends FilterAbstract
     /**
      * @var string
      */
+    protected $param;
+    /**
+     * @var string
+     */
     protected $url_base;
     /**
      * @var string
@@ -36,6 +40,22 @@ class Category extends FilterAbstract
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getParam()
+    {
+        return $this->param;
+    }
+
+    /**
+     * @param string $param
+     */
+    public function setParam($param)
+    {
+        $this->param = $param;
     }
 
     /**
