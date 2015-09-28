@@ -34,6 +34,7 @@ class CategoryFacetConverterTest extends \PHPUnit_Framework_TestCase
             "total": 116,
             "url": "/pozostale-aparaty-fotograficzne/",
             "name": "Pozostałe aparaty fotograficzne",
+            "param": "pozostale-aparaty-fotograficzne",
             "subcategory_count": 37
         }
         ');
