@@ -95,7 +95,12 @@ class RestClientApi implements ClientApiInterface
             if ($fetch->isProcessed()) {
                 continue;
             }
-            $requests[] = new Request('GET', $fetch->getQuery()->createRequestPath());
+            $requests[] = new Request(
+                $fetch->getQuery()->getMethod(),
+                $fetch->getQuery()->createRequestPath(),
+                $fetch->getQuery()->getHeaders(),
+                $fetch->getQuery()->getBody()
+            );
             $fetchesForFilled[] = $fetch;
         }
 
@@ -257,7 +262,12 @@ class RestClientApi implements ClientApiInterface
 
         $startTime = microtime(true);
 
-        $request = new Request('GET', $requestPath);
+        $request = new Request(
+            $fetch->getQuery()->getMethod(),
+            $requestPath,
+            $fetch->getQuery()->getHeaders(),
+            $fetch->getQuery()->getBody()
+        );
         $response = null;
         try {
             $response = $this->getClient()->send($request);

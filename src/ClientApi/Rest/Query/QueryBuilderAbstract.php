@@ -18,9 +18,9 @@ abstract class QueryBuilderAbstract implements QueryBuilderInterface
     protected $headers = [];
 
     /**
-     * @var array
+     * @var string
      */
-    protected $body = [];
+    protected $body;
 
     /**
      * @var Filter\FilterInterface[]
@@ -60,7 +60,7 @@ abstract class QueryBuilderAbstract implements QueryBuilderInterface
     }
 
     /**
-     * @return array
+     * @return string
      */
     public function getBody()
     {
@@ -68,7 +68,7 @@ abstract class QueryBuilderAbstract implements QueryBuilderInterface
     }
 
     /**
-     * @param array|string $body
+     * @param string $body
      */
     public function setBody($body)
     {
