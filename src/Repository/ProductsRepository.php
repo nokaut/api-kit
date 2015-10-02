@@ -9,10 +9,16 @@
 namespace Nokaut\ApiKit\Repository;
 
 
+use Nokaut\ApiKit\Cache\NullCache;
 use Nokaut\ApiKit\ClientApi\ClientApiInterface;
 use Nokaut\ApiKit\ClientApi\Rest\Fetch\Fetch;
 use Nokaut\ApiKit\ClientApi\Rest\Fetch\ProductFetch;
+use Nokaut\ApiKit\ClientApi\Rest\Fetch\ProductRateCreateFetch;
+use Nokaut\ApiKit\ClientApi\Rest\Fetch\ProductRatesFetch;
+use Nokaut\ApiKit\ClientApi\Rest\Fetch\ProductRateUpdateFetch;
 use Nokaut\ApiKit\ClientApi\Rest\Fetch\ProductsFetch;
+use Nokaut\ApiKit\ClientApi\Rest\Query\ProductRateQuery;
+use Nokaut\ApiKit\ClientApi\Rest\Query\ProductRatesQuery;
 use Nokaut\ApiKit\ClientApi\Rest\Query\Sort;
 use Nokaut\ApiKit\ClientApi\Rest\Query\Filter;
 use Nokaut\ApiKit\Collection\Products;
@@ -23,6 +29,8 @@ use Nokaut\ApiKit\ClientApi\Rest\Query\ProductQuery;
 use Nokaut\ApiKit\ClientApi\Rest\Query\ProductsQuery;
 use Nokaut\ApiKit\Converter\ProductConverter;
 use Nokaut\ApiKit\Converter\ProductsConverter;
+use Nokaut\ApiKit\Entity\Product\Rating;
+use Nokaut\ApiKit\Entity\Product\Rating\Rate;
 use Nokaut\ApiKit\Entity\ProductWithBestOffer;
 
 class ProductsRepository extends RepositoryAbstract
@@ -52,7 +60,7 @@ class ProductsRepository extends RepositoryAbstract
         'offer_id', 'click_url', 'click_value', 'url_original', 'producer_name', 'offer_shop_id', 'shop.name', 'shop_url',
         'shop_id', 'top_category_id', 'top_position', 'photo_id', 'description_html', 'properties', '_metadata.url',
         '_metadata.block_adsense', 'offer', 'block_adsense', '_metadata.urls', '_metadata.paging', '_metadata.sorts',
-        '_metadata.canonical','_phrase.value', '_phrase.url_out', '_phrase.url_category_template', '_phrase.url_in_template'
+        '_metadata.canonical', '_phrase.value', '_phrase.url_out', '_phrase.url_category_template', '_phrase.url_in_template'
     );
 
     public static $fieldsForSimilarProductsInProductPage = array(
@@ -258,6 +266,86 @@ class ProductsRepository extends RepositoryAbstract
         } else {
             return 0;
         }
+    }
+
+    /**
+     * @param $productId
+     * @return Rating
+     * @throws \Exception
+     */
+    public function fetchProductRating($productId)
+    {
+        $query = new ProductRatesQuery($this->apiBaseUrl);
+        $query->setProductId($productId);
+
+        $fetch = new ProductRatesFetch($query, $this->cache);
+        $this->clientApi->send($fetch);
+
+        /** @var Product\Rating $rating */
+        $rating = $fetch->getResult();
+
+        return $rating;
+    }
+
+    /**
+     * @param $productId
+     * @param Rate $rate
+     * @return Rating
+     */
+    public function createProductRate($productId, Rate $rate)
+    {
+        $query = new ProductRatesQuery($this->apiBaseUrl);
+        $query->setProductId($productId);
+        $query->setMethod('POST');
+        $query->setHeaders(['Content-Type' => 'application/json']);
+
+        $body = [];
+        if ($rate->getRate() !== null) {
+            $body['rate'] = (int)$rate->getRate();
+        }
+        if ($rate->getComment()) {
+            $body['comment'] = $rate->getComment();
+        }
+        $body['ip_address'] = $rate->getIpAddress();
+
+        $query->setBody($body);
+
+        $fetch = new ProductRateCreateFetch($query, new NullCache());
+        /** @var Rating $rating */
+        $rating = $this->clientApi->send($fetch);
+
+        return $rating;
+    }
+
+    /**
+     * @param $productId
+     * @param Rate $rate
+     * @return Rating
+     */
+    public function updateProductRate($productId, Rate $rate)
+    {
+        $query = new ProductRateQuery($this->apiBaseUrl);
+        $query->setProductId($productId);
+        $query->setRateId($rate->getId());
+        $query->setMethod('PATCH');
+        $query->setHeaders(['Content-Type' => 'application/json']);
+
+        $body = [];
+        if ($rate->getRate() !== null) {
+            $body['rate'] = (int)$rate->getRate();
+        }
+        if ($rate->getComment()) {
+            $body['comment'] = $rate->getComment();
+        }
+        $body['ip_address'] = $rate->getIpAddress();
+
+        $query->setBody($body);
+
+        $fetch = new ProductRateUpdateFetch($query, new NullCache());
+        /** @var Rating $rating */
+        $rating = $this->clientApi->send($fetch);
+
+        return $rating;
     }
 
     /**

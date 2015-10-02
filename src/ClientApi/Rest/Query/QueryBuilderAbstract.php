@@ -8,9 +8,72 @@ use Nokaut\ApiKit\ClientApi\Rest\Query\Filter;
 abstract class QueryBuilderAbstract implements QueryBuilderInterface
 {
     /**
+     * @var string
+     */
+    protected $method = 'GET';
+
+    /**
+     * @var array
+     */
+    protected $headers = [];
+
+    /**
+     * @var array
+     */
+    protected $body = [];
+
+    /**
      * @var Filter\FilterInterface[]
      */
     private $filters = array();
+
+    /**
+     * @return string
+     */
+    public function getMethod()
+    {
+        return $this->method;
+    }
+
+    /**
+     * @param string $method
+     */
+    public function setMethod($method)
+    {
+        $this->method = $method;
+    }
+
+    /**
+     * @return array
+     */
+    public function getHeaders()
+    {
+        return $this->headers;
+    }
+
+    /**
+     * @param array $headers
+     */
+    public function setHeaders($headers)
+    {
+        $this->headers = $headers;
+    }
+
+    /**
+     * @return array
+     */
+    public function getBody()
+    {
+        return $this->body;
+    }
+
+    /**
+     * @param array|string $body
+     */
+    public function setBody($body)
+    {
+        $this->body = $body;
+    }
 
     /**
      * @param Filter\FilterInterface $filter
