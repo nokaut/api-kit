@@ -281,7 +281,7 @@ class ProductsRepository extends RepositoryAbstract
         $fetch = new ProductRatesFetch($query, $this->cache);
         $this->clientApi->send($fetch);
 
-        /** @var Product\Rating $rating */
+        /** @var Rating $rating */
         $rating = $fetch->getResult();
 
         return $rating;
@@ -308,11 +308,13 @@ class ProductsRepository extends RepositoryAbstract
         }
         $body['ip_address'] = $rate->getIpAddress();
 
-        $query->setBody($body);
+        $query->setBody(json_encode($body));
 
         $fetch = new ProductRateCreateFetch($query, new NullCache());
+        $this->clientApi->send($fetch);
+
         /** @var Rating $rating */
-        $rating = $this->clientApi->send($fetch);
+        $rating = $fetch->getResult();
 
         return $rating;
     }
@@ -339,11 +341,13 @@ class ProductsRepository extends RepositoryAbstract
         }
         $body['ip_address'] = $rate->getIpAddress();
 
-        $query->setBody($body);
+        $query->setBody(json_encode($body));
 
         $fetch = new ProductRateUpdateFetch($query, new NullCache());
+        $this->clientApi->send($fetch);
+
         /** @var Rating $rating */
-        $rating = $this->clientApi->send($fetch);
+        $rating = $fetch->getResult();
 
         return $rating;
     }
