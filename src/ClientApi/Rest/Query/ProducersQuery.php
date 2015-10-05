@@ -55,7 +55,7 @@ class ProducersQuery extends QueryBuilderAbstract
 
         $filterPart = $this->createFilterPart();
 
-        $query = $this->baseUrl . 'shops?' .
+        $query = $this->baseUrl . 'producers?' .
             $this->createFieldsPart() .
             ($filterPart ? '&' . $filterPart : '') .
             $this->createLimitPart();
