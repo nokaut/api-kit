@@ -1,0 +1,24 @@
+{
+  "producers": [
+    {
+      "id": "samsung",
+      "name": "Samsung"
+    },
+    {
+      "id": "salomon",
+      "name": "Salomon"
+    },
+    {
+      "id": "sakolife",
+      "name": "Sakolife"
+    },
+    {
+      "id": "sanplast",
+      "name": "Sanplast"
+    },
+    {
+      "id": "sandisk",
+      "name": "Sandisk"
+    }
+  ]
+}
