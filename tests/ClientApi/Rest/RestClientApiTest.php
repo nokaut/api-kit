@@ -301,6 +301,9 @@ class RestClientApiTest extends \PHPUnit_Framework_TestCase
         $cacheMock = $this->getMock('Nokaut\ApiKit\Cache\CacheInterface');
         $queryMock = $this->getMockBuilder('Nokaut\ApiKit\ClientApi\Rest\Query\ProductsQuery')->disableOriginalConstructor()->getMock();
         $queryMock->expects($this->any())->method('createRequestPath')->will($this->returnValue(''));
+        $queryMock->expects($this->any())->method('getMethod')->will($this->returnValue('GET'));
+        $queryMock->expects($this->any())->method('getHeaders')->will($this->returnValue([]));
+        $queryMock->expects($this->any())->method('getBody')->will($this->returnValue(null));
         $converterMock = $this->getMockBuilder('Nokaut\ApiKit\Converter\ConverterInterface')->getMock();
         return new Fetch($queryMock, $converterMock, $cacheMock);
     }

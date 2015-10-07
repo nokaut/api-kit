@@ -16,4 +16,19 @@ interface QueryBuilderInterface
     const OPERATION_LTE = 'lte';
 
     public function createRequestPath();
+
+    /**
+     * @return string
+     */
+    public function getMethod();
+
+    /**
+     * @return array
+     */
+    public function getHeaders();
+
+    /**
+     * @return string
+     */
+    public function getBody();
 }
