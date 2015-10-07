@@ -3,6 +3,7 @@ ChangeLog
 
 master
 -----
+- Dodanie obsługi ShopsApi, ProducersApi
 - Ext PriceRanges - jeśli jawnie pytamy api o url_in_template dla zakresów, cen zmienia się format url_in_template z 'cena:%s~%s' na 'cena:%s', do którego przekazyjemy zakres lub kwotę
 - Dodanie do facetingu pól ułatwiających budowanie adresów z filtrami
 - Dodanie description_html do encji Category
