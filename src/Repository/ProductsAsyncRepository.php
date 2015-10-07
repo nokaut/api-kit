@@ -12,7 +12,9 @@ namespace Nokaut\ApiKit\Repository;
 use Nokaut\ApiKit\ClientApi\ClientApiInterface;
 use Nokaut\ApiKit\ClientApi\Rest\Fetch\Fetch;
 use Nokaut\ApiKit\ClientApi\Rest\Fetch\ProductFetch;
+use Nokaut\ApiKit\ClientApi\Rest\Fetch\ProductRatesFetch;
 use Nokaut\ApiKit\ClientApi\Rest\Fetch\ProductsFetch;
+use Nokaut\ApiKit\ClientApi\Rest\Query\ProductRatesQuery;
 use Nokaut\ApiKit\ClientApi\Rest\Query\ProductsQuery;
 use Nokaut\ApiKit\ClientApi\Rest\Query\Sort;
 use Nokaut\ApiKit\Config;
@@ -213,4 +215,17 @@ class ProductsAsyncRepository extends ProductsRepository implements AsyncReposit
         return $productsAsyncFetch;
     }
 
+    /**
+     * @param $productId
+     * @return ProductRatesFetch
+     */
+    public function fetchProductRating($productId)
+    {
+        $query = new ProductRatesQuery($this->apiBaseUrl);
+        $query->setProductId($productId);
+
+        $ratingAsyncFetch = new ProductRatesFetch($query, $this->cache);
+        $this->asyncRepo->addFetch($ratingAsyncFetch);
+        return $ratingAsyncFetch;
+    }
 }
