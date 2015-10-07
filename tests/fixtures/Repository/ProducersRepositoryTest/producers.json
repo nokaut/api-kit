@@ -2,23 +2,28 @@
   "producers": [
     {
       "id": "samsung",
-      "name": "Samsung"
+      "name": "Samsung",
+      "products_url": "/producent:samsung.html"
     },
     {
       "id": "salomon",
-      "name": "Salomon"
+      "name": "Salomon",
+      "products_url": "/producent:salomon.html"
     },
     {
       "id": "sakolife",
-      "name": "Sakolife"
+      "name": "Sakolife",
+      "products_url": "/producent:sakolife.html"
     },
     {
       "id": "sanplast",
-      "name": "Sanplast"
+      "name": "Sanplast",
+      "products_url": "/producent:sanplast.html"
     },
     {
       "id": "sandisk",
-      "name": "Sandisk"
+      "name": "Sandisk",
+      "products_url": "/producent:sandisk.html"
     }
   ]
 }

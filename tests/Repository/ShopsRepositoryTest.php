@@ -56,6 +56,7 @@ class ShopsRepositoryTest extends PHPUnit_Framework_TestCase
         $shop = $shops->getItem(0);
         $this->assertEquals(4092, $shop->getId());
         $this->assertEquals('da capo - katarynki i Gracze', $shop->getName());
+        $this->assertEquals('/sklep:katarynki-jasky-pl.html', $shop->getProductsUrl());
     }
 
     /**

@@ -25,34 +25,35 @@ class ShopsConverterTest extends PHPUnit_Framework_TestCase
     private function getCorrectObject()
     {
         return json_decode('
-        {
-            "shops": [
+            {
+              "shops": [
                 {
-                    "id": 4092,
-                    "name": "da capo - katarynki i Gracze"
-
+                  "id": 4092,
+                  "name": "da capo - katarynki i Gracze",
+                  "products_url": "/sklep:katarynki-jasky-pl.html"
                 },
                 {
-                    "id": 23411,
-                    "name": "DA-GROUP "
-
+                  "id": 8451,
+                  "name": "dabar.pl",
+                  "products_url": "/sklep:dabar-pl.html"
                 },
                 {
-                    "id": 14133,
-                    "name": "daadaa.pl"
-
+                  "id": 21827,
+                  "name": "Dadin Maluchy to kochają",
+                  "products_url": "/sklep:dadin-dadin-pl.html"
                 },
                 {
-                    "id": 22099,
-                    "name": "Dabacom"
-
+                  "id": 5332,
+                  "name": "Dareckishop.eu",
+                  "products_url": "/sklep:dareckishop-eu.html"
                 },
                 {
-                    "id": 8451,
-                    "name": "dabar.pl"
+                  "id": 9338,
+                  "name": "DaroTrans",
+                  "products_url": "/sklep:darotrans-pl.html"
                 }
-            ]
-        }
+              ]
+            }
         ');
     }
 }

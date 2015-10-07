@@ -25,30 +25,35 @@ class ProducersConverterTest extends PHPUnit_Framework_TestCase
     private function getCorrectObject()
     {
         return json_decode('
-        {
-            "producers": [
+            {
+              "producers": [
                 {
-                    "id": "samsung",
-                    "name": "Samsung"
+                  "id": "samsung",
+                  "name": "Samsung",
+                  "products_url": "/producent:samsung.html"
                 },
                 {
-                    "id": "salomon",
-                    "name": "Salomon"
+                  "id": "salomon",
+                  "name": "Salomon",
+                  "products_url": "/producent:salomon.html"
                 },
                 {
-                    "id": "sakolife",
-                    "name": "Sakolife"
+                  "id": "sakolife",
+                  "name": "Sakolife",
+                  "products_url": "/producent:sakolife.html"
                 },
                 {
-                    "id": "sanplast",
-                    "name": "Sanplast"
+                  "id": "sanplast",
+                  "name": "Sanplast",
+                  "products_url": "/producent:sanplast.html"
                 },
                 {
-                    "id": "sandisk",
-                    "name": "Sandisk"
+                  "id": "sandisk",
+                  "name": "Sandisk",
+                  "products_url": "/producent:sandisk.html"
                 }
-            ]
-        }
+              ]
+            }
         ');
     }
 }

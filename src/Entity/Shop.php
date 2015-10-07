@@ -16,6 +16,11 @@ class Shop extends EntityAbstract
     protected $name;
 
     /**
+     * @var string
+     */
+    protected $products_url;
+
+    /**
      * @return int
      */
     public function getId()
@@ -45,5 +50,21 @@ class Shop extends EntityAbstract
     public function setName($name)
     {
         $this->name = $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProductsUrl()
+    {
+        return $this->products_url;
+    }
+
+    /**
+     * @param string $products_url
+     */
+    public function setProductsUrl($products_url)
+    {
+        $this->products_url = $products_url;
     }
 }

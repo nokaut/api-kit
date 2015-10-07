@@ -56,6 +56,7 @@ class ProducersRepositoryTest extends PHPUnit_Framework_TestCase
         $producer = $producers->getItem(0);
         $this->assertEquals('samsung', $producer->getId());
         $this->assertEquals('Samsung', $producer->getName());
+        $this->assertEquals('/producent:samsung.html', $producer->getProductsUrl());
     }
 
     /**
