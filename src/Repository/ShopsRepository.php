@@ -12,7 +12,8 @@ class ShopsRepository extends RepositoryAbstract
 {
     public static $fieldsAll = array(
         'id',
-        'name'
+        'name',
+        'products_url'
     );
 
     /**
