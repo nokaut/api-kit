@@ -25,12 +25,12 @@ class Rate extends EntityAbstract
     /**
      * @var string
      */
-    protected $created;
+    protected $user;
 
     /**
      * @var string
      */
-    protected $creator;
+    protected $created_at;
 
     /**
      * @var string
@@ -88,33 +88,33 @@ class Rate extends EntityAbstract
     /**
      * @return string
      */
-    public function getCreated()
+    public function getUser()
     {
-        return $this->created;
+        return $this->user;
     }
 
     /**
-     * @param string $created
+     * @param string $user
      */
-    public function setCreated($created)
+    public function setUser($user)
     {
-        $this->created = $created;
+        $this->user = $user;
     }
 
     /**
      * @return string
      */
-    public function getCreator()
+    public function getCreatedAt()
     {
-        return $this->creator;
+        return $this->created_at;
     }
 
     /**
-     * @param string $creator
+     * @param string $created_at
      */
-    public function setCreator($creator)
+    public function setCreatedAt($created_at)
     {
-        $this->creator = $creator;
+        $this->created_at = $created_at;
     }
 
     /**

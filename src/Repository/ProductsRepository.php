@@ -298,17 +298,7 @@ class ProductsRepository extends RepositoryAbstract
         $query->setProductId($productId);
         $query->setMethod('POST');
         $query->setHeaders(['Content-Type' => 'application/json']);
-
-        $body = [];
-        if ($rate->getRate() !== null) {
-            $body['rate'] = (int)$rate->getRate();
-        }
-        if ($rate->getComment()) {
-            $body['comment'] = $rate->getComment();
-        }
-        $body['ip_address'] = $rate->getIpAddress();
-
-        $query->setBody(json_encode($body));
+        $query->setBody($this->prepareRateCreateOrModifyQueryBody($rate));
 
         $fetch = new ProductRateCreateFetch($query, new NullCache());
         $this->clientApi->send($fetch);
@@ -331,7 +321,23 @@ class ProductsRepository extends RepositoryAbstract
         $query->setRateId($rate->getId());
         $query->setMethod('PATCH');
         $query->setHeaders(['Content-Type' => 'application/json']);
+        $query->setBody($this->prepareRateCreateOrModifyQueryBody($rate));
 
+        $fetch = new ProductRateUpdateFetch($query, new NullCache());
+        $this->clientApi->send($fetch);
+
+        /** @var Rating $rating */
+        $rating = $fetch->getResult();
+
+        return $rating;
+    }
+
+    /**
+     * @param Rate $rate
+     * @return string
+     */
+    protected function prepareRateCreateOrModifyQueryBody(Rate $rate)
+    {
         $body = [];
         if ($rate->getRate() !== null) {
             $body['rate'] = (int)$rate->getRate();
@@ -341,15 +347,7 @@ class ProductsRepository extends RepositoryAbstract
         }
         $body['ip_address'] = $rate->getIpAddress();
 
-        $query->setBody(json_encode($body));
-
-        $fetch = new ProductRateUpdateFetch($query, new NullCache());
-        $this->clientApi->send($fetch);
-
-        /** @var Rating $rating */
-        $rating = $fetch->getResult();
-
-        return $rating;
+        return json_encode($body);
     }
 
     /**

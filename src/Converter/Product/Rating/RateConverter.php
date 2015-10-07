@@ -25,12 +25,12 @@ class RateConverter implements ConverterInterface
             $rate->setComment($object->comment);
         }
 
-        if (isset($object->created)) {
-            $rate->setCreated($object->created);
+        if (isset($object->user)) {
+            $rate->setUser($object->user);
         }
 
-        if (isset($object->creator)) {
-            $rate->setCreator($object->creator);
+        if (isset($object->created_at)) {
+            $rate->setCreatedAt($object->created_at);
         }
 
         if (isset($object->ip_address)) {
