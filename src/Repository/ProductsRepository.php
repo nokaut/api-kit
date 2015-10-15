@@ -345,6 +345,9 @@ class ProductsRepository extends RepositoryAbstract
         if ($rate->getComment()) {
             $body['comment'] = $rate->getComment();
         }
+        if ($rate->getUser()) {
+            $body['user'] = $rate->getUser();
+        }
         $body['ip_address'] = $rate->getIpAddress();
 
         return json_encode($body);
