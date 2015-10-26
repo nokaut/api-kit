@@ -3,6 +3,7 @@ ChangeLog
 
 master
 -----
+- zmiana interface \Nokaut\ApiKit\Cache\CacheInterface oraz dodanie Nokaut\ApiKit\Cache\AbstractCache - jeśli implementowaliście interface CacheInterface wystarczy, że rozszerzycie swoją klasę abstrkcyjną klasą Nokaut\ApiKit\Cache\AbstractCache 
 
 v1.6.0
 ------

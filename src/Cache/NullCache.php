@@ -9,7 +9,7 @@
 namespace Nokaut\ApiKit\Cache;
 
 
-class NullCache implements CacheInterface {
+class NullCache extends AbstractCache {
 
     public function get($keyName, $lifetime = null)
     {

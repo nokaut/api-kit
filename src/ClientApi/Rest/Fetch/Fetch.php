@@ -133,7 +133,7 @@ class Fetch
      */
     public function prepareCacheKey()
     {
-        return 'api-raw-response-' . md5($this->query->createRequestPath());
+        return $this->cache->getPrefixKeyName() . md5($this->query->createRequestPath());
     }
 
     /**
