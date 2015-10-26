@@ -16,6 +16,13 @@ Wymagania
 * PHP 5.5+
 * dostęp do Search API (klucz OAuth)
 
+Ważne zmiany z CHANGELOG
+------------------------
+
+**Dla wersja 1.6**
+
+Od wersji 1.6.0 ApiKit działa tylko z PHP 5.5 lub nowszym.
+
 Instalacja
 ----------
 Rekomendowaną formą instalacji jest skorzystanie z [Composer'a](http://getcomposer.org/).

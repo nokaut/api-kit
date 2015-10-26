@@ -3,6 +3,9 @@ ChangeLog
 
 master
 -----
+
+v1.6.0
+------
 - Dodanie pól do porównań dla cech produktu
 - Dodanie standalone query filter
 - Dodanie oceny sklepu w produkcie
