@@ -18,6 +18,10 @@ class Value extends EntityAbstract
      */
     protected $name;
     /**
+     * @var string
+     */
+    protected $param;
+    /**
      * @var int
      */
     protected $total;
@@ -44,6 +48,22 @@ class Value extends EntityAbstract
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getParam()
+    {
+        return $this->param;
+    }
+
+    /**
+     * @param string $param
+     */
+    public function setParam($param)
+    {
+        $this->param = $param;
     }
 
     /**

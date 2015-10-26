@@ -32,6 +32,7 @@ class ProducerFacetConverterTest extends \PHPUnit_Framework_TestCase
         {
             "id": "nikon",
             "name": "Nikon",
+            "param": "nikon",
             "total": 77,
             "url": "/aparaty-fotograficzne/producent:nikon.html"
         }

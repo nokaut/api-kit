@@ -8,12 +8,33 @@ class Producer extends FilterAbstract
     /**
      * @var string
      */
+    protected $param;
+
+    /**
+     * @var string
+     */
     protected $url_base;
 
     /**
      * @var bool
      */
     protected $is_popular = false;
+
+    /**
+     * @return string
+     */
+    public function getParam()
+    {
+        return $this->param;
+    }
+
+    /**
+     * @param string $param
+     */
+    public function setParam($param)
+    {
+        $this->param = $param;
+    }
 
     /**
      * @param string $url_base

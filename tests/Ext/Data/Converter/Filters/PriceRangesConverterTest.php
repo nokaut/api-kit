@@ -18,14 +18,15 @@ class PriceRangesConverterTest extends \PHPUnit_Framework_TestCase
 
 
         $this->assertEquals('Cena', $priceRanges->getName());
-        $this->assertEquals('/laptopy/cena:%s~%s.html', $priceRanges->getUrlInTemplate());
+        $this->assertEquals('/laptopy/', $priceRanges->getUrlOut());
+        $this->assertEquals('/laptopy/cena:%s.html', $priceRanges->getUrlInTemplate());
         $this->assertEquals('zł', $priceRanges->getUnit());
         $this->assertEquals(4, $priceRanges->count());
         $this->assertEquals(count($products->getPrices()), $priceRanges->count());
 
         $this->assertInstanceOf('\Nokaut\ApiKit\Ext\Data\Collection\Filters\PriceRanges', $priceRanges);
 
-        foreach ($priceRanges as $priceRange) {
+        foreach ($priceRanges as $key => $priceRange) {
             /** @var PriceRange $priceRange */
             $this->assertInstanceOf('Nokaut\ApiKit\Ext\Data\Entity\Filter\PriceRange', $priceRange);
             $this->assertFalse($priceRange->getIsNofollow());
@@ -38,6 +39,9 @@ class PriceRangesConverterTest extends \PHPUnit_Framework_TestCase
                 sprintf("%s - %s", number_format($priceRange->getMin(), 2, ',', ''), number_format($priceRange->getMax(), 2, ',', '')),
                 $priceRange->getName()
             );
+            if ($key == 0) {
+                $this->assertEquals('609.99~1979.19', $priceRange->getParam());
+            }
         }
     }
 
@@ -50,7 +54,8 @@ class PriceRangesConverterTest extends \PHPUnit_Framework_TestCase
         $priceRanges = $priceRangesConverter->convert($products, array(new SetIsNofollow()));
 
         $this->assertEquals('Cena', $priceRanges->getName());
-        $this->assertEquals('/laptopy/cena:%s~%s.html', $priceRanges->getUrlInTemplate());
+        $this->assertEquals('/laptopy/', $priceRanges->getUrlOut());
+        $this->assertEquals('/laptopy/cena:%s.html', $priceRanges->getUrlInTemplate());
         $this->assertEquals('zł', $priceRanges->getUnit());
         $this->assertEquals(4, $priceRanges->count());
         $this->assertEquals(count($products->getPrices()), $priceRanges->count());

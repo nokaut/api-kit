@@ -67,4 +67,27 @@ class ProductsQueryTest extends \PHPUnit_Framework_TestCase
             "&facet[categories]=relatives&facet_range[price_min]=2&sort[price_min]=asc&limit=100&offset=200",
             $url);
     }
+
+    public function testLimitZero()
+    {
+        $cut = new ProductsQuery(self::$baseUrl);
+        $cut->setFields(array('id,title'));
+        $cut->addFacet('categories', 'relatives');
+        $cut->setQuality(60);
+        $cut->setLimit(0);
+        $cut->setOffset(200);
+        $cut->setFilterPriceMinFrom('0');
+        $cut->setFilterPriceMinTo('100');
+        $cut->setOrder('price_min', 'asc');
+        $cut->setPhrase("fraza");
+        $cut->addFacetRange('price_min', 2);
+
+        $url = $cut->createRequestPath();
+
+        $this->assertEquals(self::$baseUrl . "products?" .
+            "fields=id,title,_metadata&quality=60&phrase=fraza" .
+            "&filter[price_min][0][min]=0&filter[price_min][0][max]=100" .
+            "&facet[categories]=relatives&facet_range[price_min]=2&sort[price_min]=asc&limit=0&offset=200",
+            $url);
+    }
 }

@@ -19,13 +19,18 @@ class ProducersConverterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Producent', $producers->getName());
         $this->assertEquals(15, $producers->count());
         $this->assertEquals(count($products->getProducers()), $producers->count());
+        $this->assertEquals('/laptopy/sklep:sklep-morele-net.html', $producers->getUrlOut());
+        $this->assertEquals('/laptopy/sklep:sklep-morele-net,producent:%s.html', $producers->getUrlInTemplate());
 
         $this->assertInstanceOf('\Nokaut\ApiKit\Ext\Data\Collection\Filters\Producers', $producers);
 
-        foreach ($producers as $producer) {
+        foreach ($producers as $key => $producer) {
             /** @var Producer $producer */
             $this->assertInstanceOf('Nokaut\ApiKit\Ext\Data\Entity\Filter\Producer', $producer);
             $this->assertFalse($producer->getIsPopular());
+            if ($key == 0) {
+                $this->assertEquals('hp', $producer->getParam());
+            }
         }
     }
 

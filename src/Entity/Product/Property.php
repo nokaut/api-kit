@@ -37,6 +37,10 @@ class Property extends EntityAbstract
      * @var string
      */
     protected $fight_sort;
+    /**
+     * @var float
+     */
+    protected $fight_rating;
 
     /**
      * @param int $id
@@ -132,5 +136,21 @@ class Property extends EntityAbstract
     public function setFightSort($fight_sort)
     {
         $this->fight_sort = $fight_sort;
+    }
+
+    /**
+     * @return float
+     */
+    public function getFightRating()
+    {
+        return $this->fight_rating;
+    }
+
+    /**
+     * @param float $fight_rating
+     */
+    public function setFightRating($fight_rating)
+    {
+        $this->fight_rating = $fight_rating;
     }
 }

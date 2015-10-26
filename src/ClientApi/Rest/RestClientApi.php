@@ -95,7 +95,12 @@ class RestClientApi implements ClientApiInterface
             if ($fetch->isProcessed()) {
                 continue;
             }
-            $requests[] = new Request('GET', $fetch->getQuery()->createRequestPath());
+            $requests[] = new Request(
+                $fetch->getQuery()->getMethod(),
+                $fetch->getQuery()->createRequestPath(),
+                $fetch->getQuery()->getHeaders(),
+                $fetch->getQuery()->getBody()
+            );
             $fetchesForFilled[] = $fetch;
         }
 
@@ -257,7 +262,12 @@ class RestClientApi implements ClientApiInterface
 
         $startTime = microtime(true);
 
-        $request = new Request('GET', $requestPath);
+        $request = new Request(
+            $fetch->getQuery()->getMethod(),
+            $requestPath,
+            $fetch->getQuery()->getHeaders(),
+            $fetch->getQuery()->getBody()
+        );
         $response = null;
         try {
             $response = $this->getClient()->send($request);
@@ -356,10 +366,13 @@ class RestClientApi implements ClientApiInterface
         }
         $apiStatusMessage = $response ? 'status from API: ' . $response->getStatusCode() . ' ' : 'empty response ';
 
-        $runTime = (string)$response->getHeaderLine('X-Runtime');
-        $endTime = microtime(true);
-        $totalTime = ($endTime - $startTime);
-        $timeInfo = '| runtime: ' . round($runTime, 3) . ' s, total: ' . round($totalTime, 3) . ' s';
+        $timeInfo = '';
+        if ($response) {
+            $runTime = (string)$response->getHeaderLine('X-Runtime');
+            $endTime = microtime(true);
+            $totalTime = ($endTime - $startTime);
+            $timeInfo .= '| runtime: ' . round($runTime, 3) . ' s, total: ' . round($totalTime, 3) . ' s';
+        }
 
         $this->logger->log($level, $additionalMessage . $apiStatusMessage . $url . ' ' . $timeInfo);
     }

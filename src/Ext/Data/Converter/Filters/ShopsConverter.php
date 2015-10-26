@@ -48,6 +48,7 @@ class ShopsConverter implements ConverterInterface
                 $shop = new Shop();
                 $shop->setId($facetShop->getId());
                 $shop->setName($facetShop->getName());
+                $shop->setParam($facetShop->getParam());
                 $shop->setUrl($facetShop->getUrl());
                 $shop->setUrlBase($facetShop->getUrlBase());
                 $shop->setIsFilter($facetShop->getIsFilter());
@@ -58,6 +59,11 @@ class ShopsConverter implements ConverterInterface
 
             $shopsCollection = new Shops($shops);
             $shopsCollection->setName('Sklep');
+
+            if ($products->getMetadata()->getShops()) {
+                $shopsCollection->setUrlOut($products->getMetadata()->getShops()->getUrlOut());
+                $shopsCollection->setUrlInTemplate($products->getMetadata()->getShops()->getUrlInTemplate());
+            }
 
             self::$cache[$cacheKey] = $shopsCollection;
         }

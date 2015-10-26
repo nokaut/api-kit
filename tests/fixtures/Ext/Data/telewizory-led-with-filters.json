@@ -1113,30 +1113,35 @@
             {
                 "min": 180.0,
                 "max": 250.0,
+                "param": "180.00;200.00;220.00;230.00;250.00",
                 "total": 23,
                 "url": "/telewizory-led/jasnosc:180.00;200.00;220.00;230.00;250.00+cd-m2,zlacze-usb:1;3.html"
             },
             {
                 "min": 270.0,
                 "max": 330.0,
+                "param": "180.00;200.00;220.00;230.00;250.00",
                 "total": 18,
                 "url": "/telewizory-led/jasnosc:270.00;280.00;300.00;320.00;330.00+cd-m2,zlacze-usb:1;3.html"
             },
             {
                 "min": 340.0,
                 "max": 390.0,
+                "param": "180.00;200.00;220.00;230.00;250.00",
                 "total": 14,
                 "url": "/telewizory-led/jasnosc:340.00;350.00;360.00;390.00+cd-m2,zlacze-usb:1;3.html"
             },
             {
                 "min": 400.0,
                 "max": 600.0,
+                "param": "180.00;200.00;220.00;230.00;250.00",
                 "total": 10,
                 "url": "/telewizory-led/jasnosc:400.00;450.00;500.00;600.00+cd-m2,zlacze-usb:1;3.html"
             },
             {
                 "min": 200.0,
                 "max": 600.0,
+                "param": "180.00;200.00;220.00;230.00;250.00",
                 "total": 9,
                 "url": "/telewizory-led/zlacze-usb:1;3.html",
                 "is_filter": true

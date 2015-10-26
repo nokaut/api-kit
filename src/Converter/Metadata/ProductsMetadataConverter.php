@@ -10,8 +10,13 @@ namespace Nokaut\ApiKit\Converter\Metadata;
 
 
 use Nokaut\ApiKit\Converter\ConverterInterface;
+use Nokaut\ApiKit\Converter\Metadata\Products\CategoriesConverter;
 use Nokaut\ApiKit\Converter\Metadata\Products\PagingConverter;
+use Nokaut\ApiKit\Converter\Metadata\Products\PricesConverter;
+use Nokaut\ApiKit\Converter\Metadata\Products\ProducersConverter;
+use Nokaut\ApiKit\Converter\Metadata\Products\PropertiesConverter;
 use Nokaut\ApiKit\Converter\Metadata\Products\QueryConverter;
+use Nokaut\ApiKit\Converter\Metadata\Products\ShopsConverter;
 use Nokaut\ApiKit\Converter\Metadata\Products\SortConverter;
 use Nokaut\ApiKit\Entity\Metadata\ProductsMetadata;
 
@@ -47,6 +52,31 @@ class ProductsMetadataConverter implements ConverterInterface
                 $queryConverter = new QueryConverter();
                 $query = $queryConverter->convert($value);
                 $metadata->setQuery($query);
+                break;
+            case 'categories':
+                $categoriesConverter = new CategoriesConverter();
+                $categories = $categoriesConverter->convert($value);
+                $metadata->setCategories($categories);
+                break;
+            case 'shops':
+                $shopsConverter = new ShopsConverter();
+                $shops = $shopsConverter->convert($value);
+                $metadata->setShops($shops);
+                break;
+            case 'producers':
+                $producersConverter = new ProducersConverter();
+                $producers = $producersConverter->convert($value);
+                $metadata->setProducers($producers);
+                break;
+            case 'prices':
+                $pricesConverter = new PricesConverter();
+                $prices = $pricesConverter->convert($value);
+                $metadata->setPrices($prices);
+                break;
+            case 'properties':
+                $propertiesConverter = new PropertiesConverter();
+                $properties = $propertiesConverter->convert($value);
+                $metadata->setProperties($properties);
                 break;
         }
     }

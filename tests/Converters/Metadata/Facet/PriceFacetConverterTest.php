@@ -32,6 +32,7 @@ class PriceFacetConverterTest extends \PHPUnit_Framework_TestCase
         {
             "min": 39.99,
             "max": 424,
+            "param": "39.99~424.00",
             "total": 106,
             "url": "/aparaty-cyfrowe/cena:39.99~424.00.html"
 

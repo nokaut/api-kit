@@ -19,6 +19,8 @@ class CategoriesConverterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, $categories->count());
         $this->assertEquals('Kategoria', $categories->getName());
         $this->assertEquals(count($products->getCategories()), $categories->count());
+        $this->assertEquals('/sklep:sklep-morele-net;x-kom-pl,producent:lenovo.html', $categories->getUrlOut());
+        $this->assertEquals('/%s/sklep:sklep-morele-net;x-kom-pl,producent:lenovo,rozdzielczosc-px:2560-x-1440+px.html', $categories->getUrlInTemplate());
 
         $this->assertInstanceOf('\Nokaut\ApiKit\Ext\Data\Collection\Filters\Categories', $categories);
 
@@ -26,6 +28,7 @@ class CategoriesConverterTest extends \PHPUnit_Framework_TestCase
             /** @var Category $category */
             $this->assertInstanceOf('Nokaut\ApiKit\Ext\Data\Entity\Filter\Category', $category);
             $this->assertGreaterThan(0, $category->getId());
+            $this->assertEquals('laptopy', $category->getParam());
         }
     }
 

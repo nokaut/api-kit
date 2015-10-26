@@ -31,6 +31,10 @@ class Category extends EntityAbstract
      */
     protected $description;
     /**
+     * @var string
+     */
+    protected $description_html;
+    /**
      * @var bool
      */
     protected $is_adult;
@@ -86,6 +90,10 @@ class Category extends EntityAbstract
      * @var string
      */
     protected $title_type_singular;
+    /**
+     * @var bool
+     */
+    protected $is_fight;
 
     /**
      * @param float $cpc_value
@@ -133,6 +141,22 @@ class Category extends EntityAbstract
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescriptionHtml()
+    {
+        return $this->description_html;
+    }
+
+    /**
+     * @param string $description_html
+     */
+    public function setDescriptionHtml($description_html)
+    {
+        $this->description_html = $description_html;
     }
 
     /**
@@ -391,5 +415,21 @@ class Category extends EntityAbstract
             },
             $this->children
         );
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getIsFight()
+    {
+        return $this->is_fight;
+    }
+
+    /**
+     * @param boolean $is_fight
+     */
+    public function setIsFight($is_fight)
+    {
+        $this->is_fight = $is_fight;
     }
 }

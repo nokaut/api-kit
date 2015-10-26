@@ -47,6 +47,7 @@ class ProducersConverter implements ConverterInterface
             foreach ($facetProducers as $facetProducer) {
                 $producer = new Producer();
                 $producer->setName($facetProducer->getName());
+                $producer->setParam($facetProducer->getParam());
                 $producer->setUrl($facetProducer->getUrl());
                 $producer->setUrlBase($facetProducer->getUrlBase());
                 $producer->setIsFilter($facetProducer->getIsFilter());
@@ -57,6 +58,11 @@ class ProducersConverter implements ConverterInterface
 
             $producersCollection = new Producers($producers);
             $producersCollection->setName("Producent");
+
+            if ($products->getMetadata()->getProducers()) {
+                $producersCollection->setUrlOut($products->getMetadata()->getProducers()->getUrlOut());
+                $producersCollection->setUrlInTemplate($products->getMetadata()->getProducers()->getUrlInTemplate());
+            }
 
             self::$cache[$cacheKey] = $producersCollection;
         }

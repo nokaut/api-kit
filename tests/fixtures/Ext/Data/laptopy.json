@@ -742,6 +742,26 @@
         "sort": {
             "category_sort3": "desc"
         }
+    },
+    "categories": {
+        "url_out": "/sklep:sklep-morele-net;x-kom-pl,producent:lenovo.html",
+        "url_in_template": "/%s/sklep:sklep-morele-net;x-kom-pl,producent:lenovo,rozdzielczosc-px:2560-x-1440+px.html"
+    },
+    "shops": {
+        "url_out": "/laptopy/producent:lenovo.html",
+        "url_in_template": "/laptopy/sklep:%s,producent:lenovo.html"
+    },
+    "producers": {
+        "url_out": "/laptopy/sklep:sklep-morele-net.html",
+        "url_in_template": "/laptopy/sklep:sklep-morele-net,producent:%s.html"
+    },
+    "prices":  {
+        "url_out": "/laptopy/",
+        "url_in_template": "/laptopy/cena:%s.html"
+    },
+    "properties": {
+        "url_out": "/laptopy/sklep:sklep-morele-net;x-kom-pl,producent:lenovo.html",
+        "url_in_template": "/laptopy/sklep:sklep-morele-net;x-kom-pl,producent:lenovo,%s.html"
     }
 }, "categories": [
     {
@@ -749,12 +769,14 @@
         "total": 3110,
         "url": "/",
         "name": "Laptopy",
+        "param": "laptopy",
         "is_filter": true
     }
 ], "shops": [
     {
         "id": 3376,
         "name": "SWIAT-LAPTOPOW.PL",
+        "param": "SWIAT-LAPTOPOW.PL",
         "total": 669,
         "url": "/laptopy/sklep:swiatlaptopow-pl.html"
     },
@@ -1080,6 +1102,7 @@
     {
         "id": "hp",
         "name": "HP",
+        "param": "hp",
         "total": 811,
         "url": "/laptopy/producent:hp.html"
     },
@@ -1172,6 +1195,7 @@
         "min": 609.99,
         "max": 1979.19,
         "total": 954,
+        "param": "609.99~1979.19",
         "url": "/laptopy/cena:609.99~1979.19.html"
     },
     {
@@ -1196,10 +1220,13 @@
     {
         "id": 246,
         "name": "Przek\u0105tna ekranu",
+        "url_out": "/laptopy/sklep:salurion-pl,producent:asus;lenovo.html",
+        "url_in_template": "/laptopy/sklep:salurion-pl,producent:asus;lenovo,przekatna-ekranu:%s.html",
         "unit": "\"",
         "values": [
             {
                 "name": "15.6",
+                "param": "15.6",
                 "total": 869,
                 "url": "/laptopy/przekatna-ekranu:15.60.html"
             },
@@ -1318,6 +1345,8 @@
     },
     {
         "id": 634,
+        "url_out": null,
+        "url_in_template": "/laptopy/sklep:salurion-pl,producent:asus;lenovo,karta-graficzna:%s,przekatna-ekranu:11.60;12.50.html",
         "name": "Karta graficzna",
         "values": [
             {
