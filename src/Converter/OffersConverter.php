@@ -44,7 +44,9 @@ class OffersConverter implements ConverterInterface
      */
     protected function convertMetadata(\stdClass $object)
     {
-        $metadataConverter = new OffersMetadataConverter();
-        return $metadataConverter->convert($object->_metadata);
+        if (isset($object->_metadata)) {
+            $metadataConverter = new OffersMetadataConverter();
+            return $metadataConverter->convert($object->_metadata);
+        }
     }
 } 
