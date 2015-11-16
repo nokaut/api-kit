@@ -35,6 +35,9 @@ class PropertyConverter implements ConverterInterface
         if (isset($object->fight_rating)) {
             $property->setFightRating($object->fight_rating);
         }
+        if (isset($object->is_label)) {
+            $property->setIsLabel($object->is_label);
+        }
 
         return $property;
     }

@@ -140,13 +140,15 @@ class ProductConverterTest extends PHPUnit_Framework_TestCase
                             "value": "100",
                             "unit": "kg",
                             "is_fight": true,
+                            "is_label": true,
                             "fight_sort": "asc",
                             "fight_rating": "100"
                         },
                         {
                             "id": 2336,
                             "name": "System hamowania",
-                            "value": "magnetyczny"
+                            "value": "magnetyczny",
+                            "is_label": false
                         },
                         {
                             "id": 1089,

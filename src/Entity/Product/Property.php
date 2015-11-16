@@ -41,6 +41,10 @@ class Property extends EntityAbstract
      * @var float
      */
     protected $fight_rating;
+    /**
+     * @var bool
+     */
+    protected $is_label = false;
 
     /**
      * @param int $id
@@ -152,5 +156,21 @@ class Property extends EntityAbstract
     public function setFightRating($fight_rating)
     {
         $this->fight_rating = $fight_rating;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getIsLabel()
+    {
+        return $this->is_label;
+    }
+
+    /**
+     * @param boolean $is_label
+     */
+    public function setIsLabel($is_label)
+    {
+        $this->is_label = $is_label;
     }
 }
