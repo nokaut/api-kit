@@ -16,8 +16,11 @@ use Nokaut\ApiKit\Repository\CategoriesAsyncRepository;
 use Nokaut\ApiKit\Repository\CategoriesRepository;
 use Nokaut\ApiKit\Repository\OffersAsyncRepository;
 use Nokaut\ApiKit\Repository\OffersRepository;
+use Nokaut\ApiKit\Repository\ProducersRepository;
 use Nokaut\ApiKit\Repository\ProductsAsyncRepository;
 use Nokaut\ApiKit\Repository\ProductsRepository;
+use Nokaut\ApiKit\Repository\ShopsAsyncRepository;
+use Nokaut\ApiKit\Repository\ShopsRepository;
 
 class ApiKit
 {
@@ -128,6 +131,54 @@ class ApiKit
         $restClientApi = $this->getClientApi($config);
 
         return new OffersAsyncRepository($config, $restClientApi);
+    }
+
+    /**
+     * @param Config $config
+     * @return ProducersRepository
+     */
+    public function getProducersRepository(Config $config = null)
+    {
+        if (!$config) {
+            $config = $this->config;
+        }
+        $this->validate($config);
+
+        $restClientApi = $this->getClientApi($config);
+
+        return new ProducersRepository($config, $restClientApi);
+    }
+
+    /**
+     * @param Config $config
+     * @return ShopsRepository
+     */
+    public function getShopsRepository(Config $config = null)
+    {
+        if (!$config) {
+            $config = $this->config;
+        }
+        $this->validate($config);
+
+        $restClientApi = $this->getClientApi($config);
+
+        return new ShopsRepository($config, $restClientApi);
+    }
+
+    /**
+     * @param Config $config
+     * @return ShopsAsyncRepository
+     */
+    public function getShopsAsyncRepository(Config $config = null)
+    {
+        if (!$config) {
+            $config = $this->config;
+        }
+        $this->validate($config);
+
+        $restClientApi = $this->getClientApi($config);
+
+        return new ShopsAsyncRepository($config, $restClientApi);
     }
 
     /**

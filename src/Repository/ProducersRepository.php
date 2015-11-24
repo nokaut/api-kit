@@ -23,14 +23,25 @@ class ProducersRepository extends RepositoryAbstract
      */
     public function fetchByNamePrefix($namePrefix, $limit)
     {
-        $query = new ProducersQuery($this->apiBaseUrl);
-        $query->setFields(self::$fieldsAll);
-        $query->addFilter(new SingleWithOperator('name', 'prefix', $namePrefix));
-        $query->setLimit($limit);
+        $query = $this->prepareQueryByNamePrefix($namePrefix, $limit);
 
         $fetch = new ProducersFetch($query, $this->cache);
         $this->clientApi->send($fetch);
 
         return $fetch->getResult();
+    }
+
+    /**
+     * @param $namePrefix
+     * @param $limit
+     * @return ProducersQuery
+     */
+    protected function prepareQueryByNamePrefix($namePrefix, $limit)
+    {
+        $query = new ProducersQuery($this->apiBaseUrl);
+        $query->setFields(self::$fieldsAll);
+        $query->addFilter(new SingleWithOperator('name', 'prefix', $namePrefix));
+        $query->setLimit($limit);
+        return $query;
     }
 }
