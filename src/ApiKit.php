@@ -16,6 +16,7 @@ use Nokaut\ApiKit\Repository\CategoriesAsyncRepository;
 use Nokaut\ApiKit\Repository\CategoriesRepository;
 use Nokaut\ApiKit\Repository\OffersAsyncRepository;
 use Nokaut\ApiKit\Repository\OffersRepository;
+use Nokaut\ApiKit\Repository\ProducersAsyncRepository;
 use Nokaut\ApiKit\Repository\ProducersRepository;
 use Nokaut\ApiKit\Repository\ProductsAsyncRepository;
 use Nokaut\ApiKit\Repository\ProductsRepository;
@@ -147,6 +148,22 @@ class ApiKit
         $restClientApi = $this->getClientApi($config);
 
         return new ProducersRepository($config, $restClientApi);
+    }
+
+    /**
+     * @param Config $config
+     * @return ProducersRepository
+     */
+    public function getProducersAsyncRepository(Config $config = null)
+    {
+        if (!$config) {
+            $config = $this->config;
+        }
+        $this->validate($config);
+
+        $restClientApi = $this->getClientApi($config);
+
+        return new ProducersAsyncRepository($config, $restClientApi);
     }
 
     /**
