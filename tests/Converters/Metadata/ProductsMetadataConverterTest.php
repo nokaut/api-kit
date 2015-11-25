@@ -89,7 +89,8 @@ class ProductsMetadataConverterTest extends \PHPUnit_Framework_TestCase
             "paging": {
                 "current": 1,
                 "total": 1,
-                "url_template": "/laptopy/producent:sony,cena:1530.00~2399.00,czestotliwosc-procesora:2.20;2.30;2.40;2.50;2.60;2.70;2.13;2.16;2.53;3.10;3.20+ghz,przekatna-ekranu:13.30;15.40,system-operacyjny:windows--%d.html"
+                "url_template": "/laptopy/producent:sony,cena:1530.00~2399.00,czestotliwosc-procesora:2.20;2.30;2.40;2.50;2.60;2.70;2.13;2.16;2.53;3.10;3.20+ghz,przekatna-ekranu:13.30;15.40,system-operacyjny:windows--%d.html",
+                "url_first_page": "/laptopy/producent:sony,cena:1530.00~2399.00,czestotliwosc-procesora:2.20;2.30;2.40;2.50;2.60;2.70;2.13;2.16;2.53;3.10;3.20+ghz,przekatna-ekranu:13.30;15.40,system-operacyjny:windows.html"
             },
             "sorts": [
                 {

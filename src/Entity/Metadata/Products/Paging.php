@@ -25,6 +25,10 @@ class Paging extends EntityAbstract
      * @var string
      */
     protected $url_template;
+    /**
+     * @var string
+     */
+    protected $url_first_page;
 
     /**
      * @param int $current
@@ -72,6 +76,22 @@ class Paging extends EntityAbstract
     public function getUrlTemplate()
     {
         return $this->url_template;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrlFirstPage()
+    {
+        return $this->url_first_page;
+    }
+
+    /**
+     * @param string $url_first_page
+     */
+    public function setUrlFirstPage($url_first_page)
+    {
+        $this->url_first_page = $url_first_page;
     }
 
 }
