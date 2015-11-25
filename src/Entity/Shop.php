@@ -20,6 +20,8 @@ class Shop extends EntityAbstract
      */
     protected $products_url;
 
+    protected $url_logo;
+
     /**
      * @return int
      */
@@ -66,5 +68,21 @@ class Shop extends EntityAbstract
     public function setProductsUrl($products_url)
     {
         $this->products_url = $products_url;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUrlLogo()
+    {
+        return $this->url_logo;
+    }
+
+    /**
+     * @param mixed $url_logo
+     */
+    public function setUrlLogo($url_logo)
+    {
+        $this->url_logo = $url_logo;
     }
 }
