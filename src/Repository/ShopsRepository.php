@@ -71,7 +71,7 @@ class ShopsRepository extends RepositoryAbstract
     {
         $query = new ShopsQuery($this->apiBaseUrl);
         $query->setFields(self::$fieldsAll);
-        $query->setLimit(min(count($ids, self::MAX_LIMIT)));
+        $query->setLimit(min(count($ids), self::MAX_LIMIT));
         $query->addFilter(new MultipleWithOperator('id', 'in', $ids));
         return $query;
     }
