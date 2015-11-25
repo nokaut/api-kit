@@ -37,9 +37,9 @@ class ShopsRepository extends RepositoryAbstract
      * @param array $ids
      * @return Shops
      */
-    public function fetchByIds(array $ids)
+    public function fetchByIds(array $ids, $limit = 100)
     {
-        $query = $this->prepareQueryByIds($ids);
+        $query = $this->prepareQueryByIds($ids, $limit);
 
         $fetch = new ShopsFetch($query, $this->cache);
         $this->clientApi->send($fetch);
@@ -63,12 +63,14 @@ class ShopsRepository extends RepositoryAbstract
 
     /**
      * @param array $ids
+     * @param int $limit
      * @return ShopsQuery
      */
-    protected function prepareQueryByIds(array $ids)
+    protected function prepareQueryByIds(array $ids, $limit = 100)
     {
         $query = new ShopsQuery($this->apiBaseUrl);
         $query->setFields(self::$fieldsAll);
+        $query->setLimit($limit);
         $query->addFilter(new MultipleWithOperator('id', 'in', $ids));
         return $query;
     }
