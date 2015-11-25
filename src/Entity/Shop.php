@@ -20,6 +20,9 @@ class Shop extends EntityAbstract
      */
     protected $products_url;
 
+    /**
+     * @var string
+     */
     protected $url_logo;
 
     /**
@@ -71,7 +74,7 @@ class Shop extends EntityAbstract
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getUrlLogo()
     {
@@ -79,7 +82,7 @@ class Shop extends EntityAbstract
     }
 
     /**
-     * @param mixed $url_logo
+     * @param string $url_logo
      */
     public function setUrlLogo($url_logo)
     {
