@@ -10,7 +10,7 @@ namespace Nokaut\ApiKit\Converter;
 
 
 use Nokaut\ApiKit\Converter\Offer\PropertyConverter;
-use Nokaut\ApiKit\Converter\Offer\ShopConverter;
+use Nokaut\ApiKit\Converter\Offer\ShopConverter as OfferShopConverter;
 use Nokaut\ApiKit\Entity\Offer;
 
 class OfferConverter implements ConverterInterface
@@ -36,7 +36,7 @@ class OfferConverter implements ConverterInterface
                 $offer->setProperties($this->convertProperties($value));
                 break;
             case 'shop':
-                $shopConverter = new ShopConverter();
+                $shopConverter = new OfferShopConverter();
                 $offer->setShop($shopConverter->convert($value));
                 break;
         }

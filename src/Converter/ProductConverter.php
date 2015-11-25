@@ -13,7 +13,7 @@ namespace Nokaut\ApiKit\Converter;
 use Nokaut\ApiKit\Converter\Product\PricesConverter;
 use Nokaut\ApiKit\Converter\Product\PropertyConverter;
 use Nokaut\ApiKit\Converter\Product\RatingConverter;
-use Nokaut\ApiKit\Converter\Product\ShopConverter;
+use Nokaut\ApiKit\Converter\Product\ShopConverter as ProductShopConverter;
 use Nokaut\ApiKit\Entity\Product;
 
 class ProductConverter implements ConverterInterface
@@ -47,7 +47,7 @@ class ProductConverter implements ConverterInterface
                 $product->setPrices($pricesConverter->convert($value));
                 break;
             case 'shop':
-                $shopConverter = new ShopConverter();
+                $shopConverter = new ProductShopConverter();
                 $product->setShop($shopConverter->convert($value));
                 break;
             case 'rating':
