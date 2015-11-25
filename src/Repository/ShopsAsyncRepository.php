@@ -47,9 +47,9 @@ class ShopsAsyncRepository extends ShopsRepository implements AsyncRepositoryInt
         return $shopsAsyncFetch;
     }
 
-    public function fetchByIds(array $ids, $limit = 100)
+    public function fetchByIds(array $ids)
     {
-        $shopsAsyncFetch = new ShopsFetch($this->prepareQueryByIds($ids, $limit), $this->cache);
+        $shopsAsyncFetch = new ShopsFetch($this->prepareQueryByIds($ids), $this->cache);
         $this->asyncRepo->addFetch($shopsAsyncFetch);
         return $shopsAsyncFetch;
     }

@@ -12,6 +12,8 @@ use Nokaut\ApiKit\Collection\Shops;
 
 class ShopsRepository extends RepositoryAbstract
 {
+    const MAX_LIMIT = 100;
+
     public static $fieldsAll = array(
         'id',
         'name',
@@ -37,9 +39,9 @@ class ShopsRepository extends RepositoryAbstract
      * @param array $ids
      * @return Shops
      */
-    public function fetchByIds(array $ids, $limit = 100)
+    public function fetchByIds(array $ids)
     {
-        $query = $this->prepareQueryByIds($ids, $limit);
+        $query = $this->prepareQueryByIds($ids);
 
         $fetch = new ShopsFetch($query, $this->cache);
         $this->clientApi->send($fetch);
@@ -63,14 +65,13 @@ class ShopsRepository extends RepositoryAbstract
 
     /**
      * @param array $ids
-     * @param int $limit
      * @return ShopsQuery
      */
-    protected function prepareQueryByIds(array $ids, $limit = 100)
+    protected function prepareQueryByIds(array $ids)
     {
         $query = new ShopsQuery($this->apiBaseUrl);
         $query->setFields(self::$fieldsAll);
-        $query->setLimit($limit);
+        $query->setLimit(min(count($ids, self::MAX_LIMIT)));
         $query->addFilter(new MultipleWithOperator('id', 'in', $ids));
         return $query;
     }
