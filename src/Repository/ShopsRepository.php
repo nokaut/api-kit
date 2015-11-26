@@ -21,14 +21,22 @@ class ShopsRepository extends RepositoryAbstract
         'url_logo'
     );
 
+    public static $fieldsAutoComplete = array(
+        'id',
+        'name',
+        'products_url'
+    );
+
     /**
      * @param string $namePrefix
+     * @param array $fields
      * @param int $limit
      * @return Shops
+     * @throws \Exception
      */
-    public function fetchByNamePrefix($namePrefix, $limit)
+    public function fetchByNamePrefix($namePrefix, array $fields, $limit)
     {
-        $query = $this->prepareQueryByNamePrefix($namePrefix, $limit);
+        $query = $this->prepareQueryByNamePrefix($namePrefix, $fields, $limit);
 
         $fetch = new ShopsFetch($query, $this->cache);
         $this->clientApi->send($fetch);
@@ -38,11 +46,13 @@ class ShopsRepository extends RepositoryAbstract
 
     /**
      * @param array $ids
+     * @param array $fields
      * @return Shops
+     * @throws \Exception
      */
-    public function fetchByIds(array $ids)
+    public function fetchByIds(array $ids, array $fields)
     {
-        $query = $this->prepareQueryByIds($ids);
+        $query = $this->prepareQueryByIds($ids, $fields);
 
         $fetch = new ShopsFetch($query, $this->cache);
         $this->clientApi->send($fetch);
@@ -52,13 +62,14 @@ class ShopsRepository extends RepositoryAbstract
 
     /**
      * @param $namePrefix
+     * @param array $fields
      * @param $limit
      * @return ShopsQuery
      */
-    protected function prepareQueryByNamePrefix($namePrefix, $limit)
+    protected function prepareQueryByNamePrefix($namePrefix, array $fields, $limit)
     {
         $query = new ShopsQuery($this->apiBaseUrl);
-        $query->setFields(self::$fieldsAll);
+        $query->setFields($fields);
         $query->addFilter(new SingleWithOperator('name', 'prefix', $namePrefix));
         $query->setLimit($limit);
         return $query;
@@ -66,12 +77,13 @@ class ShopsRepository extends RepositoryAbstract
 
     /**
      * @param array $ids
+     * @param array $fields
      * @return ShopsQuery
      */
-    protected function prepareQueryByIds(array $ids)
+    protected function prepareQueryByIds(array $ids, array $fields)
     {
         $query = new ShopsQuery($this->apiBaseUrl);
-        $query->setFields(self::$fieldsAll);
+        $query->setFields($fields);
         $query->setLimit(min(count($ids), self::MAX_LIMIT));
         $query->addFilter(new MultipleWithOperator('id', 'in', $ids));
         return $query;

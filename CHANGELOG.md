@@ -8,6 +8,7 @@ master
 - Pobieranie ShopsRepository i ProducersRepository z klasy ApiKit
 - Dodanie repozytoriów: ShopsAsyncRepository i ProducersAsyncRepository
 - Entity/Shop dodanie url_logo
+- wymuszanie określenia pól dla method ShopsAsyncRepository i ShopsRepository
 
 v1.6.0
 ------

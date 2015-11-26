@@ -3,13 +3,14 @@
 namespace Nokaut\ApiKit\Repository;
 
 
+use Nokaut\ApiKit\ClientApi\Rest\Fetch\ShopsFetch;
 use Nokaut\ApiKit\Collection\Shops;
 use Nokaut\ApiKit\Config;
 use Nokaut\ApiKit\Entity\Shop;
 use PHPUnit_Framework_MockObject_MockObject;
 use PHPUnit_Framework_TestCase;
 
-class ShopsRepositoryTest extends PHPUnit_Framework_TestCase
+class ShopsAsyncRepositoryTest extends PHPUnit_Framework_TestCase
 {
 
     /**
@@ -26,12 +27,22 @@ class ShopsRepositoryTest extends PHPUnit_Framework_TestCase
         $oauth2 = "1/token111accessoauth2";
         $cacheMock = $this->getMock('Nokaut\ApiKit\Cache\CacheInterface');
         $loggerMock = $this->getMock('Psr\Log\LoggerInterface');
+
+        $response = $this->getMockBuilder('\GuzzleHttp\Psr7\Response')->disableOriginalConstructor()->getMock();
+        $response->expects($this->any())->method('getStatusCode')->will($this->returnValue(200));
+
+        $request = $this->getMockBuilder('\GuzzleHttp\Psr7\Request')->disableOriginalConstructor()->getMock();
+
         $client = $this->getMockBuilder('\GuzzleHttp\Client')->disableOriginalConstructor()->getMock();
+        $client->expects($this->any())->method('send')->will($this->returnValue(array($response)));
+        $client->expects($this->any())->method('createRequest')->will($this->returnValue($request));
+
         $this->clientApiMock = $this->getMock(
             'Nokaut\ApiKit\ClientApi\Rest\RestClientApi',
-            array('convertResponse', 'getClient', 'log', 'convertResponseToSaveCache'),
+            array('convertResponse', 'getClient', 'log', 'logMulti', 'convertResponseToSaveCache'),
             array($loggerMock, $oauth2)
         );
+
         $this->clientApiMock->expects($this->any())->method('getClient')
             ->will($this->returnValue($client));
 
@@ -40,7 +51,7 @@ class ShopsRepositoryTest extends PHPUnit_Framework_TestCase
         $config->setLogger($loggerMock);
         $config->setApiUrl("http://32213:454/api/v2/");
 
-        $this->sut = new ShopsRepository($config, $this->clientApiMock);
+        $this->sut = new ShopsAsyncRepository($config, $this->clientApiMock);
     }
 
     public function testFetchByNamePrefix()
@@ -48,8 +59,12 @@ class ShopsRepositoryTest extends PHPUnit_Framework_TestCase
         $this->clientApiMock->expects($this->once())->method('convertResponse')
             ->will($this->returnValue($this->getJsonFixture('shops')));
 
+        /** @var ShopsFetch $shopsFetch */
+        $shopsFetch = $this->sut->fetchByNamePrefix('da', ShopsRepository::$fieldsAutoComplete, 5);
+        $this->sut->fetchAllAsync();
+
         /** @var Shops $shops */
-        $shops = $this->sut->fetchByNamePrefix('da', ShopsRepository::$fieldsAutoComplete, 5);
+        $shops = $shopsFetch->getResult();
 
         $this->assertCount(5, $shops);
         /** @var Shop $shop */
@@ -64,8 +79,11 @@ class ShopsRepositoryTest extends PHPUnit_Framework_TestCase
         $this->clientApiMock->expects($this->once())->method('convertResponse')
             ->will($this->returnValue($this->getJsonFixture('shops')));
 
+        /** @var ShopsFetch $shopsFetch */
+        $shopsFetch = $this->sut->fetchByIds([12,32,54,345,43], ShopsRepository::$fieldsAll);
+        $this->sut->fetchAllAsync();
         /** @var Shops $shops */
-        $shops = $this->sut->fetchByIds([12,32,54,345,43], ShopsRepository::$fieldsAll);
+        $shops = $shopsFetch->getResult();
 
         $this->assertCount(5, $shops);
         /** @var Shop $shop */
