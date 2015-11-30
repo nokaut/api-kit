@@ -21,6 +21,21 @@ class Producer extends EntityAbstract
     protected $products_url;
 
     /**
+     * @var string
+     */
+    protected $description;
+
+    /**
+     * @var string
+     */
+    protected $url;
+
+    /**
+     * @var string
+     */
+    protected $url_logo;
+
+    /**
      * @return string
      */
     public function getId()
@@ -67,4 +82,53 @@ class Producer extends EntityAbstract
     {
         $this->products_url = $products_url;
     }
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * @param string $url
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrlLogo()
+    {
+        return $this->url_logo;
+    }
+
+    /**
+     * @param string $url_logo
+     */
+    public function setUrlLogo($url_logo)
+    {
+        $this->url_logo = $url_logo;
+    }
+
 }

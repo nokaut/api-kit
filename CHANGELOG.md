@@ -10,6 +10,7 @@ master
 - Dodanie repozytoriów: ShopsAsyncRepository i ProducersAsyncRepository
 - Entity/Shop dodanie url_logo
 - wymuszanie określenia pól dla method ShopsAsyncRepository i ShopsRepository
+- Entity/Producer - nowe pola: url_logo, url, description
 
 v1.6.0
 ------
