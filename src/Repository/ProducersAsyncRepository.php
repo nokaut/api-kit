@@ -40,9 +40,16 @@ class ProducersAsyncRepository extends ProducersRepository implements AsyncRepos
         $this->asyncRepo->fetchAllAsync();
     }
 
-    public function fetchByNamePrefix($namePrefix, $limit)
+    public function fetchByNamePrefix($namePrefix, array $fields, $limit)
     {
-        $producersAsyncFetch = new ProducersFetch($this->prepareQueryByNamePrefix($namePrefix, $limit), $this->cache);
+        $producersAsyncFetch = new ProducersFetch($this->prepareQueryByNamePrefix($namePrefix, $fields, $limit), $this->cache);
+        $this->asyncRepo->addFetch($producersAsyncFetch);
+        return $producersAsyncFetch;
+    }
+
+    public function fetchByIds(array $ids, array $fields)
+    {
+        $producersAsyncFetch = new ProducersFetch($this->prepareQueryByIds($ids, $fields), $this->cache);
         $this->asyncRepo->addFetch($producersAsyncFetch);
         return $producersAsyncFetch;
     }
