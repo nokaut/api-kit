@@ -3,6 +3,7 @@ ChangeLog
 
 master
 -----
+- Dodanie adresu pierwszej strony do products meta paging
 - Dodanie atrybutu is_label do cechy produktu
 - zmiana interface \Nokaut\ApiKit\Cache\CacheInterface oraz dodanie Nokaut\ApiKit\Cache\AbstractCache - jeśli implementowaliście interface CacheInterface wystarczy, że rozszerzycie swoją klasę abstrkcyjną klasą Nokaut\ApiKit\Cache\AbstractCache
 - Pobieranie ShopsRepository i ProducersRepository z klasy ApiKit
