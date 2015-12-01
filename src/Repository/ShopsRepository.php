@@ -4,7 +4,6 @@ namespace Nokaut\ApiKit\Repository;
 
 
 use Nokaut\ApiKit\ClientApi\Rest\Fetch\ShopsFetch;
-use Nokaut\ApiKit\ClientApi\Rest\Query\Filter\MultipleWithOperator;
 use Nokaut\ApiKit\ClientApi\Rest\Query\Filter\Single;
 use Nokaut\ApiKit\ClientApi\Rest\Query\Filter\SingleWithOperator;
 use Nokaut\ApiKit\ClientApi\Rest\Query\ShopsQuery;
@@ -85,7 +84,7 @@ class ShopsRepository extends RepositoryAbstract
         $query = new ShopsQuery($this->apiBaseUrl);
         $query->setFields($fields);
         $query->setLimit(min(count($ids), self::MAX_LIMIT));
-        $query->addFilter(new MultipleWithOperator('id', 'in', $ids));
+        $query->addFilter(new Single('id', join(',', $ids)));
         return $query;
     }
 }
