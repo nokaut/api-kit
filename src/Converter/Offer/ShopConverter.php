@@ -29,7 +29,7 @@ class ShopConverter implements ConverterInterface
         return $shop;
     }
 
-    private function convertSubObject(Shop $shop, $filed, $value)
+    protected function convertSubObject(Shop $shop, $filed, $value)
     {
         switch ($filed) {
             case 'opineo_rating':
