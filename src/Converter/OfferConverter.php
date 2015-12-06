@@ -29,7 +29,7 @@ class OfferConverter implements ConverterInterface
         return $offer;
     }
 
-    private function convertSubObject(Offer $offer, $field, $value)
+    protected function convertSubObject(Offer $offer, $field, $value)
     {
         switch ($field) {
             case 'properties':
@@ -46,7 +46,7 @@ class OfferConverter implements ConverterInterface
      * @param $propertiesFromApi
      * @return array
      */
-    private function convertProperties($propertiesFromApi)
+    protected function convertProperties($propertiesFromApi)
     {
         $propertyConverter = new PropertyConverter();
         $propertiesList = array();
