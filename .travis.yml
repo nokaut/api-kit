@@ -7,5 +7,7 @@ php:
 before_script:
  - composer install --dev
 
+script: ./vendor/phpunit/phpunit/phpunit
+
 notifications:
   email: travis@nokaut.pl
