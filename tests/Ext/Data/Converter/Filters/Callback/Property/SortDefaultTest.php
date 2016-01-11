@@ -211,4 +211,44 @@ class SortDefaultTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('456 - 567', $entities[4]->getName());
         $this->assertEquals('456 - 567', $property->getLast()->getName());
     }
+
+    public function testFloatRanges()
+    {
+        $products = new Products(array());
+
+        $propertyValues = array();
+
+        $propertyValue = new PropertyRange();
+        $propertyValue->setName('2.2 - 3.2');
+        $propertyValue->setTotal(1);
+        $propertyValues[] = $propertyValue;
+
+        $propertyValue = new PropertyRange();
+        $propertyValue->setName('1.33 - 1.59');
+        $propertyValue->setTotal(2);
+        $propertyValues[] = $propertyValue;
+
+        $propertyValue = new PropertyRange();
+        $propertyValue->setName('1.6 - 2.1');
+        $propertyValue->setTotal(2);
+        $propertyValues[] = $propertyValue;
+
+        $propertyValue = new PropertyRange();
+        $propertyValue->setName('0.8 - 1.3');
+        $propertyValue->setTotal(3);
+        $propertyValues[] = $propertyValue;
+
+        $property = new PropertyRanges($propertyValues);
+
+        $callback = new SortDefault();
+        $callback($property, $products);
+
+        $entities = $property->getEntities();
+
+        $this->assertEquals('0.8 - 1.3', $entities[0]->getName());
+        $this->assertEquals('1.33 - 1.59', $entities[1]->getName());
+        $this->assertEquals('1.6 - 2.1', $entities[2]->getName());
+        $this->assertEquals('2.2 - 3.2', $entities[3]->getName());
+        $this->assertEquals('2.2 - 3.2', $property->getLast()->getName());
+    }
 }
