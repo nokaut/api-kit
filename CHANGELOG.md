@@ -3,6 +3,7 @@ ChangeLog
 
 master
 -----
+- Dodanie filtra Mutiple dla klienta Api
 - Poprawka sortowania zakresów wartości cech produktów z facetingu
 - Dodanie adresu pierwszej strony do products meta paging
 - Dodanie atrybutu is_label do cechy produktu
