@@ -11,6 +11,7 @@ master
 - Entity/Shop dodanie url_logo
 - wymuszanie określenia pól dla method ShopsAsyncRepository i ShopsRepository
 - Entity/Producer - nowe pola: url_logo, url, description
+- Nokaut\ApiKit\Entity\OfferOffer\Shop - dodanie pola url adresu www do sklepu
 
 v1.6.0
 ------

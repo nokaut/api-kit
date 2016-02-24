@@ -34,6 +34,10 @@ class Shop extends EntityAbstract
      * @var OpineoRating
      */
     protected $opineo_rating;
+    /**
+     * @var string
+     */
+    protected $url;
 
     /**
      * @param boolean $high_quality
@@ -113,6 +117,22 @@ class Shop extends EntityAbstract
     public function getUrlLogo()
     {
         return $this->url_logo;
+    }
+
+    /**
+     * @return string
+     */
+    public function getShopUrl()
+    {
+        return $this->shop_url;
+    }
+
+    /**
+     * @param string $shop_url
+     */
+    public function setShopUrl($shop_url)
+    {
+        $this->shop_url = $shop_url;
     }
 
     public function __clone()

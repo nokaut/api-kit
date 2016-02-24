@@ -129,6 +129,7 @@ class OfferConverterTest extends PHPUnit_Framework_TestCase
                 "id": 18089,
                 "name": "Skynet s.c.",
                 "url_logo": "/s/18089.jpg",
+                "url": "http://www.mediamarkt.pl/",
                 "high_quality": false,
                 "opineo_rating": {
                     "rating": 9.4,
