@@ -135,6 +135,22 @@ class Shop extends EntityAbstract
         $this->shop_url = $shop_url;
     }
 
+    /**
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * @param string $url
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+    }
+
     public function __clone()
     {
         if (is_object($this->opineo_rating)) {
