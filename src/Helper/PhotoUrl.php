@@ -12,7 +12,7 @@ namespace Nokaut\ApiKit\Helper;
 class PhotoUrl
 {
 
-    public static function prepare($photoId, $size = '90x90', $additionalUrlPart = '')
+    public static function prepare($photoId, $size = '90x90', $additionalUrlPart = 'image')
     {
         if(empty($photoId)) {
             return "/noimg_{$size}.png";
