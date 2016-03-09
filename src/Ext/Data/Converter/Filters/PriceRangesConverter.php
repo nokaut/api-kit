@@ -88,6 +88,10 @@ class PriceRangesConverter implements ConverterInterface
     {
         if ($range->getMin() == $range->getMax()) {
             return number_format($range->getMin(), 2, ',', '');
+        } elseif (!$range->getMin() && $range->getMax()) {
+            return 'do ' . number_format($range->getMax(), 2, ',', '');
+        } elseif ($range->getMin() && !$range->getMax()) {
+            return 'od ' . number_format($range->getMin(), 2, ',', '');
         } else {
             return sprintf("%s - %s", number_format($range->getMin(), 2, ',', ''), number_format($range->getMax(), 2, ',', ''));
         }
