@@ -96,7 +96,11 @@ class Fetch
      */
     public function setResult($result)
     {
-        $this->result = $this->converter->convert($result);
+        if($result) {
+            $this->result = $this->converter->convert($result);
+        }else{
+            $this->result = null;
+        }
     }
 
     /**
