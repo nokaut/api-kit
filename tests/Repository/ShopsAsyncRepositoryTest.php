@@ -31,11 +31,8 @@ class ShopsAsyncRepositoryTest extends PHPUnit_Framework_TestCase
         $response = $this->getMockBuilder('\GuzzleHttp\Psr7\Response')->disableOriginalConstructor()->getMock();
         $response->expects($this->any())->method('getStatusCode')->will($this->returnValue(200));
 
-        $request = $this->getMockBuilder('\GuzzleHttp\Psr7\Request')->disableOriginalConstructor()->getMock();
-
         $client = $this->getMockBuilder('\GuzzleHttp\Client')->disableOriginalConstructor()->getMock();
         $client->expects($this->any())->method('send')->will($this->returnValue(array($response)));
-        $client->expects($this->any())->method('createRequest')->will($this->returnValue($request));
 
         $this->clientApiMock = $this->getMockBuilder('Nokaut\ApiKit\ClientApi\Rest\RestClientApi')
             ->setMethods(['convertResponse', 'getClient', 'log', 'logMulti', 'convertResponseToSaveCache'])
