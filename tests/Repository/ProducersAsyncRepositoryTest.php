@@ -25,8 +25,8 @@ class ProducersAsyncRepositoryTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $oauth2 = "1/token111accessoauth2";
-        $cacheMock = $this->getMock('Nokaut\ApiKit\Cache\CacheInterface');
-        $loggerMock = $this->getMock('Psr\Log\LoggerInterface');
+        $cacheMock = $this->createMock('Nokaut\ApiKit\Cache\CacheInterface');
+        $loggerMock = $this->createMock('Psr\Log\LoggerInterface');
 
         $response = $this->getMockBuilder('\GuzzleHttp\Psr7\Response')->disableOriginalConstructor()->getMock();
         $response->expects($this->any())->method('getStatusCode')->will($this->returnValue(200));
@@ -37,11 +37,10 @@ class ProducersAsyncRepositoryTest extends PHPUnit_Framework_TestCase
         $client->expects($this->any())->method('send')->will($this->returnValue(array($response)));
         $client->expects($this->any())->method('createRequest')->will($this->returnValue($request));
 
-        $this->clientApiMock = $this->getMock(
-            'Nokaut\ApiKit\ClientApi\Rest\RestClientApi',
-            array('convertResponse', 'getClient', 'log', 'logMulti', 'convertResponseToSaveCache'),
-            array($loggerMock, $oauth2)
-        );
+        $this->clientApiMock = $this->getMockBuilder('Nokaut\ApiKit\ClientApi\Rest\RestClientApi')
+            ->setMethods(['convertResponse', 'getClient', 'log', 'logMulti', 'convertResponseToSaveCache'])
+            ->setConstructorArgs([$loggerMock, $oauth2])
+            ->getMock();
 
         $this->clientApiMock->expects($this->any())->method('getClient')
             ->will($this->returnValue($client));
