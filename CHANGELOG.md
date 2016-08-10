@@ -16,6 +16,7 @@ master
 - Nokaut\ApiKit\Entity\OfferOffer\Shop - dodanie pola url adresu www do sklepu
 - FIX: Nokaut\ApiKit\Helper\PhotoUrl - ustawienie domyślnej wartości $additionalUrlPart
 - FIX: Nokaut\ApiKit\Ext\Data\Converter\Filters\PriceRangesConverter - nazwa filtru gdy jest tylko cena minimalna
+- Dodanie timeout dla połączenia oraz request-u
 
 v1.6.0
 ------

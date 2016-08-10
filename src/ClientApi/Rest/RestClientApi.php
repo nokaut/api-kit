@@ -11,9 +11,11 @@ namespace Nokaut\ApiKit\ClientApi\Rest;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\BadResponseException;
+use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Pool;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\RequestOptions;
 use Nokaut\ApiKit\ClientApi\ClientApiInterface;
 use Nokaut\ApiKit\ClientApi\Rest\Auth\AuthHeader;
 use Nokaut\ApiKit\ClientApi\Rest\Exception\FatalResponseException;
@@ -30,6 +32,8 @@ use Psr\Log\LogLevel;
 class RestClientApi implements ClientApiInterface
 {
     const MAX_RETRY = 2;
+    const CONNECT_TIMEOUT = 5;
+    const TIMEOUT = 10;
 
     /**
      * @var Client
@@ -53,7 +57,10 @@ class RestClientApi implements ClientApiInterface
      */
     public function __construct(LoggerInterface $logger, $authToken, $baseUrl = '')
     {
-        $guzzleConfig = [];
+        $guzzleConfig = [
+            RequestOptions::TIMEOUT => self::TIMEOUT,
+            RequestOptions::CONNECT_TIMEOUT => self::CONNECT_TIMEOUT
+        ];
         $guzzleConfig['headers'] = $this->getAuthorizationHeader($authToken);
         if ($baseUrl) {
             $guzzleConfig['base_uri'] = $baseUrl;
@@ -125,8 +132,9 @@ class RestClientApi implements ClientApiInterface
                 /** @var \GuzzleHttp\Exception\ClientException $reason */
                 /** @var Fetch $fetch */
                 $fetch = $fetchesForFilled[$index];
-                $additionalLogMessage = "Multi requests, request " . ($index + 1) . "/" . $requestsCount . " ";
-                $retry = $this->handleMultiFailedResponse($reason->getRequest(), $reason->getResponse(), $fetch, $startTime, $additionalLogMessage);
+                $additionalLogMessage = "Multi requests, request " . ($index + 1) . "/" . $requestsCount . " "
+                    . $reason->getMessage() . "\n";
+                $retry = $this->handleMultiFailedResponse($reason, $fetch, $startTime, $additionalLogMessage);
             },
         ]);
         $promise = $pool->promise();
@@ -154,15 +162,19 @@ class RestClientApi implements ClientApiInterface
     }
 
     /**
-     * @param RequestInterface $request
-     * @param ResponseInterface $response
+     * @param RequestException $reason
      * @param Fetch $fetch
      * @param $startTime
      * @param string $additionalLogMessage
      * @return bool - return if response failed response candidate to retry
      */
-    protected function handleMultiFailedResponse($request, $response, $fetch, $startTime, $additionalLogMessage = '')
+    protected function handleMultiFailedResponse($reason, $fetch, $startTime, $additionalLogMessage = '')
     {
+        /** @var RequestInterface $request */
+        $request = $reason->getRequest();
+        /** @var ResponseInterface $response */
+        $response = $reason->getResponse();
+
         $logLevel = LogLevel::ERROR;
 
         if ($response) {
@@ -177,7 +189,7 @@ class RestClientApi implements ClientApiInterface
                 . "\n" . print_r($request->getHeaders(), true) . "\n"
                 . "\n" . print_r($response->getHeaders(), true) . "\n";
         } else {
-            $fetch->setResponseException($this->factoryException(500, 'empty response from api'));
+            $fetch->setResponseException($this->factoryException(500, $reason->getMessage()));
 
             $additionalLogMessage .= "Fail response: "
                 . " empty response from api in " . $request->getUri()
