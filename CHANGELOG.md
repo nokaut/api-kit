@@ -3,6 +3,7 @@ ChangeLog
 
 master
 -----
+- konfiguracja proxy dla RestClientApi
 
 v1.7.0
 ------

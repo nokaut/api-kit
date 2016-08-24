@@ -225,6 +225,11 @@ class ApiKit
      */
     public function getClientApi(Config $config)
     {
-        return new RestClientApi($config->getLogger(), $config->getApiAccessToken(), $config->getApiUrl());
+        return new RestClientApi(
+            $config->getLogger(),
+            $config->getApiAccessToken(),
+            $config->getApiUrl(),
+            $config->getProxy()
+        );
     }
 }

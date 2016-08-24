@@ -32,6 +32,10 @@ class Config
      * @var string
      */
     private $apiAccessToken;
+    /**
+     * @var string
+     */
+    private $proxy;
 
 
     public function __construct()
@@ -102,6 +106,22 @@ class Config
     public function getLogger()
     {
         return $this->logger;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProxy()
+    {
+        return $this->proxy;
+    }
+
+    /**
+     * @param string $proxy
+     */
+    public function setProxy($proxy)
+    {
+        $this->proxy = $proxy;
     }
 
     /**

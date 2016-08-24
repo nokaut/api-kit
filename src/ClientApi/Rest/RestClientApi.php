@@ -54,8 +54,9 @@ class RestClientApi implements ClientApiInterface
      * @param LoggerInterface $logger
      * @param string|AuthHeader $authToken
      * @param string $baseUrl
+     * @param string $proxy
      */
-    public function __construct(LoggerInterface $logger, $authToken, $baseUrl = '')
+    public function __construct(LoggerInterface $logger, $authToken, $baseUrl = '', $proxy = '')
     {
         $guzzleConfig = [
             RequestOptions::TIMEOUT => self::TIMEOUT,
@@ -64,6 +65,9 @@ class RestClientApi implements ClientApiInterface
         $guzzleConfig['headers'] = $this->getAuthorizationHeader($authToken);
         if ($baseUrl) {
             $guzzleConfig['base_uri'] = $baseUrl;
+        }
+        if ($proxy) {
+            $guzzleConfig[\GuzzleHttp\RequestOptions::PROXY] = $proxy;
         }
         $this->client = new Client($guzzleConfig);
         $this->authToken = $authToken;
