@@ -213,7 +213,7 @@ class CategoriesRepository extends RepositoryAbstract
         $query = new CategoriesQuery($this->apiBaseUrl);
         $query->setFields(self::getFieldsWithoutDescription());
         $query->setParentId(0);
-        $query->setDepth(0);
+        $query->setDepth(1);
         return $query;
     }
 

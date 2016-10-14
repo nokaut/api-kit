@@ -4,6 +4,7 @@ ChangeLog
 master
 -----
 - konfiguracja proxy dla RestClientApi
+- fix FetchMenuCategories
 
 v1.7.0
 ------
