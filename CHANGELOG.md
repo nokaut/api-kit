@@ -8,6 +8,7 @@ v1.7.1
 -----
 - konfiguracja proxy dla RestClientApi
 - fix FetchMenuCategories
+- dodanie pola prefix w Entity/Category
 
 v1.7.0
 ------

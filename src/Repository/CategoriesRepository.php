@@ -41,7 +41,8 @@ class CategoriesRepository extends RepositoryAbstract
         'subcategory_count',
         'url',
         'view_type',
-        'total'
+        'total',
+        'prefix'
     );
 
     /**

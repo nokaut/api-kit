@@ -94,6 +94,10 @@ class Category extends EntityAbstract
      * @var bool
      */
     protected $is_fight;
+    /**
+     * @var string
+     */
+    protected $prefix;
 
     /**
      * @param float $cpc_value
@@ -431,5 +435,21 @@ class Category extends EntityAbstract
     public function setIsFight($is_fight)
     {
         $this->is_fight = $is_fight;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPrefix()
+    {
+        return $this->prefix;
+    }
+
+    /**
+     * @param string $prefix
+     */
+    public function setPrefix($prefix)
+    {
+        $this->prefix = $prefix;
     }
 }
