@@ -13,6 +13,7 @@ use Nokaut\ApiKit\ClientApi\ClientApiInterface;
 use Nokaut\ApiKit\ClientApi\Rest\Fetch\Fetch;
 use Nokaut\ApiKit\ClientApi\Rest\Fetch\CategoriesFetch;
 use Nokaut\ApiKit\ClientApi\Rest\Fetch\CategoryFetch;
+use Nokaut\ApiKit\ClientApi\Rest\Query\CategoriesQuery;
 use Nokaut\ApiKit\Config;
 use Nokaut\ApiKit\Converter\Category\CategoriesGrouperConverter;
 use Nokaut\ApiKit\Entity\Category;
@@ -114,6 +115,18 @@ class CategoriesAsyncRepository extends CategoriesRepository implements AsyncRep
         $categoriesAsyncFetch = new CategoriesFetch($this->prepareQueryForFetchCategoriesByIds($ids, $limit, $fields), $this->cache);
         $this->asyncRepo->addFetch($categoriesAsyncFetch);
         return $categoriesAsyncFetch;
+    }
+
+    /**
+     * @param CategoriesQuery $query
+     * @return CategoriesFetch
+     */
+    public function fetchCategoriesByQuery(CategoriesQuery $query)
+    {
+        $fetch = new CategoriesFetch($query, $this->cache);
+        $this->asyncRepo->addFetch($fetch);
+
+        return $fetch;
     }
 
 } 

@@ -135,6 +135,17 @@ class CategoriesRepository extends RepositoryAbstract
         return $categories;
     }
 
+    /**
+     * @param CategoriesQuery $query
+     * @return Categories
+     */
+    public function fetchCategoriesByQuery(CategoriesQuery $query)
+    {
+        $fetch = new CategoriesFetch($query, $this->cache);
+        $this->clientApi->send($fetch);
+
+        return $fetch->getResult();
+    }
 
     /**
      * @param $parentId
