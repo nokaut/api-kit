@@ -3,6 +3,7 @@ ChangeLog
 
 master
 -----
+- Kompatibilność z PHP 5.6+ (kompatybilność z PHP 5.5 nie jest wspierana od tej wersji)
 
 v1.7.1
 -----
