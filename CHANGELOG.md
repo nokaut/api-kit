@@ -3,6 +3,7 @@ ChangeLog
 
 master
 -----
+- dodanie OpineoRating do Entity/Shop
 
 v1.7.1
 -----

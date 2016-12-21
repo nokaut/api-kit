@@ -3,6 +3,8 @@
 namespace Nokaut\ApiKit\Entity;
 
 
+use Nokaut\ApiKit\Entity\Shop\OpineoRating;
+
 class Shop extends EntityAbstract
 {
     /**
@@ -24,6 +26,11 @@ class Shop extends EntityAbstract
      * @var string
      */
     protected $url_logo;
+
+    /**
+     * @var OpineoRating
+     */
+    protected $opineo_rating;
 
     /**
      * @return int
@@ -87,5 +94,21 @@ class Shop extends EntityAbstract
     public function setUrlLogo($url_logo)
     {
         $this->url_logo = $url_logo;
+    }
+
+    /**
+     * @return OpineoRating
+     */
+    public function getOpineoRating()
+    {
+        return $this->opineo_rating;
+    }
+
+    /**
+     * @param OpineoRating $opineo_rating
+     */
+    public function setOpineoRating($opineo_rating)
+    {
+        $this->opineo_rating = $opineo_rating;
     }
 }
