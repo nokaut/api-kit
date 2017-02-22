@@ -21,11 +21,11 @@ class CategoryQuery extends QueryBuilderAbstract
     }
 
     /**
-     * @param int $id
+     * @param $id
      */
     public function setId($id)
     {
-        $this->id = (int)$id;
+        $this->id = $id;
     }
 
     /**
