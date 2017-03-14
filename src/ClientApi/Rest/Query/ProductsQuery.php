@@ -76,10 +76,17 @@ class ProductsQuery extends QueryBuilderAbstract
         $this->facets[$name] = $value;
     }
 
-    public function setFields(array $fields)
+    /**
+     * @param array $fields
+     * @param bool $addMetadataField
+     */
+    public function setFields(array $fields, $addMetadataField = true)
     {
         $this->fields = $fields;
-        $this->fields[] = "_metadata";
+
+        if ($addMetadataField) {
+            $this->fields[] = "_metadata";
+        }
     }
 
     public function setProducerName($producerName)

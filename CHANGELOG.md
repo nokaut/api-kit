@@ -3,6 +3,7 @@ ChangeLog
 
 master
 -----
+- opcjonalne dodawanie pola _metadata w ProductsQuery
 - dodanie OpineoRating do Entity/Shop
 
 v1.7.1
