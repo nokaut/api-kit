@@ -66,7 +66,8 @@ class CategoriesConverterTest extends PHPUnit_Framework_TestCase
                    "photo_id": "07b3eb9f5a5f2b1ff4099a8c19aa6288",
                    "subcategory_count": 0,
                    "url": "/telefony-komorkowe",
-                   "view_type": "picture"
+                   "view_type": "picture",
+                   "complementary": {}
                   },
                   {
                    "id": 689,
@@ -93,7 +94,15 @@ class CategoriesConverterTest extends PHPUnit_Framework_TestCase
                    "photo_id": "24494c9416e6bedecd9ca79792c88542",
                    "subcategory_count": 0,
                    "url": "/telefony-stacjonarne",
-                   "view_type": "list"
+                   "view_type": "list",
+                   "complementary": {
+                    "1": 19,
+                    "2": 26,
+                    "3": 23,
+                    "4": 27,
+                    "5": 9935,
+                    "7": 123
+                   }
                   }
                  ]
                 }';

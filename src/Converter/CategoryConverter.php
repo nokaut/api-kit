@@ -9,6 +9,7 @@
 namespace Nokaut\ApiKit\Converter;
 
 
+use Nokaut\ApiKit\Converter\Category\ComplementaryConverter;
 use Nokaut\ApiKit\Converter\Category\PathConverter;
 use Nokaut\ApiKit\Entity\Category;
 use Nokaut\ApiKit\Entity\Category\Path;
@@ -36,6 +37,9 @@ class CategoryConverter implements ConverterInterface
             case 'path':
                 $category->setPath($this->convertPath($value));
                 break;
+            case 'complementary':
+                $category->setComplementary($this->convertComplementary($value));
+                break;
         }
     }
 
@@ -52,5 +56,11 @@ class CategoryConverter implements ConverterInterface
             $pathArray[] = $pathConverter->convert($pathApiObject);
         }
         return $pathArray;
+    }
+
+    private function convertComplementary($objectComplementary)
+    {
+        $complementaryConverter = new ComplementaryConverter();
+        return $complementaryConverter->convert($objectComplementary);
     }
 } 

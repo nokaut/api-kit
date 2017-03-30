@@ -10,6 +10,7 @@ namespace Nokaut\ApiKit\Entity;
 
 
 use Nokaut\ApiKit\Collection\Categories;
+use Nokaut\ApiKit\Entity\Category\Complementary;
 use Nokaut\ApiKit\Entity\Category\Path;
 
 class Category extends EntityAbstract
@@ -98,6 +99,11 @@ class Category extends EntityAbstract
      * @var string
      */
     protected $prefix;
+
+    /**
+     * @var Complementary[]
+     */
+    protected $complementary;
 
     /**
      * @param float $cpc_value
@@ -452,4 +458,21 @@ class Category extends EntityAbstract
     {
         $this->prefix = $prefix;
     }
+
+    /**
+     * @return Complementary[]
+     */
+    public function getComplementary()
+    {
+        return $this->complementary;
+    }
+
+    /**
+     * @param Complementary[] $complementary
+     */
+    public function setComplementary($complementary)
+    {
+        $this->complementary = $complementary;
+    }
+
 }

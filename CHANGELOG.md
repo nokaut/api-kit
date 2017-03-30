@@ -5,6 +5,7 @@ master
 -----
 - opcjonalne dodawanie pola _metadata w ProductsQuery
 - dodanie OpineoRating do Entity/Shop
+- dodanie pola complementary w Entity\Category
 
 v1.7.1
 -----
