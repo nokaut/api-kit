@@ -42,7 +42,8 @@ class CategoriesRepository extends RepositoryAbstract
         'url',
         'view_type',
         'total',
-        'prefix'
+        'prefix',
+        'complementary'
     );
 
     /**
