@@ -3,7 +3,9 @@
 namespace Nokaut\ApiKit\Converter;
 
 
+use Nokaut\ApiKit\Converter\Shop\CompanyConverter;
 use Nokaut\ApiKit\Converter\Shop\OpineoRatingConverter;
+use Nokaut\ApiKit\Converter\Shop\SalesPointConverter;
 use Nokaut\ApiKit\Entity\Shop;
 
 class ShopConverter implements ConverterInterface
@@ -28,6 +30,20 @@ class ShopConverter implements ConverterInterface
             case 'opineo_rating':
                 $opineoRatingConverter = new OpineoRatingConverter();
                 $shop->setOpineoRating($opineoRatingConverter->convert($value));
+                break;
+            case 'sales_points':
+                $salesPoints = [];
+                $salesPointConverter = new SalesPointConverter();
+
+                foreach ($value as $salesPointRaw) {
+                    $salesPoints[] = $salesPointConverter->convert($salesPointRaw);
+                }
+
+                $shop->setSalesPoints($salesPoints);
+                break;
+            case 'company':
+                $companyConverter = new CompanyConverter();
+                $shop->setCompany($companyConverter->convert($value));
                 break;
         }
     }

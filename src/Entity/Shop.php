@@ -3,7 +3,9 @@
 namespace Nokaut\ApiKit\Entity;
 
 
+use Nokaut\ApiKit\Entity\Shop\Company;
 use Nokaut\ApiKit\Entity\Shop\OpineoRating;
+use Nokaut\ApiKit\Entity\Shop\SalesPoint;
 
 class Shop extends EntityAbstract
 {
@@ -31,6 +33,16 @@ class Shop extends EntityAbstract
      * @var OpineoRating
      */
     protected $opineo_rating;
+
+    /**
+     * @var SalesPoint[]
+     */
+    protected $sales_points = [];
+
+    /**
+     * @var Company
+     */
+    protected $company;
 
     /**
      * @return int
@@ -110,5 +122,37 @@ class Shop extends EntityAbstract
     public function setOpineoRating($opineo_rating)
     {
         $this->opineo_rating = $opineo_rating;
+    }
+
+    /**
+     * @return SalesPoint[]
+     */
+    public function getSalesPoints()
+    {
+        return $this->sales_points;
+    }
+
+    /**
+     * @param SalesPoint[] $sales_points
+     */
+    public function setSalesPoints($sales_points)
+    {
+        $this->sales_points = $sales_points;
+    }
+
+    /**
+     * @return Company
+     */
+    public function getCompany()
+    {
+        return $this->company;
+    }
+
+    /**
+     * @param Company $company
+     */
+    public function setCompany($company)
+    {
+        $this->company = $company;
     }
 }

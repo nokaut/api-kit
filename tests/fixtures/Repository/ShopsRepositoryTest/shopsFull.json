@@ -1,0 +1,165 @@
+{
+  "shops": [
+    {
+      "id": 632,
+      "name": "RTV EURO AGD",
+      "url_logo": "/s/632-20171004104140.png",
+      "products_url": "/sklep:euro-com-pl.html",
+      "opineo_rating": {
+        "rating": 9.6,
+        "rating_count": 35338,
+        "url": "https://www.opineo123.pl/opinie/euro-com-pl"
+      },
+      "sales_points": [
+        {
+          "name": "RTV EURO AGD Galeria Grodova",
+          "phone": "855855855",
+          "address": {
+            "country": "Polska",
+            "region": "mazowieckie",
+            "postcode": "05-825",
+            "city": "Grodzisk Mazowiecki",
+            "street": "Sienkiewicza",
+            "street_number": "46",
+            "latitude": 52.1040035,
+            "longitude": 20.6239399
+          },
+          "opening_times": [
+            {
+              "day_from": "mon",
+              "day_to": "sat",
+              "from": "10:00",
+              "to": "21:00"
+            },
+            {
+              "day_from": "sun",
+              "day_to": null,
+              "from": "10:00",
+              "to": "20:00"
+            }
+          ]
+        },
+        {
+          "name": "RTV EURO AGD",
+          "phone": "855855855",
+          "address": {
+            "country": "Polska",
+            "region": null,
+            "postcode": "83-000",
+            "city": "Pruszcz Gdański",
+            "street": "Antoniego Dobrowolskiego",
+            "street_number": "8",
+            "latitude": 54.2671035,
+            "longitude": 18.6280817
+          },
+          "opening_times": [
+            {
+              "day_from": "mon",
+              "day_to": "sat",
+              "from": "9:00",
+              "to": "21:00"
+            },
+            {
+              "day_from": "sun",
+              "day_to": null,
+              "from": "10:00",
+              "to": "20:00"
+            }
+          ]
+        },
+        {
+          "name": "RTV EURO AGD CH Auchan Hetmańska",
+          "phone": "855855855",
+          "address": {
+            "country": "Polska",
+            "region": "podlaskie",
+            "postcode": "15-727",
+            "city": "Białystok",
+            "street": "Hetmańska",
+            "street_number": "16",
+            "latitude": 53.1355964,
+            "longitude": 23.1175088
+          },
+          "opening_times": [
+            {
+              "day_from": "mon",
+              "day_to": "sat",
+              "from": "9:00",
+              "to": "21:00"
+            },
+            {
+              "day_from": "sun",
+              "day_to": null,
+              "from": "9:30",
+              "to": "19:30"
+            }
+          ]
+        },
+        {
+          "name": "RTV EURO AGD Quick Park",
+          "phone": "855855855",
+          "address": {
+            "country": "Polska",
+            "region": null,
+            "postcode": "41-405",
+            "city": "Mysłowice",
+            "street": "Katowicka",
+            "street_number": "64",
+            "latitude": 50.2472449,
+            "longitude": 19.1199647
+          },
+          "opening_times": [
+            {
+              "day_from": "mon",
+              "day_to": "sat",
+              "from": "9:00",
+              "to": "21:00"
+            },
+            {
+              "day_from": "sun",
+              "day_to": null,
+              "from": "10:00",
+              "to": "20:00"
+            }
+          ]
+        },
+        {
+          "name": "RTV EURO AGD",
+          "phone": "855855855",
+          "address": {
+            "country": "Polska",
+            "region": "wielkopolskie",
+            "postcode": "61-888",
+            "city": "Poznań",
+            "street": "Półwiejska",
+            "street_number": "32",
+            "latitude": 52.4023074,
+            "longitude": 16.9289567
+          },
+          "opening_times": [
+
+          ]
+        }
+      ],
+      "company": {
+        "name": "EURO-net Sp. z o.o.",
+        "url": "http://www.euro123.com.pl",
+        "email": "sklep123@euro123.com.pl",
+        "phone": "855855855",
+        "phone_fax": "0225345901",
+        "vatin": "527-00-05-984",
+        "regon": null,
+        "address": {
+          "country": "Polska",
+          "region": null,
+          "postcode": "02-273",
+          "city": "Warszawa",
+          "street": "Muszkieterów",
+          "street_number": "15",
+          "latitude": null,
+          "longitude": null
+        }
+      }
+    }
+  ]
+}

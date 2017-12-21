@@ -71,7 +71,7 @@ class ApiKitTest extends PHPUnit_Framework_TestCase
 
     public function testAsyncOverrideCache()
     {
-        $cacheMock1 = $this->getMock('Nokaut\ApiKit\Cache\CacheInterface');
+        $cacheMock1 = $this->getMockBuilder('Nokaut\ApiKit\Cache\CacheInterface')->getMock();
         $cacheMock1->expects($this->once())->method('get')->will($this->returnValue($this->getResponseFixture('testOverrideCache1')));
         $config1 = new Config();
         $config1->setApiUrl("mock");
@@ -80,7 +80,7 @@ class ApiKitTest extends PHPUnit_Framework_TestCase
 
         $cut = new ApiKit($config1);
 
-        $cacheMock2 = $this->getMock('Nokaut\ApiKit\Cache\CacheInterface');
+        $cacheMock2 = $this->getMockBuilder('Nokaut\ApiKit\Cache\CacheInterface')->getMock();
         $cacheMock2->expects($this->once())->method('get')->will($this->returnValue($this->getResponseFixture('testOverrideCache2')));
         $config2 = new Config();
         $config2->setApiUrl("mock");
@@ -99,7 +99,7 @@ class ApiKitTest extends PHPUnit_Framework_TestCase
 
     public function testOverrideCache()
     {
-        $cacheMock1 = $this->getMock('Nokaut\ApiKit\Cache\CacheInterface');
+        $cacheMock1 = $this->getMockBuilder('Nokaut\ApiKit\Cache\CacheInterface')->getMock();
         $cacheMock1->expects($this->once())->method('get')->will($this->returnValue($this->getResponseFixture('testOverrideCache1')));
         $config1 = new Config();
         $config1->setApiUrl("mock");
@@ -108,7 +108,7 @@ class ApiKitTest extends PHPUnit_Framework_TestCase
 
         $cut = new ApiKit($config1);
 
-        $cacheMock2 = $this->getMock('Nokaut\ApiKit\Cache\CacheInterface');
+        $cacheMock2 = $this->getMockBuilder('Nokaut\ApiKit\Cache\CacheInterface')->getMock();
         $cacheMock2->expects($this->once())->method('get')->will($this->returnValue($this->getResponseFixture('testOverrideCache2')));
         $config2 = new Config();
         $config2->setApiUrl("mock");

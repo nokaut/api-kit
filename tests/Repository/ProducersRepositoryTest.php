@@ -24,14 +24,13 @@ class ProducersRepositoryTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $oauth2 = "1/token111accessoauth2";
-        $cacheMock = $this->getMock('Nokaut\ApiKit\Cache\CacheInterface');
-        $loggerMock = $this->getMock('Psr\Log\LoggerInterface');
+        $cacheMock = $this->getMockBuilder('Nokaut\ApiKit\Cache\CacheInterface')->getMock();
+        $loggerMock = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
         $client = $this->getMockBuilder('\GuzzleHttp\Client')->disableOriginalConstructor()->getMock();
-        $this->clientApiMock = $this->getMock(
-            'Nokaut\ApiKit\ClientApi\Rest\RestClientApi',
-            array('convertResponse', 'getClient', 'log', 'convertResponseToSaveCache'),
-            array($loggerMock, $oauth2)
-        );
+        $this->clientApiMock = $this->getMockBuilder('Nokaut\ApiKit\ClientApi\Rest\RestClientApi')
+            ->setConstructorArgs([$loggerMock, $oauth2])
+            ->setMethods(['convertResponse', 'getClient', 'log', 'convertResponseToSaveCache'])
+            ->getMock();
         $this->clientApiMock->expects($this->any())->method('getClient')
             ->will($this->returnValue($client));
 

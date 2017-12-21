@@ -16,10 +16,10 @@ class FetchTest extends \PHPUnit_Framework_TestCase
 {
     public function testPrepareCacheKey()
     {
-        $queryMock = $this->getMock('Nokaut\ApiKit\ClientApi\Rest\Query\QueryBuilderAbstract');
+        $queryMock = $this->getMockBuilder('Nokaut\ApiKit\ClientApi\Rest\Query\QueryBuilderAbstract')->getMock();
         $queryPath = '/path';
         $queryMock->expects($this->any())->method('createRequestPath')->willReturn($queryPath);
-        $converterMock = $this->getMock('Nokaut\ApiKit\Converter\ConverterInterface');
+        $converterMock = $this->getMockBuilder('Nokaut\ApiKit\Converter\ConverterInterface')->getMock();
         $cache = new NullCache();
 
         $cut = new Fetch($queryMock, $converterMock, $cache);
