@@ -8,6 +8,7 @@ profile
 # composer
 vendor/*
 composer.phar
+composer.lock
 
 # build
 build/coverage/
