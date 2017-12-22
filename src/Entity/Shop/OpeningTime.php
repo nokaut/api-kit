@@ -8,7 +8,12 @@ use Nokaut\ApiKit\Entity\EntityAbstract;
 
 class OpeningTime extends EntityAbstract
 {
-    const DAYS = [
+    const TIME_REGEXP = '/^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/';
+
+    /**
+     * @var array
+     */
+    public $days = [
         'mon',
         'tue',
         'wed',
@@ -17,8 +22,6 @@ class OpeningTime extends EntityAbstract
         'sat',
         'sun'
     ];
-
-    const TIME_REGEXP = '/^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/';
 
     /**
      * @var string
@@ -118,7 +121,7 @@ class OpeningTime extends EntityAbstract
      */
     private function isDayFormatValid($day)
     {
-        return in_array($day, self::DAYS);
+        return in_array($day, $this->days);
     }
 
     /**
