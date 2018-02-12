@@ -2,6 +2,7 @@
   "shops": [
     {
       "id": 632,
+      "description": "desc123",
       "name": "RTV EURO AGD",
       "url_logo": "/s/632-20171004104140.png",
       "products_url": "/sklep:euro-com-pl.html",

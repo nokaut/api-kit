@@ -45,6 +45,11 @@ class Shop extends EntityAbstract
     protected $company;
 
     /**
+     * @var string
+     */
+    protected $description;
+
+    /**
      * @return int
      */
     public function getId()
@@ -154,5 +159,21 @@ class Shop extends EntityAbstract
     public function setCompany($company)
     {
         $this->company = $company;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
     }
 }
