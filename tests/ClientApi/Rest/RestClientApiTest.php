@@ -26,7 +26,7 @@ class RestClientApiTest extends \PHPUnit_Framework_TestCase
     public function testSendWithRetry()
     {
         $oauth2 = $this->prepareOauth();
-        $loggerMock = $this->getMock('Psr\Log\LoggerInterface');
+        $loggerMock = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
 
         $request = $this->getMockBuilder('\GuzzleHttp\Psr7\Request')->disableOriginalConstructor()->getMock();
         $response = new Response(502, [], "{}");
@@ -45,7 +45,7 @@ class RestClientApiTest extends \PHPUnit_Framework_TestCase
     public function testSendWithRetryAndSecondSuccessful()
     {
         $oauth2 = $this->prepareOauth();
-        $loggerMock = $this->getMock('Psr\Log\LoggerInterface');
+        $loggerMock = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
 
         $request = $this->getMockBuilder('\GuzzleHttp\Psr7\Request')->disableOriginalConstructor()->getMock();
         $response = new Response(502, [], "{}");
@@ -69,7 +69,7 @@ class RestClientApiTest extends \PHPUnit_Framework_TestCase
     public function testSendCorrectResponse()
     {
         $oauth2 = $this->prepareOauth();
-        $loggerMock = $this->getMock('Psr\Log\LoggerInterface');
+        $loggerMock = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
 
         $response = new Response(200, [], "{}");
 
@@ -89,7 +89,7 @@ class RestClientApiTest extends \PHPUnit_Framework_TestCase
     public function testSendWithIncorrectResponse()
     {
         $oauth2 = $this->prepareOauth();
-        $loggerMock = $this->getMock('Psr\Log\LoggerInterface');
+        $loggerMock = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
 
         $request = $this->getMockBuilder('\GuzzleHttp\Psr7\Request')->disableOriginalConstructor()->getMock();
         $response = new Response(500, [], "{}");
@@ -109,7 +109,7 @@ class RestClientApiTest extends \PHPUnit_Framework_TestCase
     public function testSendMultiWithRetry()
     {
         $oauth2 = $this->prepareOauth();
-        $loggerMock = $this->getMock('Psr\Log\LoggerInterface');
+        $loggerMock = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
 
         $client = $this->getMockBuilder('\GuzzleHttp\Client')->disableOriginalConstructor()->getMock();
 
@@ -126,7 +126,7 @@ class RestClientApiTest extends \PHPUnit_Framework_TestCase
     public function testFunctionalitySendMultiWithRetry()
     {
         $oauth2 = $this->prepareOauth();
-        $loggerMock = $this->getMock('Psr\Log\LoggerInterface');
+        $loggerMock = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
 
         $mockClientHandler = new MockHandler([
             new Response(502, [], '{}'),
@@ -148,7 +148,7 @@ class RestClientApiTest extends \PHPUnit_Framework_TestCase
     public function testSendMultiWithRetryAndSecondSuccess()
     {
         $oauth2 = $this->prepareOauth();
-        $loggerMock = $this->getMock('Psr\Log\LoggerInterface');
+        $loggerMock = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
 
         $client = $this->getMockBuilder('\GuzzleHttp\Client')->disableOriginalConstructor()->getMock();
 
@@ -166,7 +166,7 @@ class RestClientApiTest extends \PHPUnit_Framework_TestCase
     public function testSendMultiWithoutRetry()
     {
         $oauth2 = $this->prepareOauth();
-        $loggerMock = $this->getMock('Psr\Log\LoggerInterface');
+        $loggerMock = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
 
         $mockClientHandler = new MockHandler([
             new Response(200, [], '{}')
@@ -175,13 +175,15 @@ class RestClientApiTest extends \PHPUnit_Framework_TestCase
         $handler = HandlerStack::create($mockClientHandler);
         $client = new Client(['handler' => $handler]);
 
-        $cutMock = $this->prepareCut($loggerMock, $oauth2, $client);
-        $cutMock->expects($this->any())->method('getClient')
-            ->will($this->returnValue($client));
+        $cutMock = $this->prepareCutWithMockSendMultiProcess($loggerMock, $oauth2, $client);
+        $cutMock->expects($this->exactly(1))
+            ->method('sendMultiProcess')
+            ->will(
+                $this->onConsecutiveCalls($this->returnValue(false), $this->returnValue(false))
+            );
 
         $fetches = $this->prepareFetches();
         $cutMock->sendMulti($fetches);
-
     }
 
     /**
@@ -190,7 +192,7 @@ class RestClientApiTest extends \PHPUnit_Framework_TestCase
     public function testSendMultiException()
     {
         $oauth2 = $this->prepareOauth();
-        $loggerMock = $this->getMock('Psr\Log\LoggerInterface');
+        $loggerMock = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
 
         $mockClientHandler = new MockHandler([
             new Response(400, [], '{}'),
@@ -222,7 +224,7 @@ class RestClientApiTest extends \PHPUnit_Framework_TestCase
     public function testSendWithUnprocessableEntityException()
     {
         $oauth2 = $this->prepareOauth();
-        $loggerMock = $this->getMock('Psr\Log\LoggerInterface');
+        $loggerMock = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
 
         $mockClientHandler = new MockHandler([
             new Response(422, [], '{}'),
@@ -254,11 +256,10 @@ class RestClientApiTest extends \PHPUnit_Framework_TestCase
      */
     protected function prepareCut($loggerMock, $oauth2, $client)
     {
-        $cutMock = $this->clientApiMock = $this->getMock(
-            'Nokaut\ApiKit\ClientApi\Rest\RestClientApi',
-            array('getClient', 'logMulti', 'log'),
-            array($loggerMock, $oauth2)
-        );
+        $cutMock = $this->clientApiMock = $this->getMockBuilder('Nokaut\ApiKit\ClientApi\Rest\RestClientApi')
+            ->setConstructorArgs([$loggerMock, $oauth2])
+            ->setMethods(['getClient', 'logMulti', 'log'])
+            ->getMock();
         $cutMock->expects($this->any())->method('getClient')
             ->will($this->returnValue($client));
         return $cutMock;
@@ -272,11 +273,10 @@ class RestClientApiTest extends \PHPUnit_Framework_TestCase
      */
     protected function prepareCutWithMockSendMultiProcess($loggerMock, $oauth2, $client)
     {
-        $cutMock = $this->clientApiMock = $this->getMock(
-            'Nokaut\ApiKit\ClientApi\Rest\RestClientApi',
-            array('getClient', 'logMulti', 'log', 'sendMultiProcess'),
-            array($loggerMock, $oauth2)
-        );
+        $cutMock = $this->clientApiMock = $this->getMockBuilder('Nokaut\ApiKit\ClientApi\Rest\RestClientApi')
+            ->setConstructorArgs([$loggerMock, $oauth2])
+            ->setMethods(['getClient', 'logMulti', 'log', 'sendMultiProcess'])
+            ->getMock();
         $cutMock->expects($this->any())->method('getClient')
             ->will($this->returnValue($client));
         return $cutMock;
@@ -298,7 +298,7 @@ class RestClientApiTest extends \PHPUnit_Framework_TestCase
      */
     protected function prepareFetch()
     {
-        $cacheMock = $this->getMock('Nokaut\ApiKit\Cache\CacheInterface');
+        $cacheMock = $this->getMockBuilder('Nokaut\ApiKit\Cache\CacheInterface')->getMock();
         $queryMock = $this->getMockBuilder('Nokaut\ApiKit\ClientApi\Rest\Query\ProductsQuery')->disableOriginalConstructor()->getMock();
         $queryMock->expects($this->any())->method('createRequestPath')->will($this->returnValue(''));
         $queryMock->expects($this->any())->method('getMethod')->will($this->returnValue('GET'));
