@@ -3,6 +3,8 @@ ChangeLog
 
 master
 -----
+- FIX: testy dla PHP 5.5, 7.2
+- dodanie dodatkowych pól dla sklepów
 - opcjonalne dodawanie pola _metadata w ProductsQuery
 - dodanie OpineoRating do Entity/Shop
 - dodanie pola complementary w Entity\Category
