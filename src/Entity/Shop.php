@@ -22,6 +22,11 @@ class Shop extends EntityAbstract
     /**
      * @var string
      */
+    protected $url_shop;
+
+    /**
+     * @var string
+     */
     protected $products_url;
 
     /**
@@ -79,6 +84,22 @@ class Shop extends EntityAbstract
     public function setName($name)
     {
         $this->name = $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrlShop()
+    {
+        return $this->url_shop;
+    }
+
+    /**
+     * @param string $url_shop
+     */
+    public function setUrlShop($url_shop)
+    {
+        $this->url_shop = $url_shop;
     }
 
     /**

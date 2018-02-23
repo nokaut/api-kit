@@ -88,6 +88,7 @@ class ShopsRepositoryTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(632, $shop->getId());
         $this->assertEquals('desc123', $shop->getDescription());
         $this->assertEquals('RTV EURO AGD', $shop->getName());
+        $this->assertEquals('http://url.shop', $shop->getUrlShop());
         $this->assertEquals('/sklep:euro-com-pl.html', $shop->getProductsUrl());
         $this->assertEquals('/s/632-20171004104140.png', $shop->getUrlLogo());
         $this->assertEquals('sklep123@euro123.com.pl', $shop->getCompany()->getEmail());
