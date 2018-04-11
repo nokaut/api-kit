@@ -53,7 +53,7 @@ Instalujemy pakiety Composer'em:
 
 Po zainstalowaniu, należy dołączyć do projektu autoloader Composer'a:
 
-    require 'vendor/autoload.php'
+    require 'vendor/autoload.php';
 
 Szybki start
 ------------
@@ -96,7 +96,7 @@ Pobranie kategorii wraz z jej podkategoriami (będzie uzupełnione pole $categor
 
     $categoriesRepository = $apiKit->getCategoriesRepository();
     $depth = 2; // głębokość pobrania podkategorii (max 2)
-    $categories = $categoriesRepo->fetchByParentIdWithChildren($categoryParentId, $depth);
+    $categories = $categoriesRepository->fetchByParentIdWithChildren($categoryParentId, $depth);
 
 Pobranie produktów kategorii:
 
@@ -121,7 +121,7 @@ Pobranie produktu na podstawie jego URL:
 
 Pobranie ofert produktu na podstawie jego ID:
 
-    # mamy już pobrany produkt
+    // mamy już pobrany produkt
     $offersRepository = $apiKit->getOffersRepository();
     $offers = $offersRepository->getOffersByProductId($product->getId(), OffersRepository::$fieldsForProductPage);
 
