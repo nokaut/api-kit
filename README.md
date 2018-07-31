@@ -5,11 +5,6 @@ Nokaut.pl Search API KIT (PHP)
 
 Biblioteka umożliwia komunikację z Search API oraz mapuje odpowiedzi na określone obiekty.
 
-Status
-------
-
-Bibioteka jest w trakcie tworzenia, obecnie pokrywa funkcjonalność pobierania produktów i ofert. Nie umożliwia pobierania metadanych, filtrów.
-
 Wymagania
 ---------
 
@@ -157,12 +152,12 @@ Poniżej przykład kodu opisanego wyżej przypadku:
         $offersFetch = $offersRepo->fetchOffersByProductId($product->getId(), OffersRepository::$fieldsForProductPage);
 
         //inicjalizujemy zapytanie o produkty z tej samej kategorii
-        $productsRepo = $apiKit->getOffersAsyncRepository();
+        $productsRepo = $apiKit->getProductsAsyncRepository();
         $limitProducts = 10;
-        $productsFromCategoryFetch = $productsRepo->fetchProductsByCategory(array($categoryId), $limitProducts, ProductsRepository::$fieldsForProductBox);
+        $productsFromCategoryFetch = $productsRepo->fetchProductsByCategory(array($product->getCategoryId()), $limitProducts, ProductsRepository::$fieldsForProductBox);
 
         //pobieranie jednocześnie oferty i produkty z kategorii
-        $categoriesRepo->fetchAllAsync();
+        $offersRepo->fetchAllAsync();
 
         //wyniki możemy dostać metodą getResult() z obiektu zwracanego przez metody $repository->fetch....();
         //lista ofert
