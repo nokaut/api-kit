@@ -11,9 +11,9 @@ namespace Nokaut\ApiKit\ClientApi\Rest\Query;
 
 class CategoryQuery extends QueryBuilderAbstract
 {
-    private $baseUrl;
-    private $id;
-    private $fields;
+    protected $baseUrl;
+    protected $id;
+    protected $fields;
 
     public function __construct($baseUrl = '')
     {
@@ -53,7 +53,7 @@ class CategoryQuery extends QueryBuilderAbstract
         return $query;
     }
 
-    private function createMainPath()
+    protected function createMainPath()
     {
         if ($this->getFilters()) {
             return "category?";
@@ -68,13 +68,11 @@ class CategoryQuery extends QueryBuilderAbstract
      * @return string
      * @throws \InvalidArgumentException
      */
-    private function createFieldsPart()
+    protected function createFieldsPart()
     {
         if (empty($this->fields)) {
             throw new \InvalidArgumentException("fields can't be empty");
         }
         return "fields=" . implode(',', $this->fields);
     }
-
-
-} 
+}
