@@ -10,9 +10,11 @@ namespace Nokaut\ApiKit;
 
 
 use GuzzleHttp\Psr7\Response;
+use InvalidArgumentException;
+use PHPUnit\Framework\TestCase;
 
 
-class ApiKitTest extends \PHPUnit\Framework\TestCase
+class ApiKitTest extends TestCase
 {
     /**
      * @var ApiKit
@@ -126,7 +128,7 @@ class ApiKitTest extends \PHPUnit\Framework\TestCase
 
     public function testValidateAndOverrideConfig()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $config = new Config();
         $this->cut->getProductsRepository($config);
     }

@@ -5,8 +5,10 @@ namespace Nokaut\ApiKit\Ext\Data\Converter\Filters;
 use Nokaut\ApiKit\Converter\ProductsConverter;
 use Nokaut\ApiKit\Ext\Data\Converter\Filters\Callback\Categories\SortByName;
 use Nokaut\ApiKit\Ext\Data\Entity\Filter\Category;
+use PHPUnit\Framework\TestCase;
+use stdClass;
 
-class CategoriesConverterTest extends \PHPUnit\Framework\TestCase
+class CategoriesConverterTest extends TestCase
 {
     public function testCategoryConverterWithoutCallbacks()
     {
@@ -55,7 +57,7 @@ class CategoriesConverterTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @param $name
-     * @return \stdClass
+     * @return stdClass
      */
     private function getJsonFixture($name)
     {

@@ -9,7 +9,9 @@
 namespace Nokaut\ApiKit\ClientApi\Rest\Query;
 
 
-class ProductQueryTest extends \PHPUnit\Framework\TestCase
+use PHPUnit\Framework\TestCase;
+
+class ProductQueryTest extends TestCase
 {
 
     private static $baseUrl = "http://127.0.0.1:3401/api/v2/";

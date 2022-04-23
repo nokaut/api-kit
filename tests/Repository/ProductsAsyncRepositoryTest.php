@@ -15,9 +15,11 @@ use GuzzleHttp\HandlerStack;
 use Nokaut\ApiKit\ClientApi\Rest\Fetch\ProductsFetch;
 use Nokaut\ApiKit\Config;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
+use stdClass;
 
 
-class ProductsAsyncRepositoryTest extends \PHPUnit\Framework\TestCase
+class ProductsAsyncRepositoryTest extends TestCase
 {
     /**
      * @var ProductsAsyncRepository
@@ -93,7 +95,7 @@ class ProductsAsyncRepositoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @param $name
-     * @return \stdClass
+     * @return stdClass
      */
     private function getJsonFixture($name)
     {

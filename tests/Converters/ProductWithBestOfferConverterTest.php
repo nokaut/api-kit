@@ -11,9 +11,11 @@ namespace Nokaut\ApiKit\Converter;
 
 use Nokaut\ApiKit\Entity\Product\OfferWithBestPrice;
 use Nokaut\ApiKit\Entity\ProductWithBestOffer;
+use PHPUnit\Framework\TestCase;
+use stdClass;
 
 
-class ProductWithBestOfferConverterTest extends \PHPUnit\Framework\TestCase
+class ProductWithBestOfferConverterTest extends TestCase
 {
     public function testConverter()
     {
@@ -33,7 +35,7 @@ class ProductWithBestOfferConverterTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @param string $field
-     * @param \stdClass $correctObject
+     * @param stdClass $correctObject
      * @param ProductWithBestOffer $product
      */
     private function assertSubObject($field, $correctObject, ProductWithBestOffer $product)

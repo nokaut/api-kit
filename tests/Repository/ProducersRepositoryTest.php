@@ -10,9 +10,11 @@ use Nokaut\ApiKit\Collection\Producers;
 use Nokaut\ApiKit\Config;
 use Nokaut\ApiKit\Entity\Producer;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
+use stdClass;
 
 
-class ProducersRepositoryTest extends \PHPUnit\Framework\TestCase
+class ProducersRepositoryTest extends TestCase
 {
 
     /**
@@ -86,7 +88,7 @@ class ProducersRepositoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @param $name
-     * @return \stdClass
+     * @return stdClass
      */
     private function getJsonFixture($name)
     {

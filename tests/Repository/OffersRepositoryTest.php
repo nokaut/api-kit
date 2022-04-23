@@ -15,9 +15,11 @@ use Nokaut\ApiKit\Collection\Offers;
 use Nokaut\ApiKit\Config;
 use Nokaut\ApiKit\Entity\Offer;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
+use stdClass;
 
 
-class OffersRepositoryTest extends \PHPUnit\Framework\TestCase
+class OffersRepositoryTest extends TestCase
 {
     /**
      * @var OffersRepository
@@ -100,7 +102,7 @@ class OffersRepositoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @param $name
-     * @return \stdClass
+     * @return stdClass
      */
     private function getJsonFixture($name)
     {

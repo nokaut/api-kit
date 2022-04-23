@@ -9,7 +9,9 @@
 namespace Nokaut\ApiKit\ClientApi\Rest\Query\Filter;
 
 
-class MultipleWithOperatorTest extends \PHPUnit\Framework\TestCase
+use PHPUnit\Framework\TestCase;
+
+class MultipleWithOperatorTest extends TestCase
 {
     /**
      * @dataProvider dataProvider

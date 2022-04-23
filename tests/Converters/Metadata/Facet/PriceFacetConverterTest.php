@@ -10,8 +10,9 @@ namespace Nokaut\ApiKit\Converter\Metadata\Facet;
 
 
 use Nokaut\ApiKit\Entity\Metadata\Facet\PriceFacet;
+use PHPUnit\Framework\TestCase;
 
-class PriceFacetConverterTest extends \PHPUnit\Framework\TestCase
+class PriceFacetConverterTest extends TestCase
 {
     public function testConvert()
     {

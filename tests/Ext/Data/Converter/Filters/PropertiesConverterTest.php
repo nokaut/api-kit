@@ -7,8 +7,10 @@ use Nokaut\ApiKit\Converter\ProductsConverter;
 use Nokaut\ApiKit\Ext\Data\Converter\Filters\Callback\Property\SetIsActive;
 use Nokaut\ApiKit\Ext\Data\Entity\Filter\PropertyRange;
 use Nokaut\ApiKit\Ext\Data\Entity\Filter\PropertyValue;
+use PHPUnit\Framework\TestCase;
+use stdClass;
 
-class PropertiesConverterTest extends \PHPUnit\Framework\TestCase
+class PropertiesConverterTest extends TestCase
 {
     public function testPropertiesConverterWithoutCallbacks()
     {
@@ -82,7 +84,7 @@ class PropertiesConverterTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @param $name
-     * @return \stdClass
+     * @return stdClass
      */
     private function getJsonFixture($name)
     {

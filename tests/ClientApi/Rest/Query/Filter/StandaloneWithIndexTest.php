@@ -3,7 +3,9 @@
 namespace Nokaut\ApiKit\ClientApi\Rest\Query\Filter;
 
 
-class StandaloneWithIndexTest extends \PHPUnit\Framework\TestCase
+use PHPUnit\Framework\TestCase;
+
+class StandaloneWithIndexTest extends TestCase
 {
     /**
      * @dataProvider dataProvider

@@ -7,8 +7,9 @@ namespace Nokaut\ApiKit\Ext\Data\Converter\Filters\Callback\Property;
 use Nokaut\ApiKit\Collection\Products;
 use Nokaut\ApiKit\Ext\Data\Collection\Filters\PropertyValues;
 use Nokaut\ApiKit\Ext\Data\Entity\Filter\PropertyValue;
+use PHPUnit\Framework\TestCase;
 
-class SetIsActiveTest extends \PHPUnit\Framework\TestCase
+class SetIsActiveTest extends TestCase
 {
     public function testNotIsActive()
     {

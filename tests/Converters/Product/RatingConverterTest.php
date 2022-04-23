@@ -4,9 +4,11 @@ namespace Nokaut\ApiKit\Converter\Product;
 
 
 use Nokaut\ApiKit\Entity\Product\Rating;
+use PHPUnit\Framework\TestCase;
+use stdClass;
 
 
-class RatingConverterTest extends \PHPUnit\Framework\TestCase
+class RatingConverterTest extends TestCase
 {
 
     public function testConvert()
@@ -26,7 +28,7 @@ class RatingConverterTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @return \stdClass
+     * @return stdClass
      */
     private function getCorrectObject()
     {

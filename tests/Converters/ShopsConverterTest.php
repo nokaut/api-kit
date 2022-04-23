@@ -5,9 +5,10 @@ namespace Nokaut\ApiKit\Converter;
 
 use Nokaut\ApiKit\Collection\Shops;
 use Nokaut\ApiKit\Entity\Shop;
+use PHPUnit\Framework\TestCase;
 
 
-class ShopsConverterTest extends \PHPUnit\Framework\TestCase
+class ShopsConverterTest extends TestCase
 {
     public function testConvert()
     {

@@ -12,9 +12,11 @@ namespace Nokaut\ApiKit\Converter;
 use Nokaut\ApiKit\Entity\Offer;
 use Nokaut\ApiKit\Entity\Offer\Property;
 use Nokaut\ApiKit\Entity\Offer\Shop\OpineoRating;
+use PHPUnit\Framework\TestCase;
+use stdClass;
 
 
-class OfferConverterTest extends \PHPUnit\Framework\TestCase
+class OfferConverterTest extends TestCase
 {
 
     public function testConvert()
@@ -35,7 +37,7 @@ class OfferConverterTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @param string $field
-     * @param \stdClass $correctObject
+     * @param stdClass $correctObject
      * @param Offer $offer
      */
     private function assertSubObject($field, $correctObject, Offer $offer)

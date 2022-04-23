@@ -9,8 +9,9 @@ use Nokaut\ApiKit\Ext\Data\Collection\Filters\PropertyRanges;
 use Nokaut\ApiKit\Ext\Data\Collection\Filters\PropertyValues;
 use Nokaut\ApiKit\Ext\Data\Entity\Filter\PropertyRange;
 use Nokaut\ApiKit\Ext\Data\Entity\Filter\PropertyValue;
+use PHPUnit\Framework\TestCase;
 
-class SortDefaultTest extends \PHPUnit\Framework\TestCase
+class SortDefaultTest extends TestCase
 {
     public function testNaturalValues()
     {

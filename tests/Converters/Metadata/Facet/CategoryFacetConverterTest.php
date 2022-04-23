@@ -10,8 +10,9 @@ namespace Nokaut\ApiKit\Converter\Metadata\Facet;
 
 
 use Nokaut\ApiKit\Entity\Metadata\Facet\CategoryFacet;
+use PHPUnit\Framework\TestCase;
 
-class CategoryFacetConverterTest extends \PHPUnit\Framework\TestCase
+class CategoryFacetConverterTest extends TestCase
 {
     public function testConvert()
     {

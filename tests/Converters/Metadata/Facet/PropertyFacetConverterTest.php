@@ -10,8 +10,10 @@ namespace Nokaut\ApiKit\Converter\Metadata\Facet;
 
 
 use Nokaut\ApiKit\Entity\Metadata\Facet\PropertyFacet;
+use PHPUnit\Framework\TestCase;
+use stdClass;
 
-class PropertyFacetConverterTest extends \PHPUnit\Framework\TestCase
+class PropertyFacetConverterTest extends TestCase
 {
     public function testConvert()
     {
@@ -51,7 +53,7 @@ class PropertyFacetConverterTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @param $name
-     * @return \stdClass
+     * @return stdClass
      */
     private function getJsonFixture($name)
     {

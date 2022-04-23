@@ -11,8 +11,9 @@ namespace ClientApi\Rest\Fetch;
 
 use Nokaut\ApiKit\Cache\NullCache;
 use Nokaut\ApiKit\ClientApi\Rest\Fetch\Fetch;
+use PHPUnit\Framework\TestCase;
 
-class FetchTest extends \PHPUnit\Framework\TestCase
+class FetchTest extends TestCase
 {
     public function testPrepareCacheKey()
     {

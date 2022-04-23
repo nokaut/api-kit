@@ -8,8 +8,9 @@ use Nokaut\ApiKit\Collection\Products;
 use Nokaut\ApiKit\Entity\Metadata\ProductsMetadata;
 use Nokaut\ApiKit\Ext\Data\Collection\Filters\Categories;
 use Nokaut\ApiKit\Ext\Data\Entity\Filter\Category;
+use PHPUnit\Framework\TestCase;
 
-class SetIsNofollowTest extends \PHPUnit\Framework\TestCase
+class SetIsNofollowTest extends TestCase
 {
     public function testFollow()
     {

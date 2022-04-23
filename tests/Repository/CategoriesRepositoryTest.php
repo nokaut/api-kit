@@ -17,9 +17,11 @@ use Nokaut\ApiKit\Config;
 use Nokaut\ApiKit\Entity\Category;
 use Nokaut\ApiKit\Entity\Category\Path;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
+use stdClass;
 
 
-class CategoriesRepositoryTest extends \PHPUnit\Framework\TestCase
+class CategoriesRepositoryTest extends TestCase
 {
 
     /**
@@ -162,7 +164,7 @@ class CategoriesRepositoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @param $name
-     * @return \stdClass
+     * @return stdClass
      */
     private function getJsonFixture($name)
     {

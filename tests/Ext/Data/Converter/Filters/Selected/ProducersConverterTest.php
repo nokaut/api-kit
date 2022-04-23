@@ -5,8 +5,10 @@ namespace Nokaut\ApiKit\Ext\Data\Converter\Filters\Selected;
 use Nokaut\ApiKit\Converter\ProductsConverter;
 use Nokaut\ApiKit\Ext\Data\Converter\Filters\Callback\Producers\SetIsPopular;
 use Nokaut\ApiKit\Ext\Data\Entity\Filter\Producer;
+use PHPUnit\Framework\TestCase;
+use stdClass;
 
-class ProducersConverterTest extends \PHPUnit\Framework\TestCase
+class ProducersConverterTest extends TestCase
 {
     public function testCache()
     {
@@ -75,7 +77,7 @@ class ProducersConverterTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @param $name
-     * @return \stdClass
+     * @return stdClass
      */
     private function getJsonFixture($name)
     {

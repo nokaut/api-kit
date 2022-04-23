@@ -11,8 +11,10 @@ namespace Nokaut\ApiKit\Converter\Metadata;
 
 use Nokaut\ApiKit\Entity\EntityAbstract;
 use Nokaut\ApiKit\Entity\Metadata\ProductsMetadata;
+use PHPUnit\Framework\TestCase;
+use stdClass;
 
-class ProductsMetadataConverterTest extends \PHPUnit\Framework\TestCase
+class ProductsMetadataConverterTest extends TestCase
 {
     public function testConvert()
     {
@@ -55,7 +57,7 @@ class ProductsMetadataConverterTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @param \stdClass $correctObject
+     * @param stdClass $correctObject
      * @param EntityAbstract $objectToCheck
      */
     private function assertObject($correctObject, $objectToCheck)

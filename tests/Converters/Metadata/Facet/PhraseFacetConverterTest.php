@@ -10,8 +10,9 @@ namespace Nokaut\ApiKit\Converter\Metadata\Facet;
 
 
 use Nokaut\ApiKit\Entity\Metadata\Facet\PhraseFacet;
+use PHPUnit\Framework\TestCase;
 
-class PhraseFacetConverterTest extends \PHPUnit\Framework\TestCase
+class PhraseFacetConverterTest extends TestCase
 {
     public function testConvert()
     {

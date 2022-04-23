@@ -11,9 +11,10 @@ namespace Nokaut\ApiKit\Collection\Sort;
 
 use Nokaut\ApiKit\Collection\Categories;
 use Nokaut\ApiKit\Entity\Category;
+use PHPUnit\Framework\TestCase;
 
 
-class CategoriesSortTest extends \PHPUnit\Framework\TestCase
+class CategoriesSortTest extends TestCase
 {
 
     public function testSortByTitle()

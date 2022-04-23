@@ -10,8 +10,10 @@ use Nokaut\ApiKit\Ext\Data\Collection\Filters\PropertyValues;
 use Nokaut\ApiKit\Ext\Data\Converter\Filters\PropertiesConverter;
 use Nokaut\ApiKit\Ext\Data\Entity\Filter\FilterAbstract;
 use Nokaut\ApiKit\Ext\Data\Entity\Filter\PropertyValue;
+use PHPUnit\Framework\TestCase;
+use stdClass;
 
-class SetIsNofollowTest extends \PHPUnit\Framework\TestCase
+class SetIsNofollowTest extends TestCase
 {
     public function testPropertyNotSelected()
     {
@@ -219,7 +221,7 @@ class SetIsNofollowTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @param $name
-     * @return \stdClass
+     * @return stdClass
      */
     private function getJsonFixture($name)
     {

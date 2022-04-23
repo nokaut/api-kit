@@ -6,8 +6,9 @@ namespace Nokaut\ApiKit\Ext\Data\Converter\Filters\Callback\PriceRanges;
 use Nokaut\ApiKit\Collection\Products;
 use Nokaut\ApiKit\Ext\Data\Collection\Filters\PriceRanges;
 use Nokaut\ApiKit\Ext\Data\Entity\Filter\PriceRange;
+use PHPUnit\Framework\TestCase;
 
-class SetIsNofollowTest extends \PHPUnit\Framework\TestCase
+class SetIsNofollowTest extends TestCase
 {
     public function testIsNofollow()
     {
