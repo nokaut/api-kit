@@ -2,8 +2,8 @@
 
 namespace Nokaut\ApiKit\Ext\Data\Converter\Filters;
 
-use Nokaut\ApiKit\Converter\ProductsConverter;
 use Nokaut\ApiKit\Collection\Products;
+use Nokaut\ApiKit\Converter\ProductsConverter;
 use Nokaut\ApiKit\Ext\Data\Converter\Filters\Callback\Property\SetIsActive;
 use Nokaut\ApiKit\Ext\Data\Entity\Filter\PropertyRange;
 use Nokaut\ApiKit\Ext\Data\Entity\Filter\PropertyValue;

@@ -4,9 +4,7 @@
 namespace Nokaut\ApiKit\Ext\Lib;
 
 
-use Nokaut\ApiKit\Collection\Products;
 use Nokaut\ApiKit\Converter\ProductsConverter;
-use Nokaut\ApiKit\Entity\Metadata\ProductsMetadata;
 
 class ProductsAnalyzerTest extends \PHPUnit\Framework\TestCase
 {

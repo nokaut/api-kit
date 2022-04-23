@@ -4,9 +4,9 @@
 namespace Nokaut\ApiKit\Ext\Data\Converter\Filters;
 
 use Nokaut\ApiKit\Collection\Products;
+use Nokaut\ApiKit\Ext\Data\Collection\Filters\Shops;
 use Nokaut\ApiKit\Ext\Data\Converter\ConverterInterface;
 use Nokaut\ApiKit\Ext\Data\Converter\Filters\Callback\Shops\CallbackInterface;
-use Nokaut\ApiKit\Ext\Data\Collection\Filters\Shops;
 use Nokaut\ApiKit\Ext\Data\Entity\Filter\Shop;
 
 class ShopsConverter implements ConverterInterface

@@ -17,6 +17,7 @@ use GuzzleHttp\Psr7\Response;
 use Nokaut\ApiKit\ClientApi\Rest\Fetch\Fetch;
 use Nokaut\ApiKit\ClientApi\Rest\Fetch\Fetches;
 use Nokaut\ApiKit\ClientApi\Rest\Fetch\ProductsFetch;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class RestClientApiTest extends \PHPUnit\Framework\TestCase
 {
@@ -241,7 +242,7 @@ class RestClientApiTest extends \PHPUnit\Framework\TestCase
      * @param $loggerMock
      * @param $oauth2
      * @param $client
-     * @return \PHPUnit_Framework_MockObject_MockObject
+     * @return MockObject
      */
     protected function prepareCut($loggerMock, $oauth2, $client)
     {
@@ -258,7 +259,7 @@ class RestClientApiTest extends \PHPUnit\Framework\TestCase
      * @param $loggerMock
      * @param $oauth2
      * @param $client
-     * @return \PHPUnit_Framework_MockObject_MockObject
+     * @return MockObject
      */
     protected function prepareCutWithMockSendMultiProcess($loggerMock, $oauth2, $client)
     {

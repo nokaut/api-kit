@@ -13,8 +13,8 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use Nokaut\ApiKit\Collection\Products;
 use Nokaut\ApiKit\Config;
-use Nokaut\ApiKit\Entity\Product;
 use Nokaut\ApiKit\Converter\ProductConverter;
+use Nokaut\ApiKit\Entity\Product;
 use PHPUnit\Framework\MockObject\MockObject;
 
 

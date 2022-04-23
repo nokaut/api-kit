@@ -10,28 +10,23 @@ namespace Nokaut\ApiKit\Repository;
 
 
 use Nokaut\ApiKit\Cache\NullCache;
-use Nokaut\ApiKit\ClientApi\ClientApiInterface;
 use Nokaut\ApiKit\ClientApi\Rest\Fetch\Fetch;
 use Nokaut\ApiKit\ClientApi\Rest\Fetch\ProductFetch;
 use Nokaut\ApiKit\ClientApi\Rest\Fetch\ProductRateCreateFetch;
 use Nokaut\ApiKit\ClientApi\Rest\Fetch\ProductRatesFetch;
 use Nokaut\ApiKit\ClientApi\Rest\Fetch\ProductRateUpdateFetch;
 use Nokaut\ApiKit\ClientApi\Rest\Fetch\ProductsFetch;
+use Nokaut\ApiKit\ClientApi\Rest\Query\Filter;
+use Nokaut\ApiKit\ClientApi\Rest\Query\ProductQuery;
 use Nokaut\ApiKit\ClientApi\Rest\Query\ProductRateQuery;
 use Nokaut\ApiKit\ClientApi\Rest\Query\ProductRatesQuery;
+use Nokaut\ApiKit\ClientApi\Rest\Query\ProductsQuery;
 use Nokaut\ApiKit\ClientApi\Rest\Query\Sort;
-use Nokaut\ApiKit\ClientApi\Rest\Query\Filter;
 use Nokaut\ApiKit\Collection\Products;
-use Nokaut\ApiKit\Config;
 use Nokaut\ApiKit\Converter\ProductsWithBestOfferConverter;
 use Nokaut\ApiKit\Entity\Product;
-use Nokaut\ApiKit\ClientApi\Rest\Query\ProductQuery;
-use Nokaut\ApiKit\ClientApi\Rest\Query\ProductsQuery;
-use Nokaut\ApiKit\Converter\ProductConverter;
-use Nokaut\ApiKit\Converter\ProductsConverter;
 use Nokaut\ApiKit\Entity\Product\Rating;
 use Nokaut\ApiKit\Entity\Product\Rating\Rate;
-use Nokaut\ApiKit\Entity\ProductWithBestOffer;
 
 class ProductsRepository extends RepositoryAbstract
 {

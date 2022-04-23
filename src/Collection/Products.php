@@ -9,7 +9,6 @@
 namespace Nokaut\ApiKit\Collection;
 
 
-use Nokaut\ApiKit\Entity\Metadata;
 use Nokaut\ApiKit\Entity\Metadata\Facet\CategoryFacet;
 use Nokaut\ApiKit\Entity\Metadata\Facet\PhraseFacet;
 use Nokaut\ApiKit\Entity\Metadata\Facet\PriceFacet;

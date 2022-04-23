@@ -10,13 +10,12 @@ namespace Nokaut\ApiKit\Repository;
 
 
 use Nokaut\ApiKit\ClientApi\ClientApiInterface;
-use Nokaut\ApiKit\ClientApi\Rest\Fetch\Fetch;
 use Nokaut\ApiKit\ClientApi\Rest\Fetch\CategoriesFetch;
 use Nokaut\ApiKit\ClientApi\Rest\Fetch\CategoryFetch;
+use Nokaut\ApiKit\ClientApi\Rest\Fetch\Fetch;
 use Nokaut\ApiKit\ClientApi\Rest\Query\CategoriesQuery;
 use Nokaut\ApiKit\Config;
 use Nokaut\ApiKit\Converter\Category\CategoriesGrouperConverter;
-use Nokaut\ApiKit\Entity\Category;
 
 class CategoriesAsyncRepository extends CategoriesRepository implements AsyncRepositoryInterface
 {

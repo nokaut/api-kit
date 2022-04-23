@@ -4,7 +4,6 @@ namespace Nokaut\ApiKit\Repository;
 
 
 use Nokaut\ApiKit\ClientApi\Rest\Fetch\ProducersFetch;
-use Nokaut\ApiKit\ClientApi\Rest\Query\Filter\MultipleWithOperator;
 use Nokaut\ApiKit\ClientApi\Rest\Query\Filter\Single;
 use Nokaut\ApiKit\ClientApi\Rest\Query\Filter\SingleWithOperator;
 use Nokaut\ApiKit\ClientApi\Rest\Query\ProducersQuery;

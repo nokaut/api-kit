@@ -2,7 +2,6 @@
 
 namespace Nokaut\ApiKit\Collection;
 
-use Nokaut\ApiKit\Collection;
 use Nokaut\ApiKit\Entity\Category;
 
 

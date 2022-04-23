@@ -10,8 +10,8 @@ namespace Nokaut\ApiKit\Entity\Metadata\Facet;
 
 
 use Nokaut\ApiKit\Entity\EntityAbstract;
-use Nokaut\ApiKit\Entity\Metadata\Facet\PropertyFacet\Value;
 use Nokaut\ApiKit\Entity\Metadata\Facet\PropertyFacet\Range;
+use Nokaut\ApiKit\Entity\Metadata\Facet\PropertyFacet\Value;
 
 class PropertyFacet extends EntityAbstract
 {

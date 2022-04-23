@@ -9,7 +9,6 @@
 namespace Nokaut\ApiKit\Repository;
 
 
-use Nokaut\ApiKit\ClientApi\ClientApiInterface;
 use Nokaut\ApiKit\ClientApi\Rest\Fetch\OfferFetch;
 use Nokaut\ApiKit\ClientApi\Rest\Fetch\OffersFetch;
 use Nokaut\ApiKit\ClientApi\Rest\Query\Filter\Single;
@@ -17,8 +16,6 @@ use Nokaut\ApiKit\ClientApi\Rest\Query\OfferQuery;
 use Nokaut\ApiKit\ClientApi\Rest\Query\OffersQuery;
 use Nokaut\ApiKit\ClientApi\Rest\Query\Sort;
 use Nokaut\ApiKit\Collection\Offers;
-use Nokaut\ApiKit\Converter\OfferConverter;
-use Nokaut\ApiKit\Converter\OffersConverter;
 use Nokaut\ApiKit\Entity\Offer;
 
 class OffersRepository extends RepositoryAbstract

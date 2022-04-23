@@ -4,9 +4,9 @@
 namespace Nokaut\ApiKit\Ext\Data\Converter\Filters\Selected;
 
 use Nokaut\ApiKit\Collection\Products;
+use Nokaut\ApiKit\Ext\Data\Collection\Filters\Categories;
 use Nokaut\ApiKit\Ext\Data\Converter\Filters\Callback\Categories\CallbackInterface;
 use Nokaut\ApiKit\Ext\Data\Converter\Filters\CategoriesConverter as CategoriesConverterParent;
-use Nokaut\ApiKit\Ext\Data\Collection\Filters\Categories;
 use Nokaut\ApiKit\Ext\Data\Entity\Filter\Category;
 
 class CategoriesConverter extends CategoriesConverterParent

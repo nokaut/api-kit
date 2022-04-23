@@ -4,9 +4,9 @@
 namespace Nokaut\ApiKit\Ext\Data\Converter\Filters;
 
 use Nokaut\ApiKit\Collection\Products;
+use Nokaut\ApiKit\Ext\Data\Collection\Filters\Producers;
 use Nokaut\ApiKit\Ext\Data\Converter\ConverterInterface;
 use Nokaut\ApiKit\Ext\Data\Converter\Filters\Callback\Producers\CallbackInterface;
-use Nokaut\ApiKit\Ext\Data\Collection\Filters\Producers;
 use Nokaut\ApiKit\Ext\Data\Entity\Filter\Producer;
 
 class ProducersConverter implements ConverterInterface

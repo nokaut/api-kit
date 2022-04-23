@@ -9,10 +9,10 @@
 namespace Nokaut\ApiKit\Converter;
 
 
+use Nokaut\ApiKit\Converter\Product\PropertyConverter;
 use Nokaut\ApiKit\Entity\Product;
 use Nokaut\ApiKit\Entity\Product\Prices;
 use Nokaut\ApiKit\Entity\Product\Property;
-use Nokaut\ApiKit\Converter\Product\PropertyConverter;
 use Nokaut\ApiKit\Entity\Product\Shop\OpineoRating;
 
 
