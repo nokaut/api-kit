@@ -6,7 +6,7 @@ Biblioteka umożliwia komunikację z Search API oraz mapuje odpowiedzi na okreś
 Wymagania
 ---------
 
-* PHP 7.2+
+* PHP 7.2.5+
 * dostęp do Search API (klucz OAuth)
 
 Ważne zmiany z CHANGELOG
@@ -14,7 +14,7 @@ Ważne zmiany z CHANGELOG
 
 **Dla wersja 1.8**
 
-Od wersji 1.8.0 ApiKit działa tylko z PHP 7.2 lub nowszym.
+Od wersji 1.8.0 ApiKit działa tylko z PHP 7.2.5 lub nowszym.
 
 **Dla wersja 1.6**
 
