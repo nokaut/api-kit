@@ -9,7 +9,7 @@
 namespace Nokaut\ApiKit\ClientApi\Rest\Exception;
 
 
-
-class NotFoundException extends \Exception {
+class NotFoundException extends \Exception
+{
 
 } 

@@ -60,7 +60,7 @@ class ProducersAsyncRepositoryTest extends \PHPUnit\Framework\TestCase
             ->will($this->returnValue($this->getJsonFixture('producers')));
 
         /** @var ProducersFetch $producersFetch */
-        $producersFetch = $this->sut->fetchByNamePrefix('sa',  ProducersAsyncRepository::$fieldsAll, 5);
+        $producersFetch = $this->sut->fetchByNamePrefix('sa', ProducersAsyncRepository::$fieldsAll, 5);
         $this->sut->fetchAllAsync();
 
         /** @var Producers $producers */
@@ -80,7 +80,7 @@ class ProducersAsyncRepositoryTest extends \PHPUnit\Framework\TestCase
             ->will($this->returnValue($this->getJsonFixture('producers')));
 
         /** @var ProducersFetch $producersFetch */
-        $producersFetch = $this->sut->fetchByIds([12,32,54,345,43], ProducersAsyncRepository::$fieldsAll);
+        $producersFetch = $this->sut->fetchByIds([12, 32, 54, 345, 43], ProducersAsyncRepository::$fieldsAll);
         $this->sut->fetchAllAsync();
 
         /** @var Producers $producers */

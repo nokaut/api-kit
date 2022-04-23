@@ -130,19 +130,19 @@ class Config
      */
     public function validate()
     {
-        if(empty($this->apiAccessToken)) {
+        if (empty($this->apiAccessToken)) {
             throw new \InvalidArgumentException("empty api access token, please set access token for API in Nokaut\\ApiKit\\Config");
         }
 
-        if(empty($this->apiUrl)) {
+        if (empty($this->apiUrl)) {
             throw new \InvalidArgumentException("empty api URL, please set URL to API in Nokaut\\ApiKit\\Config");
         }
 
-        if(empty($this->cache)) {
+        if (empty($this->cache)) {
             throw new \InvalidArgumentException("cache not set, please cache mechanism in Nokaut\\ApiKit\\Config");
         }
 
-        if(empty($this->logger)) {
+        if (empty($this->logger)) {
             throw new \InvalidArgumentException("logger not set, please logger mechanism in Nokaut\\ApiKit\\Config");
         }
     }

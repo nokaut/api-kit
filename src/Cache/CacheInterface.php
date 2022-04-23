@@ -9,7 +9,8 @@
 namespace Nokaut\ApiKit\Cache;
 
 
-interface CacheInterface {
+interface CacheInterface
+{
 
     public function get($keyName, $lifetime = null);
 

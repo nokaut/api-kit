@@ -22,7 +22,7 @@ class ShopsConverterTest extends \PHPUnit\Framework\TestCase
         foreach ($shops as $shop) {
             $this->assertInstanceOf('Nokaut\ApiKit\Entity\Shop', $shop);
 
-            if($shop->getId() == 4092) {
+            if ($shop->getId() == 4092) {
                 $this->assertEquals('http://www.opineo.pl/opinie/gofans-pl', $shop->getOpineoRating()->getUrl());
             }
         }

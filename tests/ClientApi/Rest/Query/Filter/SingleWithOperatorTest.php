@@ -23,7 +23,7 @@ class SingleWithOperatorTest extends \PHPUnit\Framework\TestCase
     {
         return array(
             array("cecha", "in", "jakieś tam filtr", "filter[cecha][in]=jakie%C5%9B+tam+filtr"),
-            array("property_9342","gt", 23, "filter[property_9342][gt]=23")
+            array("property_9342", "gt", 23, "filter[property_9342][gt]=23")
         );
     }
 }

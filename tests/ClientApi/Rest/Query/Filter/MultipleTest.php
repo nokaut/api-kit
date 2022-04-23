@@ -16,7 +16,7 @@ class MultipleTest extends \PHPUnit\Framework\TestCase
     public function dataProvider()
     {
         return array(
-            array("cecha", array("jakieś tam filtr",2,3), "filter[cecha]=jakie%C5%9B+tam+filtr&filter[cecha]=2&filter[cecha]=3")
+            array("cecha", array("jakieś tam filtr", 2, 3), "filter[cecha]=jakie%C5%9B+tam+filtr&filter[cecha]=2&filter[cecha]=3")
         );
     }
 }

@@ -9,6 +9,7 @@
 namespace Nokaut\ApiKit\ClientApi\Rest\Exception;
 
 
-class InvalidRequestException extends \Exception {
+class InvalidRequestException extends \Exception
+{
 
 } 

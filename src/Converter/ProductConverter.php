@@ -9,7 +9,6 @@
 namespace Nokaut\ApiKit\Converter;
 
 
-
 use Nokaut\ApiKit\Converter\Product\PricesConverter;
 use Nokaut\ApiKit\Converter\Product\PropertyConverter;
 use Nokaut\ApiKit\Converter\Product\RatingConverter;
@@ -75,12 +74,12 @@ class ProductConverter implements ConverterInterface
     protected function sortPhotoIds(Product $product)
     {
         $photoIds = $product->getPhotoIds();
-        if($photoIds == null) {
+        if ($photoIds == null) {
             return;
         }
 
-        foreach($photoIds as $index => $photoId) {
-            if($photoId == $product->getPhotoId()) {
+        foreach ($photoIds as $index => $photoId) {
+            if ($photoId == $product->getPhotoId()) {
                 unset($photoIds[$index]);
                 break;
             }

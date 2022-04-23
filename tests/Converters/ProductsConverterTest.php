@@ -9,8 +9,6 @@
 namespace Nokaut\ApiKit\Converter;
 
 
-
-
 class ProductsConverterTest extends \PHPUnit\Framework\TestCase
 {
 

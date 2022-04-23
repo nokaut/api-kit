@@ -12,7 +12,8 @@ namespace Nokaut\ApiKit\ClientApi;
 use Nokaut\ApiKit\ClientApi\Rest\Fetch\Fetch;
 use Nokaut\ApiKit\ClientApi\Rest\Fetch\Fetches;
 
-interface ClientApiInterface {
+interface ClientApiInterface
+{
 
     /**
      * @param Fetch $fetch

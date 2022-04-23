@@ -22,7 +22,7 @@ class MultipleWithOperatorTest extends \PHPUnit\Framework\TestCase
     public function dataProvider()
     {
         return array(
-            array("cecha", "in", array("jakieś tam filtr",2,3), "filter[cecha][in][]=jakie%C5%9B+tam+filtr&filter[cecha][in][]=2&filter[cecha][in][]=3")
+            array("cecha", "in", array("jakieś tam filtr", 2, 3), "filter[cecha][in][]=jakie%C5%9B+tam+filtr&filter[cecha][in][]=2&filter[cecha][in][]=3")
         );
     }
 }

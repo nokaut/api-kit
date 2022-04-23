@@ -13,7 +13,8 @@ use Nokaut\ApiKit\Converter\ConverterInterface;
 use Nokaut\ApiKit\Converter\Product\Shop\OpineoRatingConverter;
 use Nokaut\ApiKit\Entity\Product\Shop;
 
-class ShopConverter implements ConverterInterface {
+class ShopConverter implements ConverterInterface
+{
 
     public function convert(\stdClass $object)
     {

@@ -36,7 +36,7 @@ class MultipleWithOperator implements FilterInterface
      */
     public function toHash()
     {
-        return md5($this->key.$this->operator);
+        return md5($this->key . $this->operator);
     }
 
     public function __toString()

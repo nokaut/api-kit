@@ -9,8 +9,6 @@
 namespace Nokaut\ApiKit\Converter;
 
 
-
-
 class ProductsWithBestOfferConverterTest extends \PHPUnit\Framework\TestCase
 {
 

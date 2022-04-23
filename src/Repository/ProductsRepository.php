@@ -116,11 +116,11 @@ class ProductsRepository extends RepositoryAbstract
     }
 
     /**
-     * @deprecated
      * @param Product $product
      * @param int $limit
      * @param array $fields
      * @return Products
+     * @deprecated
      */
     public function fetchSimilarProductsWithHigherPrice(Product $product, $limit, array $fields)
     {
@@ -133,11 +133,11 @@ class ProductsRepository extends RepositoryAbstract
     }
 
     /**
-     * @deprecated
      * @param Product $product
      * @param int $limit
      * @param array $fields
      * @return Products
+     * @deprecated
      */
     public function fetchSimilarProductsWithLowerPrice(Product $product, $limit, array $fields)
     {
@@ -402,11 +402,11 @@ class ProductsRepository extends RepositoryAbstract
     }
 
     /**
-     * @deprecated
      * @param Product $product
      * @param $limit
      * @param array $fields
      * @return ProductsQuery
+     * @deprecated
      */
     protected function prepareQueryForFetchSimilarProductsWithHigherPrice(Product $product, $limit, array $fields)
     {
@@ -420,11 +420,11 @@ class ProductsRepository extends RepositoryAbstract
     }
 
     /**
-     * @deprecated
      * @param Product $product
      * @param $limit
      * @param array $fields
      * @return ProductsQuery
+     * @deprecated
      */
     protected function prepareQueryForFetchSimilarProductsWithLowerPrice(Product $product, $limit, array $fields)
     {

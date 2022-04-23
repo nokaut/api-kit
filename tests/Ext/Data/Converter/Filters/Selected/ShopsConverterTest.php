@@ -27,7 +27,7 @@ class ShopsConverterTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(1, $shopsSelected->count());
 
         // nie moga byc wspoldzielone przez referencje te same obiekty
-        $this->assertNotEquals(spl_object_hash($shops->getItem(2)),spl_object_hash($shopsSelected->getItem(0)));
+        $this->assertNotEquals(spl_object_hash($shops->getItem(2)), spl_object_hash($shopsSelected->getItem(0)));
     }
 
     public function testShopConverterWithoutCallbacks()

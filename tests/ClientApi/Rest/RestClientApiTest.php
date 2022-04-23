@@ -29,7 +29,7 @@ class RestClientApiTest extends \PHPUnit\Framework\TestCase
         $request = $this->getMockBuilder('\GuzzleHttp\Psr7\Request')->disableOriginalConstructor()->getMock();
         $response = new Response(502, [], "{}");
 
-        $exceptionFromApi  = new BadResponseException('', $request, $response);
+        $exceptionFromApi = new BadResponseException('', $request, $response);
         $client = $this->getMockBuilder('\GuzzleHttp\Client')->disableOriginalConstructor()->getMock();
         $client->expects($this->exactly(3))->method('send')->will($this->throwException($exceptionFromApi));
 

@@ -53,7 +53,7 @@ class CategoriesAsyncRepository extends CategoriesRepository implements AsyncRep
      */
     public function fetchByParentIdWithChildren($parentId, $depth = 2, $fields = null)
     {
-        $categoriesAsyncFetch = new Fetch($this->prepareQueryForFetchByParentIdWithChildren($parentId, $depth, $fields),new CategoriesGrouperConverter(), $this->cache);
+        $categoriesAsyncFetch = new Fetch($this->prepareQueryForFetchByParentIdWithChildren($parentId, $depth, $fields), new CategoriesGrouperConverter(), $this->cache);
         $this->asyncRepo->addFetch($categoriesAsyncFetch);
         return $categoriesAsyncFetch;
     }

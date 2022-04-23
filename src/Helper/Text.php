@@ -9,7 +9,6 @@
 namespace Nokaut\ApiKit\Helper;
 
 
-
 class Text
 {
     /**

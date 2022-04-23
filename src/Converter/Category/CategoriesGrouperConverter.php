@@ -9,7 +9,6 @@
 namespace Nokaut\ApiKit\Converter\Category;
 
 
-
 use Nokaut\ApiKit\Collection\Categories;
 use Nokaut\ApiKit\Converter\CategoriesConverter;
 use Nokaut\ApiKit\Entity\Category;

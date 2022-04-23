@@ -9,8 +9,6 @@
 namespace Nokaut\ApiKit\ClientApi\Rest\Query;
 
 
-
-
 class CategoriesQueryTest extends \PHPUnit\Framework\TestCase
 {
     private static $baseUrl = "http://127.0.0.1:3401/api/v2/";
@@ -63,7 +61,7 @@ class CategoriesQueryTest extends \PHPUnit\Framework\TestCase
     {
         $cut = new CategoriesQuery(self::$baseUrl);
         $cut->setFields(array('id', 'title'));
-        $cut->setCategoryIds(array(1,45));
+        $cut->setCategoryIds(array(1, 45));
 
         $url = $cut->createRequestPath();
 
@@ -74,7 +72,7 @@ class CategoriesQueryTest extends \PHPUnit\Framework\TestCase
     {
         $cut = new CategoriesQuery(self::$baseUrl);
         $cut->setFields(array('id', 'title'));
-        $cut->setCategoryIds(array(1,45));
+        $cut->setCategoryIds(array(1, 45));
         $cut->setLimit(200);
 
         $url = $cut->createRequestPath();

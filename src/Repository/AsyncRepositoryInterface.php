@@ -9,8 +9,10 @@
 namespace Nokaut\ApiKit\Repository;
 
 
-interface AsyncRepositoryInterface {
+interface AsyncRepositoryInterface
+{
 
     public function clearAllFetches();
+
     public function fetchAllAsync();
 }
