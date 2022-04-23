@@ -11,9 +11,9 @@ namespace Nokaut\ApiKit\Converter;
 
 use Nokaut\ApiKit\Entity\Category;
 use Nokaut\ApiKit\Entity\Category\Path;
-use PHPUnit_Framework_TestCase;
 
-class CategoryConverterTest extends PHPUnit_Framework_TestCase
+
+class CategoryConverterTest extends \PHPUnit\Framework\TestCase
 {
 
     public function testConvert()

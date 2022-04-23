@@ -11,9 +11,9 @@ namespace Nokaut\ApiKit\Converter;
 
 use Nokaut\ApiKit\Entity\Product\OfferWithBestPrice;
 use Nokaut\ApiKit\Entity\ProductWithBestOffer;
-use PHPUnit_Framework_TestCase;
 
-class ProductWithBestOfferConverterTest extends PHPUnit_Framework_TestCase
+
+class ProductWithBestOfferConverterTest extends \PHPUnit\Framework\TestCase
 {
     public function testConverter()
     {

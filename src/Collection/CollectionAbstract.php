@@ -34,7 +34,7 @@ abstract class CollectionAbstract implements CollectionInterface
      * The return value is cast to an integer.
      * @return int
      */
-    public function count()
+    public function count(): int
     {
         return count($this->entities);
     }
@@ -47,7 +47,7 @@ abstract class CollectionAbstract implements CollectionInterface
      * <b>Traversable</b>
      * @return ArrayIterator
      */
-    public function getIterator()
+    public function getIterator(): \Traversable
     {
         return new ArrayIterator($this->entities);
     }

@@ -13,7 +13,7 @@ use Nokaut\ApiKit\Collection\Products;
 use Nokaut\ApiKit\Entity\Category;
 use Nokaut\ApiKit\Ext\Data\Collection\Filters\Categories;
 
-class SetParentCategoryTest extends \PHPUnit_Framework_TestCase
+class SetParentCategoryTest extends \PHPUnit\Framework\TestCase
 {
     public function testSetParentCategory()
     {

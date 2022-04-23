@@ -10,7 +10,7 @@ namespace Nokaut\ApiKit\ClientApi\Rest\Query;
 
 use Nokaut\ApiKit\ClientApi\Rest\Query\Filter;
 
-class ProductsQueryTest extends \PHPUnit_Framework_TestCase
+class ProductsQueryTest extends \PHPUnit\Framework\TestCase
 {
 
     private static $baseUrl = "http://127.0.0.1:3401/api/v2/";

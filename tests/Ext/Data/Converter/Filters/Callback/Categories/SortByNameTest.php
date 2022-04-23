@@ -8,7 +8,7 @@ use Nokaut\ApiKit\Collection\Products;
 use Nokaut\ApiKit\Ext\Data\Collection\Filters\Categories;
 use Nokaut\ApiKit\Ext\Data\Entity\Filter\Category;
 
-class SortByNameTest extends \PHPUnit_Framework_TestCase
+class SortByNameTest extends \PHPUnit\Framework\TestCase
 {
     public function testSort()
     {

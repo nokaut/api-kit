@@ -4,9 +4,9 @@ namespace Nokaut\ApiKit\Collection;
 
 use Nokaut\ApiKit\Collection;
 use Nokaut\ApiKit\Entity\Category;
-use PHPUnit_Framework_TestCase;
 
-class CollectionAbstractTest extends PHPUnit_Framework_TestCase
+
+class CollectionAbstractTest extends \PHPUnit\Framework\TestCase
 {
     public function testSetEntities()
     {

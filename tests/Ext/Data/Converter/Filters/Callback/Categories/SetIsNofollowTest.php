@@ -9,7 +9,7 @@ use Nokaut\ApiKit\Entity\Metadata\ProductsMetadata;
 use Nokaut\ApiKit\Ext\Data\Collection\Filters\Categories;
 use Nokaut\ApiKit\Ext\Data\Entity\Filter\Category;
 
-class SetIsNofollowTest extends \PHPUnit_Framework_TestCase
+class SetIsNofollowTest extends \PHPUnit\Framework\TestCase
 {
     public function testFollow()
     {

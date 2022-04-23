@@ -11,7 +11,7 @@ namespace Nokaut\ApiKit\Converter\Metadata;
 
 use Nokaut\ApiKit\Entity\Metadata\OffersMetadata;
 
-class OffersMetadataConverterTest extends \PHPUnit_Framework_TestCase
+class OffersMetadataConverterTest extends \PHPUnit\Framework\TestCase
 {
     public function testConvert()
     {

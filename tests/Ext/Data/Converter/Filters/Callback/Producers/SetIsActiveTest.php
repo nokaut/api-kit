@@ -8,7 +8,7 @@ use Nokaut\ApiKit\Collection\Products;
 use Nokaut\ApiKit\Ext\Data\Collection\Filters\Producers;
 use Nokaut\ApiKit\Ext\Data\Entity\Filter\Producer;
 
-class SetIsActiveTest extends \PHPUnit_Framework_TestCase
+class SetIsActiveTest extends \PHPUnit\Framework\TestCase
 {
     public function testNotIsActive()
     {

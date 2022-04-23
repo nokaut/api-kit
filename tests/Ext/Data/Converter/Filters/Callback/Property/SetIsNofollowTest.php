@@ -11,7 +11,7 @@ use Nokaut\ApiKit\Ext\Data\Converter\Filters\PropertiesConverter;
 use Nokaut\ApiKit\Ext\Data\Entity\Filter\FilterAbstract;
 use Nokaut\ApiKit\Ext\Data\Entity\Filter\PropertyValue;
 
-class SetIsNofollowTest extends \PHPUnit_Framework_TestCase
+class SetIsNofollowTest extends \PHPUnit\Framework\TestCase
 {
     public function testPropertyNotSelected()
     {

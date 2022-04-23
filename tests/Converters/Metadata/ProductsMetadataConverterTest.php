@@ -12,7 +12,7 @@ namespace Nokaut\ApiKit\Converter\Metadata;
 use Nokaut\ApiKit\Entity\EntityAbstract;
 use Nokaut\ApiKit\Entity\Metadata\ProductsMetadata;
 
-class ProductsMetadataConverterTest extends \PHPUnit_Framework_TestCase
+class ProductsMetadataConverterTest extends \PHPUnit\Framework\TestCase
 {
     public function testConvert()
     {

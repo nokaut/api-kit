@@ -3,7 +3,7 @@
 namespace Nokaut\ApiKit\ClientApi\Rest\Query\Filter;
 
 
-class MultipleTest extends \PHPUnit_Framework_TestCase
+class MultipleTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @dataProvider dataProvider

@@ -9,14 +9,17 @@
 namespace Nokaut\ApiKit\Repository;
 
 
+use GuzzleHttp\Client;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\HandlerStack;
 use Nokaut\ApiKit\Collection\Categories;
 use Nokaut\ApiKit\Config;
 use Nokaut\ApiKit\Entity\Category;
 use Nokaut\ApiKit\Entity\Category\Path;
-use PHPUnit_Framework_MockObject_MockObject;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\MockObject\MockObject;
 
-class CategoriesRepositoryTest extends PHPUnit_Framework_TestCase
+
+class CategoriesRepositoryTest extends \PHPUnit\Framework\TestCase
 {
 
     /**
@@ -24,16 +27,23 @@ class CategoriesRepositoryTest extends PHPUnit_Framework_TestCase
      */
     private $sut;
     /**
-     * @var PHPUnit_Framework_MockObject_MockObject
+     * @var MockObject
      */
     private $clientApiMock;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $oauth2 = "1/token111accessoauth2";
         $cacheMock = $this->getMockBuilder('Nokaut\ApiKit\Cache\CacheInterface')->getMock();
         $loggerMock = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
-        $client = $this->getMockBuilder('\GuzzleHttp\Client')->disableOriginalConstructor()->getMock();
+
+        $response = $this->getMockBuilder('\GuzzleHttp\Psr7\Response')->disableOriginalConstructor()->getMock();
+        $response->expects($this->any())->method('getStatusCode')->will($this->returnValue(200));
+
+        $mock = new MockHandler(array_fill(0, 1, $response));
+        $handlerStack = HandlerStack::create($mock);
+        $client = new Client(['handler' => $handlerStack]);
+
         $this->clientApiMock = $this->getMockBuilder('Nokaut\ApiKit\ClientApi\Rest\RestClientApi')
             ->setConstructorArgs([$loggerMock, $oauth2])
             ->setMethods(['convertResponse', 'getClient', 'log', 'convertResponseToSaveCache'])

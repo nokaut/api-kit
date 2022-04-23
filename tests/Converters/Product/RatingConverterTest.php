@@ -4,9 +4,9 @@ namespace Nokaut\ApiKit\Converter\Product;
 
 
 use Nokaut\ApiKit\Entity\Product\Rating;
-use PHPUnit_Framework_TestCase;
 
-class RatingConverterTest extends PHPUnit_Framework_TestCase
+
+class RatingConverterTest extends \PHPUnit\Framework\TestCase
 {
 
     public function testConvert()

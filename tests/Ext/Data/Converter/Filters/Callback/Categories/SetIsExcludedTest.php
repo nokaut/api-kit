@@ -8,7 +8,7 @@ use Nokaut\ApiKit\Entity\Metadata\ProductsMetadata;
 use Nokaut\ApiKit\Ext\Data\Collection\Filters\Categories;
 use Nokaut\ApiKit\Ext\Data\Entity\Filter\Category;
 
-class SetIsExcludedTest extends \PHPUnit_Framework_TestCase
+class SetIsExcludedTest extends \PHPUnit\Framework\TestCase
 {
     public function testOnlyOneActiveValueTotalEqualsProductsTotal()
     {

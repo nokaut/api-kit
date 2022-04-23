@@ -12,7 +12,7 @@ namespace ClientApi\Rest\Fetch;
 use Nokaut\ApiKit\Cache\NullCache;
 use Nokaut\ApiKit\ClientApi\Rest\Fetch\Fetch;
 
-class FetchTest extends \PHPUnit_Framework_TestCase
+class FetchTest extends \PHPUnit\Framework\TestCase
 {
     public function testPrepareCacheKey()
     {

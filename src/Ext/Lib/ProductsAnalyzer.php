@@ -59,7 +59,7 @@ class ProductsAnalyzer
             $cacheKey .= $additionalKey;
         }
 
-        return md5($cacheKey);
+        return md5((string)$cacheKey);
     }
 
     private static function countShopFilterSet(Products $products)

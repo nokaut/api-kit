@@ -10,7 +10,7 @@ use Nokaut\ApiKit\Converter\ProductsConverter;
 use Nokaut\ApiKit\Entity\Product;
 use Nokaut\ApiKit\Ext\Data\Decorator\Products\ProductsDecorator;
 
-class SetProductsCategoryTest extends \PHPUnit_Framework_TestCase
+class SetProductsCategoryTest extends \PHPUnit\Framework\TestCase
 {
     public function testCallback()
     {

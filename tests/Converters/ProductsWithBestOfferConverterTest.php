@@ -9,9 +9,9 @@
 namespace Nokaut\ApiKit\Converter;
 
 
-use PHPUnit_Framework_TestCase;
 
-class ProductsWithBestOfferConverterTest extends PHPUnit_Framework_TestCase
+
+class ProductsWithBestOfferConverterTest extends \PHPUnit\Framework\TestCase
 {
 
     public function testConvert()

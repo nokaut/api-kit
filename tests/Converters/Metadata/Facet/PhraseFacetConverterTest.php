@@ -11,7 +11,7 @@ namespace Nokaut\ApiKit\Converter\Metadata\Facet;
 
 use Nokaut\ApiKit\Entity\Metadata\Facet\PhraseFacet;
 
-class PhraseFacetConverterTest extends \PHPUnit_Framework_TestCase
+class PhraseFacetConverterTest extends \PHPUnit\Framework\TestCase
 {
     public function testConvert()
     {

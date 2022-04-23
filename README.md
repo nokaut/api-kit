@@ -1,22 +1,33 @@
 Nokaut.pl Search API KIT (PHP)
 ==============================
 
-[![Build Status](https://travis-ci.org/nokaut/api-kit.svg?branch=master)](https://travis-ci.org/nokaut/api-kit)
-
 Biblioteka umożliwia komunikację z Search API oraz mapuje odpowiedzi na określone obiekty.
 
 Wymagania
 ---------
 
-* PHP 5.5+
+* PHP 7.2+
 * dostęp do Search API (klucz OAuth)
 
 Ważne zmiany z CHANGELOG
 ------------------------
 
+**Dla wersja 1.8**
+
+Od wersji 1.8.0 ApiKit działa tylko z PHP 7.2 lub nowszym.
+
 **Dla wersja 1.6**
 
 Od wersji 1.6.0 ApiKit działa tylko z PHP 5.5 lub nowszym.
+
+Testy
+-----
+
+    docker run --rm -it -v "$PWD":/app -w /app $(docker build --build-arg PHP_VERSION=8.1 -q .) /bin/bash -c "rm -rf ./vendor composer.lock && composer install && vendor/bin/phpunit"
+    docker run --rm -it -v "$PWD":/app -w /app $(docker build --build-arg PHP_VERSION=8.0 -q .) /bin/bash -c "rm -rf ./vendor composer.lock && composer install && vendor/bin/phpunit"
+    docker run --rm -it -v "$PWD":/app -w /app $(docker build --build-arg PHP_VERSION=7.4 -q .) /bin/bash -c "rm -rf ./vendor composer.lock && composer install && vendor/bin/phpunit"
+    docker run --rm -it -v "$PWD":/app -w /app $(docker build --build-arg PHP_VERSION=7.3 -q .) /bin/bash -c "rm -rf ./vendor composer.lock && composer install && vendor/bin/phpunit"
+    docker run --rm -it -v "$PWD":/app -w /app $(docker build --build-arg PHP_VERSION=7.2 -q .) /bin/bash -c "rm -rf ./vendor composer.lock && composer install && vendor/bin/phpunit"
 
 Instalacja
 ----------

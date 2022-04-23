@@ -6,7 +6,7 @@ namespace Nokaut\ApiKit\Collection;
 
 use Nokaut\ApiKit\Converter\ProductsConverter;
 
-class ProductsTest extends \PHPUnit_Framework_TestCase
+class ProductsTest extends \PHPUnit\Framework\TestCase
 {
     public function testClone()
     {

@@ -9,7 +9,7 @@
 namespace Nokaut\ApiKit\ClientApi\Rest\Query\Filter;
 
 
-class SingleTest extends \PHPUnit_Framework_TestCase
+class SingleTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @dataProvider dataProvider

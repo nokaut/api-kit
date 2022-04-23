@@ -8,7 +8,7 @@ use Nokaut\ApiKit\Collection\Products;
 use Nokaut\ApiKit\Converter\ProductsConverter;
 use Nokaut\ApiKit\Entity\Metadata\ProductsMetadata;
 
-class ProductsAnalyzerTest extends \PHPUnit_Framework_TestCase
+class ProductsAnalyzerTest extends \PHPUnit\Framework\TestCase
 {
 
     public function testFiltersNofollow()

@@ -12,9 +12,9 @@ namespace Nokaut\ApiKit\Converter;
 use Nokaut\ApiKit\Entity\Offer;
 use Nokaut\ApiKit\Entity\Offer\Property;
 use Nokaut\ApiKit\Entity\Offer\Shop\OpineoRating;
-use PHPUnit_Framework_TestCase;
 
-class OfferConverterTest extends PHPUnit_Framework_TestCase
+
+class OfferConverterTest extends \PHPUnit\Framework\TestCase
 {
 
     public function testConvert()

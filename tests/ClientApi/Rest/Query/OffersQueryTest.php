@@ -9,7 +9,7 @@
 namespace Nokaut\ApiKit\ClientApi\Rest\Query;
 
 
-class OffersQueryTest extends \PHPUnit_Framework_TestCase
+class OffersQueryTest extends \PHPUnit\Framework\TestCase
 {
 
 

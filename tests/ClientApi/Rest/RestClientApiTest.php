@@ -18,13 +18,11 @@ use Nokaut\ApiKit\ClientApi\Rest\Fetch\Fetch;
 use Nokaut\ApiKit\ClientApi\Rest\Fetch\Fetches;
 use Nokaut\ApiKit\ClientApi\Rest\Fetch\ProductsFetch;
 
-class RestClientApiTest extends \PHPUnit_Framework_TestCase
+class RestClientApiTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @expectedException \Nokaut\ApiKit\ClientApi\Rest\Exception\FatalResponseException
-     */
     public function testSendWithRetry()
     {
+        $this->expectException(\Nokaut\ApiKit\ClientApi\Rest\Exception\FatalResponseException::class);
         $oauth2 = $this->prepareOauth();
         $loggerMock = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
 
@@ -83,11 +81,9 @@ class RestClientApiTest extends \PHPUnit_Framework_TestCase
 
     }
 
-    /**
-     * @expectedException \Nokaut\ApiKit\ClientApi\Rest\Exception\FatalResponseException
-     */
     public function testSendWithIncorrectResponse()
     {
+        $this->expectException(\Nokaut\ApiKit\ClientApi\Rest\Exception\FatalResponseException::class);
         $oauth2 = $this->prepareOauth();
         $loggerMock = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
 
@@ -120,11 +116,9 @@ class RestClientApiTest extends \PHPUnit_Framework_TestCase
         $cutMock->sendMulti($fetches);
     }
 
-    /**
-     * @expectedException \Nokaut\ApiKit\ClientApi\Rest\Exception\FatalResponseException
-     */
     public function testFunctionalitySendMultiWithRetry()
     {
+        $this->expectException(\Nokaut\ApiKit\ClientApi\Rest\Exception\FatalResponseException::class);
         $oauth2 = $this->prepareOauth();
         $loggerMock = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
 
@@ -186,11 +180,9 @@ class RestClientApiTest extends \PHPUnit_Framework_TestCase
         $cutMock->sendMulti($fetches);
     }
 
-    /**
-     * @expectedException \Nokaut\ApiKit\ClientApi\Rest\Exception\InvalidRequestException
-     */
     public function testSendMultiException()
     {
+        $this->expectException(\Nokaut\ApiKit\ClientApi\Rest\Exception\InvalidRequestException::class);
         $oauth2 = $this->prepareOauth();
         $loggerMock = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
 
@@ -217,12 +209,9 @@ class RestClientApiTest extends \PHPUnit_Framework_TestCase
         $fetches->getItem(0)->getResult(true);
     }
 
-
-    /**
-     * @expectedException \Nokaut\ApiKit\ClientApi\Rest\Exception\UnprocessableEntityException
-     */
     public function testSendWithUnprocessableEntityException()
     {
+        $this->expectException(\Nokaut\ApiKit\ClientApi\Rest\Exception\UnprocessableEntityException::class);
         $oauth2 = $this->prepareOauth();
         $loggerMock = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
 

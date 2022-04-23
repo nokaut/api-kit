@@ -7,7 +7,7 @@ use Nokaut\ApiKit\Collection\Products;
 use Nokaut\ApiKit\Ext\Data\Converter\Filters\Callback\Property\SetIsActive;
 use Nokaut\ApiKit\Ext\Data\Entity\Filter\FilterAbstract;
 
-class PropertiesConverterTest extends \PHPUnit_Framework_TestCase
+class PropertiesConverterTest extends \PHPUnit\Framework\TestCase
 {
     public function testCache()
     {

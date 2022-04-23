@@ -6,7 +6,7 @@ use Nokaut\ApiKit\Converter\ProductsConverter;
 use Nokaut\ApiKit\Entity\Metadata\ProductsMetadata;
 use Nokaut\ApiKit\Ext\Data\Entity\Filter\PriceRange;
 
-class PriceRangesConverterTest extends \PHPUnit_Framework_TestCase
+class PriceRangesConverterTest extends \PHPUnit\Framework\TestCase
 {
     public function testCache()
     {

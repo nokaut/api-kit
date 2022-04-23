@@ -10,9 +10,9 @@ namespace Nokaut\ApiKit\Converter;
 
 
 use Nokaut\ApiKit\Entity\Category;
-use PHPUnit_Framework_TestCase;
 
-class CategoriesConverterTest extends PHPUnit_Framework_TestCase
+
+class CategoriesConverterTest extends \PHPUnit\Framework\TestCase
 {
 
     public function testConvert()

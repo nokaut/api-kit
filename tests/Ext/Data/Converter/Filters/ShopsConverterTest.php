@@ -6,7 +6,7 @@ use Nokaut\ApiKit\Converter\ProductsConverter;
 use Nokaut\ApiKit\Ext\Data\Converter\Filters\Callback\Shops\SetIsPopular;
 use Nokaut\ApiKit\Ext\Data\Entity\Filter\Shop;
 
-class ShopsConverterTest extends \PHPUnit_Framework_TestCase
+class ShopsConverterTest extends \PHPUnit\Framework\TestCase
 {
     public function testShopConverterWithoutCallbacks()
     {

@@ -11,7 +11,7 @@ namespace Nokaut\ApiKit\Converter\Metadata\Facet;
 
 use Nokaut\ApiKit\Entity\Metadata\Facet\PriceFacet;
 
-class PriceFacetConverterTest extends \PHPUnit_Framework_TestCase
+class PriceFacetConverterTest extends \PHPUnit\Framework\TestCase
 {
     public function testConvert()
     {

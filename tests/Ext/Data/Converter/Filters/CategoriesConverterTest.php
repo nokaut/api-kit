@@ -6,7 +6,7 @@ use Nokaut\ApiKit\Converter\ProductsConverter;
 use Nokaut\ApiKit\Ext\Data\Converter\Filters\Callback\Categories\SortByName;
 use Nokaut\ApiKit\Ext\Data\Entity\Filter\Category;
 
-class CategoriesConverterTest extends \PHPUnit_Framework_TestCase
+class CategoriesConverterTest extends \PHPUnit\Framework\TestCase
 {
     public function testCategoryConverterWithoutCallbacks()
     {

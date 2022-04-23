@@ -6,7 +6,7 @@ use Nokaut\ApiKit\Converter\ProductsConverter;
 use Nokaut\ApiKit\Ext\Data\Converter\Filters\Callback\Producers\SetIsPopular;
 use Nokaut\ApiKit\Ext\Data\Entity\Filter\Producer;
 
-class ProducersConverterTest extends \PHPUnit_Framework_TestCase
+class ProducersConverterTest extends \PHPUnit\Framework\TestCase
 {
     public function testProducerConverterWithoutCallbacks()
     {

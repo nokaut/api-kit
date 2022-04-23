@@ -8,7 +8,7 @@ use Nokaut\ApiKit\Ext\Data\Converter\Filters\Callback\Property\SetIsActive;
 use Nokaut\ApiKit\Ext\Data\Entity\Filter\PropertyRange;
 use Nokaut\ApiKit\Ext\Data\Entity\Filter\PropertyValue;
 
-class PropertiesConverterTest extends \PHPUnit_Framework_TestCase
+class PropertiesConverterTest extends \PHPUnit\Framework\TestCase
 {
     public function testPropertiesConverterWithoutCallbacks()
     {

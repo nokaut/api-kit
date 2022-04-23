@@ -14,9 +14,9 @@ use Nokaut\ApiKit\Entity\Product\Prices;
 use Nokaut\ApiKit\Entity\Product\Property;
 use Nokaut\ApiKit\Converter\Product\PropertyConverter;
 use Nokaut\ApiKit\Entity\Product\Shop\OpineoRating;
-use PHPUnit_Framework_TestCase;
 
-class ProductConverterTest extends PHPUnit_Framework_TestCase
+
+class ProductConverterTest extends \PHPUnit\Framework\TestCase
 {
 
     public function testConverter()
