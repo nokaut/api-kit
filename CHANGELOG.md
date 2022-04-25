@@ -1,8 +1,9 @@
 ChangeLog
 =========
 
-master
------
+v1.7.2
+------
+- aktualizacja README
 - FIX: testy dla PHP 5.5, 7.2
 - dodanie dodatkowych pól dla sklepów
 - opcjonalne dodawanie pola _metadata w ProductsQuery
@@ -10,7 +11,7 @@ master
 - dodanie pola complementary w Entity\Category
 
 v1.7.1
------
+------
 - konfiguracja proxy dla RestClientApi
 - fix FetchMenuCategories
 - dodanie pola prefix w Entity/Category
