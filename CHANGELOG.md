@@ -5,7 +5,7 @@ v1.8.0
 ------
 - Aktualizacja guzzle do wersji 7
 - Poprawki i testy dla PHP 8.1
-- Kompatibilność z PHP 7.2.5 (kompatybilność z PHP 5.5, 5.6, 7.0, 7.1 nie jest wspierana od tej wersji)
+- Kompatibilność z PHP 7.2.5+ (kompatybilność z PHP 5.5, 5.6, 7.0, 7.1 nie jest zapewniana od tej wersji)
 
 v1.7.2
 ------
