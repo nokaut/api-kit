@@ -9,7 +9,7 @@
 namespace Nokaut\ApiKit\ClientApi\Rest\Query;
 
 
-class OfferQuery  extends QueryBuilderAbstract
+class OfferQuery extends QueryBuilderAbstract
 {
     protected $baseUrl;
     /**

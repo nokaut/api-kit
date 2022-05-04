@@ -129,7 +129,7 @@ class OffersQuery extends QueryBuilderAbstract
     protected function createMainPart()
     {
         if ($this->productId) {
-            return 'products/' . $this->productId .'/offers?';
+            return 'products/' . $this->productId . '/offers?';
         }
         return "offers?";
     }

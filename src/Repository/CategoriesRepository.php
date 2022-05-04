@@ -9,18 +9,15 @@
 namespace Nokaut\ApiKit\Repository;
 
 
-use Nokaut\ApiKit\ClientApi\ClientApiInterface;
 use Nokaut\ApiKit\ClientApi\Rest\Fetch\CategoriesFetch;
 use Nokaut\ApiKit\ClientApi\Rest\Fetch\CategoryFetch;
 use Nokaut\ApiKit\ClientApi\Rest\Fetch\Fetch;
-use Nokaut\ApiKit\Collection\Categories;
-use Nokaut\ApiKit\Entity\Category;
 use Nokaut\ApiKit\ClientApi\Rest\Query\CategoriesQuery;
 use Nokaut\ApiKit\ClientApi\Rest\Query\CategoryQuery;
-use Nokaut\ApiKit\Converter\CategoriesConverter;
-use Nokaut\ApiKit\Converter\CategoryConverter;
-use Nokaut\ApiKit\Converter\Category\CategoriesGrouperConverter;
+use Nokaut\ApiKit\Collection\Categories;
 use Nokaut\ApiKit\Collection\Sort\CategoriesSort;
+use Nokaut\ApiKit\Converter\Category\CategoriesGrouperConverter;
+use Nokaut\ApiKit\Entity\Category;
 
 class CategoriesRepository extends RepositoryAbstract
 {

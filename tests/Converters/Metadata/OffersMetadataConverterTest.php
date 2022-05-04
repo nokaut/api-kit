@@ -10,8 +10,9 @@ namespace Nokaut\ApiKit\Converter\Metadata;
 
 
 use Nokaut\ApiKit\Entity\Metadata\OffersMetadata;
+use PHPUnit\Framework\TestCase;
 
-class OffersMetadataConverterTest extends \PHPUnit_Framework_TestCase
+class OffersMetadataConverterTest extends TestCase
 {
     public function testConvert()
     {

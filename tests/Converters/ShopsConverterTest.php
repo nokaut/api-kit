@@ -5,9 +5,10 @@ namespace Nokaut\ApiKit\Converter;
 
 use Nokaut\ApiKit\Collection\Shops;
 use Nokaut\ApiKit\Entity\Shop;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class ShopsConverterTest extends PHPUnit_Framework_TestCase
+
+class ShopsConverterTest extends TestCase
 {
     public function testConvert()
     {
@@ -22,7 +23,7 @@ class ShopsConverterTest extends PHPUnit_Framework_TestCase
         foreach ($shops as $shop) {
             $this->assertInstanceOf('Nokaut\ApiKit\Entity\Shop', $shop);
 
-            if($shop->getId() == 4092) {
+            if ($shop->getId() == 4092) {
                 $this->assertEquals('http://www.opineo.pl/opinie/gofans-pl', $shop->getOpineoRating()->getUrl());
             }
         }

@@ -7,7 +7,6 @@ use Nokaut\ApiKit\Collection\Products;
 use Nokaut\ApiKit\Entity\Metadata\Facet\PriceFacet;
 use Nokaut\ApiKit\Entity\Metadata\Facet\ProducerFacet;
 use Nokaut\ApiKit\Entity\Metadata\Facet\ShopFacet;
-use Nokaut\ApiKit\Entity\Product\Shop;
 use Nokaut\ApiKit\Ext\Data\Collection\Filters\FiltersAbstract;
 use Nokaut\ApiKit\Ext\Data\Collection\Filters\PropertyAbstract;
 use Nokaut\ApiKit\Ext\Data\Entity\Filter\FilterAbstract;

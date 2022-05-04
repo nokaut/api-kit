@@ -5,8 +5,10 @@ namespace Nokaut\ApiKit\Ext\Data\Converter\Filters;
 use Nokaut\ApiKit\Converter\ProductsConverter;
 use Nokaut\ApiKit\Ext\Data\Converter\Filters\Callback\Shops\SetIsPopular;
 use Nokaut\ApiKit\Ext\Data\Entity\Filter\Shop;
+use PHPUnit\Framework\TestCase;
+use stdClass;
 
-class ShopsConverterTest extends \PHPUnit_Framework_TestCase
+class ShopsConverterTest extends TestCase
 {
     public function testShopConverterWithoutCallbacks()
     {
@@ -66,7 +68,7 @@ class ShopsConverterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @param $name
-     * @return \stdClass
+     * @return stdClass
      */
     private function getJsonFixture($name)
     {

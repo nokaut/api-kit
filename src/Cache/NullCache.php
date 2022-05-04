@@ -9,7 +9,8 @@
 namespace Nokaut\ApiKit\Cache;
 
 
-class NullCache extends AbstractCache {
+class NullCache extends AbstractCache
+{
 
     public function get($keyName, $lifetime = null)
     {
@@ -17,9 +18,11 @@ class NullCache extends AbstractCache {
     }
 
     public function save($keyName = null, $content = null, $lifetime = null)
-    {}
+    {
+    }
 
     public function delete($keyName)
-    {}
+    {
+    }
 
 } 

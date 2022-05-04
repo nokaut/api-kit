@@ -12,8 +12,9 @@ namespace Nokaut\ApiKit\Ext\Data\Converter\Filters\Callback\Categories;
 use Nokaut\ApiKit\Collection\Products;
 use Nokaut\ApiKit\Entity\Category;
 use Nokaut\ApiKit\Ext\Data\Collection\Filters\Categories;
+use PHPUnit\Framework\TestCase;
 
-class SetParentCategoryTest extends \PHPUnit_Framework_TestCase
+class SetParentCategoryTest extends TestCase
 {
     public function testSetParentCategory()
     {

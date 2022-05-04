@@ -5,8 +5,10 @@ namespace Nokaut\ApiKit\Collection;
 
 
 use Nokaut\ApiKit\Converter\ProductsConverter;
+use PHPUnit\Framework\TestCase;
+use stdClass;
 
-class ProductsTest extends \PHPUnit_Framework_TestCase
+class ProductsTest extends TestCase
 {
     public function testClone()
     {
@@ -36,7 +38,7 @@ class ProductsTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @param $name
-     * @return \stdClass
+     * @return stdClass
      */
     private function getJsonFixture($name)
     {

@@ -9,7 +9,6 @@
 namespace Nokaut\ApiKit\Converter\Product;
 
 
-
 use Nokaut\ApiKit\Converter\ConverterInterface;
 use Nokaut\ApiKit\Entity\Product\Prices;
 

@@ -28,7 +28,7 @@ class Fetches implements CollectionInterface
      * @return Traversable An instance of an object implementing <b>Iterator</b> or
      * <b>Traversable</b>
      */
-    public function getIterator()
+    public function getIterator(): \Traversable
     {
         return new ArrayIterator($this->fetches);
     }
@@ -51,9 +51,9 @@ class Fetches implements CollectionInterface
      * <p>
      * The return value is cast to an integer.
      */
-    public function count()
+    public function count(): int
     {
-        count($this->fetches);
+        return count($this->fetches);
     }
 
     public function addFetch(Fetch $fetch)

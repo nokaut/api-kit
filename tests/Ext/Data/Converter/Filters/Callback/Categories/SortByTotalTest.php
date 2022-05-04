@@ -7,8 +7,9 @@ namespace Nokaut\ApiKit\Ext\Data\Converter\Filters\Callback\Categories;
 use Nokaut\ApiKit\Collection\Products;
 use Nokaut\ApiKit\Ext\Data\Collection\Filters\Categories;
 use Nokaut\ApiKit\Ext\Data\Entity\Filter\Category;
+use PHPUnit\Framework\TestCase;
 
-class SortByTotalTest extends \PHPUnit_Framework_TestCase
+class SortByTotalTest extends TestCase
 {
     public function testSort()
     {

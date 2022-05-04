@@ -3,26 +3,31 @@
 namespace Nokaut\ApiKit\Repository;
 
 
+use GuzzleHttp\Client;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\HandlerStack;
 use Nokaut\ApiKit\ClientApi\Rest\Fetch\ShopsFetch;
 use Nokaut\ApiKit\Collection\Shops;
 use Nokaut\ApiKit\Config;
 use Nokaut\ApiKit\Entity\Shop;
-use PHPUnit_Framework_MockObject_MockObject;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
+use stdClass;
 
-class ShopsAsyncRepositoryTest extends PHPUnit_Framework_TestCase
+
+class ShopsAsyncRepositoryTest extends TestCase
 {
-
     /**
      * @var ShopsRepository
      */
     private $sut;
+
     /**
-     * @var PHPUnit_Framework_MockObject_MockObject
+     * @var MockObject
      */
     private $clientApiMock;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $oauth2 = "1/token111accessoauth2";
         $cacheMock = $this->getMockBuilder('Nokaut\ApiKit\Cache\CacheInterface')->getMock();
@@ -31,8 +36,9 @@ class ShopsAsyncRepositoryTest extends PHPUnit_Framework_TestCase
         $response = $this->getMockBuilder('\GuzzleHttp\Psr7\Response')->disableOriginalConstructor()->getMock();
         $response->expects($this->any())->method('getStatusCode')->will($this->returnValue(200));
 
-        $client = $this->getMockBuilder('\GuzzleHttp\Client')->disableOriginalConstructor()->getMock();
-        $client->expects($this->any())->method('send')->will($this->returnValue(array($response)));
+        $mock = new MockHandler(array_fill(0, 1, $response));
+        $handlerStack = HandlerStack::create($mock);
+        $client = new Client(['handler' => $handlerStack]);
 
         $this->clientApiMock = $this->getMockBuilder('Nokaut\ApiKit\ClientApi\Rest\RestClientApi')
             ->setConstructorArgs([$loggerMock, $oauth2])
@@ -76,7 +82,7 @@ class ShopsAsyncRepositoryTest extends PHPUnit_Framework_TestCase
             ->will($this->returnValue($this->getJsonFixture('shops')));
 
         /** @var ShopsFetch $shopsFetch */
-        $shopsFetch = $this->sut->fetchByIds([12,32,54,345,43], ShopsRepository::$fieldsAll);
+        $shopsFetch = $this->sut->fetchByIds([12, 32, 54, 345, 43], ShopsRepository::$fieldsAll);
         $this->sut->fetchAllAsync();
         /** @var Shops $shops */
         $shops = $shopsFetch->getResult();
@@ -91,7 +97,7 @@ class ShopsAsyncRepositoryTest extends PHPUnit_Framework_TestCase
 
     /**
      * @param $name
-     * @return \stdClass
+     * @return stdClass
      */
     private function getJsonFixture($name)
     {

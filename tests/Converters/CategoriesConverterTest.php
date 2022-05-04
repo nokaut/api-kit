@@ -10,9 +10,11 @@ namespace Nokaut\ApiKit\Converter;
 
 
 use Nokaut\ApiKit\Entity\Category;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
+use stdClass;
 
-class CategoriesConverterTest extends PHPUnit_Framework_TestCase
+
+class CategoriesConverterTest extends TestCase
 {
 
     public function testConvert()
@@ -30,7 +32,7 @@ class CategoriesConverterTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @return \stdClass
+     * @return stdClass
      */
     private function getCorrectObject()
     {

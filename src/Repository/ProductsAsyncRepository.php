@@ -88,11 +88,11 @@ class ProductsAsyncRepository extends ProductsRepository implements AsyncReposit
     }
 
     /**
-     * @deprecated
      * @param Product $product
      * @param int $limit
      * @param array $fields
      * @return ProductsFetch
+     * @deprecated
      */
     public function fetchSimilarProductsWithHigherPrice(Product $product, $limit, array $fields)
     {
@@ -102,11 +102,11 @@ class ProductsAsyncRepository extends ProductsRepository implements AsyncReposit
     }
 
     /**
-     * @deprecated
      * @param Product $product
      * @param int $limit
      * @param array $fields
      * @return ProductsFetch
+     * @deprecated
      */
     public function fetchSimilarProductsWithLowerPrice(Product $product, $limit, array $fields)
     {

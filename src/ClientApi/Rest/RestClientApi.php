@@ -11,7 +11,7 @@ namespace Nokaut\ApiKit\ClientApi\Rest;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\BadResponseException;
-use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Exception\TransferException;
 use GuzzleHttp\Pool;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
@@ -123,8 +123,7 @@ class RestClientApi implements ClientApiInterface
         $requestsCount = count($requests);
         $startTime = microtime(true);
         $pool = new Pool($this->getClient(), $requests, [
-            'fulfilled' => function ($response, $index) use ($fetchesForFilled, $requests, $requestsCount, $startTime) {
-                /** @var Response $response */
+            'fulfilled' => function (Response $response, $index) use ($fetchesForFilled, $requests, $requestsCount, $startTime) {
                 /** @var Fetch $fetch */
                 $fetch = $fetchesForFilled[$index];
                 $request = $requests[$index];
@@ -132,8 +131,7 @@ class RestClientApi implements ClientApiInterface
                 $additionalLogMessage = "Multi requests, request " . ($index + 1) . "/" . $requestsCount . " ";
                 $this->handleMultiSuccessResponse($request, $response, $fetch, $startTime, $additionalLogMessage);
             },
-            'rejected' => function ($reason, $index) use ($fetchesForFilled, $requestsCount, $startTime, &$retry) {
-                /** @var \GuzzleHttp\Exception\ClientException $reason */
+            'rejected' => function (TransferException $reason, $index) use ($fetchesForFilled, $requestsCount, $startTime, &$retry) {
                 /** @var Fetch $fetch */
                 $fetch = $fetchesForFilled[$index];
                 $additionalLogMessage = "Multi requests, request " . ($index + 1) . "/" . $requestsCount . " "
@@ -166,20 +164,20 @@ class RestClientApi implements ClientApiInterface
     }
 
     /**
-     * @param RequestException $reason
+     * https://docs.guzzlephp.org/en/latest/quickstart.html#exceptions
+     *
+     * @param TransferException $reason
      * @param Fetch $fetch
      * @param $startTime
      * @param string $additionalLogMessage
      * @return bool - return if response failed response candidate to retry
      */
-    protected function handleMultiFailedResponse($reason, $fetch, $startTime, $additionalLogMessage = '')
+    protected function handleMultiFailedResponse(TransferException $reason, $fetch, $startTime, $additionalLogMessage = '')
     {
-        /** @var RequestInterface $request */
-        $request = $reason->getRequest();
-        /** @var ResponseInterface $response */
-        $response = $reason->getResponse();
-
         $logLevel = LogLevel::ERROR;
+
+        $request = $reason->getRequest();
+        $response = method_exists($reason, 'getResponse') ? $reason->getResponse() : null;
 
         if ($response) {
             $statusCode = $response->getStatusCode();
@@ -347,7 +345,7 @@ class RestClientApi implements ClientApiInterface
      * return exception depends of API response status
      * @param $statusCode
      * @param $exceptionMessage
-     * @return FatalResponseException|InvalidRequestException|NotFoundException
+     * @return FatalResponseException|InvalidRequestException|NotFoundException|UnprocessableEntityException
      */
     protected function factoryException($statusCode, $exceptionMessage)
     {

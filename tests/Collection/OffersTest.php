@@ -6,8 +6,9 @@ namespace Nokaut\ApiKit\Collection;
 
 use Nokaut\ApiKit\Entity\Metadata\OffersMetadata;
 use Nokaut\ApiKit\Entity\Offer;
+use PHPUnit\Framework\TestCase;
 
-class OffersTest extends \PHPUnit_Framework_TestCase
+class OffersTest extends TestCase
 {
     public function testClone()
     {

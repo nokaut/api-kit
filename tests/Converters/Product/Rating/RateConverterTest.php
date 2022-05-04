@@ -3,10 +3,13 @@
 namespace Nokaut\ApiKit\Converter\Product\Rating;
 
 
+use Exception;
 use Nokaut\ApiKit\Entity\Product\Rating\Rate;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
+use stdClass;
 
-class RateConverterTest extends PHPUnit_Framework_TestCase
+
+class RateConverterTest extends TestCase
 {
 
     public function testFromGetConvert()
@@ -20,7 +23,7 @@ class RateConverterTest extends PHPUnit_Framework_TestCase
 
         foreach ($correctObject as $field => $value) {
             $this->assertEquals($value, $rate->get($field));
-        };
+        }
     }
 
     public function testFromCreatetConvert()
@@ -36,13 +39,13 @@ class RateConverterTest extends PHPUnit_Framework_TestCase
             if ($field != 'current_rating') {
                 $this->assertEquals($value, $rate->get($field));
             }
-        };
+        }
     }
 
     /**
      * @param $type
-     * @return \stdClass
-     * @throws \Exception
+     * @return stdClass
+     * @throws Exception
      */
     private function getCorrectObject($type)
     {
@@ -52,7 +55,7 @@ class RateConverterTest extends PHPUnit_Framework_TestCase
         ];
 
         if (!isset($data[$type])) {
-            throw new \Exception('unknown type');
+            throw new Exception('unknown type');
         }
 
         return json_decode($data[$type]);

@@ -14,7 +14,7 @@ class PhotoUrl
 
     public static function prepare($photoId, $size = '90x90', $additionalUrlPart = 'image')
     {
-        if(empty($photoId)) {
+        if (empty($photoId)) {
             return "/noimg_{$size}.png";
         }
         return '/p-' . substr($photoId, 0, 2) . '-' . substr($photoId, 2, 2) . '-' . $photoId . $size . '/' . Text::urlize($additionalUrlPart) . '.jpg';

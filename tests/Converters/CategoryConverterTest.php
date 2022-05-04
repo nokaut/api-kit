@@ -11,9 +11,11 @@ namespace Nokaut\ApiKit\Converter;
 
 use Nokaut\ApiKit\Entity\Category;
 use Nokaut\ApiKit\Entity\Category\Path;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
+use stdClass;
 
-class CategoryConverterTest extends PHPUnit_Framework_TestCase
+
+class CategoryConverterTest extends TestCase
 {
 
     public function testConvert()
@@ -74,7 +76,7 @@ class CategoryConverterTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @return \stdClass
+     * @return stdClass
      */
     private function getCorrectObject()
     {
@@ -82,7 +84,7 @@ class CategoryConverterTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @return \stdClass
+     * @return stdClass
      */
     private function getCorrectObjectEmptyComplementaryFromApi()
     {

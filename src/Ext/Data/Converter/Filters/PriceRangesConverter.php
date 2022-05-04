@@ -5,9 +5,9 @@ namespace Nokaut\ApiKit\Ext\Data\Converter\Filters;
 
 use Nokaut\ApiKit\Collection\Products;
 use Nokaut\ApiKit\Entity\Metadata\Facet\PriceFacet;
+use Nokaut\ApiKit\Ext\Data\Collection\Filters\PriceRanges;
 use Nokaut\ApiKit\Ext\Data\Converter\ConverterInterface;
 use Nokaut\ApiKit\Ext\Data\Converter\Filters\Callback\PriceRanges\CallbackInterface;
-use Nokaut\ApiKit\Ext\Data\Collection\Filters\PriceRanges;
 use Nokaut\ApiKit\Ext\Data\Entity\Filter\PriceRange;
 
 class PriceRangesConverter implements ConverterInterface

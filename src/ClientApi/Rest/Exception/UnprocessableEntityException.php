@@ -9,6 +9,7 @@
 namespace Nokaut\ApiKit\ClientApi\Rest\Exception;
 
 
-class UnprocessableEntityException extends \Exception {
+class UnprocessableEntityException extends \Exception
+{
 
 }

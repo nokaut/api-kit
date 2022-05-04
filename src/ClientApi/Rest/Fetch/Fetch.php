@@ -51,7 +51,7 @@ class Fetch
      * @param ConverterInterface $converter
      * @param CacheInterface $cache
      */
-    function __construct(QueryBuilderInterface $query, ConverterInterface $converter , CacheInterface $cache)
+    function __construct(QueryBuilderInterface $query, ConverterInterface $converter, CacheInterface $cache)
     {
         $this->query = $query;
         $this->converter = $converter;
@@ -96,17 +96,17 @@ class Fetch
      */
     public function setResult($result)
     {
-        if($result) {
+        if ($result) {
             $this->result = $this->converter->convert($result);
-        }else{
+        } else {
             $this->result = null;
         }
     }
 
     /**
      * @param bool $throwException
-     * @throws \Exception
      * @return CollectionInterface|EntityAbstract
+     * @throws \Exception
      */
     public function getResult($throwException = false)
     {

@@ -30,9 +30,9 @@ class SetIsNofollow implements CallbackInterface
             $countGroupsWithFilterSet = ProductsAnalyzer::countGroupsWithFilterSet($products);
             /** @var Category $category */
             foreach ($categories as $category) {
-                if($countGroupsWithFilterSet > 1) {
+                if ($countGroupsWithFilterSet > 1) {
                     $category->setIsNofollow(true);
-                }else{
+                } else {
                     $category->setIsNofollow(false);
                 }
             }

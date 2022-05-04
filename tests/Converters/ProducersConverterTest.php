@@ -4,9 +4,10 @@ namespace Nokaut\ApiKit\Converter;
 
 
 use Nokaut\ApiKit\Collection\Producers;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class ProducersConverterTest extends PHPUnit_Framework_TestCase
+
+class ProducersConverterTest extends TestCase
 {
     public function testConvert()
     {

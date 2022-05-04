@@ -8,8 +8,9 @@ use Nokaut\ApiKit\Collection\Products;
 use Nokaut\ApiKit\Entity\Metadata\ProductsMetadata;
 use Nokaut\ApiKit\Ext\Data\Collection\Filters\Producers;
 use Nokaut\ApiKit\Ext\Data\Entity\Filter\Producer;
+use PHPUnit\Framework\TestCase;
 
-class SetIsPopularTest extends \PHPUnit_Framework_TestCase
+class SetIsPopularTest extends TestCase
 {
     public function testIsPopularWithEmptyProductsTotal()
     {

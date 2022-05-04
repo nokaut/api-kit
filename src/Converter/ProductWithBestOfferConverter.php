@@ -10,7 +10,6 @@ namespace Nokaut\ApiKit\Converter;
 
 
 use Nokaut\ApiKit\Converter\Product\OfferWithBestPriceConverter;
-use Nokaut\ApiKit\Entity\Product;
 use Nokaut\ApiKit\Entity\ProductWithBestOffer;
 
 class ProductWithBestOfferConverter extends ProductConverter

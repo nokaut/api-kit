@@ -3,7 +3,9 @@
 namespace Nokaut\ApiKit\ClientApi\Rest\Query\Filter;
 
 
-class MultipleTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class MultipleTest extends TestCase
 {
     /**
      * @dataProvider dataProvider
@@ -16,7 +18,7 @@ class MultipleTest extends \PHPUnit_Framework_TestCase
     public function dataProvider()
     {
         return array(
-            array("cecha", array("jakieś tam filtr",2,3), "filter[cecha]=jakie%C5%9B+tam+filtr&filter[cecha]=2&filter[cecha]=3")
+            array("cecha", array("jakieś tam filtr", 2, 3), "filter[cecha]=jakie%C5%9B+tam+filtr&filter[cecha]=2&filter[cecha]=3")
         );
     }
 }

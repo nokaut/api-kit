@@ -9,7 +9,9 @@
 namespace Nokaut\ApiKit\ClientApi\Rest\Query\Filter;
 
 
-class SingleWithOperatorTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class SingleWithOperatorTest extends TestCase
 {
     /**
      * @dataProvider dataProvider
@@ -23,7 +25,7 @@ class SingleWithOperatorTest extends \PHPUnit_Framework_TestCase
     {
         return array(
             array("cecha", "in", "jakieś tam filtr", "filter[cecha][in]=jakie%C5%9B+tam+filtr"),
-            array("property_9342","gt", 23, "filter[property_9342][gt]=23")
+            array("property_9342", "gt", 23, "filter[property_9342][gt]=23")
         );
     }
 }

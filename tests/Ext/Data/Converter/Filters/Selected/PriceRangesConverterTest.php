@@ -5,8 +5,10 @@ namespace Nokaut\ApiKit\Ext\Data\Converter\Filters\Selected;
 use Nokaut\ApiKit\Converter\ProductsConverter;
 use Nokaut\ApiKit\Entity\Metadata\ProductsMetadata;
 use Nokaut\ApiKit\Ext\Data\Entity\Filter\PriceRange;
+use PHPUnit\Framework\TestCase;
+use stdClass;
 
-class PriceRangesConverterTest extends \PHPUnit_Framework_TestCase
+class PriceRangesConverterTest extends TestCase
 {
     public function testCache()
     {
@@ -69,7 +71,7 @@ class PriceRangesConverterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @param $name
-     * @return \stdClass
+     * @return stdClass
      */
     private function getJsonFixture($name)
     {

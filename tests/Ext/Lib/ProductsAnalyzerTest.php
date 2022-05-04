@@ -4,11 +4,11 @@
 namespace Nokaut\ApiKit\Ext\Lib;
 
 
-use Nokaut\ApiKit\Collection\Products;
 use Nokaut\ApiKit\Converter\ProductsConverter;
-use Nokaut\ApiKit\Entity\Metadata\ProductsMetadata;
+use PHPUnit\Framework\TestCase;
+use stdClass;
 
-class ProductsAnalyzerTest extends \PHPUnit_Framework_TestCase
+class ProductsAnalyzerTest extends TestCase
 {
 
     public function testFiltersNofollow()
@@ -59,7 +59,7 @@ class ProductsAnalyzerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @param $name
-     * @return \stdClass
+     * @return stdClass
      */
     private function getJsonFixture($name)
     {

@@ -34,9 +34,9 @@ class SetIsNofollow implements CallbackInterface
             return;
         }
 
-        $countOtherGroupsWithFilterSet = ProductsAnalyzer::countGroupsWithFilterSet($products,$shops);
+        $countOtherGroupsWithFilterSet = ProductsAnalyzer::countGroupsWithFilterSet($products, $shops);
 
-        if($countOtherGroupsWithFilterSet >=1 ){
+        if ($countOtherGroupsWithFilterSet >= 1) {
             /** @var Shop $shop */
             foreach ($shops as $shop) {
                 $shop->setIsNofollow(true);

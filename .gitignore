@@ -13,3 +13,5 @@ composer.lock
 # build
 build/coverage/
 build/logs/
+
+.phpunit.result.cache

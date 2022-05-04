@@ -10,8 +10,8 @@ namespace Nokaut\ApiKit\Converter\Metadata\Facet;
 
 
 use Nokaut\ApiKit\Converter\ConverterInterface;
-use Nokaut\ApiKit\Converter\Metadata\Facet\PropertyFacet\ValueConverter;
 use Nokaut\ApiKit\Converter\Metadata\Facet\PropertyFacet\RangeConverter;
+use Nokaut\ApiKit\Converter\Metadata\Facet\PropertyFacet\ValueConverter;
 use Nokaut\ApiKit\Entity\Metadata\Facet\PropertyFacet;
 
 class PropertyFacetConverter implements ConverterInterface

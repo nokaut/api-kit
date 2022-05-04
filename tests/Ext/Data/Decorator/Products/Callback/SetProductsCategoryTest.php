@@ -9,8 +9,10 @@ use Nokaut\ApiKit\Converter\CategoriesConverter;
 use Nokaut\ApiKit\Converter\ProductsConverter;
 use Nokaut\ApiKit\Entity\Product;
 use Nokaut\ApiKit\Ext\Data\Decorator\Products\ProductsDecorator;
+use PHPUnit\Framework\TestCase;
+use stdClass;
 
-class SetProductsCategoryTest extends \PHPUnit_Framework_TestCase
+class SetProductsCategoryTest extends TestCase
 {
     public function testCallback()
     {
@@ -36,7 +38,7 @@ class SetProductsCategoryTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @param $name
-     * @return \stdClass
+     * @return stdClass
      */
     private function getJsonFixture($name)
     {
@@ -44,7 +46,7 @@ class SetProductsCategoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @return \stdClass
+     * @return stdClass
      */
     private function getCorrectObject()
     {

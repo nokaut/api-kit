@@ -5,10 +5,10 @@ namespace Nokaut\ApiKit\Ext\Data\Converter\Filters;
 
 use Nokaut\ApiKit\Collection\Products;
 use Nokaut\ApiKit\Entity\Metadata\Facet\PropertyFacet\Range;
+use Nokaut\ApiKit\Ext\Data\Collection\Filters\PropertyAbstract;
 use Nokaut\ApiKit\Ext\Data\Collection\Filters\PropertyRanges;
 use Nokaut\ApiKit\Ext\Data\Collection\Filters\PropertyValues;
 use Nokaut\ApiKit\Ext\Data\Converter\ConverterInterface;
-use Nokaut\ApiKit\Ext\Data\Collection\Filters\PropertyAbstract;
 use Nokaut\ApiKit\Ext\Data\Converter\Filters\Callback\Property\CallbackInterface;
 use Nokaut\ApiKit\Ext\Data\Entity\Filter\PropertyRange;
 use Nokaut\ApiKit\Ext\Data\Entity\Filter\PropertyValue;

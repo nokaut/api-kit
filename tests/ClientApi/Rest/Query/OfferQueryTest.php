@@ -9,7 +9,9 @@
 namespace Nokaut\ApiKit\ClientApi\Rest\Query;
 
 
-class OfferQueryTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class OfferQueryTest extends TestCase
 {
 
 

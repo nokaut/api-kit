@@ -9,6 +9,7 @@
 namespace Nokaut\ApiKit\ClientApi\Rest\Exception;
 
 
-class FatalResponseException extends \Exception {
+class FatalResponseException extends \Exception
+{
 
 } 

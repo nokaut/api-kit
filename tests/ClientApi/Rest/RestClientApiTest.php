@@ -14,24 +14,27 @@ use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
+use Nokaut\ApiKit\ClientApi\Rest\Exception\FatalResponseException;
+use Nokaut\ApiKit\ClientApi\Rest\Exception\InvalidRequestException;
+use Nokaut\ApiKit\ClientApi\Rest\Exception\UnprocessableEntityException;
 use Nokaut\ApiKit\ClientApi\Rest\Fetch\Fetch;
 use Nokaut\ApiKit\ClientApi\Rest\Fetch\Fetches;
 use Nokaut\ApiKit\ClientApi\Rest\Fetch\ProductsFetch;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 
-class RestClientApiTest extends \PHPUnit_Framework_TestCase
+class RestClientApiTest extends TestCase
 {
-    /**
-     * @expectedException \Nokaut\ApiKit\ClientApi\Rest\Exception\FatalResponseException
-     */
     public function testSendWithRetry()
     {
+        $this->expectException(FatalResponseException::class);
         $oauth2 = $this->prepareOauth();
         $loggerMock = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
 
         $request = $this->getMockBuilder('\GuzzleHttp\Psr7\Request')->disableOriginalConstructor()->getMock();
         $response = new Response(502, [], "{}");
 
-        $exceptionFromApi  = new BadResponseException('', $request, $response);
+        $exceptionFromApi = new BadResponseException('', $request, $response);
         $client = $this->getMockBuilder('\GuzzleHttp\Client')->disableOriginalConstructor()->getMock();
         $client->expects($this->exactly(3))->method('send')->will($this->throwException($exceptionFromApi));
 
@@ -83,11 +86,9 @@ class RestClientApiTest extends \PHPUnit_Framework_TestCase
 
     }
 
-    /**
-     * @expectedException \Nokaut\ApiKit\ClientApi\Rest\Exception\FatalResponseException
-     */
     public function testSendWithIncorrectResponse()
     {
+        $this->expectException(FatalResponseException::class);
         $oauth2 = $this->prepareOauth();
         $loggerMock = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
 
@@ -120,11 +121,9 @@ class RestClientApiTest extends \PHPUnit_Framework_TestCase
         $cutMock->sendMulti($fetches);
     }
 
-    /**
-     * @expectedException \Nokaut\ApiKit\ClientApi\Rest\Exception\FatalResponseException
-     */
     public function testFunctionalitySendMultiWithRetry()
     {
+        $this->expectException(FatalResponseException::class);
         $oauth2 = $this->prepareOauth();
         $loggerMock = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
 
@@ -186,11 +185,9 @@ class RestClientApiTest extends \PHPUnit_Framework_TestCase
         $cutMock->sendMulti($fetches);
     }
 
-    /**
-     * @expectedException \Nokaut\ApiKit\ClientApi\Rest\Exception\InvalidRequestException
-     */
     public function testSendMultiException()
     {
+        $this->expectException(InvalidRequestException::class);
         $oauth2 = $this->prepareOauth();
         $loggerMock = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
 
@@ -217,12 +214,9 @@ class RestClientApiTest extends \PHPUnit_Framework_TestCase
         $fetches->getItem(0)->getResult(true);
     }
 
-
-    /**
-     * @expectedException \Nokaut\ApiKit\ClientApi\Rest\Exception\UnprocessableEntityException
-     */
     public function testSendWithUnprocessableEntityException()
     {
+        $this->expectException(UnprocessableEntityException::class);
         $oauth2 = $this->prepareOauth();
         $loggerMock = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
 
@@ -252,7 +246,7 @@ class RestClientApiTest extends \PHPUnit_Framework_TestCase
      * @param $loggerMock
      * @param $oauth2
      * @param $client
-     * @return \PHPUnit_Framework_MockObject_MockObject
+     * @return MockObject
      */
     protected function prepareCut($loggerMock, $oauth2, $client)
     {
@@ -269,7 +263,7 @@ class RestClientApiTest extends \PHPUnit_Framework_TestCase
      * @param $loggerMock
      * @param $oauth2
      * @param $client
-     * @return \PHPUnit_Framework_MockObject_MockObject
+     * @return MockObject
      */
     protected function prepareCutWithMockSendMultiProcess($loggerMock, $oauth2, $client)
     {

@@ -92,8 +92,8 @@ abstract class QueryBuilderAbstract implements QueryBuilderInterface
     }
 
     /**
-     * @throws \InvalidArgumentException
      * @return string
+     * @throws \InvalidArgumentException
      */
     public function createFilterPart()
     {

@@ -43,7 +43,7 @@ class SingleWithIndexAndOperator implements FilterInterface
      */
     public function toHash()
     {
-        return md5($this->key.$this->index.$this->operator);
+        return md5($this->key . $this->index . $this->operator);
     }
 
     public function __toString()

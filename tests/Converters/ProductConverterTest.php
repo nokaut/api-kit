@@ -9,14 +9,16 @@
 namespace Nokaut\ApiKit\Converter;
 
 
+use Nokaut\ApiKit\Converter\Product\PropertyConverter;
 use Nokaut\ApiKit\Entity\Product;
 use Nokaut\ApiKit\Entity\Product\Prices;
 use Nokaut\ApiKit\Entity\Product\Property;
-use Nokaut\ApiKit\Converter\Product\PropertyConverter;
 use Nokaut\ApiKit\Entity\Product\Shop\OpineoRating;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
+use stdClass;
 
-class ProductConverterTest extends PHPUnit_Framework_TestCase
+
+class ProductConverterTest extends TestCase
 {
 
     public function testConverter()
@@ -37,7 +39,7 @@ class ProductConverterTest extends PHPUnit_Framework_TestCase
 
     /**
      * @param string $field
-     * @param \stdClass $correctObject
+     * @param stdClass $correctObject
      * @param Product $product
      */
     private function assertSubObject($field, $correctObject, Product $product)
