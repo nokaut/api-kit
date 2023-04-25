@@ -1,6 +1,10 @@
 ChangeLog
 =========
 
+v1.8.1
+------
+- Compatibility fixes and tests for PHP 8.2
+
 v1.8.0
 ------
 - Aktualizacja guzzle do wersji 7

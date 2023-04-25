@@ -382,7 +382,7 @@ class RestClientApi implements ClientApiInterface
 
         $timeInfo = '';
         if ($response) {
-            $runTime = (string)$response->getHeaderLine('X-Runtime');
+            $runTime = (float)$response->getHeaderLine('X-Runtime');
             $endTime = microtime(true);
             $totalTime = ($endTime - $startTime);
             $timeInfo .= '| runtime: ' . round($runTime, 3) . ' s, total: ' . round($totalTime, 3) . ' s';

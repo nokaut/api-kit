@@ -25,6 +25,11 @@ use PHPUnit\Framework\TestCase;
 
 class RestClientApiTest extends TestCase
 {
+    /**
+     * @var MockObject|RestClientApi
+     */
+    private $clientApiMock;
+
     public function testSendWithRetry()
     {
         $this->expectException(FatalResponseException::class);

@@ -23,6 +23,7 @@ Od wersji 1.6.0 ApiKit działa tylko z PHP 5.5 lub nowszym.
 Testy
 -----
 
+    docker run --rm -it -v "$PWD":/app -w /app $(docker build --build-arg PHP_VERSION=8.2 -q .) /bin/bash -c "rm -rf ./vendor composer.lock && composer install && vendor/bin/phpunit"
     docker run --rm -it -v "$PWD":/app -w /app $(docker build --build-arg PHP_VERSION=8.1 -q .) /bin/bash -c "rm -rf ./vendor composer.lock && composer install && vendor/bin/phpunit"
     docker run --rm -it -v "$PWD":/app -w /app $(docker build --build-arg PHP_VERSION=8.0 -q .) /bin/bash -c "rm -rf ./vendor composer.lock && composer install && vendor/bin/phpunit"
     docker run --rm -it -v "$PWD":/app -w /app $(docker build --build-arg PHP_VERSION=7.4 -q .) /bin/bash -c "rm -rf ./vendor composer.lock && composer install && vendor/bin/phpunit"

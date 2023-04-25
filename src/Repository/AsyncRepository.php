@@ -21,6 +21,11 @@ class AsyncRepository implements AsyncRepositoryInterface
     protected static $fetches;
 
     /**
+     * @var ClientApiInterface
+     */
+    protected $clientApi;
+
+    /**
      * @param ClientApiInterface $clientApi
      */
     public function __construct(ClientApiInterface $clientApi)
