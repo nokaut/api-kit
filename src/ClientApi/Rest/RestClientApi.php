@@ -371,7 +371,7 @@ class RestClientApi implements ClientApiInterface
      * @param string $level - level form Psr\Log\LogLevel
      * @param string $additionalMessage
      */
-    protected function log($request, $response, $startTime, $level = LogLevel::DEBUG, $additionalMessage = '')
+    public function log($request, $response, $startTime, $level = LogLevel::DEBUG, $additionalMessage = '')
     {
         $url = $request->getUri();
 
@@ -382,7 +382,7 @@ class RestClientApi implements ClientApiInterface
 
         $timeInfo = '';
         if ($response) {
-            $runTime = (string)$response->getHeaderLine('X-Runtime');
+            $runTime = (float)$response->getHeaderLine('X-Runtime');
             $endTime = microtime(true);
             $totalTime = ($endTime - $startTime);
             $timeInfo .= '| runtime: ' . round($runTime, 3) . ' s, total: ' . round($totalTime, 3) . ' s';
