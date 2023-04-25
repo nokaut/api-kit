@@ -371,7 +371,7 @@ class RestClientApi implements ClientApiInterface
      * @param string $level - level form Psr\Log\LogLevel
      * @param string $additionalMessage
      */
-    public function log($request, $response, $startTime, $level = LogLevel::DEBUG, $additionalMessage = '')
+    protected function log($request, $response, $startTime, $level = LogLevel::DEBUG, $additionalMessage = '')
     {
         $url = $request->getUri();
 
